@@ -1,10 +1,9 @@
 // JavaScript Document
-define([
-	'appjs/assets/blog.loading'
-],function( require, exports, module ){
+define(function( require, exports, module ){
 	return new Class({
 		initialize: function(){
-			alert(1);
-		}
+			this.tip.loading();
+		},
+		tip: require('appjs/assets/blog.loading')
 	});
 });

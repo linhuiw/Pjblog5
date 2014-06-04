@@ -6,12 +6,14 @@
 <link rel="stylesheet" type="text/css" href="../blog/fontawesome/css/font-awesome.min.css"/>
 <link rel="stylesheet" type="text/css" href="../blog/appjs/assets/blog.loading.css"/>
 <link rel="stylesheet" type="text/css" href="css/layout.css"/>
+<link rel="stylesheet" type="text/css" href="../blog/public/assets/css/animate.css"/>
 <script language="javascript" type="text/javascript" src="../blog/appjs/assets/jquery.js"></script>
 <script language="javascript" type="text/javascript" src="../blog/appjs/assets/tronjs.js"></script>
 <script language="javascript" type="text/javascript" src="../blog/private/configs/assets.js"></script>
 <title>PJBlog X LoginForm</title>
 </head>
 <body>
+<form action="" method="post" id="loginform">
 	<div class="login">
     	<h5>PJBlog X 内容管理系统</h5>
         <div class="param clearfix">
@@ -22,10 +24,11 @@
         	<i class="fa fa-keyboard-o"></i>
             <input type="password" name="PassWord" placeholder="PassWord.." class="col" />
         </div>
-        <input type="submit" value="登录" class="submit" />  
+        <input type="submit" value="登录" class="submit" />
     </div>
-    <script language="javascript" type="text/javascript">
-		require('public/assets/js/blog.control.login', function(params){ new params(); });
-	</script>
+</form>
+<script language="javascript" type="text/javascript">
+	require('public/assets/js/blog.control.login', function(params){ new params(); });
+</script>
 </body>
 </html>

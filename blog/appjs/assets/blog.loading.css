@@ -3,5 +3,12 @@
 	padding: 10px 60px; 
 	line-height:20px; 
 	color:#fff;
-	box-shadow: 0 2px 10px rgba(50,50,50,0.5);
 }
+#success{ background:rgba(89,131,75,0.92); }
+#error{ background-color:rgba(153,40,18,0.92);}
+
+.dialog{box-shadow: 0 2px 10px rgba(50,50,50,0.5);}
+
+.dialog h5{ height:20px; line-height:20px; padding:8px 10px; color:#fff; font-size: 14px;}
+.dialog h5 i{ display:inline-block; width:20px; height:20px; line-height:20px; text-align:center;}
+.dialog .msg{ width:200px; line-height:20px; padding:0px 35px; color:#fff; margin-bottom:15px;}

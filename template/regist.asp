@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<form action="../blog/public/sync.asp?m=user&p=regist" method="post">
+<form action="../blog/public/sync.asp?m=user&p=registor" method="post">
 <input type="text" name="member_mark" placeholder="登入ID" /><br />
 <input type="text" name="member_nick" placeholder="昵称" /><br />
 <input type="text" name="member_mail" placeholder="邮箱" /><br />

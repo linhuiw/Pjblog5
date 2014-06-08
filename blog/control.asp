@@ -58,7 +58,16 @@
 	<div class="header clearfix">
         <div class="logo fleft">PJBlogX</div>
         <div class="achor fleft">
-            <a href="#"><i class="fa fa-home"></i><span>主页</span></a>
+   			<%
+				;(function( system_navs ){
+					for ( var i in system_navs ){
+			%>
+            <a href="#"><i class="fa <%=system_navs[i].icon%>"></i><span><%=system_navs[i].name%></span></a>
+            <%			
+					}
+				})( require("private/chips/blog.control.system.navs") );
+			%>
+<!--            <a href="#"><i class="fa fa-home"></i><span>主页</span></a>
             <a href="#"><i class="fa fa-cogs"></i><span>设置</span></a>
             <a href="#"><i class="fa fa-list-ul"></i><span>分类</span></a>
             <a href="#"><i class="fa fa-file-text-o"></i><span>文章</span></a>
@@ -66,7 +75,7 @@
             <a href="#"><i class="fa fa-tachometer"></i><span>权限</span></a>
             <a href="#"><i class="fa fa-picture-o"></i><span>主题</span></a>
             <a href="#"><i class="fa fa-windows"></i><span>插件</span></a>
-            <a href="#"><i class="fa fa-chain-broken"></i><span>附件</span></a>
+            <a href="#"><i class="fa fa-chain-broken"></i><span>附件</span></a>-->
         </div>
         <div class="tool fright"></div>
     </div>

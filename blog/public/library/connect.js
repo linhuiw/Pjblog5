@@ -4,4 +4,4 @@ var dbo = require('dbo'),
 	conn = new conection();
 
 exports.dbo = dbo;
-exports.conn = conn.connect(tron.connection);
+exports.conn = conn.connect(blog.connection);

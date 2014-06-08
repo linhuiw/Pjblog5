@@ -33,23 +33,23 @@ var httpService = new Class({
 	}
 });
 
-httpService.extend('query', function( params ){
-	var queryEmtor = this.emtor(Request.QueryString(params));
+httpService.extend('query', function( params, callback ){
+	var queryEmtor = this.emtor(Request.QueryString(params), callback);
 	if ( queryEmtor.length === 0 ){
 		return;
 	}
 	return queryEmtor.length === 1 ? queryEmtor[0] : queryEmtor;
 });
 
-httpService.extend('form', function( params ){
-	var formEmtor = this.emtor(Request.Form(params));
+httpService.extend('form', function( params, callback ){
+	var formEmtor = this.emtor(Request.Form(params), callback);
 	if ( formEmtor.length === 0 ){
 		return;
 	}
 	return formEmtor.length === 1 ? formEmtor[0] : formEmtor;
 });
 
-httpService.extend('createServer', function( callback ){
+httpService.extend('createServer', function( callback, filterCallback ){
 	var service = { query: {}, form: {} },
 		queryEmtor = this.emtor(Request.QueryString),
 		formEmtor = this.emtor(Request.Form),
@@ -57,12 +57,12 @@ httpService.extend('createServer', function( callback ){
 		ret;
 
 	for ( i = 0 ; i < queryEmtor.length ; i++ ){
-		value = this.emtor(Request.QueryString(queryEmtor[i]));
+		value = this.emtor(Request.QueryString(queryEmtor[i]), filterCallback);
 		service.query[queryEmtor[i]] = (value.length === 1 ? value[0] : value);
 	}
 
 	for ( i = 0 ; i < formEmtor.length ; i++ ){
-		value = this.emtor(Request.Form(formEmtor[i]));
+		value = this.emtor(Request.Form(formEmtor[i]), filterCallback);
 		service.form[formEmtor[i]] = (value.length === 1 ? value[0] : value);
 	}
 

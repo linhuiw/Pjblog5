@@ -1,0 +1,87 @@
+@charset "utf-8";
+/* CSS Document */
+
+html{ background-image:url(../img/bg.gif); }
+
+.login{ position:absolute; top:50%; left:50%; width:200px; height:160px; margin-left:-100px; margin-top:-80px; }
+.login h5{ height:30px; line-height:30px; color:#777; font-weight:bold; text-align:center; margin-bottom:10px; font-size:14px;}
+.login .param{ background-color:#fff; border:1px solid #ddd; padding:5px 8px; border-radius:3px; margin-bottom:10px;}
+.login .param i{ height:20px; line-height:20px; display:block; float:left; font-size:14px; margin-right:8px; color:#999;}
+.login .param input.col,
+.login .param input.col{ border:none; background:none; height:20px; line-height:20px; outline:none; color:#999;}
+.login .submit{ border:1px solid #ddd; height:30px; line-height:30px; color:#777; width:100%; background-color:#fff; box-shadow:0px 1px 3px #ddd; cursor:pointer; text-align:center; border-radius:3px;}
+.login .submit:hover{ background-color:#e9e9e9}
+.login .submit:active{ box-shadow:0px 0px 3px #eee inset; background-color:#ddd}
+
+
+.header{ height:50px; background-color:#444; padding:0px 30px; line-height:50px; color:#fff; }
+.header .logo{ font-size:18px;}
+.header .achor{ margin-left:20%;}
+.header .achor a{ display:block; float:left; line-height:50px; text-align:center; width:80px;}
+.header .achor a:link,
+.header .achor a:visited{ color:#ddd; font-size:12px; text-decoration:none;}
+.header .achor a:hover{ color:#ddd; font-weight:bold;}
+.header .achor a i{ font-size:20px; display:block; line-height:50px; font-weight:normal;}
+.header .achor a span{ display:none; line-height:50px;}
+.header .achor a:hover i{ display:none;}
+.header .achor a:hover span{ display:block; font-size:12px;}
+
+.container{ margin:20px 20px;}
+.container .sidebar{ width:200px; background-color:#fff; border-radius:3px; box-shadow:0px 1px 6px #ccc; overflow:hidden;}
+.container .sidebar .sidezone{ padding:0px 0px 0px 0px;}
+.container .sidebar .sidezone h5{ padding:8px 10px; border-bottom:1px solid #E9E9E9; font-weight:bold; height:20px; line-height:20px;}
+.container .sidebar .sidezone a{ display:block; height:30px; line-height:30px; padding:5px 15px; border-bottom:1px dashed #e9e9e9;}
+.container .sidebar .sidezone a:last-child{ border-bottom:none;}
+.container .sidebar .sidezone a i{ margin-right:5px;}
+.container .sidebar .sidezone a:link,
+.container .sidebar .sidezone a:visited{ color:#777; text-decoration:none;}
+.container .sidebar .sidezone a:hover{ color:#333; background-color:#e9e9e9}
+.plugins .content{ margin-left:220px;}
+.content .navtabs{ height:40px; line-height:40px; padding:0px 20px; background-color:#fff; box-shadow:0px 1px 6px #ccc; border-radius:3px; margin-bottom:20px;}
+.content .navtabs i{ font-size:18px; line-height:40px; margin-right:8px; color:#777;}
+.content .navtabs strong{ color:#777; font-weight:bold; font-size:16px; margin-right:20px;}
+.content .navtabs span{ color:#999; font-size:11px; line-height:40px;}
+
+.waterfull li{ margin:0px 20px 20px 0px; background-color:#fff; width:300px; box-shadow:0 1px 4px #ccc;}
+.waterfull li:hover{ box-shadow: 0 0 3px #48a3ef; }
+.waterfull li .detail{ padding:4px 15px 10px 15px;}
+.waterfull li .detail h5{ height:20px; line-height:20px; padding:6px 0px; border-bottom:1px dashed #eee; margin-bottom:10px;}
+.waterfull li .detail h5 .title{ color:#777; float:left; font-weight:bold;}
+.waterfull li .detail h5 .more{ color:#999; float:right}
+.waterfull li .detail h5 .more a{ line-height:20px;}
+.waterfull li .detail h5 .more a:link,
+.waterfull li .detail h5 .more a:visited{ color:#999; text-decoration:none; font-size:12px;}
+.waterfull li .detail h5 .more a:hover{ color:#E07835;}
+.waterfull li .detail .detail-body{ color:#777;}
+
+.waterfull li .detail .detail-body .detail-body-A1{}
+.waterfull li .detail .detail-body .detail-body-A1 .detail-body-A1-item{ width:50%; float:left;}
+.waterfull li .detail .detail-body .detail-body-A1 .detail-body-A1-item .detail-body-A1-item-content{ padding:5px 8px; margin-bottom:10px;}
+/*.waterfull li .detail .detail-body .detail-body-A1 .detail-body-A1-item .detail-body-A1-item-content .infobox-green {color: #9abc32;}*/
+.waterfull li .detail .detail-body .detail-body-A1 .detail-body-A1-item .detail-body-A1-item-content .infobox .infobox-icon{ float:left; width:42px; height:42px; line-height:42px;background-color:#CCC; border-radius:100%; border-bottom:2px solid #999; box-shadow:1px 0px 4px #ccc;}
+.waterfull li .detail .detail-body .detail-body-A1 .detail-body-A1-item .detail-body-A1-item-content .infobox .infobox-data{ margin-left:55px;}
+.waterfull li .detail .detail-body .detail-body-A1 .detail-body-A1-item .detail-body-A1-item-content .infobox .infobox-icon i{ font-size:20px;width:42px; height:42px; line-height:42px; text-align:center; color:#fff;}
+.waterfull li .detail .detail-body .detail-body-A1 .detail-body-A1-item .detail-body-A1-item-content .infobox .infobox-data{}
+.waterfull li .detail .detail-body .detail-body-A1 .detail-body-A1-item .detail-body-A1-item-content .infobox .infobox-data .infobox-data-number,
+.waterfull li .detail .detail-body .detail-body-A1 .detail-body-A1-item .detail-body-A1-item-content .infobox .infobox-data .infobox-content{ height:20px; line-height:20px;}
+.waterfull li .detail .detail-body .detail-body-A1 .detail-body-A1-item .detail-body-A1-item-content .infobox .infobox-data .infobox-content{ font-weight:bold;}
+
+.waterfull li .detail .detail-body .detail-body-A2{}
+.waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item{ }
+.waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item .fleft,
+.waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item .fright{height:22px; line-height:22px;}
+.waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item .fright i{ height:22px; line-height:22px;width:22px; text-align:center; color:#ccc;}
+.waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item a{ line-height:18px; padding:5px 0px; display:block; height:18px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;word-break:keep-all;}
+.waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item a:link,
+.waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item a:visited{ color:#777; text-decoration:none;}
+.waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item a:hover{ color:#000;}
+
+
+.waterfull li .detail .detail-body .detail-body-A3{}
+.waterfull li .detail .detail-body .detail-body-A3 .detail-body-A3-item{ margin-bottom:15px;}
+.waterfull li .detail .detail-body .detail-body-A3 .detail-body-A3-item .photo{}
+.waterfull li .detail .detail-body .detail-body-A3 .detail-body-A3-item .photo img{ width:36px; height:36px; border-radius:3px; box-shadow:2px 2px 1px #eee;}
+.waterfull li .detail .detail-body .detail-body-A3 .detail-body-A3-item .info{ margin-left:48px;}
+.waterfull li .detail .detail-body .detail-body-A3 .detail-body-A3-item .info .name{ height:24px; line-height:24px;}
+.waterfull li .detail .detail-body .detail-body-A3 .detail-body-A3-item .info .name span{ float:right; color:#ccc;}
+.waterfull li .detail .detail-body .detail-body-A3 .detail-body-A3-item .info .word{ line-height:18px;}

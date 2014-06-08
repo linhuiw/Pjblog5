@@ -86,4 +86,113 @@ MemberModule.extend('regist', function( mark, nick, mail, password ){
 	}
 });
 
+MemberModule.extend('loginor', function( params ){
+	var mark = params.form.UserName,
+		pass = params.form.PassWord;
+		
+	if ( !mark || mark.length < 4 ){
+		return { success: false, message: '登入ID必须大于等于4个字' };
+	};
+	
+	if ( !pass || pass.length < 6 ){
+		return { success: false, message: '密码必须大于6个字符串' };
+	};
+	
+	return this.login(mark, pass);
+});
+
+MemberModule.extend('login', function( mark, pass ){
+	var rec = new this.dbo.RecordSet(this.conn),
+		rets = { success: false, message: '登入过程出错' },
+		that = this;
+	
+	rec
+		.sql("Select * From blog_members Where member_mark='" + mark + "'")
+		.process(function(object){
+			if ( !object.Bof && !object.Eof ){
+				var salt = object('member_salt').value,
+					hashkey = object('member_hashkey').value,
+					id = object('id').value,
+					sha1 = require('sha1'),
+					date = require('date');
+					
+				if ( sha1.make(pass + salt) === hashkey ){
+					rets.success = true;
+					rets.message = '登录成功';
+					
+					salt = that.fns.randoms(10);
+					hashkey = sha1.make(pass + salt);
+					object('member_salt') = salt;
+					object('member_hashkey') = hashkey;
+					object('member_logindate') = date.format(new Date(), 'y/m/d h:i:s');
+					object.Update();
+					
+					(function( cookie ){
+						cookie.set(blog.cookie + "_user", "id", id);
+						cookie.set(blog.cookie + "_user", "hashkey", hashkey);
+						cookie.expire(blog.cookie + "_user", 30 * 24 * 60 * 60 * 1000);
+					})( require('cookie') );
+				}else{
+					rets.message = "密码错误";
+				}
+					
+			}else{
+				rets.message = '找不到该用户';
+			}
+		}, 3);
+		
+	return rets;
+});
+
+MemberModule.extend('loginStatus', function( callback ){
+	var rec,
+		cookie = require('cookie'),
+		id = cookie.get(blog.cookie + "_user", "id"),
+		hashkey = cookie.get(blog.cookie + "_user", "hashkey"),
+		hasdata = true,
+		rets = { login: false };
+	
+	if ( !id || id.length === 0 || isNaN(id) ){
+		hasdata = false;
+	};
+	
+	if ( !hashkey || hashkey.length !== 40 ){
+		hasdata = false;
+	};
+	
+	if ( hasdata ){
+		rec = new this.dbo.RecordSet(this.conn);
+		rec
+			.sql('Select * From blog_members Where id=' + id)
+			.process(function(object){
+				if ( !object.Bof && !object.Eof && object('member_hashkey').value === hashkey ){
+					rets.login = true;
+					typeof callback === 'function' && callback(rets, object);
+				}
+			});
+	}
+	
+	return rets;
+});
+
+MemberModule.extend('adminStatus', function( callback ){
+	var logs = this.loginStatus(function(rets, object){ rets.group = object('member_group').value; typeof callback === 'function' && callback(rets, object); });
+	
+	logs.admin = false;
+	
+	if ( logs.login ){
+		var rec = new this.dbo.RecordSet(this.conn);
+		rec
+			.sql('Select * From blog_groups Where id=' + logs.group)
+			.process(function(obj){
+				if ( !obj.Bof && !obj.Eof ){
+					var parses = JSON.parse(obj('group_code').value);
+					logs.admin = parses.ControlSystem;
+				}
+			});
+	}
+	
+	return logs;
+});
+
 return MemberModule;

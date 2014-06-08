@@ -16,6 +16,7 @@ html{ background-image:url(../img/bg.gif); }
 
 .header{ height:50px; background-color:#444; padding:0px 30px; line-height:50px; color:#fff; }
 .header .logo{ font-size:18px;}
+.header .logo sub{ font-size:14px; color:#999;}
 .header .achor{ margin-left:20%;}
 .header .achor a{ display:block; float:left; line-height:50px; text-align:center; width:80px;}
 .header .achor a:link,
@@ -85,3 +86,20 @@ html{ background-image:url(../img/bg.gif); }
 .waterfull li .detail .detail-body .detail-body-A3 .detail-body-A3-item .info .name{ height:24px; line-height:24px;}
 .waterfull li .detail .detail-body .detail-body-A3 .detail-body-A3-item .info .name span{ float:right; color:#ccc;}
 .waterfull li .detail .detail-body .detail-body-A3 .detail-body-A3-item .info .word{ line-height:18px;}
+
+.page404{background-color:#fff; box-shadow:0px 1px 6px #ccc; text-align:center; padding:200px 0px;}
+.page404 h6{ height:40px; line-height:40px; font-size:24px; color:#000;}
+.page404 .info{ margin:20px 0px; color:#777;}
+.page404 .uri{ color:#999;}
+
+.col-x-1{ width:25%;}
+.col-x-2{ width:50%;}
+.col-x-3{ width:75%;}
+.col-x-4{ width:100%;}
+
+#plugin{}
+#plugin .tips{ color:#777; height:20px; margin-bottom:20px;}
+#plugin .tips .installed{ background-color:#fff;}
+#plugin .tips .uninstalled{ background-color:#dfdfdf;}
+#plugin .tips .install-block{ width:20px; height:20px; margin-right:5px; border-radius:2px; box-shadow:2px 1px 3px #ccc;}
+#plugin .tips .install-block-info{ margin-right:20px; height:20px; line-height:20px;font-weight:bold;}

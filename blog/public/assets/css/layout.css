@@ -17,7 +17,7 @@ html{ background-image:url(../img/bg.gif); }
 .header{ height:50px; background-color:#444; padding:0px 30px; line-height:50px; color:#fff; }
 .header .logo{ font-size:18px;}
 .header .logo sub{ font-size:14px; color:#999;}
-.header .achor{ margin-left:20%;}
+.header .achor{ margin-left:15%;}
 .header .achor a{ display:block; float:left; line-height:50px; text-align:center; width:80px;}
 .header .achor a:link,
 .header .achor a:visited{ color:#ddd; font-size:12px; text-decoration:none;}
@@ -103,3 +103,21 @@ html{ background-image:url(../img/bg.gif); }
 #plugin .tips .uninstalled{ background-color:#dfdfdf;}
 #plugin .tips .install-block{ width:20px; height:20px; margin-right:5px; border-radius:2px; box-shadow:2px 1px 3px #ccc;}
 #plugin .tips .install-block-info{ margin-right:20px; height:20px; line-height:20px;font-weight:bold;}
+#plugin .plugin-zone{ margin-right:10px; color:#777;}
+#plugin .plugin-zone .installed{ background-color:#fff;}
+#plugin .plugin-zone .plugins{ padding:10px; border-radius:5px;box-shadow:0px 1px 6px #ccc; margin-bottom:20px;}
+#plugin .plugin-zone .uninstalled{ background-color:#dfdfdf;box-shadow:0px 1px 6px #999;}
+#plugin .plugin-zone .plugins .icon{}
+#plugin .plugin-zone .plugins .tool{ width:60px; height:100%;}
+#plugin .plugin-zone .plugins .tool a{ height:20px; line-height:20px; display:block;}
+#plugin .plugin-zone .plugins .im{ margin-left:70px; margin-right:70px; padding:5px 10px 5px 0px; border-right:1px solid #eee;}
+#plugin .plugin-zone .uninstalled .im{border-right:1px solid #ccc;}
+#plugin .plugin-zone .plugins .im h6{ font-weight:bold; padding:0px 0px 10px 0px;}
+#plugin .plugin-zone .plugins .im .name{ margin-bottom:5px;}
+#plugin .plugin-zone .plugins .im .name a{ margin-left:10px;}
+#plugin .plugin-zone .plugins a:link,
+#plugin .plugin-zone .plugins a:visited{ color:#888; text-decoration:none;}
+#plugin .plugin-zone .plugins a:hover{ color:#999;}
+#plugin .plugin-zone .plugins .des{ line-height:20px;}
+#plugin .plugin-zone .plugins .mark{ color:#ccc; font-weight:normal; margin-left:10px;}
+#plugin .plugin-zone .uninstalled .mark{ color:#aaa;}

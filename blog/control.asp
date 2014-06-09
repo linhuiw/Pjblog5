@@ -27,6 +27,7 @@
 		m = HTTP.query("m"),
 		t = HTTP.query("t"),
 		u,
+		s,
 		SystemNavs = require("public/chips/blog.control.system.navs"),
 		PluginNavs = require("private/chips/blog.control.plugin.navs"),
 		PluginNavsCount = 0;
@@ -123,8 +124,10 @@
 			var tfr = require("private/chips/blog.control.plugin.navs"), tf;
 			if ( tfr[t] && tfr[t].folder ){ tf = tfr[t].folder; }else{ tf = "404"; };		
 			u = "private/plugins/" + tf + "/plu." + m + ".asp";
+			s = "private/plugins/" + tf + "/js/plu." + m + ".js";
 		}else{
 			u = "public/views/blog." + m + ".asp";
+			s = "public/assets/js/blog.control." + m + ".js";
 		};
 		
 		var __u = contrast(u);
@@ -152,10 +155,20 @@
             <div class="content-page">
 <%		
 		if ( fs.exist(__u) ){
-			include(u, { dbo: dbo, conn: conn, fs: fs, fns: FNS });
+			include(u, { dbo: dbo, conn: conn, fs: fs, fns: FNS, http: HTTP });
 		}else{
 			Library.log('<div class="page404"><h6>404</h6><p class="info">抱歉，无法找到模板！</p><p class="uri">Error Path: ' + u + '</p></div>');
 		}
+%>
+            </div>
+        </div>
+    </div>
+	<%
+        s = [s];
+        s.push("public/assets/js/blog.control.lazy.js");
+        LoadJscript(function(s){ require(s, function( necys, lazys ){ typeof lazys === "function" && new lazys(); typeof necys === "function" && new necys(); }); }, s);
+    %>
+<%
 	}
 	
 	CloseConn();
@@ -166,11 +179,5 @@
 	require("fns")
 );
 %>
-            </div>
-        </div>
-    </div>
-    <script language="javascript" type="text/javascript">
-        require('public/assets/js/blog.control.home', function( params ){ new params(); });
-    </script>
 </body>
 </html>

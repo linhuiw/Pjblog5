@@ -30,13 +30,21 @@
 		s,
 		SystemNavs = require("public/chips/blog.control.system.navs"),
 		PluginNavs = require("private/chips/blog.control.plugin.navs"),
+		tfr = require("private/chips/blog.uri.plugins"),
 		PluginNavsCount = 0;
 		
 	if ( !m || m.length === 0 ){
 		m = "home";
 	};
 	
-	(function( n ){ for ( var i in n ){ PluginNavsCount++; }; })( PluginNavs );
+	// 插入插件使用状态
+	(function( n, d ){ 
+		for ( var i in n ){
+			n[i].stop = d.queens[d.indexs[i]].stop;
+			!n[i].stop && PluginNavsCount++;
+		}; 
+	})( PluginNavs, tfr );
+	
 	common = user.adminStatus(function( rets, object ){
 		
 	});
@@ -68,6 +76,7 @@
 <%		
 	}else{
 %>
+<!-- 系统导航 开始 -->
 	<div class="header clearfix">
         <div class="logo fleft">PJBlogX<sub> . Controler</sub></div>
         <div class="achor fleft">
@@ -83,33 +92,35 @@
         </div>
         <div class="tool fright"></div>
     </div>
+<!-- 系统导航 结束 -->
    	<div class="container clearfix <%=PluginNavsCount > 0 ? "plugins" : ""%>">
 <%
 		if ( PluginNavsCount > 0 ){
 %>
         <div class="sidebar fleft">
             <div class="sidezone">
-                <h5>插件快捷列表:</h5>
+                <h5><i class="fa fa-hand-o-right"></i> 插件快捷列表:</h5>
                	<%
-					(function(){
+					;(function(){
 						for ( var i in PluginNavs ){
-							if ( PluginNavs[i] && PluginNavs[i].childs && PluginNavs[i].childs.length > 0 ){
+							if ( PluginNavs[i] && PluginNavs[i].childs ){
 				%>
-                <div class="sidezonechilds">
-                	<h6><i class="fa <%=PluginNavs[i].icon%>"></i><%=PluginNavs[i].name%></h6>
-                    <%
-						for ( var j = 0 ; j < PluginNavs[i].childs.length ; j++ ){
-							var items = PluginNavs[i].childs[j];
-					%>
-                    <a href="?t=<%=i%>&m=<%=items.page%>"><i class="fa <%=items.icon%>"></i><%=items.name%></a>
-                    <%
-						}
-					%>
-                </div>
-                <%			
-							}else{
-				%>
-                <a href="?t=<%=i%>&m=<%=PluginNavs[i].page%>"><i class="fa <%=PluginNavs[i].icon%>"></i><%=PluginNavs[i].name%></a>
+                                <div class="sidezonechilds">
+                                    <h6 class="clearfix">
+                                        <span class="fright"><i class="fa fa-pinterest-square"></i></span>
+                                        <i class="fa <%=PluginNavs[i].icon%>"></i> <%=PluginNavs[i].name%>
+                                    </h6>
+                                    <%
+                                        for ( var j in PluginNavs[i].childs ){
+                                            var items = PluginNavs[i].childs[j];
+                                    %>
+                                    <a href="?t=<%=i%>&m=<%=j%>"><i class="fa fa-angle-right"></i> <i class="fa <%=items.icon%>"></i><%=items.name%></a>
+                                    <%
+                                        }
+                                    %>
+                                </div>
+                <%}else{%>
+                				<a href="?t=<%=i%>&m=<%=PluginNavs[i].page%>"><i class="fa <%=PluginNavs[i].icon%>"></i><%=PluginNavs[i].name%></a>
                 <%		
 							}
 						}
@@ -121,8 +132,12 @@
 		};
 		
 		if ( t && t.length > 0 ){
-			var tfr = require("private/chips/blog.control.plugin.navs"), tf;
-			if ( tfr[t] && tfr[t].folder ){ tf = tfr[t].folder; }else{ tf = "404"; };		
+			var tf;
+			if ( tfr && tfr.indexs && tfr.queens && tfr.indexs[t] && tfr.queens[tfr.indexs[t]] && !tfr.queens[tfr.indexs[t]].stop ){ 
+				tf = tfr.queens[tfr.indexs[t]].folder; 
+			}else{ 
+				tf = "404";
+			};		
 			u = "private/plugins/" + tf + "/plu." + m + ".asp";
 			s = "private/plugins/" + tf + "/js/plu." + m + ".js";
 		}else{
@@ -138,7 +153,13 @@
 	;(function(t){
 		var icon = "", name = "", des = "";
 		if ( t && t.length > 0 ){
-			
+			if ( PluginNavs[t] ){
+				name = PluginNavs[t].name;
+				if ( PluginNavs[t] && PluginNavs[t]["childs"] && PluginNavs[t]["childs"][m] ){
+					icon = PluginNavs[t]["childs"][m].icon;
+					des = PluginNavs[t]["childs"][m].name;
+				}
+			}
 		}else{
 			icon = SystemNavs[m].icon;
 			name = SystemNavs[m].name;
@@ -164,7 +185,7 @@
         </div>
     </div>
 	<%
-        s = [s];
+		if ( fs.exist(resolve(s)) ){ s = [s]; }else{ s = []; };
         s.push("public/assets/js/blog.control.lazy.js");
         LoadJscript(function(s){ require(s, function( necys, lazys ){ typeof lazys === "function" && new lazys(); typeof necys === "function" && new necys(); }); }, s);
     %>

@@ -10,6 +10,8 @@ define(function( require, exports, module ){
 		if ( element ) { $(element).remove(); };
 	}
 	
+	var timer;
+	
 	$(window).on('resize', function(){
 		var masker = document.getElementById('masker'),
 			loading = document.getElementById('loading'),
@@ -31,8 +33,8 @@ define(function( require, exports, module ){
 			$(loading).css({ "top": (($(window).height() - $(loading).outerHeight()) / 2) + "px", "left": (($(window).width() - $(loading).outerWidth()) / 2) + "px" });
 		};
 		
-		if ( success ){ $(success).css('position', 'fixed'); $(success).css({ "top": "40px", "right": "20px" }); };
-		if ( error ){ $(error).css('position', 'fixed'); $(error).css({ "top": "40px", "right": "20px" }); };
+		if ( success ){ $(success).css('position', 'fixed'); $(success).css({ "top": "52px", "right": "20px" }); };
+		if ( error ){ $(error).css('position', 'fixed'); $(error).css({ "top": "52px", "right": "20px" }); };
 	});
 	
 	exports.loading = function(text){
@@ -47,6 +49,8 @@ define(function( require, exports, module ){
 		if ( !loading ){
 			loading = createDiv();
 			loading.id = 'loading';
+			loading.innerHTML = text ? '<i class="fa fa-refresh fa-spin"></i> ' + text : '<i class="fa fa-refresh fa-spin"></i> 正在发送数据，请稍后..';
+		}else{
 			loading.innerHTML = text ? '<i class="fa fa-refresh fa-spin"></i> ' + text : '<i class="fa fa-refresh fa-spin"></i> 正在发送数据，请稍后..';
 		}
 		
@@ -68,7 +72,8 @@ define(function( require, exports, module ){
 		}
 			
 		$(window).trigger('resize');
-		setTimeout(function(){ that.close(); }, 3000);
+		timer && clearTimeout(timer);
+		timer = setTimeout(function(){ that.close(); }, 3000);
 	};
 	
 	exports.error = function(text){
@@ -85,7 +90,8 @@ define(function( require, exports, module ){
 		}
 			
 		$(window).trigger('resize');
-		setTimeout(function(){ that.close(); }, 3000);
+		timer && clearTimeout(timer);
+		timer = setTimeout(function(){ that.close(); }, 3000);
 	};
 	
 	exports.close = function(){

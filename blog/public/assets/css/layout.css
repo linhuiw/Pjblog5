@@ -30,6 +30,9 @@ html{ background-image:url(../img/bg.gif); }
 .container{ margin:20px 20px;}
 .container .sidebar{ width:200px; background-color:#fff; border-radius:3px; box-shadow:0px 1px 6px #ccc; overflow:hidden;}
 .container .sidebar .sidezone{ padding:0px 0px 0px 0px;}
+.container .sidebar .sidezone .sidezonechilds{background-color:#f9f9f9;}
+.container .sidebar .sidezone .sidezonechilds h6{height:30px; line-height:30px; padding:5px 15px; border-bottom:1px dashed #e9e9e9;  color:#777;}
+.container .sidebar .sidezone .sidezonechilds h6 span i{ height:30px; width:10px; line-height:30px; text-align:center; display:block; color:#ccc;}
 .container .sidebar .sidezone h5{ padding:8px 10px; border-bottom:1px solid #E9E9E9; font-weight:bold; height:20px; line-height:20px;}
 .container .sidebar .sidezone a{ display:block; height:30px; line-height:30px; padding:5px 15px; border-bottom:1px dashed #e9e9e9;}
 .container .sidebar .sidezone a:last-child{ border-bottom:none;}
@@ -37,10 +40,11 @@ html{ background-image:url(../img/bg.gif); }
 .container .sidebar .sidezone a:link,
 .container .sidebar .sidezone a:visited{ color:#777; text-decoration:none;}
 .container .sidebar .sidezone a:hover{ color:#333; background-color:#e9e9e9}
+.container .sidebar .sidezone .sidezonechilds a{ padding-left:30px;}
 .plugins .content{ margin-left:220px;}
 .content .navtabs{ height:40px; line-height:40px; padding:0px 20px; background-color:#fff; box-shadow:0px 1px 6px #ccc; border-radius:3px; margin-bottom:20px;}
-.content .navtabs i{ font-size:18px; line-height:40px; margin-right:8px; color:#777;}
-.content .navtabs strong{ color:#777; font-weight:bold; font-size:16px; margin-right:20px;}
+.content .navtabs i{ font-size:14px; line-height:40px; margin-right:8px; color:#777;}
+.content .navtabs strong{ color:#777; font-weight:bold; font-size:14px; margin-right:20px;}
 .content .navtabs span{ color:#999; font-size:11px; line-height:40px;}
 
 .waterfull li{ margin:0px 20px 20px 0px; background-color:#fff; width:300px; box-shadow:0 1px 4px #ccc;}
@@ -121,3 +125,17 @@ html{ background-image:url(../img/bg.gif); }
 #plugin .plugin-zone .plugins .des{ line-height:20px;}
 #plugin .plugin-zone .plugins .mark{ color:#ccc; font-weight:normal; margin-left:10px;}
 #plugin .plugin-zone .uninstalled .mark{ color:#aaa;}
+#plugin .plugin-zone .plugins .set{ margin:20px 0px;}
+#plugin .plugin-zone .plugins .set form{ border:1px solid #eee; display:block; padding:40px 13px 10px 13px; position:relative;}
+#plugin .plugin-zone .plugins .set form td{ padding:5px 8px; height:20px; line-height:20px;}
+#plugin .plugin-zone .plugins .set form td.dname{ text-align:right}
+#plugin .plugin-zone .plugins .set form .titletip{ position:absolute; top:0; left:0; height:30px; line-height:30px; border-right:1px solid #eee; border-bottom:1px solid #eee; padding:0px 20px; background-color:#f9f9f9}
+
+input[type="text"],
+input[type="password"],
+textarea{ border:1px solid #eee; background-color:none; height:20px; line-height:20px; color:#777; font-size:12px; font-family:'microsoft yahei',Arial, Helvetica, sans-serif; padding:3px 6px; border-radius:3px; box-shadow:0px 0px 1px #ccc inset; resize:none;}
+select{ border:1px solid #eee; background-color:none; line-height:20px; color:#777; font-size:12px; font-family:'microsoft yahei',Arial, Helvetica, sans-serif; padding:3px 6px; border-radius:3px; box-shadow:0px 0px 1px #ccc inset;}
+select option{ padding:3px 6px;}
+input[type="submit"],
+input[type="button"],
+input[type="reset"]{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height:20px; font-family:'microsoft yahei',Arial, Helvetica, sans-serif; padding:5px 15px; box-shadow:1px 1px 5px #ccc; font-size:12px; cursor:pointer;}

@@ -21,8 +21,11 @@
 		
 		if ( t !== "system" ){
 			var pluginMode = require("private/chips/blog.uri.plugins");
-			if ( pluginMode && pluginMode[t] ){
+			if ( pluginMode && pluginMode.indexs && pluginMode.queens && pluginMode.queens[m] && !pluginMode.queens[m].stop ){
 				paths.plugin = "private/plugins/" + pluginMode[t].folder;
+			}else{
+				Library.json({ success: false, message: "插件不允许插件，可能已被暂停服务!" });
+				return;
 			}
 		}
 		

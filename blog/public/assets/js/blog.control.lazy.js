@@ -28,7 +28,9 @@ define(function( require, exports, module ){
 					if ( window.confirm(c) ){ 
 						that.onSendAjax(r, this, callback);
 					}else{
-						window.doing = false;
+						setTimeout(function(){
+							window.doing = false;
+						}, 500);
 					}
 				}else{
 					that.onSendAjax(r, this, callback);

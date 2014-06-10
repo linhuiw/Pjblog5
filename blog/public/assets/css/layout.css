@@ -125,7 +125,7 @@ html{ background-image:url(../img/bg.gif); }
 #plugin .plugin-zone .plugins .des{ line-height:20px;}
 #plugin .plugin-zone .plugins .mark{ color:#ccc; font-weight:normal; margin-left:10px;}
 #plugin .plugin-zone .uninstalled .mark{ color:#aaa;}
-#plugin .plugin-zone .plugins .set{ margin:20px 0px;}
+#plugin .plugin-zone .plugins .set{ margin:10px 0px;}
 #plugin .plugin-zone .plugins .set form{ border:1px solid #eee; display:block; padding:40px 13px 10px 13px; position:relative;}
 #plugin .plugin-zone .plugins .set form td{ padding:5px 8px; height:20px; line-height:20px;}
 #plugin .plugin-zone .plugins .set form td.dname{ text-align:right}

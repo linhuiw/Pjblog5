@@ -139,3 +139,10 @@ select option{ padding:3px 6px;}
 input[type="submit"],
 input[type="button"],
 input[type="reset"]{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height:20px; font-family:'microsoft yahei',Arial, Helvetica, sans-serif; padding:5px 15px; box-shadow:1px 1px 5px #ccc; font-size:12px; cursor:pointer;}
+
+.setform{ background-color:#fff; border-radius:3px; box-shadow:0px 1px 6px #ccc; margin-bottom:20px;}
+.setform h5{ border-bottom:1px solid #eee; padding:20px 15px; color:#777; font-weight:bold;}
+.setform td{ padding:10px 20px; border-right:1px solid #eee; border-bottom:1px solid #eee; color:#777;}
+.setform tr td:first-child{ text-align:right;}
+.setform tr:nth-child(2n+1) td{ background-color:#f9f9f9;}
+.setform h5 input{ margin-left:196px;}

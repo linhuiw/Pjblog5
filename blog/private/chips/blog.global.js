@@ -1,0 +1,15 @@
+﻿exports.id = 1;
+exports.blog_name = "PJBlog5";
+exports.blog_title = "PJBlog 5 Beta";
+exports.blog_des = "PJBlog5";
+exports.blog_mail = "contact@PJBlog5.com";
+exports.blog_copyright = "浙ICP备050491号";
+exports.blog_keywords = "pjblog";
+exports.blog_description = "pjblog";
+exports.blog_theme = null;
+exports.blog_themename = null;
+exports.blog_thememail = null;
+exports.blog_themeweb = null;
+exports.blog_themeversion = null;
+exports.blog_status = 0;
+exports.blog_message = "12121";

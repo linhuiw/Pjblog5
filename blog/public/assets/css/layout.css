@@ -3,17 +3,6 @@
 
 html{ background-image:url(../img/bg.gif); }
 
-.login{ position:absolute; top:50%; left:50%; width:200px; height:160px; margin-left:-100px; margin-top:-80px; }
-.login h5{ height:30px; line-height:30px; color:#777; font-weight:bold; text-align:center; margin-bottom:10px; font-size:14px;}
-.login .param{ background-color:#fff; border:1px solid #ddd; padding:5px 8px; border-radius:3px; margin-bottom:10px;}
-.login .param i{ height:20px; line-height:20px; display:block; float:left; font-size:14px; margin-right:8px; color:#999;}
-.login .param input.col,
-.login .param input.col{ border:none; background:none; height:20px; line-height:20px; outline:none; color:#999;}
-.login .submit{ border:1px solid #ddd; height:30px; line-height:30px; color:#777; width:100%; background-color:#fff; box-shadow:0px 1px 3px #ddd; cursor:pointer; text-align:center; border-radius:3px;}
-.login .submit:hover{ background-color:#e9e9e9}
-.login .submit:active{ box-shadow:0px 0px 3px #eee inset; background-color:#ddd}
-
-
 .header{ height:50px; background-color:#444; padding:0px 30px; line-height:50px; color:#fff; }
 .header .logo{ font-size:18px;}
 .header .logo sub{ font-size:14px; color:#999;}
@@ -138,7 +127,8 @@ select{ border:1px solid #eee; background-color:none; line-height:20px; color:#7
 select option{ padding:3px 6px;}
 input[type="submit"],
 input[type="button"],
-input[type="reset"]{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height:20px; font-family:'microsoft yahei',Arial, Helvetica, sans-serif; padding:5px 15px; box-shadow:1px 1px 5px #ccc; font-size:12px; cursor:pointer;}
+input[type="reset"],
+button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height:20px; font-family:'microsoft yahei',Arial, Helvetica, sans-serif; padding:5px 15px; box-shadow:1px 1px 5px #ccc; font-size:12px; cursor:pointer;}
 
 .setform{ background-color:#fff; border-radius:3px; box-shadow:0px 1px 6px #ccc; margin-bottom:20px;}
 .setform h5{ border-bottom:1px solid #eee; padding:20px 15px; color:#777; font-weight:bold;}
@@ -146,3 +136,242 @@ input[type="reset"]{ border:1px solid #eee; background-color:#f9f9f9; color:#777
 .setform tr td:first-child{ text-align:right;}
 .setform tr:nth-child(2n+1) td{ background-color:#f9f9f9;}
 .setform h5 input{ margin-left:196px;}
+.sortSubmit{ margin-top:30px;}
+
+
+.dd{
+	position:relative;
+	display:block;
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+.dd-list{
+	display:block;
+	position:relative;
+	margin:0;
+	padding:0;
+	list-style:none;
+	
+}
+.dd-list .dd-list{
+	padding-left:49px
+}
+.dd-collapsed .dd-list{
+	display:none
+}
+.dd-item,
+.dd-empty,
+.dd-placeholder{
+	display:block;
+	position:relative;
+	margin:0;
+	padding:0;
+	border-radius:3px; 
+	margin-top:13px;
+}
+.dd-handle,
+.dd2-content{
+	display:block; 
+	height:36px;
+	background:#fff;
+	color:#777;
+	text-decoration:none;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box; 
+	line-height:36px; 
+}
+.dd2-content{ 
+	border-radius:3px;
+	box-shadow:3px 3px 5px #ccc;
+}
+.dd-handle[class*="btn-"]:hover,
+.dd2-content[class*="btn-"]:hover{
+	opacity:.85;
+	color:#FFF
+}
+.dd2-handle+.dd2-content,
+.dd2-handle+.dd2-content[class*="btn-"]{
+	padding-left:60px
+}
+.dd-handle[class*="btn-"]:hover,
+.dd2-content[class*="btn-"] .dd2-handle[class*="btn-"]:hover+.dd2-content[class*="btn-"]{
+	color:#FFF
+}
+.dd-item>button:hover ~ .dd-handle,
+.dd-item>button:hover ~ .dd2-content{
+	color:#777;
+}
+.dd-item>button:hover ~ .dd-handle[class*="btn-"],
+.dd-item>button:hover ~ .dd2-content[class*="btn-"]{
+	opacity:.85;
+	color:#FFF
+}
+
+.dd2-handle:hover ~ .dd2-content[class*="btn-"]{
+	opacity:.85;
+	color:#FFF
+}
+
+.dd-item>button{
+	display:block;
+	position:relative;
+	z-index:1;
+	cursor:pointer;
+	float:right;
+	width:36px;
+	height:36px;
+	padding:0;
+	white-space:nowrap;
+	overflow:hidden;
+	border:0;
+	background:transparent;
+	font-size:12px;
+	line-height:1;
+	text-align:center;
+	top:0px;
+	right:5px;
+	color:#999;
+	outline:none;
+	box-shadow:none;
+}
+.dd-item>button:before{
+	display:block;
+	position:absolute;
+	width:100%;
+	text-align:center;
+	font-weight:normal;
+}
+.dd-item>button:hover{
+	color:#707070
+}
+.dd-item.dd-colored>button,
+.dd-item.dd-colored>button:hover{
+	color:#EEE
+}
+.dd-placeholder,
+.dd-empty{
+	margin:5px 0;
+	padding:0;
+	height:40px;
+	background:#f9f9f9;
+	border:2px dashed #ddd;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+}
+.dd-empty{
+	border-color:#AAA;
+	border-style:solid;
+	background-color:#e5e5e5
+}
+.dd-dragel{
+	position:absolute;
+	pointer-events:none;
+	z-index:999;
+	opacity:.8
+}
+.dd-dragel>li>.dd-handle{
+	color:#fff;
+	background:#ccc;
+	border-color:#d6e1ea;
+	border-left:0px solid #777;
+	position:relative
+}
+.dd-dragel>li>.dd-handle[class*="btn-"]{
+	color:#FFF
+}
+.dd-dragel>.dd-item>.dd-handle{
+	margin-top:0
+}
+.dd-list>li[class*="item-"]{
+	border-width:0;
+	padding:0
+}
+.dd-list>li[class*="item-"]>.dd-handle{
+	border-left:1px solid;
+	border-left-color:inherit
+}
+.dd-list>li>.dd-handle .sticker{
+	position:absolute;
+	right:0;
+	top:0
+}
+.dd2-handle,
+.dd-dragel>li>.dd2-handle{
+	left:0;
+	top:2px;
+	width:50px;
+	height:32px;
+	margin:0;
+	text-align:center;
+	padding:0!important;
+	line-height:32px;
+	background:#fff;
+	border-right:1px solid #f5f5f5;
+	cursor:pointer;
+	overflow:hidden;
+	position:absolute;
+	z-index:1; 
+	border-radius:3px 0 0 3px;
+}
+.dd-handle img,
+.dd2-handle img{ max-width:32px; max-height:32px;}
+.dd2-handle i,
+.dd-dragel>li>.dd2-handle i{ 
+	display:none; 
+	height:40px; 
+	line-height:36px; 
+	color:#fff; 
+	width:36px;
+}
+.dd2-content[class*="btn-"]{
+	text-shadow:none!important
+}
+.dd2-handle[class*="btn-"]{
+	text-shadow:none!important;
+	background:rgba(0,0,0,0.1)!important;
+	border-right:1px solid #EEE
+}
+.dd2-handle[class*="btn-"]:hover{
+	background:rgba(0,0,0,0.08)!important
+}
+.dd-dragel .dd2-handle[class*="btn-"]{
+	border-color:transparent;
+	border-right-color:#EEE
+}
+.dd2-handle.btn-yellow{
+	text-shadow:none!important;
+	background:rgba(0,0,0,0.05)!important;
+	border-right:1px solid #FFF
+}
+.dd2-handle.btn-yellow:hover{
+	background:rgba(0,0,0,0.08)!important
+}
+.dd-dragel .dd2-handle.btn-yellow{
+	border-color:transparent;
+	border-right-color:#FFF
+}
+.dd-item>.dd2-handle .drag-icon{
+	display:none
+}
+.dd-dragel>.dd-item>.dd2-handle .drag-icon{
+	display:inline
+}
+.dd-dragel>.dd-item>.dd2-handle .normal-icon{
+	display:none
+}
+
+
+
+
+.login{ position:absolute; top:50%; left:50%; width:200px; height:160px; margin-left:-100px; margin-top:-80px; }
+.login h5{ height:30px; line-height:30px; color:#777; font-weight:bold; text-align:center; margin-bottom:10px; font-size:14px;}
+.login .param{ background-color:#fff; border:1px solid #ddd; padding:5px 8px; border-radius:3px; margin-bottom:10px;}
+.login .param i{ height:20px; line-height:20px; display:block; float:left; font-size:14px; margin-right:8px; color:#999;}
+.login .param input.col,
+.login .param input.col{ border:none; background:none; height:20px; line-height:20px; outline:none; color:#999; box-shadow:none;}
+.login .submit{ border:1px solid #ddd; height:30px; line-height:30px; color:#777; width:100%; background-color:#fff; box-shadow:0px 1px 3px #ddd; cursor:pointer; text-align:center; border-radius:3px;}
+.login .submit:hover{ background-color:#e9e9e9}
+.login .submit:active{ box-shadow:0px 0px 3px #eee inset; background-color:#ddd}

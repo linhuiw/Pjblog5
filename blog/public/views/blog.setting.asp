@@ -60,6 +60,34 @@
     </div>
     
     <div class="setform">
+        <h5><i class="fa fa-file-text-o"></i> 日志设置，简单，方便，快捷！</h5>
+        <table cellpadding="0" cellspacing="0" width="100%" border="0">
+            <tr>
+                <td width="150">日志预览截取字数</td>
+                <td><input type="text" value="<%=object("blog_articlecut").value%>" name="blog_articlecut" class="col-x-1" /></td>
+            </tr>
+            <tr>
+                <td width="150">删除分类后日志转移</td>
+                <td>
+                	<select name="blog_categoryremove">
+                        <option value="0" <%if ( object("blog_categoryremove").value === 0 || !object("blog_categoryremove").value ){Library.log('selected="selected"')}%>>转移到系统默认垃圾箱</option>
+                        <option value="1" <%if ( object("blog_categoryremove").value === 1 ){Library.log('selected="selected"')}%>>直接将该分类下日志删除</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td width="150">删除分类后子分类转移</td>
+                <td>
+                	<select name="blog_categoryremovechild">
+                        <option value="0" <%if ( object("blog_categoryremovechild").value === 0 || !object("blog_categoryremovechild").value ){Library.log('selected="selected"')}%>>子分类转化为顶级分类</option>
+                        <option value="1" <%if ( object("blog_categoryremovechild").value === 1 ){Library.log('selected="selected"')}%>>直接将子分类删除</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="setform">
         <h5><input type="submit" value="保存" /></h5>
     </div>
 </form>

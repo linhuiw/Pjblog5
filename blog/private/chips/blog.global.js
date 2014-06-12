@@ -13,3 +13,6 @@ exports.blog_themeweb = null;
 exports.blog_themeversion = null;
 exports.blog_status = 0;
 exports.blog_message = "12121";
+exports.blog_categoryremove = 0;
+exports.blog_articlecut = 300;
+exports.blog_categoryremovechild = 0;

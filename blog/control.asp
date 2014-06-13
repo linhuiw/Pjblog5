@@ -178,7 +178,7 @@
 		if ( fs.exist(__u) ){
 			include(u, { dbo: dbo, conn: conn, fs: fs, fns: FNS, http: HTTP });
 		}else{
-			Library.log('<div class="page404"><h6>404</h6><p class="info">抱歉，无法找到模板！</p><p class="uri">Error Path: ' + u + '</p></div>');
+			Library.log('<div class="page404"><h6>404</h6><p class="info">抱歉，无法找到模板！</p><p class="uri">Miss Path: ' + u + '</p></div>');
 		}
 %>
             </div>

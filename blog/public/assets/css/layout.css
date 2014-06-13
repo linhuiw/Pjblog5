@@ -401,3 +401,12 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 #icon-box li{ float:left; border:1px solid #eee; margin:5px; padding:3px;}
 #icon-box li.current{ border:1px solid #F39}
 #icon-box li img{ width:16px; height:16px; cursor:pointer;}
+
+#articles{}
+#articles .list{ width:60%;}
+#articles .list .list-container{}
+#articles .list .list-container .list-top{ color:#777; font-weight:bold; height:30px; line-height:30px; margin-bottom:10px;}
+#articles .list .list-container .list-top span{ margin-right:10px; font-weight:normal;}
+#articles .list .list-container .list-content{}
+#articles .list .list-container .list-content li{ width:175px; margin-right:20px; margin-bottom:20px; background-color:#fff; box-shadow:0px 1px 3px #ddd;}
+#articles .tool{ margin-left:60%;}

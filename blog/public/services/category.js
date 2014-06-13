@@ -230,4 +230,49 @@ CategoryModule.extend('SortChilds', function(arrays, parent){
 	}
 });
 
+CategoryModule.extend('list', function(){
+	var rec = new this.dbo.RecordSet(this.conn),
+		keep = {},
+		list = {};
+	
+	rec
+		.sql('Select * From blog_categorys Where cate_outlink=0')
+		.open(1)
+		.each(function(object){
+			var id = object('id').value,
+				parent = object('cate_parent').value,
+				name = object('cate_name').value;
+			
+			list[id + ''] = name;
+				
+			if ( parent === 0 ){
+				if ( !keep[id + ''] ){
+					keep[id + ''] = {
+						name: name,
+						items: {}
+					};
+				}else{
+					keep[id + ''].name = name;
+					if ( !keep[id + ''].items ){
+						keep[id + ''].items = {};
+					}
+				}
+			}else{
+				if ( !keep[parent + ''] ){
+					keep[parent + ''] = {
+						items: {}
+					}
+				}
+				
+				keep[parent + ''].items[id + ''] = name;
+			}
+		})
+		.close();
+	
+	return {
+		s: keep,
+		k: list
+	};
+});
+
 return CategoryModule;

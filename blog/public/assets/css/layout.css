@@ -318,7 +318,7 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 	border-radius:3px 0 0 3px;
 }
 .dd-handle img,
-.dd2-handle img{ max-width:32px; max-height:32px;}
+.dd2-handle img{ max-width:32px; max-height:32px; position:relative; top:3px;}
 .dd2-handle i,
 .dd-dragel>li>.dd2-handle i{ 
 	display:none; 

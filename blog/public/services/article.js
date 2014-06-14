@@ -32,7 +32,7 @@ ArticleModule.extend('GetArticleList', function( params ){
 	};
 	
 	var Adodb = rec.sql(sql).open(1);
-	Adodb.AdoPage(page, 30, function(object){
+	var pages = Adodb.AdoPage(page, 8, function(object){
 		list.push({
 			id: object('id').value,
 			art_title: object('art_title').value,
@@ -44,7 +44,7 @@ ArticleModule.extend('GetArticleList', function( params ){
 	});
 	Adodb.close();
 		
-	return { success: true, message: '获取日志列表成功', list: list };
+	return { success: true, message: '获取日志列表成功', list: list, count: pages.pageCount };
 });
 
 ArticleModule.extend('save', function( params ){

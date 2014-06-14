@@ -26,6 +26,7 @@
 		window.page = arrays[0];
 		window.cate = arrays[1]; 
 		window.categorys = arrays[2];
+		window.PageCout = 99;
 	}, [page, cate, categorys]);
 	var CategorysTitle = function(){
 		if ( cate === -1 ){

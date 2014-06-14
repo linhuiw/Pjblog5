@@ -9,6 +9,7 @@ define(function( require, exports, module ){
 					that.GetArticleList();
 				});
 				this.GotoModifyArticle();
+				this.onScrollGetMessage();
 		},
 		GotoModifyArticle: function(){
 			$('#modifyarticle').on('click', function(){
@@ -53,6 +54,7 @@ define(function( require, exports, module ){
 				}, function( params ){
 					window.doing = false;
 					if ( params.success ){
+						window.PageCount = params.count;
 						that.MakeArticleHTML(params.list, reloaded);
 						that.tip.close();
 						typeof callback === 'function' && callback(params.list);
@@ -118,6 +120,20 @@ define(function( require, exports, module ){
 		},
 		onDeleteArticle: function(el){
 			$('.waterfull').isotope('remove', el).isotope('layout');
+		},
+		onScrollGetMessage: function(){
+			var that = this;
+			if ( !window.bindScroll ){
+				window.bindScroll = true;
+				$(window).on("scroll",function() {
+					if ($('body').scrollTop() + $(window).height() > $(document).height() - 50) {
+							if ( window.page < window.PageCount ){
+								window.page++;
+								that.GetArticleList(function(){ $('.waterfull').isotope('layout'); });
+							}
+					}
+				});
+			}
 		},
 		tip: require('appjs/assets/blog.loading')
 	});

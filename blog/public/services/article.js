@@ -19,9 +19,9 @@ ArticleModule.extend('GetArticleList', function( params ){
 		that = this;
 		
 	if ( cate === 0 ){
-		sql = 'Select ' + arrays.join(',') + ' From blog_articles Where art_draft=0 Order By art_postdate DESC'
+		sql = 'Select ' + arrays.join(',') + ' From blog_articles Where art_draft=0 Order By art_postdate DESC';
 	}else{
-		sql = 'Select ' + arrays.join(',') + ' From blog_articles Where art_category=' + cate + ' And art_draft=0 Order By art_postdate DESC'
+		sql = 'Select ' + arrays.join(',') + ' From blog_articles Where (art_category=' + cate + ' Or art_category in (Select id From blog_categorys Where cate_parent=' + cate + ')) And art_draft=0 Order By art_postdate DESC';
 	};
 	
 	var Adodb = rec.sql(sql).open(1);
@@ -36,7 +36,7 @@ ArticleModule.extend('GetArticleList', function( params ){
 	});
 	Adodb.close();
 		
-	return { success: true, message: '获取日志列表成功', list: list };
+	return { success: true, message: '获取日志列表成功', list: list, sql: sql };
 });
 
 return ArticleModule;

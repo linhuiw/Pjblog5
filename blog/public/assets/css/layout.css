@@ -413,7 +413,7 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 #articles .list .list-container .list-content li img{ max-width:168px; margin:0 auto;}
 #articles .list .list-container .list-content li .title{ padding:5px 10px; font-weight:bold; height:20px; line-height:20px; margin-bottom:10px;}
 #articles .list .list-container .list-content li .des{ padding:0px 10px; line-height:18px; color:#999; margin-bottom:10px;}
-#articles .list .list-container .list-content li .info{ padding:0px 10px; line-height:20px; height:20px; overflow:hidden; margin-bottom:5px;}
+#articles .list .list-container .list-content li .info{ padding:0px 10px; line-height:20px; height:20px; overflow:hidden; margin-bottom:5px; color:#ccc;}
 #articles .list .list-container .list-content li .tooled{ text-align:center; border-top:1px solid #eee; background-color:#f9f9f9; padding:10px 0px;}
 #articles .list .list-container .list-content li .tooled a:link,
 #articles .list .list-container .list-content li .tooled a:visited{ text-decoration:none; color:#999;}
@@ -432,3 +432,4 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 #articles .tool .pannel li.root{ margin-bottom:10px;}
 #articles .tool .pannel ul.child{ margin-left:50px;}
 #articles .tool .pannel a.child{ width:100px; display:block; float:left; border:1px solid #ccc; background-color:#f9f9f9; text-align:center; height:26px; line-height:26px; text-align:center; border-radius:3px; box-shadow:1px 3px 5px #ccc; margin:0px 10px 10px 0px;}
+#articles .tool .pannel ul.root{ margin-left:37px;}

@@ -3,20 +3,26 @@ define([ 'appjs/assets/jquery.lsotope' ], function( require, exports, module ){
 	return new Class({
 		initialize: function(){
 			var that = this;
-			this.setCategorys();
-			this.GetArticleList(function(){ that.waterFull(); });
+				try{ that.waterFull(); }catch(e){}
+				that.setCategorys();
+				that.GetArticleList();
 		},
 		setCategorys: function(){
 			var that = this;
 			$('.setCate').on('click', function(){
 				window.cate = Number($(this).attr('app-cate'));
 				window.page = 1;
+				$('#cates').html( 
+					window.cate === 0 ? 
+										"全部分类日志(0)" : 
+										window.categorys[window.cate + ''] + "(" + window.cate + ")" 
+				);
 				that.GetArticleList(function(){
 					that.waterFull();
-				});
+				}, true);
 			});
 		},
-		GetArticleList: function(callback){
+		GetArticleList: function(callback, reloaded){
 			var that = this;
 			if ( !window.doing ){
 				window.doing = true;
@@ -29,7 +35,7 @@ define([ 'appjs/assets/jquery.lsotope' ], function( require, exports, module ){
 				}, function( params ){
 					window.doing = false;
 					if ( params.success ){
-						that.MakeArticleHTML(params.list);
+						that.MakeArticleHTML(params.list, reloaded);
 						that.tip.close();
 						typeof callback === 'function' && callback(params.list);
 					}else{
@@ -38,36 +44,40 @@ define([ 'appjs/assets/jquery.lsotope' ], function( require, exports, module ){
 				});
 			}
 		},
-		MakeArticleHTML: function( list ){
+		MakeArticleHTML: function( list, reloaded ){
+			if ( reloaded ){ 
+				$('.waterfull li').each(function(){
+					$('.waterfull').isotope('remove', this);
+				}); 
+			};
 			for ( var i = 0 ; i < list.length ; i++ ){ 
-				this.MakeSingleArticleHTML(list[i]); 
 				this.MakeSingleArticleHTML(list[i]);
-				this.MakeSingleArticleHTML(list[i]); 
 			};
 		},
 		MakeSingleArticleHTML: function( data ){
-			var h = '<li>';
-				h +=	'<div class="article-content">';
+			var h 	=	'<div class="article-content">';
 				h +=		'<div class="image">';
 				h +=			'<img src="' + ((!data.art_cover || data.art_cover.length === 0) ? 'public/assets/img/man.jpg' : data.art_cover)  + '" onerror="this.src=\'public/assets/img/man.jpg\'" />';
 				h +=		'</div>';
 				h +=		'<div class="title wordCut">' + data.art_title + '</div>';
 				h +=		'<div class="des">' + data.art_des + '</div>';
 				h +=		'<div class="info clearfix">';
-				h +=			'<div class="cate fleft">' + data.art_category + '</div>';
-				h +=			'<div class="cate fright">' + data.art_tags + '</div>';
+				h +=			'<div class="cate fleft">' + window.categorys[data.art_category + ''] + '</div>';
+				h +=			'<div class="cate fright">' + (data.art_tags || '') + '</div>';
 				h +=		'</div>';
 				h +=		'<div class="tooled">';
 				h +=			'<a href="javascript;;"><i class="fa fa-pencil-square-o"></i></a>';
 				h +=			'<a href="javascript;;"><i class="fa fa-trash-o"></i></a>';
 				h +=		'</div>';
 				h +=	'</div>';
-				h +='</li>';
-		
-			$('.waterfull').append(h);
+			
+			var li = document.createElement('li');
+			$('.waterfull').append(li);
+			$(li).html(h);
+			this.waterFull().isotope('insert', li).isotope('layout');
 		},
 		waterFull: function(){ 
-			$('.waterfull').isotope({ 
+			return $('.waterfull').isotope({ 
 				itemSelector: '.waterfull li' 
 			});
 		},

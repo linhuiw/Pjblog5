@@ -127,7 +127,7 @@ define(function( require, exports, module ){
 				window.bindScroll = true;
 				$(window).on("scroll",function() {
 					if ($('body').scrollTop() + $(window).height() > $(document).height() - 50) {
-							if ( window.page < window.PageCount ){
+							if ( !window.doing && window.page < window.PageCount ){
 								window.page++;
 								that.GetArticleList(function(){ $('.waterfull').isotope('layout'); });
 							}

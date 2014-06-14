@@ -112,6 +112,11 @@ define(function( require, exports, module ){
 		if ( !masker ){
 			masker = createDiv();
 			masker.id = 'masker';
+			$(masker).css({
+				opacity: ".3",
+				"background-color": "#000",
+				zIndex: 99998
+			})
 		}
 		
 		if ( !centeror ){

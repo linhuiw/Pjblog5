@@ -32,7 +32,7 @@ ArticleModule.extend('GetArticleList', function( params ){
 	};
 	
 	var Adodb = rec.sql(sql).open(1);
-	var pages = Adodb.AdoPage(page, 8, function(object){
+	var pages = Adodb.AdoPage(page, 30, function(object){
 		list.push({
 			id: object('id').value,
 			art_title: object('art_title').value,

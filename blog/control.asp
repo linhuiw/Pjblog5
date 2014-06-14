@@ -83,9 +83,11 @@
             <%
                 ;(function( system_navs ){
                     for ( var i in system_navs ){
+						if ( !system_navs[i].hide ){
             %>
             <a href="?m=<%=i%>"><i class="fa <%=system_navs[i].icon%>"></i><span><%=system_navs[i].name%></span></a>
-            <%			
+            <%	
+						}		
                     }
                 })( SystemNavs );
             %>

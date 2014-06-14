@@ -1,3 +1,4 @@
+<script src="appjs/assets/jquery.lsotope.js"></script>
 <%
 ;(function( dbo, conn, fs, fns, http, m, t ){
 	var page = http.query("cate"),
@@ -12,7 +13,7 @@
 	page = Number(page);
 	if ( page < 1 ){ page = 1; };
 	
-	if ( !cate || cate.length === 0 ){ cate = 0; };
+	if ( !cate || cate.length === 0 ){ cate = -1; };
 	cate = Number(cate);
 	
 	category = new category();
@@ -26,12 +27,26 @@
 		window.cate = arrays[1]; 
 		window.categorys = arrays[2];
 	}, [page, cate, categorys]);
+	var CategorysTitle = function(){
+		if ( cate === -1 ){
+			return '全部分类日志(-1)';
+		}
+		else if ( cate === -2 ){
+			return '草稿箱日志(-2)';
+		}
+		else if ( cate === 0 ){
+			return '垃圾箱日志(0)';
+		}
+		else{
+			return window.categorys[window.cate + ''] + "(" + window.cate + ")";
+		}
+	}
 %>
 <div id="articles" class="clearfix">
 	<div class="list fleft">
     	<div class="list-container">
         	<div class="list-top">
-                <i class="fa fa-slack"></i> 分类 : <span id="cates"><%=cate === 0 ? "全部分类日志(0)" : categorys[cate + ""] + "(" + cate + ")"%></span>
+                <i class="fa fa-slack"></i> 分类 : <span id="cates"><%=CategorysTitle()%></span>
             </div>
             <div class="list-content">
             	<ul class="waterfull" id="waterfull"></ul>
@@ -42,10 +57,15 @@
     	<div class="pannel">
         	<h6><i class="fa fa-pinterest-square"></i> 发表日志</h6>
             <button><i class="fa fa-sign-in"></i> 快速发表日志</button>
-            <button><i class="fa fa-pencil"></i> 发表日志（高级模式）</button>
+            <button id="modifyarticle"><i class="fa fa-pencil"></i> 发表日志（高级模式）</button>
         </div>
         <div class="pannel">
         	<h6><i class="fa fa-tags"></i> 日志分类</h6>
+            <div class="mas">
+            	<a href="javascript:;" class="child setCate" app-cate="-1">全部日志</a> 
+                <a href="javascript:;" class="child setCate" app-cate="0">垃圾箱日志</a>
+                <a href="javascript:;" class="child setCate" app-cate="0">草稿箱日志</a>
+            </div>
             <ul class="root clearfix">
             	<%
 					;(function(categoryList){

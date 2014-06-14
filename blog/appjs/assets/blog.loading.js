@@ -16,7 +16,8 @@ define(function( require, exports, module ){
 		var masker = document.getElementById('masker'),
 			loading = document.getElementById('loading'),
 			success = document.getElementById('success'),
-			error = document.getElementById('error');
+			error = document.getElementById('error'),
+			centeror = document.getElementById('centeror');
 		
 		if ( masker ){
 			$(masker).css({
@@ -33,6 +34,11 @@ define(function( require, exports, module ){
 			$(loading).css({ "top": (($(window).height() - $(loading).outerHeight()) / 2) + "px", "left": (($(window).width() - $(loading).outerWidth()) / 2) + "px" });
 		};
 		
+		if ( centeror ){
+			$(centeror).css('position', 'fixed');
+			$(centeror).css({ "top": (($(window).height() - $(centeror).outerHeight()) / 2) + "px", "left": (($(window).width() - $(centeror).outerWidth()) / 2) + "px" });
+		};
+		
 		if ( success ){ $(success).css('position', 'fixed'); $(success).css({ "top": "52px", "right": "20px" }); };
 		if ( error ){ $(error).css('position', 'fixed'); $(error).css({ "top": "52px", "right": "20px" }); };
 	});
@@ -40,6 +46,8 @@ define(function( require, exports, module ){
 	exports.loading = function(text){
 		var masker = document.getElementById('masker'),
 			loading = document.getElementById('loading');
+		
+		this.close();
 		
 		if ( !masker ){
 			masker = createDiv();
@@ -94,10 +102,37 @@ define(function( require, exports, module ){
 		timer = setTimeout(function(){ that.close(); }, 3000);
 	};
 	
+	exports.center = function(html){
+		var centeror = document.getElementById('centeror'),
+			masker = document.getElementById('masker'),
+			that = this;
+		
+		this.close();
+		
+		if ( !masker ){
+			masker = createDiv();
+			masker.id = 'masker';
+		}
+		
+		if ( !centeror ){
+			centeror = createDiv();
+			centeror.id = 'centeror';
+			centeror.innerHTML = html;
+			$(centeror).addClass('animated bounceIn')
+		}else{
+			centeror.innerHTML = html;
+		}
+		
+		$(window).trigger('resize');
+		
+		return centeror;
+	}
+	
 	exports.close = function(){
 		removeDiv(document.getElementById('loading')); 
 		removeDiv(document.getElementById('success')); 
 		removeDiv(document.getElementById('error')); 
+		removeDiv(document.getElementById('centeror'));
 		removeDiv(document.getElementById('masker'));
 	};
 });

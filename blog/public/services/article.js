@@ -44,7 +44,7 @@ ArticleModule.extend('GetArticleList', function( params ){
 	});
 	Adodb.close();
 		
-	return { success: true, message: '获取日志列表成功', list: list, count: pages.pageCount };
+	return { success: true, message: '获取日志列表成功', list: list, count: pages ? pages.pageCount : 0 };
 });
 
 ArticleModule.extend('save', function( params ){

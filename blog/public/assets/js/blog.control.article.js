@@ -10,6 +10,7 @@ define(function( require, exports, module ){
 				});
 				this.GotoModifyArticle();
 				this.onScrollGetMessage();
+				this.onQuickPost();
 		},
 		GotoModifyArticle: function(){
 			$('#modifyarticle').on('click', function(){
@@ -134,6 +135,11 @@ define(function( require, exports, module ){
 					}
 				});
 			}
+		},
+		onQuickPost: function(){
+			$('#quickpost').on('click', function(){
+				alert(1);
+			});
 		},
 		tip: require('appjs/assets/blog.loading')
 	});

@@ -57,7 +57,7 @@
     <div class="tool">
     	<div class="pannel">
         	<h6><i class="fa fa-pinterest-square"></i> 发表日志</h6>
-            <button><i class="fa fa-sign-in"></i> 快速发表日志</button>
+            <button id="quickpost"><i class="fa fa-sign-in"></i> 快速发表日志</button>
             <button id="modifyarticle"><i class="fa fa-pencil"></i> 发表日志（高级模式）</button>
         </div>
         <div class="pannel">

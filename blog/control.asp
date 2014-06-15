@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="public/assets/css/layout.css"/>
 <link rel="stylesheet" type="text/css" href="public/assets/css/animate.css"/>
 <script language="javascript" type="text/javascript" src="appjs/assets/jquery.js"></script>
-<script language="javascript" type="text/javascript" src="appjs/assets/tronjs.js"></script>
+<script language="javascript" type="text/javascript" src="appjs/assets/tron.js"></script>
 <script language="javascript" type="text/javascript" src="private/configs/assets.js"></script>
 <title>PJBlog X Controler</title>
 </head>

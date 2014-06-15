@@ -1,2 +1,2 @@
 // JavaScript Document
-module.setBase('blog');
+Library.setBase('blog');

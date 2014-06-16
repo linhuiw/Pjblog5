@@ -20,7 +20,7 @@ define('appjs/assets/jquery.form.min', function( require, exports, module ){
 					$(tag).find('span').get(0).designMode = 'on';
 					$(tag).find('span').get(0).contentEditable = true;
 					
-					$(tag).find('span').focus();
+					$(tag).find('span').focus().select();
 					
 					$(tag).find('a').on('click', function(){
 						$(tag).animate({
@@ -92,36 +92,30 @@ define('appjs/assets/jquery.form.min', function( require, exports, module ){
 		},
 		SaveArticle: function(){
 			var that = this;
-			$('#postArticle').ajaxForm({
-				dataType: 'json',
-				beforeSubmit: function(){
-					if ( window.doing ){
-						return false;
-					};
-					window.doing = true;
-					var contents = that.ue.getContent(),
+			$('#submit').on('click', function(){
+				var contents = that.ue.getContent(),
 						tags = [];
-					$("textarea[name='art_content']").val(contents);
-					$('#articles .tool .pannel .tags .item').each(function(){
-						tags.push($(this).find('span').text());
-					});
-					$("input[name='art_tags']").val(tags.join(','));
-				},
-				success: function( params ){
-					window.doing = false;
-					if ( params.success ){
-						that.tip.success(params.message);
-						setTimeout(function(){
-							window.location.href = '?m=article';
-						}, 1000);
-					}else{
-						that.tip.error(params.message);
+						
+				$("textarea[name='art_content']").val(contents);
+				$('#articles .tool .pannel .tags .item').each(function(){ tags.push($(this).find('span').html()); });
+				$("input[name='art_tags']").val(tags.join(','));
+				that.tip.loading('正在发送数据信息..');
+				$('#postArticle').ajaxSubmit({
+					dataType: 'json',
+					success: function( params ){
+						if ( params.success ){
+							that.tip.success(params.message);
+							setTimeout(function(){
+								window.location.href = '?m=article';
+							}, 1000);
+						}else{
+							that.tip.error(params.message);
+						}
+					},
+					error: function(){
+						that.tip.error('服务端程序错误');
 					}
-				},
-				error: function(){
-					window.doing = false;
-					that.tip.error('服务端程序错误');
-				}
+				});
 			});
 		},
 		tip: require('appjs/assets/blog.loading')

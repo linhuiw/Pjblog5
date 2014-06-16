@@ -53,7 +53,7 @@ ArticleModule.extend('save', function( params ){
 		art_des = params.form.art_des,
 		art_category = params.form.art_category,
 		art_content = this.fns.unSQLStr(this.fns.unHTMLStr(params.form.art_content)),
-		art_tags = params.form.art_tags,
+		art_tags = this.fns.unSQLStr(this.fns.unHTMLStr(params.form.art_tags)),
 		art_draft = false,
 		art_tname = params.form.art_tname,
 		art_cover = params.form.art_cover,
@@ -74,6 +74,12 @@ ArticleModule.extend('save', function( params ){
 	id = Number(id);
 	if ( id > 0 ){ data.id = id; };
 	
+	if ( art_tags && art_tags.length > 0 ){
+		art_tags = art_tags.split(',');
+	}else{
+		art_tags = [];
+	}
+	
 	data.art_title = art_title;
 	data.art_des = art_des;
 	data.art_category = art_category;
@@ -82,7 +88,7 @@ ArticleModule.extend('save', function( params ){
 	data.art_tname = art_tname;
 	data.art_cover = art_cover;
 	data.art_tdes = art_tdes;
-	
+
 	this.SaveArticle(data, rets, art_draft);
 	
 	return rets;
@@ -91,27 +97,48 @@ ArticleModule.extend('save', function( params ){
 ArticleModule.extend('SaveArticle', function( data, msg, draft ){
 	var rec = new this.dbo.RecordSet(this.conn),
 		id = data.id,
-		date = require('date');
+		date = require('date'),
+		tags = require('./tag'),
+		tag = new tags();
 		
 	if ( id && id > 0 ) { delete data.id; };
 	
 	data.art_draft = draft || false;
 	
-	try{
+	//try{
 		if ( id && id > 0 ){
 			data.art_modifydate = date.format(new Date(), 'y/m/d h:i:s');
-			rec.sql('Select * From blog_articles Where id=' + id).open(3).update(data).close()
+
+			var oldTags = [];
+			rec
+				.sql('Select * From blog_articles Where id=' + id)
+				.process(function( object ){
+					var tags = object('art_tags').value;
+					if ( tags.length > 0 ){
+						oldTags = tags.replace(/^\{/, '').replace(/\}$/, '').split('}{');
+					}
+				}, 3);
+
+			if ( oldTags.length > 0 ){ tag.remove(oldTags); };
+			data.art_tags = tag.add(data.art_tags).join('');
+			rec = new this.dbo.RecordSet(this.conn)
+			rec
+				.sql('Select * From blog_articles Where id=' + id)
+				.open(3)
+				.update(data)
+				.close();
 		}else{
 			data.art_postdate = date.format(new Date(), 'y/m/d h:i:s');
+			data.art_tags = tag.add(data.art_tags).join('');
 			rec.sql('Select * From blog_articles').open(2).add(data).close();
 		};
 		
 		msg.success = true;
 		msg.message = '保存日志成功';
 		
-	}catch(e){
-		msg.message = e.message;
-	};
+	//}catch(e){
+	//	msg.message = e.message;
+	//};
 });
 
 ArticleModule.extend('DelArticle', function( params ){

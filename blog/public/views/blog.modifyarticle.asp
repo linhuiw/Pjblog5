@@ -5,6 +5,8 @@
 ;(function( dbo, conn, fs, fns, http, m, t ){
 	var id = http.query("id"),
 		category = require("public/services/category"),
+		tags = require("public/services/tag"),
+		tag = new tags(),
 		categoryModule,
 		categorys,
 		categoryList,
@@ -70,7 +72,7 @@
         <div class="tool">
         	<div class="pannel">
                 <h6><i class="fa fa-save"></i> 保存日志</h6>
-                <input type="submit" value="点击这里 保存这篇日志到数据库（<%=id > 0 ? "更新" : "添加"%>）" style="margin-left:37px;" />
+                <input type="button" value="点击这里 保存这篇日志到数据库（<%=id > 0 ? "更新" : "添加"%>）" style="margin-left:37px;" id="submit" />
             </div>
         	<div class="pannel">
                 <h6><i class="fa fa-image"></i> 日志封面</h6>
@@ -82,6 +84,22 @@
         	<div class="pannel">
                 <h6><i class="fa fa-tags"></i> 日志标签</h6>
                 <div class="tags">
+                	<%
+					
+						if ( arc.art_tags && arc.art_tags.length > 0 ){
+							arc.art_tags = arc.art_tags.replace(/^\{/, "").replace(/\}$/, "").split("}{");
+							if ( arc.art_tags.length > 0 ){
+								for ( var o = 0 ; o < arc.art_tags.length ; o++ ){
+									var name = tag.read(arc.art_tags[o]);
+									if ( name && name.length > 0 )	{
+					%>
+                    <div class="item"><span contenteditable="true"><%=name%></span><a href="javascript:;"><i class="fa fa-times"></i></a></div>
+                    <%
+									}
+								}
+							}
+						};
+					%>
                 </div>
                 <div class="tag-action">
                 	<a href="javascript:;" id="addTags"><i class="fa fa-plus"> 添加</i></a>

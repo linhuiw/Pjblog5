@@ -124,6 +124,7 @@ LevelModule.extend('modifyLevel', function( id, name, des ){
 			.process(function(object){
 				oldName = object('code_name').value;
 				object('code_name') = name;
+				object('code_des') = des;
 				object.Update();
 			},3);
 			

@@ -79,7 +79,8 @@
 <!-- 系统导航 开始 -->
 	<div class="header clearfix">
         <div class="logo fleft">PJBlogX<sub> . Controler</sub></div>
-        <div class="achor fleft">
+        <a href="javascript:;" class="fright logout"><i class="fa fa-power-off"></i></a>
+        <div class="achor">
             <%
                 ;(function( system_navs ){
                     for ( var i in system_navs ){

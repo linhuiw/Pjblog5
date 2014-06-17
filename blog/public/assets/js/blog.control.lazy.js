@@ -3,6 +3,7 @@ define(function( require, exports, module ){
 	return new Class({
 		initialize: function(){
 			this.onAutoAjax();
+			this.onLogout();
 		},
 		onAutoAjax: function(){
 			var that = this;
@@ -48,6 +49,19 @@ define(function( require, exports, module ){
 				}else{
 					that.tip.error(params.message);
 				}
+			});
+		},
+		onLogout: function(){
+			var that = this;
+			$('.logout').on('click', function(){
+				that.tip.loading();
+				$.getJSON('public/async.asp',{ m: 'user', p: 'logout' }, function( params ){
+					if ( params.success ){
+						window.location.reload();
+					}else{
+						that.tip.error(params.message);
+					}
+				});
 			});
 		},
 		tip: require('appjs/assets/blog.loading')

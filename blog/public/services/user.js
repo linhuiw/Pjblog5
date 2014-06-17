@@ -195,4 +195,10 @@ MemberModule.extend('adminStatus', function( callback ){
 	return logs;
 });
 
+MemberModule.extend('logout', function(){
+	var cookie = require('cookie');
+	cookie.clear(blog.cookie + "_user");
+	return { success: true, message: '退出登录成功' };
+});
+
 return MemberModule;

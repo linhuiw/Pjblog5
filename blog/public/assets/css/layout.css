@@ -92,6 +92,26 @@ html{ background-image:url(../img/bg.gif); }
 .col-x-2{ width:50%;}
 .col-x-3{ width:75%;}
 .col-x-4{ width:100%;}
+.col-s-1{ width:10%; }
+.col-s-2{ width:20%;}
+.col-s-3{ width:30%;}
+.col-s-4{ width:40%;}
+.col-s-5{ width:50%;}
+.col-s-6{ width:60%;}
+.col-s-7{ width:70%;}
+.col-s-8{ width:80%;}
+.col-s-9{ width:90%;}
+.col-s-10{ width:100%;}
+.col-s-1,
+.col-s-2,
+.col-s-3,
+.col-s-4,
+.col-s-5,
+.col-s-6,
+.col-s-7,
+.col-s-8,
+.col-s-9,
+.col-s-10{display:inline-table; float:left;}
 
 #plugin{}
 #plugin .tips{ color:#777; height:20px; margin-bottom:20px;}
@@ -424,10 +444,10 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 #articles .list .list-container .list-content li .tooled a:hover{ color:#777;}
 #articles .list .list-container .list-content li .tooled a{ margin:0px 10px; display:inline-block; width:10px; height:10px; line-height:10px;}
 #articles .tool{ margin-left:60%; color:#777;}
-#articles .tool .pannel{ padding:5px 10px; margin-bottom:20px;}
-#articles .tool .pannel h6{ line-height:20px; color:#777; font-weight:bold; margin-bottom:20px;}
-#articles .tool .pannel h6 i{ display:inline-block; width:26px; height:16px; line-height:16px; border-right:1px solid #ccc; text-align:center; padding:2px 0px; margin-right:5px; font-weight:normal;}
-#articles .tool .pannel h6 span{ margin-left:10px; color:#ccc; font-weight:normal;}
+.pannel{ padding:5px 10px; margin-bottom:20px;}
+.pannel h6{ line-height:20px; color:#777; font-weight:bold; margin-bottom:20px;}
+.pannel h6 i{ display:inline-block; width:26px; height:16px; line-height:16px; border-right:1px solid #ccc; text-align:center; padding:2px 0px; margin-right:5px; font-weight:normal;}
+.pannel h6 span{ margin-left:10px; color:#ccc; font-weight:normal;}
 
 #articles .tool .pannel ul.clearfix li{ float:left;}
 #articles .tool .pannel a:link,
@@ -465,3 +485,39 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 .uploadimage .submit{margin-top:10px;}
 .mas{ padding-left:37px; margin-bottom:10px;}
 .mas a{ float:none!important; margin-right:10px; display:inline-block!important;}
+
+.level-list{}
+.level-list li{ margin-bottom:20px;background-color:#fff; border-radius:3px; box-shadow:0px 0px 10px #ccc;}
+.level-list .mark{ float:right; height:20px; line-height:20px; padding:5px 10px; width:140px; text-align:center; background-color:#666; color:#fff; border-radius:0px 3px 0px 0px}
+.level-list .des{ margin-right:160px; line-height:20px; padding:5px 10px; color:#999;}
+.level-list .mark,
+.level-list .des{ border-top:1px solid #666;}
+.level-list .des .text{ line-height:20px; margin-bottom:6px;}
+.level-list .des a{ margin-right:10px;}
+.level-list .des a:link,
+.level-list .des a:visited{ color:#ccc; text-decoration:none;}
+.level-list .des a:hover{ color:#999;}
+.level-list .des .code .true{ color:#039;}
+.level-list .des .code .false{ color: #930;}
+
+.group-list{}
+.group-list li{ margin-bottom:20px;background-color:#fff; border-radius:3px; box-shadow:0px 0px 10px #ccc;}
+.group-list .mark{ float:left; height:20px; line-height:20px; padding:5px 10px; width:140px; text-align:center; background-color:#666; color:#fff; border-radius:3px 0px 0px 0px}
+.group-list .des{ margin-left:160px; line-height:20px; padding:5px 10px; color:#999;}
+.group-list .mark,
+.group-list .des{ border-top:1px solid #666;}
+.group-list .des .text{ line-height:20px; margin-bottom:6px;}
+.group-list .des a{ margin-right:10px;}
+.group-list .des a:link,
+.group-list .des a:visited{ color:#ccc; text-decoration:none;}
+.group-list .des a:hover{ color:#999;}
+.group-list .des .code .true{ color:#039;}
+.group-list .des .code .false{ color: #930;}
+.group-list .levels{ padding:5px 0px 0px 0px; margin-bottom:5px;}
+.group-list .levels .grouplevels{ float:left; margin-right:10px; border:1px solid #eee; padding:2px 0px 2px 0px; margin-bottom:5px;}
+.group-list .levels .grouplevels span{ margin-right:5px; display:inline-block; height:20px; border-right:1px solid #eee; padding:0px 10px;}
+.group-list .levels .grouplevels a i{ display:inline-block; height:20px; line-height:20px; padding:0px 0px 0px 5px;}
+
+.level-list .des .editbox .setforms{ border-top:1px solid #eee; margin-top:10px; padding-top:10px;}
+.level-list .des .editbox .setforms td{ padding:5px 10px;}
+.level-list .des .editbox .setforms tr td:first-child{ text-align:right;}

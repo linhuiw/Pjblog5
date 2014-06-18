@@ -25,8 +25,10 @@
                         <div class="levels clearfix"></div>
                         <div class="action">
                         	<a href="javascript:;" class="app-save-group-rights"><i class="fa fa-save"></i> 保存权限</a>
+                        	<%if ( !object("group_isystem").value ){%>
                         	<a href=""><i class="fa fa-pencil-square-o"></i> 编辑</a>
                             <a href=""><i class="fa fa-trash-o"></i> 删除</a>
+                            <%}%>
                         </div>
                     </div>
                 </li>
@@ -35,8 +37,8 @@
 							.close();
 					})();
 				%>
-            	<li></li>
             </ul>
+            <button id="addnewgroup"><i class="fa fa-plus"></i> 添加新组群</button>
         </div>
     </div>
     <div class="col-s-4">
@@ -58,8 +60,10 @@
                     	<div class="text"><i class="fa fa-check-square-o"></i> <%=object("code_des").value%></div>
                         <div class="code"><i class="fa fa-code"></i> TronLevel.<%=object("code_name").value%> <i class="fa fa-angle-right"></i> <span class="true">True</span> or <span class="false">False</span></div>
                         <div class="action">
+                        	<%if ( !object("code_isystem").value ){%>
                         	<a href="javascript:;" app-id="<%=object("id").value%>" class="app-level-modify"><i class="fa fa-pencil-square-o"></i> 编辑</a>
                             <a href="javascript:;" app-id="<%=object("id").value%>" class="app-level-remove"><i class="fa fa-trash-o"></i> 删除</a>
+                            <%}%>
                         </div>
                         <div class="editbox"></div>
                     </div>

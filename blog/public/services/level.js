@@ -122,18 +122,21 @@ LevelModule.extend('modifyLevel', function( id, name, des ){
 		rec
 			.sql('Select * From blog_code Where id=' + id)
 			.process(function(object){
-				oldName = object('code_name').value;
-				object('code_name') = name;
-				object('code_des') = des;
-				object.Update();
+				if ( !object('code_isystem').value ){
+					oldName = object('code_name').value;
+					object('code_name') = name;
+					object('code_des') = des;
+					object.Update();
+					rets.success = true;
+					rets.message = '修改权限成功';
+				}else{
+					rets.message = '系统权限不能修改';
+				}
 			},3);
 			
-		if ( oldName ){
+		if ( rets.success && oldName ){
 			this.AddLevelForAddGroupCode(name, oldName);
 		};
-			
-		rets.success = true;
-		rets.message = '修改权限成功';
 	}else{
 		rets.message = '权限名称已存在';
 	}
@@ -150,8 +153,12 @@ LevelModule.extend('DeleteLevel', function( id ){
 		.sql('Select * From blog_code Where id=' + id)
 		.process(function(object){
 			if ( !object.Bof && !object.Eof ){
-				name = object('code_name').value;
-				object.Delete();
+				if ( !object('code_isystem').value ){
+					name = object('code_name').value;
+					object.Delete();
+				}else{
+					rets.message = '系统权限不能删除';
+				}
 			};
 		}, 3);
 		
@@ -187,6 +194,45 @@ LevelModule.extend('SaveGroupRights', function( params ){
 		.close();
 	
 	return { success: true, message: '保存权限成功' };
+});
+
+LevelModule.extend('LevelRemove', function( params ){
+	var id = params.query.id,
+		rec = new this.dbo.RecordSet(this.conn),
+		mark,
+		rets = { success: false, message: '删除权限失败' };
+	
+	rec
+		.sql('Select * From blog_code Where id=' + id)
+		.process(function( object ){
+			if ( !object('code_isystem').value ){
+				mark = object('code_name').value;
+				object.Delete();
+				rets.success = true;
+				rets.message = '删除权限成功';
+				rets.mark = mark;
+			}else{
+				rets.message = '系统权限不能删除';
+			}
+		}, 3);
+	
+	rets.success && mark && this.RemoveLevelForRemoveGroupsCodeParams(mark);
+		
+	return rets;
+});
+
+LevelModule.extend('RemoveLevelForRemoveGroupsCodeParams', function( mark ){
+	var rec = new this.dbo.RecordSet(this.conn);
+	rec
+		.sql('Select * From blog_groups')
+		.open(3)
+		.each(function(object){
+			var code = JSON.parse(object('group_code').value);
+			delete code[mark];
+			object('group_code') = JSON.stringify(code);
+			object.Update();
+		})
+		.close();
 });
 
 return LevelModule;

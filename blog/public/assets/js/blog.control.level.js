@@ -7,6 +7,7 @@ define('appjs/assets/jquery.form.min', function( require, exports, module ){
 			this.onLevelModify();
 			this.onChangeRights();
 			this.onSaveRights();
+			this.onLevelDelete();
 			$('.group-list li').trigger('install');
 		},
 		onResizeGroups: function(){
@@ -162,10 +163,45 @@ define('appjs/assets/jquery.form.min', function( require, exports, module ){
 				}, function( params ){
 					if ( params.success ){
 						that.tip.success(params.message);
+						window.groups[parent.attr('mark')] = lv;
 					}else{
 						that.tip.error(params.message);
 					}
 				}, 'json');
+			});
+		},
+		onLevelDelete: function(){
+			var that = this;
+			$('body').on('click', '.app-level-remove', function(){
+				var id = $(this).attr('app-id'),
+					parent = $(this).parents('li:first');
+					
+				that.tip.loading();
+				$.getJSON('public/async.asp', {
+					m: 'level',
+					p: 'LevelRemove',
+					id: id
+				}, function( params ){
+					if ( params.success ){
+						that.tip.success(params.message);
+						parent.animate({
+							opacity: 0
+						}, 'slow', function(){
+							$(this).remove();
+							var mark = params.mark;
+							var i = window.levels.indexOf(mark);
+							if ( i > -1 ){
+								window.levels.splice(i, 1);
+								for ( var i in window.groups ){
+									delete window.groups[i][mark];
+								};
+								$('.group-list li').trigger('install');
+							}
+						});
+					}else{
+						that.tip.error(params.message);
+					}
+				});
 			});
 		},
 		tip: require('appjs/assets/blog.loading')

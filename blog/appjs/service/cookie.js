@@ -1,7 +1,7 @@
 // JavaScript Document
 exports.set = function(key, param, value){
 	if ( value === undefined ){
-		Response.Cookies(key) = params;
+		Response.Cookies(key) = param;
 	}
 	else{
 		Response.Cookies(key)(param) = value;

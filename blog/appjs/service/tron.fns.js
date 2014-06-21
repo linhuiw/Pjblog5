@@ -36,6 +36,24 @@ exports.unParams = function( str ){
 	return j;
 }
 
+exports.params = function( keyCode ){
+	if ( !keyCode || keyCode === null || keyCode === false || keyCode === undefined ){
+		return null;
+	};
+	
+	if ( typeof keyCode === "object" ){
+		var ret = [], i;
+
+		for ( i in keyCode ){
+			ret.push(i + "=" + keyCode[i]);
+		}
+
+		return ret.join("&");
+	}else{
+		return keyCode;
+	}
+}
+
 exports.jsonp = function( str , callback ){
 	var c = {};
 	c[callback] = function( jsons ){ return jsons; };

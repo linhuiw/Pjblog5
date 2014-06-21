@@ -15,7 +15,7 @@
 		code: code,
 		state: r
 	}));
-	
+
 	if ( tokens.access_token ){
 		var openidcallback = fns.jsonp(ajax.get("http://cloud.cn/oauth/me.asp", {
 			access_token: tokens.access_token

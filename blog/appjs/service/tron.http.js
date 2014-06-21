@@ -16,20 +16,6 @@ var httpService = new Class({
 		}
 	
 		return _ret;
-	},
-	
-	param: function( keyCode ){
-		if ( typeof keyCode === "object" ){
-			var ret = [], i;
-	
-			for ( i in keyCode ){
-				ret.push(i + "=" + keyCode[i]);
-			}
-	
-			return ret.join("&");
-		}else{
-			return keyCode;
-		}
 	}
 });
 
@@ -73,4 +59,136 @@ httpService.extend('createServer', function( callback, filterCallback ){
 	return ret ? ret : service;
 });
 
+var AjaxServer = new Class({
+	initialize: function(){ this.object = new ActiveXObject(Library.com_xmlhttp); },
+	bin: function(text){
+		var obj = new ActiveXObject(Library.com_stream), 
+			ret;
+			obj.Type = 1;
+			obj.Mode = 3;
+			obj.Open;
+			obj.Write(text);
+			obj.Position = 0;
+			obj.Type = 2;
+			if ( Library.charset ) { obj.Charset = Library.charset; };
+			ret = obj.ReadText;
+			obj.Close;
+	
+		return ret;
+	},
+	param: function( keyCode ){
+		if ( !keyCode || keyCode === null || keyCode === false || keyCode === undefined ){
+			return null;
+		};
+		
+		if ( typeof keyCode === "object" ){
+			var ret = [], i;
+	
+			for ( i in keyCode ){
+				ret.push(i + "=" + keyCode[i]);
+			}
+	
+			return ret.join("&");
+		}else{
+			return keyCode;
+		}
+	},
+	save: function( content, file){
+		var object = new ActiveXObject(Library.com_stream);
+			object.Type = 1; 
+			object.Mode = 3; 
+			object.Open();
+			object.Position = 0;
+			object.Write(content);
+			object.SaveToFile(file, 2);
+			object.Close();
+			object = null;
+	}
+});
+
+AjaxServer.extend('send', function( options ){
+	var that = this, rets;
+	if ( !options.method ){ options.method = 'get'; };
+	if ( /^get$/i.test(options.method) ){ options.data = null; };
+	
+	this.object.open(method.toUpperCase(), options.url, false);
+	this.object.onreadystatechange = function() {
+		if (that.object.readyState === 4) {
+			if (that.object.status === 200){
+				if ( typeof options.success === 'function' ){
+					rets = options.success.call(that, that.object);
+				};
+			}
+		}
+	};
+	this.object.send(this.param(options.data));
+	
+	if ( rets ){
+		return rets;
+	}else{
+		return this;
+	}
+});
+
+AjaxServer.extend('get', function(url, data, callback){
+	return this.send({
+		url: url,
+		data: data,
+		success: function( object ){
+			var rets = this.bin(object.responseBody);
+			if ( typeof callback === 'function' ){
+				rets = callback.call(this, rets, object);
+			};
+			return rets;
+		}
+	});
+});
+
+AjaxServer.extend('post', function( url, data, callback ){
+	return this.send({
+		url: url,
+		data: data,
+		success: function( object ){
+			var rets = this.bin(object.responseBody);
+			if ( typeof callback === 'function' ){
+				rets = callback.call(this, rets, object);
+			};
+			return rets;
+		},
+		method: 'post'
+	});
+});
+
+AjaxServer.extend('getBinary', function( url, data, callback ){
+	return this.send({
+		url: url,
+		data: data,
+		success: function( object ){
+			var rets = object.responseBody;
+			if ( typeof callback === 'function' ){
+				rets = callback.call(this, rets, object);
+			};
+			return rets;
+		}
+	});
+});
+
+AjaxServer.extend('getJSON', function(url, data){
+	return this.get(url, data, function( code ){
+		return JSON.parse(code);
+	});
+});
+
+AjaxServer.extend('postJSON', function(url, data){
+	return this.post(url, data, function( code ){
+		return JSON.parse(code);
+	});
+});
+
+AjaxServer.extend('SaveFile', function( url, data, file ){
+	if ( !file ){ file = data; data = {}; };
+	this.getBinary(url, data, function( rets ){ this.save(rets, file); });
+});
+
 exports.http = new httpService();
+exports.ajax = AjaxServer;

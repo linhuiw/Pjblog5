@@ -109,9 +109,13 @@ var AjaxServer = new Class({
 AjaxServer.extend('send', function( options ){
 	var that = this, rets;
 	if ( !options.method ){ options.method = 'get'; };
-	if ( /^get$/i.test(options.method) ){ options.data = null; };
+	if ( /^get$/i.test(options.method) && options.data ){
+		var p = this.param(options.data);
+		if ( p !== null && options.url.indexOf('?') > -1 ){ options.url += "&" + p; }else{ options.url += "?" + p; };
+		options.data = null; 
+	};
 	
-	this.object.open(method.toUpperCase(), options.url, false);
+	this.object.open(options.method.toUpperCase(), options.url, false);
 	this.object.onreadystatechange = function() {
 		if (that.object.readyState === 4) {
 			if (that.object.status === 200){

@@ -25,6 +25,24 @@ exports.type = function(obj){
 	return Object.prototype.toString.call(obj).split(" ")[1].toLowerCase().replace("]", "");
 }
 
+exports.unParams = function( str ){
+	var s = str.split("&"),
+		j = {};
+	for ( var i = 0 ; i < s.length ; i++ ){
+		var k = s[i].split("=");
+		j[k[0]] = k[1];
+	}
+	
+	return j;
+}
+
+exports.jsonp = function( str , callback ){
+	var c = {};
+	c[callback] = function( jsons ){ return jsons; };
+	var a = new Function("return this." + str);
+	return a.call(c);
+}
+
 exports.SQLStr = function( str ){
 	if ( !str ){
 		return "";

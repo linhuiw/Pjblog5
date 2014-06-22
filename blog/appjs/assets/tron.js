@@ -316,9 +316,17 @@
 			}else{
 				parentArrays.splice(index, 2);
 			}
-			return this.ResolveParentSelector(Library.host + "/" + parentArrays.join("/"));
+			var x = parentArrays.join("/");
+			if ( !Library.regx_http.test(x) ){
+				x = Library.host + "/" + x;
+			}
+			return this.ResolveParentSelector(x);
 		}else{
-			return Library.host + "/" + parentArrays.join("/");
+			var b = parentArrays.join("/");
+			if ( !Library.regx_http.test(b) ){
+				b = Library.host + "/" + b;
+			}
+			return b;
 		}
 	});
 	

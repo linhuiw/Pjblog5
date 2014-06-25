@@ -7,13 +7,14 @@
 	var code = http.query("code");
 	var fns = require("fns");
 	var r = fns.randoms(6);
+	var state = http.query("state");
 	
 	var tokens = fns.unParams(ajax.get("http://cloud.cn/oauth/token.asp", {
 		grant_type: "authorization_code",
 		client_id: "10001",
 		client_secret: "BB92lcY9nGsjEJWeTSHmIIIHBm1clDVH6zgjZk3w",
 		code: code,
-		state: r
+		redirect_uri: "http%3A//blog.cn/blog/callback.asp"
 	}));
 
 	if ( tokens.access_token ){

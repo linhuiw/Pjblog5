@@ -521,3 +521,13 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 .level-list .des .editbox .setforms{ border-top:1px solid #eee; margin-top:10px; padding-top:10px;}
 .level-list .des .editbox .setforms td{ padding:5px 10px;}
 .level-list .des .editbox .setforms tr td:first-child{ text-align:right;}
+
+#loginform{ width:250px; height: 40px; display:block; position:absolute; top:50%; left:50%; margin-top:-20px; margin-left:-125px; text-align:center; background-color:#fff; border:1px solid #ccc; border-radius:3px; box-shadow:1px 1px 10px #ccc;}
+#loginform:link,
+#loginform:visited{ color:#777; text-decoration:none;}
+#loginform:hover{ color:#000;}
+#loginform strong,
+#loginform span{ display:block;}
+#loginform strong{ height:40px; line-height:40px; font-size:14px;}
+#loginform span{ height:20px; line-height:20px;}
+#loginform strong i{ margin-right:10px;}

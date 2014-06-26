@@ -55,25 +55,11 @@
 	};*/
 	
 	if ( !common.login || !common.admin ){
+		(function(global, ret){
 %>
-	<form action="public/sync.asp?m=user&p=loginor" method="post" id="loginform">
-        <div class="login">
-            <h5>PJBlog X 内容管理系统</h5>
-            <div class="param clearfix">
-                <i class="fa fa-user-md"></i>
-                <input type="text" name="UserName" placeholder="UserName.." class="col" />
-            </div>
-            <div class="param clearfix">
-                <i class="fa fa-keyboard-o"></i>
-                <input type="password" name="PassWord" placeholder="PassWord.." class="col" />
-            </div>
-            <input type="submit" value="登录" class="submit" />
-        </div>
-    </form>
-    <script language="javascript" type="text/javascript">
-        require('public/assets/js/blog.control.login', function(params){ new params(); });
-    </script>
-<%		
+	<a href="<%=ret.GetAuthorizeURL(global.blog_appid, true)%>" id="loginform"><strong><i class="fa fa-share-alt-square"></i>后台授权登录</strong></a>
+<%
+		})(require("private/chips/blog.global"), require("public/library/oauth2"));	
 	}else{
 %>
 <!-- 系统导航 开始 -->

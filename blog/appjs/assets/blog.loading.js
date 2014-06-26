@@ -109,21 +109,21 @@ define(function( require, exports, module ){
 		
 		this.close();
 		
-		if ( !masker ){
-			masker = createDiv();
-			masker.id = 'masker';
-			$(masker).css({
-				opacity: ".3",
-				"background-color": "#000",
-				zIndex: 99998
-			})
-		}
+		masker = createDiv();
+		masker.id = 'masker';
+		$(masker).css({
+			opacity: ".5",
+			"background-color": "#fff",
+			zIndex: 99998
+		});
 		
 		if ( !centeror ){
 			centeror = createDiv();
 			centeror.id = 'centeror';
 			centeror.innerHTML = html;
-			$(centeror).addClass('animated bounceIn')
+			$(centeror).addClass('animated bounceIn').css({
+				zIndex: 99999
+			});
 		}else{
 			centeror.innerHTML = html;
 		}

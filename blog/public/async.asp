@@ -37,17 +37,17 @@
 			
 			var ph = resolve(resolvePath);
 			if ( fs.exist(ph) ){
-				var mode = require(ph),
-					mose = new mode(params);
+				var mode = require(ph);
+				
+					mode.extend("fso", fso);
+					mode.extend("fns", fns);
+					mode.extend("fs", fs);
+					mode.extend("dbo", user.dbo);
+					mode.extend("conn", user.conn);
+				
+				var mose = new mode(params);
 			
 				if ( mose[p] && typeof mose[p] === "function" ){
-				
-					mose.fso = fso;
-					mose.fns = fns;
-					mose.fs = fs;
-					mose.dbo = user.dbo;
-					mose.conn = user.conn;
-					
 					Library.json(mose[p](params));
 				}else{
 					Library.json({ success: false, message: "该模块中找不到对应的处理方法" });

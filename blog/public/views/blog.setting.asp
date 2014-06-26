@@ -60,6 +60,20 @@
     </div>
     
     <div class="setform">
+        <h5><i class="fa fa-globe"></i> 平台授权账号信息（<%=blog.AppPlatForm%>）</h5>
+        <table cellpadding="0" cellspacing="0" width="100%" border="0">
+            <tr>
+                <td width="150">APPID</td>
+                <td><input type="text" value="<%=object("blog_appid").value%>" name="blog_appid" class="col-x-3" /></td>
+            </tr>
+            <tr>
+                <td width="150">APPKEY</td>
+                <td><input type="text" value="<%=object("blog_appkey").value%>" name="blog_appkey" class="col-x-3" /></td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="setform">
         <h5><i class="fa fa-file-text-o"></i> 日志设置，简单，方便，快捷！</h5>
         <table cellpadding="0" cellspacing="0" width="100%" border="0">
             <tr>

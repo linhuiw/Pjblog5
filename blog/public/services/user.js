@@ -195,6 +195,53 @@ MemberModule.extend('adminStatus', function( callback ){
 	return logs;
 });
 
+MemberModule.extend("OauthLogin", function( params ){
+	var rec = new this.dbo.RecordSet(this.conn),
+		ret = { success: false, message: '登录失败' };
+		
+	rec
+		.sql("Select * From blog_members Where member_openid='" + params.openid + "'")
+		.process(function(object){
+			var fns = require('fns'),
+				sha1 = require('sha1'),
+				date = require('date'),
+				hashkey = sha1.make(fns.randoms(10) + "-" + (new Date().getTime()));
+				
+			if ( object.Bof || object.Eof ){ 
+				object.AddNew(); 
+				object('member_group') = 1;
+			};
+			
+			object('member_hashkey') = hashkey;
+			object('member_nick') = params.nick;
+			object('member_mail') = params.mail;
+			object('member_logindate') = date.format(new Date(), 'y/m/d h:i:s');
+			object('member_birthday') = date.format(new Date(params.birthday), 'y/m/d h:i:s');
+			object('member_address') = params.address;
+			object('member_website') = params.website;
+			object('member_sex') = params.sex;
+			object('member_avatar') = params.avatar;
+			object('member_token') = params.token;
+			object('member_openid') = params.openid;
+			
+			object.Update();
+			
+			var id = object('id').value;
+			
+			(function( cookie ){
+				cookie.set(blog.cookie + "_user", "id", id);
+				cookie.set(blog.cookie + "_user", "hashkey", hashkey);
+				cookie.expire(blog.cookie + "_user", 30 * 24 * 60 * 60 * 1000);
+			})( require('cookie') );
+			
+			ret.success = true;
+			ret.message = '登录成功';
+			
+		}, 3);
+		
+	return ret;
+});
+
 MemberModule.extend('logout', function(){
 	var cookie = require('cookie');
 	cookie.clear(blog.cookie + "_user");

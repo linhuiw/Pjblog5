@@ -113,7 +113,7 @@ define(function( require, exports, module ){
 		masker.id = 'masker';
 		$(masker).css({
 			opacity: ".5",
-			"background-color": "#fff",
+			"background-color": "#000",
 			zIndex: 99998
 		});
 		

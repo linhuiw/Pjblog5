@@ -181,15 +181,23 @@ MemberModule.extend('adminStatus', function( callback ){
 	logs.admin = false;
 	
 	if ( logs.login ){
-		var rec = new this.dbo.RecordSet(this.conn);
-		rec
-			.sql('Select * From blog_groups Where id=' + logs.group)
-			.process(function(obj){
-				if ( !obj.Bof && !obj.Eof ){
-					var parses = JSON.parse(obj('group_code').value);
-					logs.admin = parses.ControlSystem;
+		var GroupCache = require('private/chips/blog.groups'),
+			LevelCache = require('Private/chips/blog.levels');
+		
+		if ( GroupCache[logs.group + ""] ){
+			var levels = GroupCache[logs.group + ""],
+				LevelsMarks = [];
+				
+			for ( var i = 0 ; i < levels.length ; i++ ){
+				if ( LevelCache[levels[i] + ""] ){
+					LevelsMarks.push(LevelCache[levels[i] + ""]);	
 				}
-			});
+			}
+			
+			if ( LevelsMarks.indexOf('ControlSystem') > -1 ){
+				logs.admin = true;
+			}
+		}
 	}
 	
 	return logs;

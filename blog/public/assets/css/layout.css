@@ -486,42 +486,6 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 .mas{ padding-left:37px; margin-bottom:10px;}
 .mas a{ float:none!important; margin-right:10px; display:inline-block!important;}
 
-.level-list{}
-.level-list li{ margin-bottom:20px;background-color:#fff; border-radius:3px; box-shadow:0px 0px 10px #ccc;}
-.level-list .mark{ float:right; height:20px; line-height:20px; padding:5px 10px; width:140px; text-align:center; background-color:#666; color:#fff; border-radius:0px 3px 0px 0px}
-.level-list .des{ margin-right:160px; line-height:20px; padding:5px 10px; color:#999;}
-.level-list .mark,
-.level-list .des{ border-top:1px solid #666;}
-.level-list .des .text{ line-height:20px; margin-bottom:6px;}
-.level-list .des a{ margin-right:10px;}
-.level-list .des a:link,
-.level-list .des a:visited{ color:#ccc; text-decoration:none;}
-.level-list .des a:hover{ color:#999;}
-.level-list .des .code .true{ color:#039;}
-.level-list .des .code .false{ color: #930;}
-
-.group-list{}
-.group-list li{ margin-bottom:20px;background-color:#fff; border-radius:3px; box-shadow:0px 0px 10px #ccc;}
-.group-list .mark{ float:left; height:20px; line-height:20px; padding:5px 10px; width:140px; text-align:center; background-color:#666; color:#fff; border-radius:3px 0px 0px 0px}
-.group-list .des{ margin-left:160px; line-height:20px; padding:5px 10px; color:#999;}
-.group-list .mark,
-.group-list .des{ border-top:1px solid #666;}
-.group-list .des .text{ line-height:20px; margin-bottom:6px;}
-.group-list .des a{ margin-right:10px;}
-.group-list .des a:link,
-.group-list .des a:visited{ color:#ccc; text-decoration:none;}
-.group-list .des a:hover{ color:#999;}
-.group-list .des .code .true{ color:#039;}
-.group-list .des .code .false{ color: #930;}
-.group-list .levels{ padding:5px 0px 0px 0px; margin-bottom:5px;}
-.group-list .levels .grouplevels{ float:left; margin-right:10px; border:1px solid #eee; padding:2px 0px 2px 0px; margin-bottom:5px;}
-.group-list .levels .grouplevels span{ margin-right:5px; display:inline-block; height:20px; border-right:1px solid #eee; padding:0px 10px;}
-.group-list .levels .grouplevels a i{ display:inline-block; height:20px; line-height:20px; padding:0px 0px 0px 5px;}
-
-.level-list .des .editbox .setforms{ border-top:1px solid #eee; margin-top:10px; padding-top:10px;}
-.level-list .des .editbox .setforms td{ padding:5px 10px;}
-.level-list .des .editbox .setforms tr td:first-child{ text-align:right;}
-
 #loginform{ width:250px; height: 40px; display:block; position:absolute; top:50%; left:50%; margin-top:-20px; margin-left:-125px; text-align:center; background-color:#fff; border:1px solid #ccc; border-radius:3px; box-shadow:1px 1px 10px #ccc;}
 #loginform:link,
 #loginform:visited{ color:#777; text-decoration:none;}
@@ -531,3 +495,30 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 #loginform strong{ height:40px; line-height:40px; font-size:14px;}
 #loginform span{ height:20px; line-height:20px;}
 #loginform strong i{ margin-right:10px;}
+
+.blocks{ background-color:#fff; margin-bottom:20px; box-shadow:1px 1px 10px #ccc; padding:5px 10px; color:#777; position:relative; height:40px; border-radius:3px;}
+.blocks .name,
+.blocks .mark{ width:150px; text-align:center;}
+.blocks .p1{ border-right:1px solid #eee; position:absolute; top:5px; left:0px; bottom:5px;}
+.blocks .p2{ margin-left:170px; margin-right:80px; padding:10px 0px;}
+.blocks .name{ height:20px; line-height:20px; font-weight:bold;}
+.blocks .mark{ height:18px; line-height:18px; color:#ccc;}
+.blocks .p3{ width:60px;  border-left:1px solid #eee;}
+.blocks .p3 a{ display:block; height:20px; line-height:20px; width:60px; text-align:center;}
+.blocks .p3 a i{ margin-right:0px; display:inline-block; width:20px; height:20px; text-align:center;}
+.blocks .p3 a:link,
+.blocks .p3 a:visited{ color:#777; text-decoration:none;}
+.blocks .p3 a:hover{ color:#999;}
+
+.modifylevel{ width:400px; padding:30px 50px; color:#777;}
+.modifylevel td{ padding:3px 5px 5px 5px;}
+.modifylevel tr td:first-child{ text-align:right;}
+.groups-list p{ height:20px; line-height:20px; border-bottom:1px dashed #ddd; padding:3px 5px;}
+.groups-list p input{ position:relative; top:2px;}
+.groups-list .tools{ padding:10px 0px 0px 10px; text-align:right;}
+.groups-list .tools a{ margin-left:10px;}
+.groups-list .tools a:link,
+.groups-list .tools a:visited{ color:#777; text-decoration:none;}
+.groups-list .tools a:hover{ color:#999;}
+.groups-list p span{ width:150px; display:inline-block;}
+.groups-list p strong{ color:#ccc;}

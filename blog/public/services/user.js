@@ -181,8 +181,8 @@ MemberModule.extend('adminStatus', function( callback ){
 	logs.admin = false;
 	
 	if ( logs.login ){
-		var GroupCache = require('private/chips/blog.groups'),
-			LevelCache = require('Private/chips/blog.levels');
+		var GroupCache = require('private/chips/' + blog.cache + 'blog.groups'),
+			LevelCache = require('Private/chips/' + blog.cache + 'blog.levels');
 		
 		if ( GroupCache[logs.group + ""] ){
 			var levels = GroupCache[logs.group + ""],

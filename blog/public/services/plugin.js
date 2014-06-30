@@ -137,7 +137,7 @@ PluginModule.extend('getPluginSettingMessage', function( params ){
 		
 	if ( !isNaN(id) ){
 		var rec = new this.dbo.RecordSet(this.conn),
-			uri = require('private/chips/blog.uri.plugins');
+			uri = require('private/chips/' + blog.cache + 'blog.uri.plugins');
 			
 		rets.folder = uri.queens[uri.indexs[id + '']].folder;
 		

@@ -50,7 +50,7 @@ SetModule.extend('ReBuildCacheFile', function(){
 			h += 'exports.' + i + ' = ' + JSON.stringify(params[i]) + ';\n';
 		};
 	
-		this.fs.saveFile(resolve('private/chips/blog.global'), h);
+		this.fs.saveFile(resolve('private/chips/' + blog.cache + 'blog.global'), h);
 });
 
 return SetModule;

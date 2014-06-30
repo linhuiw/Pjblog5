@@ -29,8 +29,8 @@
 		u,
 		s,
 		SystemNavs = require("public/chips/blog.control.system.navs"),
-		PluginNavs = require("private/chips/blog.control.plugin.navs"),
-		tfr = require("private/chips/blog.uri.plugins"),
+		PluginNavs = require("private/chips/" + blog.cache + "blog.control.plugin.navs"),
+		tfr = require("private/chips/" + blog.cache + "blog.uri.plugins"),
 		PluginNavsCount = 0;
 		
 	if ( !m || m.length === 0 ){

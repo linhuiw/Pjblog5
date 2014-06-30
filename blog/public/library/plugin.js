@@ -52,7 +52,7 @@ PluginModule.extend('uninstall', function( id ){
 
 // 插件缓存
 PluginModule.extend('AddPluginCacheFile', function( params ){
-	var BlogControlPluginCaches = require('private/chips/blog.uri.plugins');
+	var BlogControlPluginCaches = require('private/chips/' + blog.cache + 'blog.uri.plugins');
 	if ( !BlogControlPluginCaches.indexs ){ BlogControlPluginCaches.indexs = {}; };
 	if ( !BlogControlPluginCaches.queens ){ BlogControlPluginCaches.queens = {}; };
 	BlogControlPluginCaches.indexs[params.id + ''] = params.mark;
@@ -67,11 +67,11 @@ PluginModule.extend('AddPluginCacheFile', function( params ){
 	for ( var i in BlogControlPluginCaches ){
 		text += 'exports.' + i + ' = ' + JSON.stringify(BlogControlPluginCaches[i]) + ';\n';
 	}
-	this.fs.saveFile(resolve('private/chips/blog.uri.plugins'), text);
+	this.fs.saveFile(resolve('private/chips/' + blog.cache + 'blog.uri.plugins'), text);
 });
 
 PluginModule.extend('DeletePluginCacheFile', function( id ){
-	var BlogControlPluginCaches = require('private/chips/blog.uri.plugins');
+	var BlogControlPluginCaches = require('private/chips/' + blog.cache + 'blog.uri.plugins');
 	if ( !BlogControlPluginCaches.indexs ){ BlogControlPluginCaches.indexs = {}; };
 	if ( !BlogControlPluginCaches.queens ){ BlogControlPluginCaches.queens = {}; };
 	var mark = BlogControlPluginCaches.indexs[id + ''];
@@ -82,36 +82,36 @@ PluginModule.extend('DeletePluginCacheFile', function( id ){
 	for ( var i in BlogControlPluginCaches ){
 		text += 'exports.' + i + ' = ' + JSON.stringify(BlogControlPluginCaches[i]) + ';\n';
 	}
-	this.fs.saveFile(resolve('private/chips/blog.uri.plugins'), text);
+	this.fs.saveFile(resolve('private/chips/' + blog.cache + 'blog.uri.plugins'), text);
 });
 
 // 插件导航
 PluginModule.extend('AddPluginNavFile', function( params ){
 	if ( params.navs ){
-		var BlogControlPluginNavs = require('private/chips/blog.control.plugin.navs'),
+		var BlogControlPluginNavs = require('private/chips/' + blog.cache + 'blog.control.plugin.navs'),
 			text = '';
 			
 		BlogControlPluginNavs[params.id + ''] = params.navs;
 		for ( var i in BlogControlPluginNavs ){
 			text += 'exports["' + i + '"] = ' + JSON.stringify(BlogControlPluginNavs[i]) + ';\n';
 		}
-		this.fs.saveFile(resolve('private/chips/blog.control.plugin.navs'), text);
+		this.fs.saveFile(resolve('private/chips/' + blog.cache + 'blog.control.plugin.navs'), text);
 	}
 });
 
 PluginModule.extend('DeletePluginNavFile', function( id ){
-	var BlogControlPluginNavs = require('private/chips/blog.control.plugin.navs'),
+	var BlogControlPluginNavs = require('private/chips/' + blog.cache + 'blog.control.plugin.navs'),
 		text = '';
 		
 	if ( BlogControlPluginNavs[id + ''] ) { delete BlogControlPluginNavs[id + '']; };
 	for ( var i in BlogControlPluginNavs ){
 		text += 'exports["' + i + '"] = ' + JSON.stringify(BlogControlPluginNavs[i]) + ';\n';
 	}
-	this.fs.saveFile(resolve('private/chips/blog.control.plugin.navs'), text);
+	this.fs.saveFile(resolve('private/chips/' + blog.cache + 'blog.control.plugin.navs'), text);
 });
 
 PluginModule.extend('ReBuildPluginCacheFileByStatus', function( mark, status ){
-	var BlogControlPluginCaches = require('private/chips/blog.uri.plugins'),
+	var BlogControlPluginCaches = require('private/chips/' + blog.cache + 'blog.uri.plugins'),
 		text = '';
 		
 	if ( BlogControlPluginCaches.queens && BlogControlPluginCaches.queens[mark] ){
@@ -121,7 +121,7 @@ PluginModule.extend('ReBuildPluginCacheFileByStatus', function( mark, status ){
 	for ( var i in BlogControlPluginCaches ){
 		text += 'exports.' + i + ' = ' + JSON.stringify(BlogControlPluginCaches[i]) + ';\n';
 	}
-	this.fs.saveFile(resolve('private/chips/blog.uri.plugins'), text);
+	this.fs.saveFile(resolve('private/chips/' + blog.cache + 'blog.uri.plugins'), text);
 });
 
 PluginModule.extend('AddSettingValue', function(id, folder){

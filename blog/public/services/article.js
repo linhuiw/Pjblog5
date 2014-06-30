@@ -62,7 +62,7 @@ ArticleModule.extend('save', function( params ){
 		
 	var rets = { success: false, message: '保存日志失败' },
 		data = {},
-		GlobalCache = require('private/chips/blog.global');
+		GlobalCache = require('private/chips/' + blog.cache + 'blog.global');
 	
 	if ( art_title.length === 0 ){ rets.message = '标题不能为空'; return rets; };
 	if ( art_category.length === 0 ){ rets.message = '请选择分类后提交'; return rets; };

@@ -124,7 +124,7 @@ LevelModule.extend('ReBuildLevelsCacheFile', function(){
 		})
 		.close();
 	
-	this.DepartMentCacheFile(ret, resolve('private/chips/blog.levels'));
+	this.DepartMentCacheFile(ret, resolve('private/chips/' + blog.cache + 'blog.levels'));
 });
 
 LevelModule.extend('ReBuildGroupsCacheFile', function(){
@@ -139,7 +139,7 @@ LevelModule.extend('ReBuildGroupsCacheFile', function(){
 		})
 		.close();
 	
-	this.DepartMentCacheFile(ret, resolve('private/chips/blog.groups'));
+	this.DepartMentCacheFile(ret, resolve('private/chips/' + blog.cache + 'blog.groups'));
 });
 
 LevelModule.extend('DepartMentCacheFile', function( params, file ){

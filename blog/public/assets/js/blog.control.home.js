@@ -15,6 +15,9 @@ define([
 					keep.push(this.versions[i]);
 				}
 			}
+			keep = keep.sort(function(a, b){
+				return Number(a.id) - Number(b.id);
+			});
 			if ( keep.length > 0 ){
 				$('#versions .zone').append('<div class="clearfix title"><div class="ver fleft">版本</div><div class="info">描述</div></div>')
 				for ( var j = 0 ; j < keep.length ; j++ ){

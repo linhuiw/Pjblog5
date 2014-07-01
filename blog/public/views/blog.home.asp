@@ -123,50 +123,30 @@
                 </h5>
                 <div class="detail-body clearfix">
                     <div class="detail-body-A2">
+                    	<%
+							;(function( params ){
+								for ( var i in params ){
+									if ( /^com\_/.test(i) ){
+										try{
+											new ActiveXObject(params[i]);
+						%>
                         <div class="detail-body-A2-item clearfix">
-                            <div class="fleft"><i class="fa fa-angle-right"></i> ADODB.CONNECTION</div>
+                            <div class="fleft"><i class="fa fa-angle-right"></i> <%=params[i]%></div>
                             <div class="fright"><i class="fa fa-check"></i></div>
                         </div>
-                        
+                        <%
+										}catch(e){
+						%>
                         <div class="detail-body-A2-item clearfix">
-                            <div class="fleft"><i class="fa fa-angle-right"></i> ADODB.RECORDSET</div>
+                            <div class="fleft"><i class="fa fa-angle-right"></i> <%=params[i]%></div>
                             <div class="fright"><i class="fa fa-times"></i></div>
                         </div>
-                        
-                        <div class="detail-body-A2-item clearfix">
-                            <div class="fleft"><i class="fa fa-angle-right"></i> Scripting.FileSystemObject</div>
-                            <div class="fright"><i class="fa fa-check"></i></div>
-                        </div>
-                        
-                        <div class="detail-body-A2-item clearfix">
-                            <div class="fleft"><i class="fa fa-angle-right"></i> Adodb.Stream</div>
-                            <div class="fright"><i class="fa fa-check"></i></div>
-                        </div>
-                        
-                        <div class="detail-body-A2-item clearfix">
-                            <div class="fleft"><i class="fa fa-angle-right"></i> Microsoft.XMLHTTP</div>
-                            <div class="fright"><i class="fa fa-times"></i></div>
-                        </div>
-                        
-                        <div class="detail-body-A2-item clearfix">
-                            <div class="fleft"><i class="fa fa-angle-right"></i> Microsoft.XMLDOM</div>
-                            <div class="fright"><i class="fa fa-check"></i></div>
-                        </div>
-                        
-                        <div class="detail-body-A2-item clearfix">
-                            <div class="fleft"><i class="fa fa-angle-right"></i> MSXML2.DOMDocument</div>
-                            <div class="fright"><i class="fa fa-check"></i></div>
-                        </div>
-                        
-                        <div class="detail-body-A2-item clearfix">
-                            <div class="fleft"><i class="fa fa-angle-right"></i> Scripting.Dictionary</div>
-                            <div class="fright"><i class="fa fa-times"></i></div>
-                        </div>
-                        
-                        <div class="detail-body-A2-item clearfix">
-                            <div class="fleft"><i class="fa fa-angle-right"></i> Msxml2.ServerXMLHTTP</div>
-                            <div class="fright"><i class="fa fa-check"></i></div>
-                        </div>
+                        <%				
+										}
+									}
+								};
+							})( Library );
+						%>
                     </div>
                 </div>
             </div>

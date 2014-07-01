@@ -382,6 +382,7 @@ var define = function(){};
 	});
 	
 	factory.extend('contrast', function( file ){
+		if ( file === '.' ){ file = ''; };
 		return helper.request( file, this.__dirname );
 	});
 	
@@ -727,3 +728,8 @@ var define = function(){};
     }
 }());
 %>
+<script runat=server language=vbscript>
+Function VB_AscB(s)
+VB_AscB=AscB(s)
+End Function
+</script>

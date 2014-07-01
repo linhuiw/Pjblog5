@@ -167,4 +167,17 @@ FileSystemObject.extend('getFileContent', function( fullpath ){
 	return ret;
 });
 
+FileSystemObject.extend('getFileBinary', function(fullpath){
+	var stream = new ActiveXObject(Library.com_stream),
+		ret;
+		
+		stream.Type = 1;
+		stream.Open();
+		stream.LoadFromFile(fullpath);
+		ret = stream.Read(-1);
+		stream.Close();
+		
+	return ret;
+});
+
 return FileSystemObject;

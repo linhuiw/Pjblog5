@@ -5,5 +5,6 @@ blog.cookie = "tron";
 blog.cache = "pjblog5.";
 blog.AppPlatForm = "http://cloud.cn";
 blog.web = "http://blog.cn/blog";
+blog.version = 1;
 Library.setBase("blog");
 %>

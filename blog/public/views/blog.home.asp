@@ -1,5 +1,17 @@
 <!--HTML CONTENT-->
     <ul class="waterfull">
+    	<li id="versions">
+            <div class="detail">
+                <h5 class="detail-head clearfix">
+                    <div class="title"><i class="fa fa-git-square"></i> 最新版本信息</div>
+                    <div class="more"><a href="<%=blog.AppPlatForm%>" class="fa fa-arrow-circle-right" target="_blank"></a></div>
+                </h5>
+                <div class="detail-body clearfix">
+                    <div class="detail-body-A3 zone">
+                    </div>
+                </div>
+            </div>
+        </li>
         <li>
             <div class="detail">
                 <h5 class="detail-head clearfix">
@@ -321,20 +333,6 @@
             <div class="detail">
                 <h5 class="detail-head clearfix">
                     <div class="title"><i class="fa fa-xing-square"></i> 最新在线插件</div>
-                    <div class="more"><a href="" class="fa fa-arrow-circle-right"></a></div>
-                </h5>
-                <div class="detail-body clearfix">
-                    <div class="detail-body-A3">
-                    dasf
-                    </div>
-                </div>
-            </div>
-        </li>
-        
-        <li>
-            <div class="detail">
-                <h5 class="detail-head clearfix">
-                    <div class="title"><i class="fa fa-git-square"></i> 最新版本信息</div>
                     <div class="more"><a href="" class="fa fa-arrow-circle-right"></a></div>
                 </h5>
                 <div class="detail-body clearfix">

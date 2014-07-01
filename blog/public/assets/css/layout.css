@@ -522,3 +522,15 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 .groups-list .tools a:hover{ color:#999;}
 .groups-list p span{ width:150px; display:inline-block;}
 .groups-list p strong{ color:#ccc;}
+
+#versions{}
+#versions .zone{}
+#versions .zone .clearfix{border-bottom:1px dashed #eee; padding:5px 0px;}
+#versions .zone .ver{ text-align:center; width:50px; height:20px; line-height:20px;}
+#versions .zone .info{ margin-left:60px; line-height:20px;}
+#versions .zone a:link,
+#versions .zone a:visited{ color:#1a6cc1; text-decoration:none;}
+#versions .zone a:hover{ color:#777;}
+#versions .zone .info .tool{ margin-top:5px;}
+#versions .zone .info .date{ color:#ccc;}
+#versions .zone .title{ font-weight:bold;}

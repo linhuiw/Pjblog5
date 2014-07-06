@@ -438,11 +438,12 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 #articles .list .list-container .list-content li .title a:hover{ color:#333;}
 #articles .list .list-container .list-content li .des{ padding:0px 10px; line-height:20px; color:#999; margin-bottom:10px;}
 #articles .list .list-container .list-content li .info{ padding:0px 10px; line-height:20px; height:20px; overflow:hidden; margin-bottom:5px; color:#ccc;}
-#articles .list .list-container .list-content li .tooled{ text-align:center; border-top:1px solid #eee; background-color:#f9f9f9; padding:10px 0px;}
+#articles .list .list-container .list-content li .tooled{ text-align:center; border-top:1px solid #eee; background-color:#f9f9f9; height:30px;}
 #articles .list .list-container .list-content li .tooled a:link,
 #articles .list .list-container .list-content li .tooled a:visited{ text-decoration:none; color:#999;}
 #articles .list .list-container .list-content li .tooled a:hover{ color:#777;}
-#articles .list .list-container .list-content li .tooled a{ margin:0px 10px; display:inline-block; width:10px; height:10px; line-height:10px;}
+#articles .list .list-container .list-content li .tooled a{float:left; width:50%; height:30px; line-height:30px;}
+#articles .list .list-container .list-content li .tooled a i{ display:block; line-height:30px; text-align:center;}
 #articles .tool{ margin-left:60%; color:#777;}
 .pannel{ padding:5px 10px; margin-bottom:20px;}
 .pannel h6{ line-height:20px; color:#777; font-weight:bold; margin-bottom:20px;}
@@ -534,3 +535,38 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 #versions .zone .info .tool{ margin-top:5px;}
 #versions .zone .info .date{ color:#ccc;}
 #versions .zone .title{ font-weight:bold;}
+
+#theme{}
+#theme .choosed{}
+#theme .locals{}
+#theme .locals h6{ color:#777; font-weight:bold; padding:10px 0; font-size:14px; padding-left:10px;}
+#theme .locals h6 i{ margin-right:5px;}
+#theme .locals ul{}
+#theme .locals ul li{ width:320px; background-color:#fff; margin:10px; box-shadow:1px 1px 3px #ccc;}
+#theme .locals ul li .witem{ padding:5px; }
+#theme .locals ul li .witem .img{ text-align:center;}
+#theme .locals ul li .witem .img img{ max-width:310px;*width: 310px;margin:0 auto;}
+#theme .locals ul li .witem .title{ line-height:18px; padding:5px 0px; color:#000; font-weight:bold; text-align:center;}
+#theme .locals ul li .witem .info{}
+#theme .locals ul li .witem .info p{ line-height:20px; padding:3px 0px; border-top:1px dashed #eee; color:#777; padding-left:10px; padding-right:10px;}
+#theme .locals ul li .witem .info p i{ margin-right:10px; line-height:20px; color:#999;}
+#theme .locals ul li .witem .tols{border-top:1px dashed #eee; height:30px; padding-top:5px;}
+#theme .locals ul li .witem .tols a{ width:49.5%; float:left; display:block; height:30px; line-height:30px; text-align:center;}
+#theme .locals ul li .witem .tols a:first-child{ border-right:1px solid #eee;}
+#theme .locals ul li .witem .tols a:link,
+#theme .locals ul li .witem .tols a:visited{ color:#777; text-decoration:none;}
+#theme .locals ul li .witem .tols a:hover{ color:#999;}
+#theme .choosed{ background-color:#fff; box-shadow:1px 1px 3px #ccc; padding:20px 30px; border-radius:3px; margin-bottom:30px;}
+#theme .choosed .img{ width:310px; height:200px; overflow:hidden;}
+#theme .choosed .img img{ width:310px; vertical-align:middle;}
+#theme .choosed .info{ margin-left:350px; color:#777;}
+#theme .choosed .info h6{ height:30px; line-height:30px; font-weight:bold;}
+#theme .choosed .info .it,
+#theme .choosed .tols{ line-height:20px; padding:3px 0px; border-top:1px dashed #eee;}
+#theme .choosed .info .it i,
+#theme .choosed .tols a i{ margin-right:10px; color:#999;}
+#theme .choosed .tols{ margin-left:350px;}
+#theme .choosed .tols a{ margin-right:20px;}
+#theme .choosed .tols a:link,
+#theme .choosed .tols a:visited{ color:#1a6cc1; text-decoration:none;}
+#theme .choosed .tols a:hover{ color:#999;}

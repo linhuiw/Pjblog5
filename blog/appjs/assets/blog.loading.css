@@ -12,3 +12,8 @@
 .dialog h5{ height:20px; line-height:20px; padding:8px 10px; color:#fff; font-size: 14px;}
 .dialog h5 i{ display:inline-block; width:20px; height:20px; line-height:20px; text-align:center;}
 .dialog .msg{ width:200px; line-height:20px; padding:0px 35px; color:#fff; margin-bottom:15px;}
+
+#RightSettingbox{ background-color:#fff; width:560px; box-shadow:0px 0px 10px #eee; border-radius:5px 0px 0px 5px; padding:10px 20px;}
+#RightSettingbox h6{ height:20px; line-height:20px; color:#777; font-weight:bold; padding:5px 0px; }
+#RightSettingbox table{ }
+#RightSettingbox table td{ padding:5px 5px; border-top:1px dashed #eee; color:#777;}

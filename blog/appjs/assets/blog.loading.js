@@ -10,22 +10,22 @@ define(function( require, exports, module ){
 		if ( element ) { $(element).remove(); };
 	}
 	
-	var timer;
-	
 	$(window).on('resize', function(){
 		var masker = document.getElementById('masker'),
 			loading = document.getElementById('loading'),
 			success = document.getElementById('success'),
 			error = document.getElementById('error'),
-			centeror = document.getElementById('centeror');
+			centeror = document.getElementById('centeror'),
+			right = document.getElementById('right');
 		
 		if ( masker ){
 			$(masker).css({
 				"position": "fixed",
 				"top": "0px",
 				"left": "0px",
-				"height": $(window).height() + "px",
-				"width": "100%"
+				//"height": $(window).height() + "px",
+				"width": "100%",
+				bottom: '0px'
 			});
 		};
 		
@@ -36,7 +36,16 @@ define(function( require, exports, module ){
 		
 		if ( centeror ){
 			$(centeror).css('position', 'fixed');
-			$(centeror).css({ "top": (($(window).height() - $(centeror).outerHeight()) / 2) + "px", "left": (($(window).width() - $(centeror).outerWidth()) / 2) + "px" });
+			$(centeror).css({ 
+				"top": "50%",
+				"left": "50%",
+				"margin-top": "-" + ($(centeror).outerHeight() / 2) + "px", 
+				"margin-left": "-" + ($(centeror).outerWidth() / 2) + "px"
+			});
+		};
+		if ( right ){
+			$(right).css('position', 'fixed');
+			$(right).css({ "top": "50%", "right": "0px", "margin-top": "-" + ($(right).outerHeight() / 2) + "px" });
 		};
 		
 		if ( success ){ $(success).css('position', 'fixed'); $(success).css({ "top": "52px", "right": "20px" }); };
@@ -44,6 +53,7 @@ define(function( require, exports, module ){
 	});
 	
 	exports.loading = function(text){
+		if ( window.timer ){ clearTimeout(window.timer); };
 		var masker = document.getElementById('masker'),
 			loading = document.getElementById('loading');
 		
@@ -66,6 +76,7 @@ define(function( require, exports, module ){
 	};
 	
 	exports.success = function(text){
+		if ( window.timer ){ clearTimeout(window.timer); };
 		var masker = document.getElementById('masker'),
 			success = document.getElementById('success'),
 			that = this;
@@ -81,10 +92,11 @@ define(function( require, exports, module ){
 			
 		$(window).trigger('resize');
 		timer && clearTimeout(timer);
-		timer = setTimeout(function(){ that.close(); }, 3000);
+		window.timer = setTimeout(function(){ that.close(); }, 3000);
 	};
 	
 	exports.error = function(text){
+		if ( window.timer ){ clearTimeout(window.timer); };
 		var error = document.getElementById('error'),
 			that = this;
 			
@@ -99,10 +111,11 @@ define(function( require, exports, module ){
 			
 		$(window).trigger('resize');
 		timer && clearTimeout(timer);
-		timer = setTimeout(function(){ that.close(); }, 3000);
+		window.timer = setTimeout(function(){ that.close(); }, 3000);
 	};
 	
 	exports.center = function(html){
+		if ( window.timer ){ clearTimeout(window.timer); };
 		var centeror = document.getElementById('centeror'),
 			masker = document.getElementById('masker'),
 			that = this;
@@ -131,13 +144,47 @@ define(function( require, exports, module ){
 		$(window).trigger('resize');
 		
 		return centeror;
+	};
+	
+	exports.right = function(html){
+		if ( window.timer ){ clearTimeout(window.timer); };
+		var right = document.getElementById('right'),
+			masker = document.getElementById('masker'),
+			that = this;
+		
+		this.close();
+		
+		masker = createDiv();
+		masker.id = 'masker';
+		$(masker).css({
+			opacity: ".5",
+			"background-color": "#000",
+			zIndex: 99998
+		});
+		
+		if ( !right ){
+			right = createDiv();
+			right.id = 'right';
+			right.innerHTML = html;
+			$(right).addClass('animated fadeInRightBig').css({
+				zIndex: 99999
+			});
+		}else{
+			right.innerHTML = html;
+		}
+		
+		$(window).trigger('resize');
+		
+		return right;
 	}
 	
 	exports.close = function(){
+		if ( window.timer ){ clearTimeout(window.timer); };
 		removeDiv(document.getElementById('loading')); 
 		removeDiv(document.getElementById('success')); 
 		removeDiv(document.getElementById('error')); 
 		removeDiv(document.getElementById('centeror'));
+		removeDiv(document.getElementById('right'));
 		removeDiv(document.getElementById('masker'));
 	};
 });

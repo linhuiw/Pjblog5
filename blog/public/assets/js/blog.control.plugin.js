@@ -77,9 +77,9 @@ define('appjs/assets/jquery.form.min', function( require, exports, module ){
 					v += '<select name="par_keyvalue">';
 					for ( i = 0 ; i < tmp.childs.length ; i++ ){
 						if ( tmp.childs[i].value === value ){
-							v += '<option name="' + tmp.childs[i].name + '" selected="selected">' + tmp.childs[i].value + '</option>';
+							v += '<option value="' + tmp.childs[i].value + '" selected="selected">' + tmp.childs[i].name + '</option>';
 						}else{
-							v += '<option name="' + tmp.childs[i].name + '">' + tmp.childs[i].value + '</option>';
+							v += '<option value="' + tmp.childs[i].value + '">' + tmp.childs[i].name + '</option>';
 						}
 					};
 					v += '</select>';

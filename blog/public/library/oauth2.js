@@ -11,14 +11,14 @@ function randoms(l){
 var oauth = new Class({
 	initialize: function( appid, appkey ){
 		var http = require("http");
-		
+
 			this.ajax = new http.ajax();
 			this.http = http.http;
 			this.fns = require('fns');
-		
+
 		this.appid = appid;
 		this.appkey = appkey;
-		
+
 		this.error = 0;
 	}
 });
@@ -32,21 +32,21 @@ oauth.extend('GetToken', function( code ){
 		redirect_uri: blog.web + '/oauth.asp',
 		format: 'json'
 	});
-	
+
 	if ( ret.error && ret.error > 0 ){
 		this.error = ret.error;
 	}
-	
+
 	return ret;
 });
 
 oauth.extend('GetUserOpenID', function( token ){
 	var ret = this.fns.jsonp(this.ajax.get(blog.AppPlatForm + "/oauth/me.asp", { access_token: token }), "callback");
-	
+
 	if ( ret.error && ret.error > 0 ){
 		this.error = ret.error;
 	};
-	
+
 	return ret;
 });
 
@@ -56,18 +56,18 @@ oauth.extend('GetUserInfo', function( token, openid ){
 		oauth_consumer_key: this.appid,
 		openid: openid
 	});
-	
+
 	if ( ret.error && ret.error > 0 ){
 		this.error = ret.error;
 	};
-	
+
 	return ret;
 });
 
 oauth.extend('doLogin', function(params){
 	var Member = require("../services/user"),
 		member = new Member();
-	
+
 	return member.OauthLogin(params);
 });
 

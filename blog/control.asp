@@ -59,7 +59,7 @@
 %>
 	<a href="<%=ret.GetAuthorizeURL(global.blog_appid, true)%>" id="loginform"><strong><i class="fa fa-share-alt-square"></i>后台授权登录</strong></a>
 <%
-		})(require("private/chips/blog.global"), require("public/library/oauth2"));	
+		})(require("private/chips/" + blog.cache + "blog.global"), require("public/library/oauth2"));	
 	}else{
 %>
 <!-- 系统导航 开始 -->

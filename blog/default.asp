@@ -2,6 +2,19 @@
 <!--#include file="public/map.asp" -->
 <%
 ;(function( LAYOUT ){
+
+	LAYOUT.extend("categorys", function( id, page ){
+		var conditions = ["art_draft=0"];
+		if ( id > 0 ){ conditions.push("art_category=" + id); };	
+		this.Articles(conditions, page);
+	});
+	
+	LAYOUT.extend("tags", function( id, page ){
+		var conditions = ["art_draft=0"];	
+		if ( id > 0 ){ conditions.push("art_tags like '%{" + id + "}%'"); };	
+		this.Articles(conditions, page);
+	});
+	
 	LAYOUT.extend("Articles", function( conditions, page ){
 		var rec = new this.dbo.RecordSet(this.conn),
 			params = [],
@@ -26,22 +39,11 @@
 		this.add("articles", params);
 	});
 	
-	LAYOUT.extend("categorys", function( id, page ){
-		var conditions = ["art_draft=0"];
-		if ( id > 0 ){ conditions.push("art_category=" + id); };	
-		this.Articles(conditions, page);
-	});
-	
-	LAYOUT.extend("tags", function( id, page ){
-		var conditions = ["art_draft=0"];	
-		if ( id > 0 ){ conditions.push("art_tags like '%{" + id + "}%'"); };	
-		this.Articles(conditions, page);
-	});
-	
 	(new LAYOUT()).createServer(function( req ){
 		var cate = req.query.cate,
 			page = req.query.page,
-			tag = req.query.tag;
+			tag = req.query.tag,
+			querys = {};
 		
 		if ( !page || page.length === 0 ){ page = "1"; };
 		page = Number(page);
@@ -54,10 +56,19 @@
 		this.navigation();
 		this.loadTags();
 
-		if ( tag > 0 ){ this.tags( tag, page ); }
-		else{ this.categorys( cate, page ); };
+		if ( tag > 0 ){ 
+			this.tags( tag, page ); 
+			querys.tag = this.getTag(tag);
+		}
+		else{ 
+			this.categorys( cate, page );
+			querys.categorys = cate;
+		};
+		
+		this.add("gets", querys);
 		
 		this.render("default.asp");
 	});
+	
 })( require("public/library/layout") );
 %>

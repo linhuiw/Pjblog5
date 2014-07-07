@@ -8,7 +8,7 @@
 		OAUTH = require("public/library/oauth2"),
 		oauth = new OAUTH.oauth(global.blog_appid, global.blog_appkey),
 		UserMessage;
-		
+	
 	var tokens = oauth.GetToken(code);
 	if ( oauth.error === 0 ){
 		var openids = oauth.GetUserOpenID(tokens.access_token);
@@ -34,5 +34,5 @@
 		Library.log(ErrorMessage[oauth.error + ""]);
 	}
 		
-})( require("http").http, require("fns"), require("private/chips/blog.global") );
+})( require("http").http, require("fns"), require("private/chips/" + blog.cache + "blog.global") );
 %>

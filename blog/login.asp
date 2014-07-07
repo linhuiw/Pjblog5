@@ -12,6 +12,6 @@
 var global = require("private/chips/blog.global"),
 	ret = require("public/library/oauth2");
 %>
-<a href="<%=ret.GetAuthorizeURL(global.blog_appid, true)%>">login</a>
+<a href="<%=ret.GetAuthorizeURL(true)%>">login</a>
 </body>
 </html>

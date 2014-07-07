@@ -42,8 +42,14 @@ LayoutModule.extend('state', function( member ){
 			param.avatar = object('member_avatar').value;
 			param.openid = object('member_openid').value;
 		});
-		
+	
 	param.login = State.login;
+
+	if ( !State.login ){
+		var OAUTH = require('./oauth2');		
+		param.href = OAUTH.GetAuthorizeURL(this.params.global.blog_appid);
+	};
+	
 	this.add('user', param);
 });
 

@@ -1,0 +1,30 @@
+﻿@charset "utf-8";
+/* CSS Document */
+a {
+color: #428BD1;
+text-decoration: none;
+}
+body{ color:#777; background-color:#eeeeee;}
+.top{ background-color:#51b7ec; height:78px; color:#fff;}
+.wrap{ width:1320px; margin:0 auto;}
+.top .logo{ line-height:30px; padding-top:10px; font-size:24px;}
+.top .logo .logo-title{ font-size:14px; padding-left:50px;}
+.top .tools{ height:20px; margin-top:45px; line-height:30px;}
+.top a:link,
+.top a:visited{ color:#fff; text-decoration:none;}
+.top a:hover{ color:#005b7f}
+.top a{ margin-left:10px;}
+.nav{ height:40px; line-height:40px; background-color:#005b7f; margin-bottom:20px;}
+.nav .one{ float:left;}
+.nav .one a:link,
+.nav .one a:visited{ color:#fff; text-decoration:none; }
+.nav .one a:hover{background-color:#093C6A;}
+.nav .one a{ display:block; line-height:40px; width:120px; text-align:center}
+.nav .one ul{background-color:#eee; box-shadow:0px 1px 3px #ccc; display:none;}
+.nav .one ul li a:link,
+.nav .one ul li a:visited{ color:#777;}
+.nav .one ul li a:hover{ color:#999; background:#005b7f;}
+.nav .one ul li a{ border-bottom:1px dashed #ddd;}
+.nav .one ul li:last-child a{ border-bottom:none;}
+.nav .one:hover{ position:relative;}
+.nav .one:hover ul{ display:block; position:absolute; top:40px;}

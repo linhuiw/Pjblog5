@@ -1,0 +1,19 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+.articles{}
+.articles .side{ width:360px;}
+.articles .list{ margin-right:380px; border-top:1px solid #e1e1e1; box-shadow:0px 0px 10px #ccc;}
+.articles .list h6{ height:40px; line-height:40px; padding:0px 20px; background-color:#F7F7F7; font-size:16px;}
+
+.article{ padding: 20px; border-bottom:1px solid #eee; background-color:#fff;}
+.article:hover{ background-color:#F8FCFE;}
+.article h1{ height:20px; line-height:20px; font-size:14px; padding:5px 0px;}
+.article h1 a{ font-size:20px;}
+.article .img{ width:220px; height:150px; overflow:hidden; float:left;}
+.article .img img{ max-width:220px;}
+.article .content{ margin-left:256px;}
+.article .content .info{ height:20px; line-height:20px; padding:5px 0px;}
+.article .content .des{ padding:10px 0 10px 0; font-size:14px; line-height:24px;}
+.article .content .cate{ padding:5px 0px; height:20px; line-height:20px; margin-top:5px;}
+.article .content .cate a{ margin-left:5px; margin-right:5px;}

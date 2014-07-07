@@ -21,6 +21,8 @@ CategoryModule.extend('add', function( params ){
 		.open(2)
 		.add(params)
 		.close();
+	
+	this.RebuildCacheFile();
 		
 	return id;
 });
@@ -64,6 +66,8 @@ CategoryModule.extend('SaveIcon', function( params ){
 		})
 		.close();
 	
+	this.RebuildCacheFile();
+	
 	return { success: true, message: '保存ICON成功!' };
 });
 
@@ -98,6 +102,8 @@ CategoryModule.extend('remove', function(id){
 	for ( var i = 0 ; i < childs.length ; i++ ){
 		this.UpdateSelf(childs[i], blog_categoryremovechild, blog_articlecut);
 	}
+	
+	this.RebuildCacheFile();
 	
 	return { success: true, message: '删除分类成功' };
 });
@@ -167,6 +173,8 @@ CategoryModule.extend('modify', function( params ){
 		.open(3)
 		.update(data)
 		.close();
+	
+	this.RebuildCacheFile();
 		
 	return { success: true, message: '修改分类信息成功', data: data };
 });
@@ -209,6 +217,8 @@ CategoryModule.extend('sort', function( params ){
 			
 		this.SortChilds(childs, id);
 	}
+	
+	this.RebuildCacheFile();
 	
 	return {success: true, message: '排序成功', data: data};
 });
@@ -273,6 +283,98 @@ CategoryModule.extend('list', function(){
 		s: keep,
 		k: list
 	};
+});
+
+CategoryModule.extend('RebuildCacheFile', function(){
+	var rec = new this.dbo.RecordSet(this.conn),
+		indexs = {},
+		queen = {};
+		
+	rec
+		.sql('Select * From blog_categorys')
+		.open()
+		.each(function( object ){
+			indexs[object('id').value + ''] = {
+				id: object('id').value,
+				cate_name: object('cate_name').value,
+				cate_des: object('cate_des').value,
+				cate_count: object('cate_count').value,
+				cate_src: object('cate_src').value,
+				cate_outlink: object('cate_outlink').value,
+				cate_icon: object('cate_icon').value
+			};
+			//////////////////////////////////////////////////
+			var parents = object('cate_parent').value,
+				id = object('id').value;
+				
+			if ( parents === 0 ){
+				if ( !queen[id + ''] ){
+					queen[id + ''] = {
+						id: object('id').value,
+						cate_name: object('cate_name').value,
+						cate_des: object('cate_des').value,
+						cate_count: object('cate_count').value,
+						cate_src: object('cate_src').value,
+						cate_outlink: object('cate_outlink').value,
+						cate_icon: object('cate_icon').value,
+						cate_order: object('cate_order').value,
+						items: []
+					};
+				}else{
+					queen[id + ''].id = object('id').value;
+					queen[id + ''].cate_name = object('cate_name').value;
+					queen[id + ''].cate_des = object('cate_des').value;
+					queen[id + ''].cate_count = object('cate_count').value;
+					queen[id + ''].cate_src = object('cate_src').value;
+					queen[id + ''].cate_outlink = object('cate_outlink').value;
+					queen[id + ''].cate_icon = object('cate_icon').value;
+					queen[id + ''].cate_order = object('cate_order').value;
+					if ( !queen[id + ''].items ){
+						queen[id + ''].items = [];
+					};
+				};
+			}else{
+				if ( !queen[parents + ''] ){
+					queen[parents + ''] = {
+						items: []
+					}
+				}
+				
+				queen[parents + ''].items.push({
+					id: object('id').value,
+					cate_name: object('cate_name').value,
+					cate_des: object('cate_des').value,
+					cate_count: object('cate_count').value,
+					cate_src: object('cate_src').value,
+					cate_outlink: object('cate_outlink').value,
+					cate_icon: object('cate_icon').value,
+					cate_order: object('cate_order').value
+				});
+			};
+		})
+		.close();
+		
+	var keo = [];
+	(function(){
+		for ( var i in queen ){
+			var items = queen[i].items;
+			if ( items && items.length > 0 ){
+				var _items = queen[i].items.sort(function( a, b ){
+					return a.cate_order - b.cate_order;
+				});
+				queen[i].items = _items;
+			}
+			keo.push(queen[i]);
+		}
+		keo = keo.sort(function( a, b ){
+			return a.cate_order - b.cate_order;
+		});
+	})();
+	
+	var h = '';
+	h += 'exports.indexs = ' + JSON.stringify(indexs) + ';\n';
+	h += 'exports.queens = ' + JSON.stringify(keo) + ';';
+	this.fs.saveFile(resolve('private/chips/' + blog.cache + 'blog.categorys'), h);
 });
 
 return CategoryModule;

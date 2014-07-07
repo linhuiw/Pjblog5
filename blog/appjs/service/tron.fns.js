@@ -155,22 +155,7 @@ exports.HTMLStr = function( str ){
 }
 
 exports.removeHTML = function(html){
-	if ( !html ){
-		return "";
-	}
-	try{
-		html = html + "";
-	}catch(e){
-		return "";
-	}
-	html = html.replace(/\<(\w+?)([^\>]+)?\>([\s\S]+?)\<\/\1\>/g, "$3")
-			   .replace(/<(\w+?)(\s([^\/]+)?)?\/>/g, "");
-			
-	if ( /\<(\w+?)([^\>]+)?\>[\s\S]+?\<\/\1\>/g.test(html) || /<(\w+?)(\s([^\/]+)?)?\/>/g.test(html) ){
-		html = this.removeHTML(html);
-	}
-	
-	return html;
+	return html.replace(/\<[^>]+\>/g, '');
 }
 
 exports.unHTMLStr = function( str ){

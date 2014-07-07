@@ -4,6 +4,8 @@ var LayoutModule = new Class({
 		var Member = require("public/services/user"),
 			fns = require('fns'),
 			http = require('http').http,
+			fso = require('fso'),
+			fs = new fso(),
 			member = new Member(),
 			dbo = member.dbo,
 			conn = member.conn;
@@ -12,7 +14,9 @@ var LayoutModule = new Class({
 		this.conn = conn;
 		this.fns = fns;
 		this.http = http;
+		this.fs = fs;
 		this.params = {};
+		this.traste = {};
 		
 		this.Globaltion();
 		this.state(member);
@@ -72,7 +76,15 @@ LayoutModule.extend('Globaltion', function(){
 });
 
 LayoutModule.extend('navigation', function(){
-	
+	var navs = require('private/chips/' + blog.cache + 'blog.categorys');
+	this.add('categorys', navs.queens);
+	this.traste.categorys = navs.indexs;
+});
+
+LayoutModule.extend('getCategory', function( id ){
+	if ( this.traste.categorys && this.traste.categorys[id + ''] ){
+		return this.traste.categorys[id + ''];
+	};
 });
 
 LayoutModule.extend('CheckUrlArguments', function( str ){
@@ -88,6 +100,36 @@ LayoutModule.extend('createServer', function( callback ){
 		this.destroy();
 		Response.Redirect("close.asp");
 	}
+});
+
+LayoutModule.extend('load', function( mark, callback ){
+	var PluginCache = require('private/chips/' + blog.cache + 'blog.uri.plugins');
+	if ( PluginCache['queens'][mark] ){
+		var folder = PluginCache['queens'][mark]['folder'];
+		if ( this.fs.exist(resolve('private/plugins/' + folder + '/exports')) ){
+			var mode = require('private/plugins/' + folder + '/exports');
+			if ( typeof callback === 'function' ){
+				var m = callback.call(mode);
+				if ( m ){
+					return m;
+				}else{
+					return mode;
+				}
+			}else{
+				return mode;
+			}
+		}
+	}
+});
+
+LayoutModule.extend('render', function( file ){
+	var theme = 'private/themes/' + this.params.global.blog_theme + '/' + file;
+	if ( this.fs.exist(contrast(theme)) ){
+		include(theme, {
+			data: this.params,
+			load: Library.proxy(this.load, this)
+		});
+	};
 });
 
 return LayoutModule;

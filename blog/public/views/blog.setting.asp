@@ -76,6 +76,10 @@
     <div class="setform">
         <h5><i class="fa fa-file-text-o"></i> 日志设置，简单，方便，快捷！</h5>
         <table cellpadding="0" cellspacing="0" width="100%" border="0">
+        	<tr>
+                <td width="150">前台显示每页日志数</td>
+                <td><input type="text" value="<%=object("blog_articlepage").value%>" name="blog_articlepage" class="col-x-1" /></td>
+            </tr>
             <tr>
                 <td width="150">日志预览截取字数</td>
                 <td><input type="text" value="<%=object("blog_articlecut").value%>" name="blog_articlecut" class="col-x-1" /></td>

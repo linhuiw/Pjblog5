@@ -18,3 +18,4 @@ exports.blog_articlecut = 100;
 exports.blog_categoryremovechild = 0;
 exports.blog_appid = 10010;
 exports.blog_appkey = "414312533789dae6cbfbd5fcca8c21c1ff0865f8";
+exports.blog_articlepage = 10;

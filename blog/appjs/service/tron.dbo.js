@@ -71,12 +71,12 @@ rec.extend('initialize', function( ConnectionObject ){
 });
 
 rec.extend('sql', function( sql ){
-	this.sql= sql;
+	this.sqlstr = sql;
 	return this;
 });
 
 rec.extend('open', function( up ){
-	this.object.Open( this.sql, this.connect, 1, up ? up : 1 );
+	this.object.Open( this.sqlstr, this.connect, 1, up ? up : 1 );
 	return this;
 });
 
@@ -270,6 +270,81 @@ rec.extend('remove', function(){
 	};
 	
 	return this;
+});
+
+rec.extend('DualTopPage', function( table, alters, param, orderby, _orderby, pagesize, pageindex, callback , up ){
+	var v = {
+		pageindex: 0,
+		pagesize: 15,
+		recordCount: 0,
+		pageCount: 0
+	};
+	
+	var _sql = 'select count(1) from ' + table + ( param ? ' where ' + param : '' );
+	var _recordCount = this.connect.Execute( _sql )(0);
+	
+	_recordCount = parseInt( _recordCount, 10 );
+	_pageCount = Math.ceil(_recordCount / pagesize);
+	
+	if ( pageindex < 1 ){
+		pageindex = 1;
+	}
+	else if ( pageindex > _pageCount){
+		pageindex = _pageCount;
+	}
+
+	if ( pageindex === 1 ){
+		_sql = "Select Top " + pagesize +
+				( alters ? " " + alters : " *" ) +
+				" From " + table +
+				( param ? " WHERE " + param : "" ) +
+				( orderby ? " ORDER BY " + orderby : "" );
+	}
+	else if ( pageindex == _pageCount ){
+		_sql="SELECT Top " + pagesize + " * FROM " +
+			" (" +
+			"SELECT TOP "+(  _recordCount - pagesize * (pageindex - 1)   ) +
+			( alters ? " " + alters : " *" ) +
+			" FROM " + table +
+			( param ? " WHERE " + param : "" ) +
+			" ORDER BY " + _orderby +
+			") AS T " +
+			" ORDER BY " + orderby + " ";
+	}
+	else if ( pageindex < (_pageCount / 2 + _pageCount % 2) ){
+		_sql = "SELECT * FROM " +
+			" ( " +
+			" SELECT TOP " + pagesize + " * FROM " +
+			" ( " +
+			" SELECT TOP " + ( pagesize * pageindex ) +
+			( alters ? " " + alters : " *" ) +
+			" FROM " + table +
+			( param ? " WHERE " + param : "" ) +
+			" ORDER BY " + orderby + " " +
+			" ) AS T " +
+			" ORDER BY " + _orderby + " " +
+			" ) " +
+			" ORDER BY " + orderby + " ";
+	}
+	else{
+		_sql="SELECT TOP " + pagesize + " * FROM " +
+			" ( "+
+			" SELECT TOP " + (  (_recordCount % pagesize) + pagesize * (_pageCount - pageindex)  ) +
+			( alters ? " " + alters : " *" ) +
+			" FROM " + table +
+			( param ? " WHERE " + param : "" ) +
+			" ORDER BY " + _orderby + " " +
+			" ) AS T " +
+			" ORDER BY " + orderby + " ";
+	}
+
+	v.pageindex = pageindex;
+	v.pagesize = pagesize;
+	v.recordCount = _recordCount;
+	v.pageCount = _pageCount;
+	
+	this.sql( _sql ).open( up ).each(callback).close();
+	return v;
 });
 
 exports.RecordSet = rec;

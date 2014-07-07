@@ -91,7 +91,6 @@ define(function( require, exports, module ){
 		}
 			
 		$(window).trigger('resize');
-		timer && clearTimeout(timer);
 		window.timer = setTimeout(function(){ that.close(); }, 3000);
 	};
 	
@@ -110,7 +109,6 @@ define(function( require, exports, module ){
 		}
 			
 		$(window).trigger('resize');
-		timer && clearTimeout(timer);
 		window.timer = setTimeout(function(){ that.close(); }, 3000);
 	};
 	

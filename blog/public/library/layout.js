@@ -87,6 +87,30 @@ LayoutModule.extend('getCategory', function( id ){
 	};
 });
 
+LayoutModule.extend('loadTags', function(){
+	var tags = require('private/chips/' + blog.cache + 'blog.tags');
+	this.traste.tags = tags;
+});
+
+LayoutModule.extend('getTag', function( id ){
+	if ( this.traste.tags && this.traste.tags[id + ''] ){
+		this.traste.tags[id + ''].href = blog.web + '/default.asp?tag=' + id;
+		return this.traste.tags[id + ''];
+	};
+});
+
+LayoutModule.extend('getTags', function( str ){
+	if ( !str || str.length === 0 ){
+		return [];
+	};
+	var ret = [];
+	str = str.replace(/^\{/, '').replace(/\}$/, '').split('}{');
+	for ( var i = 0 ; i < str.length ; i++ ){
+		ret.push(this.getTag(str[i]))
+	}
+	return ret;
+});
+
 LayoutModule.extend('CheckUrlArguments', function( str ){
 	 return this.fns.HTMLStr(this.fns.SQLStr(str));
 });

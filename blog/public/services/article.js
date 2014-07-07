@@ -105,7 +105,7 @@ ArticleModule.extend('SaveArticle', function( data, msg, draft ){
 	
 	data.art_draft = draft || false;
 	
-	//try{
+	try{
 		if ( id && id > 0 ){
 			data.art_modifydate = date.format(new Date(), 'y/m/d h:i:s');
 
@@ -136,9 +136,11 @@ ArticleModule.extend('SaveArticle', function( data, msg, draft ){
 		msg.success = true;
 		msg.message = '保存日志成功';
 		
-	//}catch(e){
-	//	msg.message = e.message;
-	//};
+		tag.SaveCacheFile();
+		
+	}catch(e){
+		msg.message = e.message;
+	};
 });
 
 ArticleModule.extend('DelArticle', function( params ){
@@ -148,18 +150,24 @@ ArticleModule.extend('DelArticle', function( params ){
 	}
 	id = Number(id);
 	
-	var rets = { success: false, message: '删除日志失败' };
+	var rets = { success: false, message: '删除日志失败' },
+		tags = require('./tag'),
+		tag = new tags();
 	
 	if ( id > 0 ){
 		var rec = new this.dbo.RecordSet(this.conn);
 		rec
 			.sql('Select * From blog_articles Where id=' + id)
-			.open(3)
-			.remove()
-			.close();
+			.process(function(object){
+				var _tag = object('art_tags').value.replace(/^\{/, '').replace(/\}$/, '').split('}{');
+				if ( _tag.length > 0 ){ tag.remove(_tag); };
+				this.remove();
+			});
 			
 		rets.success = true;
 		rets.message = '删除日志成功';
+		
+		tag.SaveCacheFile();
 	}
 	
 	return rets;

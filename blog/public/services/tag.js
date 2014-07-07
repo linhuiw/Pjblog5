@@ -72,4 +72,31 @@ TagModule.extend('read', function( id ){
 	return name;
 });
 
+TagModule.extend('SaveCacheFile', function(){
+	var rec = new this.dbo.RecordSet(this.conn),
+		ret = {};
+	rec
+		.sql('Select * From blog_tags')
+		.open()
+		.each(function( object ){
+			ret[object('id').value + ''] = {
+				id: object('id').value,
+				tag_name: object('tag_name').value,
+				tag_count: object('tag_count').value
+			}
+		})
+		.close();
+		
+	var h = '';
+	for ( var i in ret ){
+		h += 'exports["' + i + '"] = ' + JSON.stringify(ret[i]) + ';\n';
+	};
+	var fs = this.fs;
+	if ( !fs ) {
+		var fso = require('fso');
+		fs = new fso();
+	};
+	fs.saveFile(resolve('private/chips/' + blog.cache + 'blog.tags'), h);
+});
+
 return TagModule;

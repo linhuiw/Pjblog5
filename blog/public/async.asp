@@ -17,9 +17,12 @@
 			resolvePath,
 			USER = require("./services/user");
 			
-		var user = new USER();
+		var user = new USER(),
+			uid;
 		
-		if ( user.adminStatus().admin ){
+		if ( user.adminStatus(function( rets, object ){
+			uid = object("id").value;
+		}).admin ){
 			if ( !m || !p || m.length === 0 || p.length === 0 ){ Library.json({ success: false, message: "非法操作" }); return; };
 			if ( !t || t.length === 0 ){ t = "system"; };
 			
@@ -44,6 +47,7 @@
 					mode.extend("fs", fs);
 					mode.extend("dbo", user.dbo);
 					mode.extend("conn", user.conn);
+					mode.extend("uid", uid);
 				
 				var mose = new mode(params);
 			

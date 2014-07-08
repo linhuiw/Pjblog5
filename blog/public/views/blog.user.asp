@@ -43,7 +43,7 @@ var date = require("date");
                 <div class="info">
                     <div class="name clearfix">
                     	<%if ( object("id").value !== uid ){%>
-                    	<a href="javascript:;" class="fright AutoSendAjax" app-id="<%=object('id').value%>" app-m="user" app-p="RemoveUser"><i class="fa fa-trash-o"></i></a>
+                    	<a href="javascript:;" class="fright AutoSendAjax" app-id="<%=object('id').value%>" app-m="user" app-p="RemoveUser" app-c="删除用户将删除这个用户下的所有评论和留言信息！请慎重！确定要删除吗？"><i class="fa fa-trash-o"></i></a>
                         <a href="javascript:;" class="fright AutoSendAjax" app-id="<%=object('id').value%>" app-m="user" app-p="ChangeStatus"><i class="fa fa-repeat"></i></a>
                         <%};%>
 						<%=object('member_nick').value%>

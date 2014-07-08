@@ -259,7 +259,13 @@ MemberModule.extend('logout', function(){
 MemberModule.extend('ChangeStatus', function( params ){
 	var id = params.query.id,
 		ret = { success: false, message: '操作失败' };
+		
 	if ( !id || id.length === 0 ){
+		return ret;
+	};
+	
+	if ( this.uid === Number(id) ){
+		ret.message = '不能操作自己';
 		return ret;
 	};
 	
@@ -289,7 +295,13 @@ MemberModule.extend('RemoveUser', function( params ){
 	var id = params.query.id,
 		ret = { success: false, message: '操作失败' },
 		rec;
+		
 	if ( !id || id.length === 0 ){
+		return ret;
+	};
+	
+	if ( this.uid === Number(id) ){
+		ret.message = '不能操作自己';
 		return ret;
 	};
 	

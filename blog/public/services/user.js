@@ -256,4 +256,63 @@ MemberModule.extend('logout', function(){
 	return { success: true, message: '退出登录成功' };
 });
 
+MemberModule.extend('ChangeStatus', function( params ){
+	var id = params.query.id,
+		ret = { success: false, message: '操作失败' };
+	if ( !id || id.length === 0 ){
+		return ret;
+	};
+	
+	var rec = new this.dbo.RecordSet(this.conn);
+	rec
+		.sql('Select * From blog_members Where id=' + id)
+		.process(function(object){
+			if ( !object.Bof && !object.Eof ){
+				var x = false;
+				if ( object('member_forbit').value ){
+					this.update({ member_forbit: false });
+					x = false;
+				}else{
+					this.update({ member_forbit: true });
+					x = true;
+				};
+				ret.success = true;
+				ret.message = '操作成功';
+				ret.status = x;
+			}
+		}, 3);
+	
+	return ret;
+});
+
+MemberModule.extend('RemoveUser', function( params ){
+	var id = params.query.id,
+		ret = { success: false, message: '操作失败' },
+		rec;
+	if ( !id || id.length === 0 ){
+		return ret;
+	};
+	
+	rec = new this.dbo.RecordSet(this.conn);
+	rec.sql('Select * From blog_comments Where com_member_id=' + id)
+	.open(3).remove().close();
+	
+	rec = new this.dbo.RecordSet(this.conn);
+	rec.sql('Select * From blog_messages Where msg_member_id=' + id)
+	.open(3).remove().close();
+	
+	rec = new this.dbo.RecordSet(this.conn);
+	rec
+		.sql('Select * From blog_members Where id=' + id)
+		.process(function(object){
+			if ( !object.Bof && !object.Eof ){
+				this.remove();
+				ret.success = true;
+				ret.message = '操作成功';
+			}
+		}, 3);
+	
+	return ret;
+});
+
 return MemberModule;

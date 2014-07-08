@@ -28,6 +28,7 @@
 		t = HTTP.query("t"),
 		u,
 		s,
+		uid,
 		SystemNavs = require("public/chips/blog.control.system.navs"),
 		PluginNavs = require("private/chips/" + blog.cache + "blog.control.plugin.navs"),
 		tfr = require("private/chips/" + blog.cache + "blog.uri.plugins"),
@@ -46,7 +47,7 @@
 	})( PluginNavs, tfr );
 	
 	common = user.adminStatus(function( rets, object ){
-		
+		uid = object("id").value;
 	});
 	
 /*	if ( !common.login ){
@@ -165,7 +166,7 @@
             <div class="content-page">
 <%		
 		if ( fs.exist(__u) ){
-			include(u, { dbo: dbo, conn: conn, fs: fs, fns: FNS, http: HTTP, m: m, t: t });
+			include(u, { dbo: dbo, conn: conn, fs: fs, fns: FNS, http: HTTP, m: m, t: t, uid: uid });
 		}else{
 			Library.log('<div class="page404"><h6>404</h6><p class="info">抱歉，无法找到模板！</p><p class="uri">Miss Path: ' + u + '</p></div>');
 		}

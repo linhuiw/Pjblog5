@@ -301,7 +301,8 @@ CategoryModule.extend('RebuildCacheFile', function(){
 				cate_count: object('cate_count').value,
 				cate_src: object('cate_src').value,
 				cate_outlink: object('cate_outlink').value,
-				cate_icon: object('cate_icon').value
+				cate_icon: object('cate_icon').value,
+				cate_parent: object('cate_parent').value
 			};
 			//////////////////////////////////////////////////
 			var parents = object('cate_parent').value,
@@ -318,6 +319,7 @@ CategoryModule.extend('RebuildCacheFile', function(){
 						cate_outlink: object('cate_outlink').value,
 						cate_icon: object('cate_icon').value,
 						cate_order: object('cate_order').value,
+						cate_parent: object('cate_parent').value,
 						items: []
 					};
 				}else{
@@ -329,6 +331,7 @@ CategoryModule.extend('RebuildCacheFile', function(){
 					queen[id + ''].cate_outlink = object('cate_outlink').value;
 					queen[id + ''].cate_icon = object('cate_icon').value;
 					queen[id + ''].cate_order = object('cate_order').value;
+					queen[id + ''].cate_parent = object('cate_parent').value;
 					if ( !queen[id + ''].items ){
 						queen[id + ''].items = [];
 					};
@@ -348,7 +351,8 @@ CategoryModule.extend('RebuildCacheFile', function(){
 					cate_src: object('cate_src').value,
 					cate_outlink: object('cate_outlink').value,
 					cate_icon: object('cate_icon').value,
-					cate_order: object('cate_order').value
+					cate_order: object('cate_order').value,
+					cate_parent: object('cate_parent').value
 				});
 			};
 		})

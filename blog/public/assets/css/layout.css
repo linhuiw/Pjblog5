@@ -570,3 +570,23 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 #theme .choosed .tols a:link,
 #theme .choosed .tols a:visited{ color:#1a6cc1; text-decoration:none;}
 #theme .choosed .tols a:hover{ color:#999;}
+
+#user{}
+#user .top{ margin-bottom:20px; height:32px;}
+#user .top .achors{ height:30px; line-height:30px; color:#777;}
+#user .top .achors a{ color:#777; text-decoration:none;}
+#user .top .search{ background-color:#eee; height:30px; border:1px solid #ccc; border-radius:3px; overflow:hidden; box-shadow:0px 0px 10px #ccc;}
+#user .top .search input{ background-color:#eee!important; border:none!important; box-shadow:none; height:30px; padding:0; width:300px; padding:0px 10px;}
+#user .top .search button{ background-color:#ddd; border:none; box-shadow:none; height:30px; margin:0;}
+#user .list{}
+#user .list .item{ width:410px;}
+#user .list .item .dis{ padding:10px;}
+#user .list .item .img{ width:36px; height:36px; background-color:#fff; padding:1px;}
+#user .list .item .img img{width:36px; height:36px; border:0;}
+#user .list .item .info{ margin-left:50px; background-color:#fff; padding:3px 10px; box-shadow: 0px 1px 6px #ccc; line-height:20px; border-radius:3px; color:#777;}
+#user .list .item .info .name{ padding:5px 0px; font-weight:bold; height:20px;}
+#user .list .item .info .name a{ color:#999; text-decoration:none; margin-right:10px;}
+#user .list .item .info .name a i{ display:block; line-height:20px;}
+#user .list .item .info .des{}
+#user .list .item .info .des p{ border-top:1px dashed #eee; height:20px; line-height:20px; padding:3px 0px;}
+#user .list .item .info .des p i{ margin-right:8px;}

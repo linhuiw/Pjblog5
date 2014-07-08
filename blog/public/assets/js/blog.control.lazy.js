@@ -45,7 +45,7 @@ define(function( require, exports, module ){
 				window.doing = false;
 				if ( params.success ){
 					that.tip.success(params.message);
-					typeof callback === 'function' && callback.call(_this);
+					typeof callback === 'function' && callback.call(_this, params);
 				}else{
 					that.tip.error(params.message);
 				}

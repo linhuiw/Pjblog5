@@ -5,7 +5,21 @@
 
 	LAYOUT.extend("categorys", function( id, page ){
 		var conditions = ["art_draft=0"];
-		if ( id > 0 ){ conditions.push("art_category=" + id); };	
+		if ( id > 0 ){
+			if ( this.traste.categorys[id + ""] && this.traste.categorys[id + ""].cate_parent > 0 ){
+				conditions.push("art_category=" + id); 
+			}else{
+				var c = [ id ];
+				for ( var i in this.traste.categorys ){
+					if ( this.traste.categorys[i].cate_parent === id ){
+						c.push(Number(i));
+					}
+				}
+				if ( c.length > 0 ){
+					conditions.push("art_category in (" + c.join(",") + ")");
+				};
+			};
+		};	
 		this.Articles(conditions, page);
 	});
 	
@@ -45,25 +59,15 @@
 			tag = req.query.tag,
 			querys = {};
 		
-		if ( !page || page.length === 0 ){ page = "1"; };
-		page = Number(page);
-		if ( page < 1 ){ page = 1; };
-		if ( !cate || cate.length === 0 ){ cate = "0"; };
-		cate = Number(cate);
-		if ( !tag || tag.length === 0 ){ tag = "0"; };
-		tag = Number(tag);
+		if ( !page || page.length === 0 ){ page = "1"; }; page = Number(page); if ( page < 1 ){ page = 1; };
+		if ( !cate || cate.length === 0 ){ cate = "0"; }; cate = Number(cate);
+		if ( !tag || tag.length === 0 ){ tag = "0"; }; tag = Number(tag);
 		
 		this.navigation();
 		this.loadTags();
 
-		if ( tag > 0 ){ 
-			this.tags( tag, page ); 
-			querys.tag = this.getTag(tag);
-		}
-		else{ 
-			this.categorys( cate, page );
-			querys.categorys = cate;
-		};
+		if ( tag > 0 ){ this.tags( tag, page ); querys.tag = this.getTag(tag); }
+		else{ this.categorys( cate, page ); querys.categorys = cate; };
 		
 		this.add("gets", querys);
 		

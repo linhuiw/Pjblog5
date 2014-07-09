@@ -176,6 +176,26 @@ define(function( require, exports, module ){
 		return right;
 	}
 	
+	exports.masker = function(html){
+		if ( window.timer ){ clearTimeout(window.timer); };
+		var masker = document.getElementById('masker'),
+			that = this;
+		
+		this.close();
+		
+		masker = createDiv();
+		masker.id = 'masker';
+		$(masker).css({
+			opacity: "0",
+			"background-color": "#fff",
+			zIndex: 99998
+		});
+		
+		$(window).trigger('resize');
+		
+		return masker;
+	}
+	
 	exports.close = function(){
 		if ( window.timer ){ clearTimeout(window.timer); };
 		removeDiv(document.getElementById('loading')); 

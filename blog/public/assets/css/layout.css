@@ -621,3 +621,12 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 .pages{}
 .pages span{ float:left; height:30px; line-height:30px; text-align:center; display:block; width:30px;background-color:#F8FCFE; margin-right:5px; color:#1a6cc1; border-radius:3px;}
 .pages a{ float:left; height:30px; line-height:30px; text-align:center; display:block; width:30px; background-color:#ddd; margin-right:5px; border-radius:3px;}
+
+#update{ background-color:#fff; padding:20px; box-shadow: 0px 1px 6px #ccc; border-radius:3px; color:#777;}
+#update h6{ height:30px; line-height:30px; padding:5px 0px;}
+#update thead th,
+#update tbody td{ height:20px; line-height:20px; padding:5px 10px;border-top:1px dashed #eee;}
+#update thead th{ font-weight:bold;}
+#update .tleft{ text-align:left};
+#update .tcenter{ text-align:center;}
+#update .tright{ text-align:right;}

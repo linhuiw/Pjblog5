@@ -12,3 +12,4 @@ exports.theme = { icon: 'fa-picture-o', name: '主题', des: '本地主题。管
 exports.plugin = { icon: 'fa-windows', name: '插件', des: '插件控制中心，您可以上传自己的插件后在线安装，也可以选择云端插件安装。方便快捷！' };
 exports.attment = { icon: 'fa-paperclip', name: '附件' };
 exports.links = { icon: 'fa-chain-broken', name: '友链' };
+exports.update = { icon: 'fa-refresh', name: '在线升级', des: '通过' + blog.AppPlatForm + '平台使用crc32机制来校验文件的完整性', hide: true };

@@ -5,8 +5,7 @@ var CrcInModule = new Class({
 		this.fs = new this.fso();
 		this.crc32 = require("crc32");
 		
-		var files = this.getFileList(folder);
-		return this.check(files);
+		if ( folder ) { var files = this.getFileList(folder);return this.check(files); };
 	}
 });
 
@@ -35,6 +34,10 @@ CrcInModule.extend('check', function( files, callback ){
 	}
 	
 	return _files;
+});
+
+CrcInModule.extend('singleCheck', function( file, crc32 ){
+	return this.crc32.make(contrast(file)) !== crc32;
 });
 
 return CrcInModule;

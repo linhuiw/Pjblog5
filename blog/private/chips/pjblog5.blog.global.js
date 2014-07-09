@@ -17,5 +17,5 @@ exports.blog_categoryremove = 0;
 exports.blog_articlecut = 500;
 exports.blog_categoryremovechild = 0;
 exports.blog_appid = 10004;
-exports.blog_appkey = "3f711c6da132cedab8ac1a9d9ac867bb5280f939";
+exports.blog_appkey = "72ad517093fea177c87596224a16c07e577c9d04";
 exports.blog_articlepage = 10;

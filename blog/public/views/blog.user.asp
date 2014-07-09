@@ -27,7 +27,7 @@ var date = require("date");
     	<div class="achors fleft"><i class="fa fa-user-md"></i> 全部用户</div>
         <% };%>
         <div class="search fright">
-        	<input type="text" name="keyword" id="keyword" />
+        	<input type="text" name="keyword" id="keyword" value="<%=nick%>" />
             <button id="search"><i class="fa fa-search"></i></button>
         </div>
     </div>

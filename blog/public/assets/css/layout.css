@@ -3,6 +3,9 @@
 
 html{ background-image:url(../img/bg.gif); }
 .wordCut{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;word-break:keep-all;}
+a:link,
+a:visited{ color:#1a6cc1; text-decoration:none;}
+a:hover{ color:#777;}
 
 .header{ height:50px; background-color:#444; padding:0px 30px; line-height:50px; color:#fff; }
 .header .logo{ font-size:18px;}
@@ -40,7 +43,7 @@ html{ background-image:url(../img/bg.gif); }
 .content .navtabs span{ color:#999; font-size:11px; line-height:40px;}
 
 .waterfull li{ margin:0px 20px 20px 0px; background-color:#fff; width:300px; box-shadow:0 1px 4px #ccc;}
-.waterfull li:hover{ box-shadow: 0 0 3px #48a3ef; }
+.waterfull li:hover{ background-color:#F8FCFE; }
 .waterfull li .detail{ padding:4px 15px 10px 15px;}
 .waterfull li .detail h5{ height:20px; line-height:20px; padding:6px 0px; border-bottom:1px dashed #eee; margin-bottom:10px;}
 .waterfull li .detail h5 .title{ color:#777; float:left; font-weight:bold;}
@@ -431,6 +434,7 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 #articles .list .list-container .list-top span{ margin-right:10px; font-weight:normal;}
 #articles .list .list-container .list-content{}
 #articles .list .list-container .list-content li{ width:175px; margin-right:20px; margin-bottom:20px; background-color:#fff; color:#777;box-shadow: 2px 3px 10px #ccc; border-radius:3px; overflow:hidden;}
+#articles .list .list-container .list-content li:hover{background-color:#F8FCFE;}
 #articles .list .list-container .list-content li .image{ text-align:center; margin-top:4px; margin-bottom:20px;}
 #articles .list .list-container .list-content li img{ max-width:168px; margin:0 auto;}
 #articles .list .list-container .list-content li .title a:link,
@@ -590,3 +594,30 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 #user .list .item .info .des{}
 #user .list .item .info .des p{ border-top:1px dashed #eee; height:20px; line-height:20px; padding:3px 0px;}
 #user .list .item .info .des p i{ margin-right:8px;}
+#user .list .item .info:hover{background-color:#F8FCFE;}
+
+#comment{}
+#comment .parent{ margin-bottom:20px;}
+#comment .parent .img{ padding:1px; background-color:#fff;}
+#comment .parent .img img{ width:36px; height:36px;}
+#comment .parent .info{ margin-left:50px; background-color:#fff; box-shadow: 0px 1px 6px #ccc; border-radius:3px; padding:8px 10px; color:#777;}
+#comment .parent .info .nick{ height:20px; line-height:20px; margin-bottom:5px;}
+#comment .parent .info .des{ padding:10px 0; border-top:1px dashed #eee;line-height:20px;}
+#comment .parent .info .des i{ margin-right:10px;}
+#comment .child{ margin-left:50px; margin-bottom:20px;}
+#comment .child .img{ padding:1px; background-color:#fff;}
+#comment .child .img img{ width:36px; height:36px;}
+#comment .child .info{ margin-left:50px; background-color:#fff; box-shadow: 0px 1px 6px #ccc; border-radius:3px; padding:8px 10px; color:#777;}
+#comment .child .info .nick{ height:20px; line-height:20px; margin-bottom:5px;}
+#comment .child .info .des{ padding:10px 0; border-top:1px dashed #eee; line-height:20px;}
+#comment .child .info .des i{ margin-right:10px;}
+#comment .info:hover{ background-color:#F8FCFE;}
+#comment .parent .tools,
+#comment .child .tools{ padding:5px 0px; border-top:1px dashed #eee; height:20px; line-height:20px;}
+#comment .tools a{ margin:0px 10px;}
+#comment .tools a i{ margin-right:5px;}
+#comment .tools i.fa-caret-right{ margin-right:10px;}
+
+.pages{}
+.pages span{ float:left; height:30px; line-height:30px; text-align:center; display:block; width:30px;background-color:#F8FCFE; margin-right:5px; color:#1a6cc1; border-radius:3px;}
+.pages a{ float:left; height:30px; line-height:30px; text-align:center; display:block; width:30px; background-color:#ddd; margin-right:5px; border-radius:3px;}

@@ -3,4 +3,4 @@ Library.setBase('blog');
 var blog = {};
 blog.version = 1;
 blog.web = "http://blog.cn/blog";
-blog.AppPlatForm = "http://cloud.cn";
+blog.AppPlatForm = "http://plats.cn";

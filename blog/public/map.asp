@@ -11,4 +11,6 @@ Library
 	.onMap("md5", "appjs/service/md5")
 	.onMap("upload", "appjs/service/tron.upload")
 	.onMap("crc32", "appjs/service/crc32");
+
+Library.setBase("blog");
 %>

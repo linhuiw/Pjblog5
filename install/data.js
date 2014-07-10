@@ -1,0 +1,10 @@
+﻿exports.folder = "blog";
+exports.name = "刃雪城池";
+exports.dbname = "sq_pjblog5";
+exports.dbusername = "sq_pjblog5";
+exports.dbpassword = "pjblog5";
+exports.dbip = ".";
+exports.appid = "10001";
+exports.appkey = "3f711c6da132cedab8ac1a9d9ac867bb5280f939";
+exports.dbtype = "2000";
+exports.web = "http://webkits.cn";

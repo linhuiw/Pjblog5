@@ -21,7 +21,6 @@
 		fs = new FSO(),
 		dbo = user.dbo,
 		conn = user.conn,
-		Params = { NoLoginUrl: "login.asp" },
 		common,
 		CloseConn = function(){ try{ conn.Close(); }catch(e){}; },
 		m = HTTP.query("m"),
@@ -50,15 +49,10 @@
 		uid = object("id").value;
 	});
 	
-/*	if ( !common.login ){
-		CloseConn();
-		Response.Redirect(Params.NoLoginUrl);
-	};*/
-	
 	if ( !common.login || !common.admin ){
 		(function(global, ret){
 %>
-	<a href="<%=ret.GetAuthorizeURL(global.blog_appid, true)%>" id="loginform"><strong><i class="fa fa-share-alt-square"></i>后台授权登录</strong></a>
+	<a href="<%=ret.GetAuthorizeURL(global.blog_appid, "control.asp")%>" id="loginform"><strong><i class="fa fa-share-alt-square"></i>后台授权登录</strong></a>
 <%
 		})(require("private/chips/" + blog.cache + "blog.global"), require("public/library/oauth2"));	
 	}else{

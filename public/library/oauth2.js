@@ -71,8 +71,12 @@ oauth.extend('doLogin', function(params){
 	return member.OauthLogin(params);
 });
 
-exports.GetAuthorizeURL = function( appid, isadmin ){
-	var callbackURL = escape(blog.web + '/oauth.asp?from=' + (isadmin ? 'control.asp' : 'default.asp'));
+exports.GetAuthorizeURL = function( appid, from ){
+	var callbackURL = blog.web + '/oauth.asp';
+	if ( from && from.length > 0 ){
+		callbackURL += '?from=' + from;
+	};
+	callbackURL = escape(callbackURL);
 	return blog.AppPlatForm + "/oauth/login.asp?response_type=code&client_id=" + appid + "&redirect_url=" + callbackURL + "&state=" + randoms(10);
 };
 

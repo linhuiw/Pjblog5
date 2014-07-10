@@ -12,5 +12,5 @@ Library
 	.onMap("upload", "appjs/service/tron.upload")
 	.onMap("crc32", "appjs/service/crc32");
 
-Library.setBase("blog");
+Library.setBase(blog.base);
 %>

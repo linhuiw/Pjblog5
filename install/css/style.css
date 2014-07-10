@@ -1,0 +1,16 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+body{ color:#777; background-color:#eee;}
+a:link,
+a:visited{ color:#1a6cc1; text-decoration:none;}
+a:hover{ color:#777;}
+.wrap{ width:960px; margin:0 auto;}
+
+.top{ background-color:#444; margin-bottom:50px;}
+.top .title{ height:48px; line-height:48px; text-align:center; color:#fff; font-size:20px;}
+.content{ background-color:#fff; border-radius:3px; padding:20px;}
+.content h6{ height:20px; line-height:20px; padding:5px 0;}
+table.info{}
+table.info td{ line-height:20px; padding:5px 5px; border-top:1px dashed #eee;}
+table.info tr td:first-child{ text-align:right;}

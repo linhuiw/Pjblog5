@@ -96,6 +96,9 @@ exports.dbexcute = function(){
 	
 	conn.Execute("Update blog_global Set blog_appid=" + data.appid + ",blog_appkey='" + data.appkey + "' Where id=1");
 	
+	var id = conn.Execute('Select top 1 id From blog_categorys Where cate_outlink=0 And cate_isroot=1')(0).value;
+	conn.Execute('Update blog_articles Set art_category=' + id);
+	
 	conn.Close();
 	return ret;
 };

@@ -88,12 +88,12 @@ MemberModule.extend("OauthLogin", function( params ){
 				
 				object('member_hashkey') = params.hashkey;
 				object('member_nick') = params.nick;
-				object('member_mail') = params.mail;
+				object('member_mail') = params.mail || '';
 				object('member_logindate') = date.format(new Date(), 'y/m/d h:i:s');
-				object('member_birthday') = date.format(new Date(params.birthday), 'y/m/d h:i:s');
-				object('member_address') = params.address;
-				object('member_website') = params.website;
-				object('member_sex') = params.sex;
+				object('member_birthday') = date.format(new Date(params.birthday || 0), 'y/m/d h:i:s');
+				object('member_address') = params.address || '';
+				object('member_website') = params.website || '';
+				object('member_sex') = params.sex || 0;
 				object('member_avatar') = params.avatar;
 				object('member_token') = params.token;
 				object('member_openid') = params.openid;

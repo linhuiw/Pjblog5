@@ -13,34 +13,8 @@
 </head>
 
 <body>
-<div class="top">
-	<div class="wrap clearfix">
-    	<div class="logo fleft">
-        	<%=data.global.blog_title%>
-        	<div class="logo-title"><%=data.global.blog_des%></div>
-        </div>
-        <div class="tools fright">
-        	<%
-				if ( data.user.login ){
-			%>
-        	<p><i class="fa fa-info-circle"></i> 欢迎回来，<%=data.user.nick%>。 <a href="<%=data.user.href%>"><i class="fa fa-sign-out"></i> 退出登录</a> <%
-				if ( data.user.group.indexOf("ControlSystem") > -1 ){
-			%>
-            <a href="control.asp"><i class="fa fa-sign-in"></i> 进入后台</a>
-            <%	
-				}
-			%></p>
-            <%
-				}else{
-			%>
-            <a href="<%=data.user.href%>"><i class="fa fa-sign-in"></i> 登录</a>
-            <%	
-				}
-			%>
-        </div>
-    </div>
-</div>
-<%include("private/themes/" + data.global.blog_theme + "/navigation.asp", { categorys: data.categorys, gets: data.gets });%>
+
+<%include("private/themes/" + data.global.blog_theme + "/navigation.asp", { categorys: data.categorys, gets: data.gets, global: data.global, user: data.user });%>
 <div class="articles clearfix wrap">
 	<div class="side fright">1</div>
 	<div class="list">

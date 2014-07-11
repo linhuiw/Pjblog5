@@ -82,6 +82,6 @@ define(function( require, exports, module ){
 			}
 		},
 		tip: require('appjs/assets/blog.loading'),
-		list: require('http://plats.cn/upgrades/pjblog5.js')
+		list: require('http://app.webkits.cn/upgrades/pjblog5.js')
 	});
 });

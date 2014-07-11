@@ -19,6 +19,8 @@
 	if ( oauth.error === 0 ){
 		UserMessage.token = tokens.access_token;
 		UserMessage.openid = openids.openid;
+		UserMessage.hashkey = tokens.token_hashkey;
+		UserMessage.expires_in = tokens.expires_in;
 		var login = oauth.doLogin(UserMessage);
 
 		if ( login.success ){

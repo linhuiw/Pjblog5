@@ -84,9 +84,9 @@ MemberModule.extend("OauthLogin", function( params ){
 				if ( object.Bof || object.Eof ){ 
 					object.AddNew(); 
 					object('member_group') = 1;
-					object('member_hashkey') = hashkey;
 				};
-
+				
+				object('member_hashkey') = params.hashkey;
 				object('member_nick') = params.nick;
 				object('member_mail') = params.mail;
 				object('member_logindate') = date.format(new Date(), 'y/m/d h:i:s');
@@ -107,8 +107,8 @@ MemberModule.extend("OauthLogin", function( params ){
 
 	if ( ret.success ){	
 		cookie.set(blog.cookie + "_user", "id", id);
-		cookie.set(blog.cookie + "_user", "hashkey", hashkey);
-		cookie.expire(blog.cookie + "_user", 30 * 24 * 60 * 60 * 1000);
+		cookie.set(blog.cookie + "_user", "hashkey", params.hashkey);
+		cookie.expire(blog.cookie + "_user", params.expires_in);
 	};
 		
 	return ret;

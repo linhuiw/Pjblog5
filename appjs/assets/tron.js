@@ -91,10 +91,10 @@
 		isWebKit = ~UA.indexOf('AppleWebKit'),
 		isOldWebKit = (UA.replace(/.*AppleWebKit\/(\d+)\..*/, "$1")) * 1 < 536,
 		isIE = UA.indexOf('MSIE') > -1;
-	
+
 	var application = new Class({
-		httpDomain: host.origin,
-		httpBase: host.origin,
+		httpDomain: _host,
+		httpBase: _base,
 		regx_root: /^\/.+/,
 		regx_http: /^http\:\/\//i,
 		regx_parent: /^\.\.\/.+/,

@@ -49,15 +49,20 @@ define(function( require, exports, module ){
 			}
 		},
 		onComplete: function(){
-			console.log('start download')
-			var t = [];
+			var t = [],
+				that = this;
 			$('#online-list tbody tr:not(.needupdate)').remove();
 			$('#online-list tbody tr').each(function(){
 				var id = $(this).attr('app-id');
 				t.push(id);
 			});
 			this.updatelist = t;
-			this.onDisPod();
+			$('#online-list tbody').append('<tr><td></td><td><a href="javascript:;" id="doupdates">开始更新</a></td><td></td><td></td></tr>');
+			this.tip.close();
+			$('#doupdates').on('click', function(){
+				that.tip.loading('正在更新文件..请稍后!');
+				that.onDisPod();
+			});
 		},
 		onDisPod: function(i){
 			var that = this;
@@ -78,6 +83,7 @@ define(function( require, exports, module ){
 				});
 			}else{
 				this.tip.close();
+				$('#online-list tbody tr:last').remove();
 				$('#online-list tbody').append('<tr><td></td><td colspan="3">全部更新完毕。</td></tr>');
 			}
 		},

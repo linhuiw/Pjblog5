@@ -46,7 +46,7 @@
 				tname: object("art_tname").value,
 				posttime: new Date(object("art_postdate").value).getTime(),
 				comments: object("art_comment_count").value,
-				cover: blog.web + "/" + object("art_cover").value
+				cover: object("art_cover").value
 			});
 		});
 		

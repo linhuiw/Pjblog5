@@ -6,7 +6,7 @@ define(function( require, exports, module ){
 			this.onLogout();
 			
 			if ( Library.isIE ){
-				this.tip.loading('您正在使用IE浏览器，本系统对部分ID浏览器不兼容，请使用CFROME或者火狐浏览器浏览！为了保证用户体验，请谅解！');
+				this.tip.loading('您正在使用IE浏览器，本系统对部分IE浏览器不兼容，请使用CFROME或者火狐浏览器浏览！为了保证用户体验，请谅解！');
 			}
 		},
 		onAutoAjax: function(){

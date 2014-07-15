@@ -57,12 +57,16 @@ define(function( require, exports, module ){
 				t.push(id);
 			});
 			this.updatelist = t;
-			$('#online-list tbody').append('<tr><td></td><td><a href="javascript:;" id="doupdates">开始更新</a></td><td></td><td></td></tr>');
 			this.tip.close();
-			$('#doupdates').on('click', function(){
-				that.tip.loading('正在更新文件..请稍后!');
-				that.onDisPod();
-			});
+			if ( this.updatelist.length > 0 ){
+				$('#online-list tbody').append('<tr><td></td><td><a href="javascript:;" id="doupdates">开始更新</a></td><td></td><td></td></tr>');
+				$('#doupdates').on('click', function(){
+					that.tip.loading('正在更新文件..请稍后!更新时间可能比较长，请耐心等待！');
+					that.onDisPod();
+				});
+			}else{
+				$('#online-list tbody').append('<tr><td></td><td>所有文件已是最新，不需要更新。</td><td></td><td></td></tr>');
+			}
 		},
 		onDisPod: function(i){
 			var that = this;
@@ -72,7 +76,7 @@ define(function( require, exports, module ){
 				var st = tr.find('td').eq(3);
 				st.html('<i class="fa fa-refresh fa-spin"></i>');
 				$.getJSON('public/async.asp?m=online&p=download', {
-					id: this.arrays[i]
+					id: this.updatelist[i]
 				}, function( params ){
 					if ( params.success ){
 						st.html('更新成功');

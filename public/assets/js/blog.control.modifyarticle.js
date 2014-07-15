@@ -6,7 +6,7 @@ define('appjs/assets/jquery.form.min', function( require, exports, module ){
 			this.AddTags();
 			this.installTags();
 			this.setCategory();
-			this.UploadImage();
+			//this.UploadImage();
 			this.SaveArticle();
 		},
 		AddTags: function(){
@@ -47,7 +47,7 @@ define('appjs/assets/jquery.form.min', function( require, exports, module ){
 				$("input[name='art_category']").val($(this).attr('app-cate'));
 			});
 		},
-		UploadImage: function(){
+/*		UploadImage: function(){
 			var that = this;
 			$('#upload').on('click', function(){
 				if ( !window.doing ){
@@ -89,7 +89,7 @@ define('appjs/assets/jquery.form.min', function( require, exports, module ){
 							'<div class="submit"><input type="submit" value="上传" /> <input type="button" value="关闭" class="close" /></div>'+
 						'</form>'+
 					'</div>';
-		},
+		},*/
 		SaveArticle: function(){
 			var that = this;
 			$('#submit').on('click', function(){
@@ -99,23 +99,36 @@ define('appjs/assets/jquery.form.min', function( require, exports, module ){
 				$("textarea[name='art_content']").val(contents);
 				$('#articles .tool .pannel .tags .item').each(function(){ tags.push($(this).find('span').html()); });
 				$("input[name='art_tags']").val(tags.join(','));
-				that.tip.loading('正在发送数据信息..');
-				$('#postArticle').ajaxSubmit({
-					dataType: 'json',
-					success: function( params ){
-						if ( params.success ){
-							that.tip.success(params.message);
-							setTimeout(function(){
-								window.location.href = '?m=article';
-							}, 1000);
-						}else{
-							that.tip.error(params.message);
-						}
-					},
-					error: function(){
-						that.tip.error('服务端程序错误');
+				/*
+				 * !获取图片信息
+				 * 2014-7-15
+				 */
+				var img = $(contents).find('img:first');
+				if ( img.size() === 1 ){
+					$("input[name='art_cover']").val(img.attr('src'));
+				};
+				
+				that.doSaveArticle();
+			});
+		},
+		doSaveArticle: function(){
+			var that = this;
+			this.tip.loading('正在发送数据信息..');
+			$('#postArticle').ajaxSubmit({
+				dataType: 'json',
+				success: function( params ){
+					if ( params.success ){
+						that.tip.success(params.message);
+						setTimeout(function(){
+							window.location.href = '?m=article';
+						}, 1000);
+					}else{
+						that.tip.error(params.message);
 					}
-				});
+				},
+				error: function(){
+					that.tip.error('服务端程序错误');
+				}
 			});
 		},
 		tip: require('appjs/assets/blog.loading')

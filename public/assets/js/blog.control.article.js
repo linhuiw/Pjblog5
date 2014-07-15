@@ -90,7 +90,7 @@ define(function( require, exports, module ){
 				h +=		'<div class="des">' + data.art_des + '</div>';
 				h +=		'<div class="info clearfix">';
 				h +=			'<div class="cate fleft"><i class="fa fa-dot-circle-o"></i> ' + window.categorys[data.art_category + ''] + '</div>';
-				h +=			'<div class="cate fright">' + (data.art_tags || '') + '</div>';
+				h +=			'<div class="cate fright"></div>';
 				h +=		'</div>';
 				h +=		'<div class="tooled">';
 				h +=			'<a href="?m=modifyarticle&id=' + data.id + '"><i class="fa fa-pencil-square-o"></i></a>';

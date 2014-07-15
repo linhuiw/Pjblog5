@@ -74,13 +74,13 @@
                 <h6><i class="fa fa-save"></i> 保存日志</h6>
                 <input type="button" value="点击这里 保存这篇日志到数据库（<%=id > 0 ? "更新" : "添加"%>）" style="margin-left:37px;" id="submit" />
             </div>
-        	<div class="pannel">
+        	<!--<div class="pannel">
                 <h6><i class="fa fa-image"></i> 日志封面</h6>
                 <div class="photo">
                 	<img src="<%=arc.art_cover%>" onerror="this.src='public/assets/img/face.jpg'" id="cover" />
                     <a href="javascript:;" id="upload"><i class="fa fa-cloud-upload"></i> 上传封面</a>
                 </div>
-            </div>
+            </div>-->
         	<div class="pannel">
                 <h6><i class="fa fa-tags"></i> 日志标签</h6>
                 <div class="tags">

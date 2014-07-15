@@ -124,17 +124,28 @@ ArticleModule.extend('SaveArticle', function( data, msg, draft ){
 			rec = new this.dbo.RecordSet(this.conn)
 			rec
 				.sql('Select * From blog_articles Where id=' + id)
+				.on('update', function(object){
+					id = object('id').value;
+				})
 				.open(3)
 				.update(data)
 				.close();
 		}else{
 			data.art_postdate = date.format(new Date(), 'y/m/d h:i:s');
 			data.art_tags = tag.add(data.art_tags).join('');
-			rec.sql('Select * From blog_articles').open(2).add(data).close();
+			rec
+				.sql('Select * From blog_articles')
+				.on('add', function(object){
+					id = object('id').value;
+				})
+				.open(2)
+				.add(data)
+				.close();
 		};
 		
 		msg.success = true;
 		msg.message = '保存日志成功';
+		msg.id = id;
 		
 		tag.SaveCacheFile();
 		

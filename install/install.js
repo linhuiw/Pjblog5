@@ -104,6 +104,7 @@ exports.dbexcute = function(){
 };
 
 exports.buildCacheFile = function(){
+	var data = require('./data');
 	var connect = require('public/library/connect');
 	var dbo = connect.dbo;
 	var conn = connect.conn;
@@ -148,6 +149,17 @@ exports.buildCacheFile = function(){
 	conn.Close();
 	
 	fs.saveFile(contrast('./data.lock'), 'locked');
+	
+	var editorconfig = fs.getFileContent(contrast("appjs/assets/ueditor/asp/config.json"));
+	var ec = JSON.parse(editorconfig);
+	var arrays = ["imageUrlPrefix", "scrawlUrlPrefix", "snapscreenUrlPrefix", "catcherUrlPrefix", "videoUrlPrefix", "fileUrlPrefix", "imageManagerUrlPrefix", "fileManagerUrlPrefix"];
+	for ( var i = 0 ; i < arrays.length ; i++ ){
+		if ( ec[arrays[i]] ){
+			ec[arrays[i]] = data.folder.length > 0 ? "/" + data.folder + "/appjs/assets/ueditor/asp/" : "/appjs/assets/ueditor/asp/";
+		}
+	}
+	
+	fs.saveFile(contrast("appjs/assets/ueditor/asp/config.json"), JSON.stringify(ec));
 };
 
 exports.setLevel = function(){

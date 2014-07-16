@@ -34,10 +34,11 @@
 			for ( var i = 0 ; i < data.articles.length ; i++ ){
 		%>
         	<div class="article clearfix">
-            	<div class="img"><a href="<%=blog.web%>/article.asp?id=<%=data.articles[i].id%>"><img src="<%=data.articles[i].cover%>" onerror="this.src='<%=blog.web%>/private/themes/<%=data.global.blog_theme%>/a.png'" /></a></div>
+            	
                 <div class="content">
             		<h1><a href="<%=blog.web%>/article.asp?id=<%=data.articles[i].id%>"><%=data.articles[i].title%></a></h1>
-                    <div class="info">博主发表于 <%=date.format(new Date(data.articles[i].posttime), "y-m-d h:i:s")%></div>
+                    <div class="info"><i class="fa fa-share-alt"></i> 博主发表于 <%=date.format(new Date(data.articles[i].posttime), "y-m-d h:i:s")%></div>
+                    <div class="img"><a href="<%=blog.web%>/article.asp?id=<%=data.articles[i].id%>"><img src="<%=data.articles[i].cover%>" onerror="this.src='<%=blog.web%>/private/themes/<%=data.global.blog_theme%>/a.png'" /></a></div>
                     <div class="des"><%=data.articles[i].des%></div>
                     <div class="cate"><i class="fa fa-star-o"></i> <a href="<%=data.articles[i].catehref%>"><%=data.articles[i].category%></a><%
 						if ( data.articles[i].tags.length > 0 ){

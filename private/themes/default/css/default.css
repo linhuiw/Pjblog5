@@ -10,9 +10,9 @@
 .article:hover{ background-color:#F8FCFE;}
 .article h1{ line-height:24px; font-size:14px; padding:5px 0px;}
 .article h1 a{ font-size:20px;}
-.article .img{ width:220px; height:150px; overflow:hidden; float:left; margin-top:40px; box-shadow:1px 3px 3px #ccc;}
-.article .img img{ max-width:220px;}
-.article .content{ margin-left:256px;}
+.article .img{ max-width:664px;  overflow:hidden; text-align:center}
+.article .img img{ max-width:664px;box-shadow:1px 3px 3px #ccc; }
+.article .content{}
 .article .content .info{ height:20px; line-height:20px; padding:5px 0px;}
 .article .content .des{ padding:10px 0 10px 0; font-size:12px; line-height:20px;}
 .article .content .cate{ padding:5px 0px; height:20px; line-height:20px; margin-top:5px;}

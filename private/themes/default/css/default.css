@@ -22,7 +22,7 @@
 .articles .detail h1{ font-weight:bold; font-size:20px; text-align:center; height:30px; padding:10px; border-bottom:1px solid #eee;}
 .articles .detail .info{ height:20px; line-height:20px; padding:10px; margin-bottom:30px; color:#999;}
 .articles .detail .info a{ margin-right:10px;}
-.articles .detail .detail-content{ line-height:20px; padding:0px 10px;}
+.articles .detail .detail-content{ line-height:20px; padding:0px 10px; word-wrap:break-word;}
 .articles .detail .detail-content strong{ font-weight:bold;}
 .articles .detail .detail-content p{ margin-bottom:10px;}
 .articles .detail .tags{ padding:10px; border:1px dashed #ddd; background-color:#f9f9f9; margin-top:10px;}

@@ -323,7 +323,7 @@ rec.extend('DualTopPage', function( table, alters, param, orderby, _orderby, pag
 			" ORDER BY " + orderby + " " +
 			" ) AS T " +
 			" ORDER BY " + _orderby + " " +
-			" ) " +
+			" ) AS B " +
 			" ORDER BY " + orderby + " ";
 	}
 	else{
@@ -342,7 +342,7 @@ rec.extend('DualTopPage', function( table, alters, param, orderby, _orderby, pag
 	v.pagesize = pagesize;
 	v.recordCount = _recordCount;
 	v.pageCount = _pageCount;
-	
+
 	this.sql( _sql ).open( up ).each(callback).close();
 	return v;
 });

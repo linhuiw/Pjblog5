@@ -42,7 +42,7 @@
 		
 		if ( !page || page.length === 0 ){ page = "1"; }; page = Number(page); if ( page < 1 ){ page = 1; };
 		if ( !id || id.length === 0 ){ id = "0"; }; id = Number(id);
-		if ( id < 1 ){ this.add("error", 1); this.render("error.asp"); return; };
+		
 		
 		querys.id = id;
 		querys.page = page;
@@ -50,8 +50,10 @@
 		
 		this.navigation();
 		this.loadTags();
+
 		this.add("errors", require("public/chips/blog.error"));
 		
+		if ( id < 1 ){ this.add("error", 1); this.render("error.asp"); return; };
 		if ( !this.Article(id) ){ this.render("error.asp"); return; };
 		
 		this.render("article.asp");

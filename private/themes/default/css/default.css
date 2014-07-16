@@ -34,3 +34,7 @@
 .pannel .login{}
 .pannel .login p{ line-height:30px; padding-left:20px;}
 .pannel h6{ height:20px; line-height:20px; padding:5px 0px; border-bottom:1px solid #eee; margin-bottom:10px;}
+
+.error{ background-color:#fff;}
+.error h6{}
+.error .des{ padding:30px 40px;}

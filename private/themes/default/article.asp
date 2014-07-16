@@ -46,5 +46,6 @@
         </div>
     </div>
 </div>
+<%include("private/themes/" + data.global.blog_theme + "/footer.asp", { global: data.global });%>
 </body>
 </html>

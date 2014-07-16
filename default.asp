@@ -34,7 +34,7 @@
 			params = [],
 			that = this;
 			
-		rec.DualTopPage("blog_articles", "*", conditions.join(" AND "), "art_postdate DESC", "art_postdate ASC", this.params.global.blog_articlepage, page, function( object ){
+		var ac = rec.DualTopPage("blog_articles", "*", conditions.join(" AND "), "art_postdate DESC", "art_postdate ASC", this.params.global.blog_articlepage, page, function( object ){
 			var categorys = that.getCategory(object("art_category").value);
 			params.push({
 				id: object("id").value,
@@ -51,6 +51,7 @@
 		});
 		
 		this.add("articles", params);
+		this.add("pages", rec.BuildPage(ac.pageindex, ac.pageCount));
 	});
 	
 	(new LAYOUT()).createServer(function( req ){

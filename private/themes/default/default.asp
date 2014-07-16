@@ -1,5 +1,6 @@
 ﻿<%
 	var date = require("date");
+	var url;
 %><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -17,42 +18,26 @@
 <%include("private/themes/" + data.global.blog_theme + "/navigation.asp", { categorys: data.categorys, gets: data.gets, global: data.global });%>
 <div class="articles clearfix wrap">
 	<div class="side fright">
-    	<div class="pannel">
-        	<%
-				if ( data.user.login ){
-			%>
-        	<div class="login">
-            	<h6>用户登录模块</h6>
-            	<p><i class="fa fa-info-circle"></i> 欢迎回来，<%=data.user.nick%>。 </p>
-                <p><a href="<%=data.user.href%>"><i class="fa fa-sign-out"></i> 退出登录</a> </p>
-				<%if ( data.user.group.indexOf("ControlSystem") > -1 ){%>
-            	<p><a href="control.asp"><i class="fa fa-sign-in"></i> 进入后台</a></p>
-            	<%}%>
-            </div>
-            <%
-				}else{
-			%>
-            <div class="login"><p><a href="<%=data.user.href%>"><i class="fa fa-sign-in"></i> 登录</a></p></div>
-            <%	
-				}
-			%>
-        </div>
+    	<%include("private/themes/" + data.global.blog_theme + "/side-login.asp", { user: data.user });%>
     </div>
 	<div class="list">
     	<%
 			if ( data.gets.tag ){
+				url = blog.web + "/?tag=" + data.gets.tag;
 		%>
         <h6><i class="fa fa-tag"></i> 标签： <%=data.gets.tag.tag_name%></h6>
         <%	
+			}else{
+				url = blog.web + "/?cate=" + data.gets.categorys;
 			};
 			
 			for ( var i = 0 ; i < data.articles.length ; i++ ){
 		%>
         	<div class="article clearfix">
-            	<div class="img"><img src="<%=data.articles[i].cover%>" onerror="this.src='<%=blog.web%>/private/themes/<%=data.global.blog_theme%>/a.png'" /></div>
+            	<div class="img"><a href="<%=blog.web%>/article.asp?id=<%=data.articles[i].id%>"><img src="<%=data.articles[i].cover%>" onerror="this.src='<%=blog.web%>/private/themes/<%=data.global.blog_theme%>/a.png'" /></a></div>
                 <div class="content">
             		<h1><a href="<%=blog.web%>/article.asp?id=<%=data.articles[i].id%>"><%=data.articles[i].title%></a></h1>
-                    <div class="info">发表于 <%=date.format(new Date(data.articles[i].posttime), "y-m-d h:i:s")%></div>
+                    <div class="info">博主发表于 <%=date.format(new Date(data.articles[i].posttime), "y-m-d h:i:s")%></div>
                     <div class="des"><%=data.articles[i].des%></div>
                     <div class="cate"><i class="fa fa-star-o"></i> <a href="<%=data.articles[i].catehref%>"><%=data.articles[i].category%></a><%
 						if ( data.articles[i].tags.length > 0 ){
@@ -70,8 +55,10 @@
             </div>
         <%	
 			};
+			include("private/themes/" + data.global.blog_theme + "/pages.asp", { pages: data.pages, url: url });
 		%>
     </div>
 </div>
+<%include("private/themes/" + data.global.blog_theme + "/footer.asp", { global: data.global });%>
 </body>
 </html>

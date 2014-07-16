@@ -433,10 +433,10 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 #articles .list .list-container .list-top{ color:#777; font-weight:bold; height:30px; line-height:30px; margin-bottom:10px;}
 #articles .list .list-container .list-top span{ margin-right:10px; font-weight:normal;}
 #articles .list .list-container .list-content{}
-#articles .list .list-container .list-content li{ width:175px; margin-right:20px; margin-bottom:20px; background-color:#fff; color:#777;box-shadow: 2px 3px 10px #ccc; border-radius:3px; overflow:hidden;}
+#articles .list .list-container .list-content li{ width:275px; margin-right:20px; margin-bottom:20px; background-color:#fff; color:#777;box-shadow: 2px 3px 10px #ccc; border-radius:3px; overflow:hidden;}
 #articles .list .list-container .list-content li:hover{background-color:#F8FCFE;}
 #articles .list .list-container .list-content li .image{ text-align:center; margin-top:4px; margin-bottom:20px;}
-#articles .list .list-container .list-content li img{ max-width:168px; margin:0 auto;}
+#articles .list .list-container .list-content li img{ max-width:268px; margin:0 auto;}
 #articles .list .list-container .list-content li .title a:link,
 #articles .list .list-container .list-content li .title a:visited{ padding:5px 10px; font-weight:bold; height:20px; line-height:20px; margin-bottom:10px; color:#777; text-decoration:none; display:block;}
 #articles .list .list-container .list-content li .title a:hover{ color:#333;}

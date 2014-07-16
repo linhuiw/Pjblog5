@@ -6,7 +6,7 @@ text-decoration: none;
 }
 body{ color:#777; background-color:#eeeeee;}
 .top{ background-color:#51b7ec; height:78px; color:#fff;}
-.wrap{ width:1320px; margin:0 auto;}
+.wrap{ width:1024px; margin:0 auto;}
 .top .logo{ line-height:30px; padding-top:10px; font-size:24px;}
 .top .logo .logo-title{ font-size:14px; padding-left:50px;}
 .top .tools{ height:20px; margin-top:45px; line-height:30px;}
@@ -20,7 +20,7 @@ body{ color:#777; background-color:#eeeeee;}
 .nav .one a:visited{ color:#fff; text-decoration:none; }
 .nav .one a:hover{background-color:#093C6A;}
 .nav .one a{ display:block; line-height:40px; width:120px; text-align:center}
-.nav .one ul{background-color:#eee; box-shadow:0px 1px 3px #ccc; display:none;}
+.nav .one ul{background-color:#ddd; box-shadow:0px 1px 3px #ccc; display:none;}
 .nav .one ul li a:link,
 .nav .one ul li a:visited{ color:#777;}
 .nav .one ul li a:hover{ color:#999; background:#005b7f;}
@@ -28,3 +28,11 @@ body{ color:#777; background-color:#eeeeee;}
 .nav .one ul li:last-child a{ border-bottom:none;}
 .nav .one:hover{ position:relative;}
 .nav .one:hover ul{ display:block; position:absolute; top:40px;}
+.nav .two a:hover{ color:#fff!important; background-color:#999!important;}
+.nav .one ul{ box-shadow:3px 3px 1px #ccc;}
+.footer{ margin-top:100px; padding:30px 0px;}
+.footer .copyright{ height:20px; line-height:20px; padding:5px 0px; text-align:center;}
+.footer .theme{height:20px; line-height:20px; padding:5px 0px; text-align:center;}
+.pages{ background-color:#fff; padding:10px;}
+.pages span{ height:22px; line-height:22px; width:22px; text-align:center; float:left; background-color:#005b7f; color:#fff; display:block; border-radius:3px; margin-left:10px;}
+.pages a{ height:22px; line-height:22px; width:22px; text-align:center; float:left;background-color:#eee; color:#005b7f; display:block; border-radius:3px;margin-left:10px;}

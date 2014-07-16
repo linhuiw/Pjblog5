@@ -17,26 +17,7 @@
 <%include("private/themes/" + data.global.blog_theme + "/navigation.asp", { categorys: data.categorys, gets: data.gets, global: data.global });%>
 <div class="articles clearfix wrap">
 	<div class="side fright">
-    	<div class="pannel">
-        	<%
-				if ( data.user.login ){
-			%>
-        	<div class="login">
-            	<h6>用户登录模块</h6>
-            	<p><i class="fa fa-info-circle"></i> 欢迎回来，<%=data.user.nick%>。 </p>
-                <p><a href="<%=data.user.href%>"><i class="fa fa-sign-out"></i> 退出登录</a> </p>
-				<%if ( data.user.group.indexOf("ControlSystem") > -1 ){%>
-            	<p><a href="control.asp"><i class="fa fa-sign-in"></i> 进入后台</a></p>
-            	<%}%>
-            </div>
-            <%
-				}else{
-			%>
-            <div class="login"><p><a href="<%=data.user.href%>"><i class="fa fa-sign-in"></i> 登录</a></p></div>
-            <%	
-				}
-			%>
-        </div>
+    	<%include("private/themes/" + data.global.blog_theme + "/side-login.asp", { user: data.user });%>
     </div>
 	<div class="list">
     	<div class="detail">

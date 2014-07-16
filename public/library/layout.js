@@ -49,6 +49,8 @@ LayoutModule.extend('state', function( member ){
 	if ( !State.login ){
 		var OAUTH = require('./oauth2');		
 		param.href = OAUTH.GetAuthorizeURL(this.params.global.blog_appid, "default.asp");
+	}else{
+		param.logout = blog.web + "/public/logout.asp";
 	};
 	
 	this.add('user', param);

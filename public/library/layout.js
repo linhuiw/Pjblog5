@@ -17,6 +17,7 @@ var LayoutModule = new Class({
 		this.fs = fs;
 		this.params = {};
 		this.traste = {};
+		this.params.error = 0;
 		
 		this.Globaltion();
 		this.state(member);

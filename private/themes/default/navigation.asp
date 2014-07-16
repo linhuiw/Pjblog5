@@ -4,25 +4,6 @@
         	<%=global.blog_title%>
         	<div class="logo-title"><%=global.blog_des%></div>
         </div>
-        <div class="tools fright">
-        	<%
-				if ( user.login ){
-			%>
-        	<p><i class="fa fa-info-circle"></i> 欢迎回来，<%=user.nick%>。 <a href="<%=user.href%>"><i class="fa fa-sign-out"></i> 退出登录</a> <%
-				if ( user.group.indexOf("ControlSystem") > -1 ){
-			%>
-            <a href="control.asp"><i class="fa fa-sign-in"></i> 进入后台</a>
-            <%	
-				}
-			%></p>
-            <%
-				}else{
-			%>
-            <a href="<%=user.href%>"><i class="fa fa-sign-in"></i> 登录</a>
-            <%	
-				}
-			%>
-        </div>
     </div>
 </div>
 <div class="nav">

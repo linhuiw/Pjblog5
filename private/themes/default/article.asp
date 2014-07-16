@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="<%=blog.web + "/private/themes/" + data.global.blog_theme%>/css/common.css" />
 <link rel="stylesheet" type="text/css" href="<%=blog.web + "/private/themes/" + data.global.blog_theme%>/css/default.css" />
 <link rel="stylesheet" type="text/css" href="<%=blog.web%>/fontawesome/css/font-awesome.min.css"/>
-<title><%=data.global.blog_name%></title>
+<title><%=data.article.art_title%></title>
 </head>
 
 <body>
@@ -39,38 +39,30 @@
         </div>
     </div>
 	<div class="list">
-    	<%
-			if ( data.gets.tag ){
-		%>
-        <h6><i class="fa fa-tag"></i> 标签： <%=data.gets.tag.tag_name%></h6>
-        <%	
-			};
-			
-			for ( var i = 0 ; i < data.articles.length ; i++ ){
-		%>
-        	<div class="article clearfix">
-            	<div class="img"><img src="<%=data.articles[i].cover%>" onerror="this.src='<%=blog.web%>/private/themes/<%=data.global.blog_theme%>/a.png'" /></div>
-                <div class="content">
-            		<h1><a href="<%=blog.web%>/article.asp?id=<%=data.articles[i].id%>"><%=data.articles[i].title%></a></h1>
-                    <div class="info">发表于 <%=date.format(new Date(data.articles[i].posttime), "y-m-d h:i:s")%></div>
-                    <div class="des"><%=data.articles[i].des%></div>
-                    <div class="cate"><i class="fa fa-star-o"></i> <a href="<%=data.articles[i].catehref%>"><%=data.articles[i].category%></a><%
-						if ( data.articles[i].tags.length > 0 ){
-					%>
-                    <i class="fa fa-xing"></i> 
-                    <%	
-							for( var o = 0 ; o < data.articles[i].tags.length ; o++ ){
-					%>
-                    <a href="<%=data.articles[i].tags[o].href%>"><%=data.articles[i].tags[o].tag_name%></a>
-                    <%		
-							}
-						}
-					%></div>
-                </div>
+    	<div class="detail">
+        	<h1><%=data.article.art_title%></h1>
+            <div class="info clearfix">
+            	<div class="fleft"><a href="<%=data.article.art_categoryHref%>"><i class="fa fa-tree"></i> <%=data.article.art_categoryName%></a> <i class="fa fa-calendar"></i> <%=date.format(new Date(data.article.art_postdate), "y-m-d h:i:s")%></div>
+                <div class="fright"><i class="fa fa-comment"></i> <%=data.article.art_comment_count%></div>
             </div>
-        <%	
-			};
-		%>
+            <div class="detail-content"><%=data.article.art_content%></div>
+            <%if ( data.article.art_modifydate > 0 ){%>
+            <div class="modify">
+            最后编辑时间：<%=date.format(new Date(data.article.art_modifydate), "y-m-d h:i:s")%>
+            </div>
+            <%}%>
+            <%if ( data.article.art_tags && data.article.art_tags.length > 0 ){%>
+            <div class="tags">
+            标签： <%
+				for ( var i = 0 ; i < data.article.art_tags.length; i++ ){
+			%>
+            	<a href="<%=data.article.art_tags[i].href%>"><%=data.article.art_tags[i].tag_name%>(<%=data.article.art_tags[i].tag_count%>)</a>
+            <%		
+				};
+			%>
+            </div>
+            <%}%>
+        </div>
     </div>
 </div>
 </body>

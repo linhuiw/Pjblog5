@@ -64,6 +64,33 @@
         </div>
     </div>
     <div class="arc-title"><input type="text" name="art_title" value="<%=arc.art_title%>" placeholder="标题" class="col-x-4" /></div>
+    
+    <div class="category-pull-list">
+        <div class="mas"><i class="fa fa-exclamation-circle"></i> 点击下面的分类选择你要的分类名称，红色表示已选中的分类！</div>
+        <ul class="root">
+            <%;(function(categoryList){
+					for ( var i in categoryList ){
+			%>
+			<li class="root">
+            	<%if ( arc.art_category === Number(i) ){%>
+                <a href="javascript:;" class="root setCate current" app-cate="<%=i%>"><%=categoryList[i].name%></a>
+                <%}else{%>
+                <a href="javascript:;" class="root setCate" app-cate="<%=i%>"><%=categoryList[i].name%></a>
+                <%};%>
+				<div class="rise">
+				<%for ( var j in categoryList[i].items ){
+						if ( arc.art_category === Number(j) ){%>
+					<a href="javascript:;" class="child setCate current" app-cate="<%=j%>"><%=categoryList[i].items[j]%></a>
+				<%}else{%>
+					<a href="javascript:;" class="child setCate" app-cate="<%=j%>"><%=categoryList[i].items[j]%></a>
+				<%}}%>
+				</div>
+			</li>
+			<%		}
+				})(categoryList);%>
+        </ul>
+    </div>
+    
     <div class="arc-content clearfix">
     	<div class="mon-left">
             <div class="arc-des"><textarea name="art_des" placeholder="日志预览内容简述.."><%=arc.art_des%></textarea></div>
@@ -74,13 +101,6 @@
                 <h6><i class="fa fa-save"></i> 保存日志</h6>
                 <input type="button" value="点击这里 保存这篇日志到数据库（<%=id > 0 ? "更新" : "添加"%>）" style="margin-left:37px;" id="submit" />
             </div>
-        	<!--<div class="pannel">
-                <h6><i class="fa fa-image"></i> 日志封面</h6>
-                <div class="photo">
-                	<img src="<%=arc.art_cover%>" onerror="this.src='public/assets/img/face.jpg'" id="cover" />
-                    <a href="javascript:;" id="upload"><i class="fa fa-cloud-upload"></i> 上传封面</a>
-                </div>
-            </div>-->
         	<div class="pannel">
                 <h6><i class="fa fa-tags"></i> 日志标签</h6>
                 <div class="tags">
@@ -117,38 +137,7 @@
                         <td><input type="text" name="art_tdes" value="<%=arc.art_tdes%>" class="col-x-3" /></td>
                     </tr>
                 </table>
-            </div>
-            <div class="pannel">
-                <h6><i class="fa fa-xing-square"></i> 日志分类 <span>(点击白色区块选择你的分类)</span></h6>
-                <ul class="root clearfix">
-                    <%
-                        ;(function(categoryList){
-                            for ( var i in categoryList ){
-                    %>
-                    <li class="root">
-                        <div class="root setCate"><%=categoryList[i].name%></div>
-                        <ul class="child clearfix">
-                        <%
-                            for ( var j in categoryList[i].items ){
-								if ( arc.art_category === Number(j) ){
-						%>
-                        	<li><a href="javascript:;" class="child setCate current" app-cate="<%=j%>"><%=categoryList[i].items[j]%></a></li>
-                        <%			
-								}else{
-                        %>
-                            <li><a href="javascript:;" class="child setCate" app-cate="<%=j%>"><%=categoryList[i].items[j]%></a></li>
-                        <%	
-								}
-                            }
-                        %>
-                        </ul>
-                    </li>
-                    <%		
-                            }
-                        })(categoryList);
-                    %>
-                </ul>
-            </div>
+            </div> 
         </div>
     </div>
 </div>

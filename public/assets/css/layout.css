@@ -428,7 +428,7 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 #icon-box li img{ width:16px; height:16px; cursor:pointer;}
 
 #articles{}
-#articles .list{ width:60%;}
+#articles .list{ width:100%;}
 #articles .list .list-container{}
 #articles .list .list-container .list-top{ color:#777; font-weight:bold; height:30px; line-height:30px; margin-bottom:10px;}
 #articles .list .list-container .list-top span{ margin-right:10px; font-weight:normal;}
@@ -630,3 +630,19 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 #update .tleft{ text-align:left};
 #update .tcenter{ text-align:center;}
 #update .tright{ text-align:right;}
+
+.category-pull-list{ border:1px solid #ccc; padding:5px 20px 20px 20px; margin-bottom:10px; background-color:#eee;}
+.category-pull-list .mas{ border-bottom:1px dashed #ccc; padding:10px 0px;}
+.category-pull-list .mas a:link,
+.category-pull-list .mas a:visited{ color:#777; font-weight:bold;}
+.category-pull-list .mas a:hover{ color:#000;}
+.category-pull-list .mas a{ margin-right:20px;}
+.category-pull-list li a{ height:30px; line-height:30px;}
+.category-pull-list li a.root{ width:130px; text-align:right; font-weight:bold; padding-right:30px;float:left; }
+.category-pull-list li .rise{ margin-left:160px;}
+.category-pull-list li a.child{ padding:0px 30px;}
+.category-pull-list li a.child:link,
+.category-pull-list li a.child:visited{ color:#777;}
+.category-pull-list li a.child:hover{ color:#000;}
+.category-pull-list li a.current:link,
+.category-pull-list li a.current:visited{ color:#ff0000;}

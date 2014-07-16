@@ -43,8 +43,34 @@
 		}
 	}
 %>
+<div class="category-pull-list">
+	<div class="mas">
+        <a href="javascript:;" class="child setCate" app-cate="-1"><i class="fa fa-recycle"></i> 全部日志</a> 
+        <a href="javascript:;" class="child setCate" app-cate="0"><i class="fa fa-trash-o"></i> 垃圾箱日志</a>
+        <a href="javascript:;" class="child setCate" app-cate="0"><i class="fa fa-clipboard"></i> 草稿箱日志</a>
+        <a href="?m=modifyarticle"><i class="fa fa-pencil"></i> 发表日志（高级模式）</a>
+    </div>
+    <ul class="root">
+        <%
+            ;(function(categoryList){
+                for ( var i in categoryList ){
+        %>
+        <li class="root clearfix">
+            <a href="javascript:;" class="root setCate" app-cate="<%=i%>"><%=categoryList[i].name%></a>
+            <div class="rise">
+            <%for ( var j in categoryList[i].items ){%>
+                <a href="javascript:;" class="child setCate" app-cate="<%=j%>"><%=categoryList[i].items[j]%></a>
+            <%};%>
+            </div>
+        </li>
+        <%		
+                }
+            })(categoryList);
+        %>
+    </ul>
+</div>
 <div id="articles" class="clearfix">
-	<div class="list fleft">
+	<div class="list">
     	<div class="list-container">
         	<div class="list-top">
                 <i class="fa fa-slack"></i> 分类 : <span id="cates"><%=CategorysTitle()%></span>
@@ -52,43 +78,6 @@
             <div class="list-content">
             	<ul class="waterfull" id="waterfull"></ul>
             </div>
-        </div>
-    </div>
-    <div class="tool">
-    	<div class="pannel">
-        	<h6><i class="fa fa-pinterest-square"></i> 发表日志</h6>
-            <button id="quickpost"><i class="fa fa-sign-in"></i> 快速发表日志</button>
-            <button id="modifyarticle"><i class="fa fa-pencil"></i> 发表日志（高级模式）</button>
-        </div>
-        <div class="pannel">
-        	<h6><i class="fa fa-tags"></i> 日志分类</h6>
-            <div class="mas">
-            	<a href="javascript:;" class="child setCate" app-cate="-1">全部日志</a> 
-                <a href="javascript:;" class="child setCate" app-cate="0">垃圾箱日志</a>
-                <a href="javascript:;" class="child setCate" app-cate="0">草稿箱日志</a>
-            </div>
-            <ul class="root clearfix">
-            	<%
-					;(function(categoryList){
-						for ( var i in categoryList ){
-				%>
-                <li class="root">
-                	<a href="javascript:;" class="root setCate" app-cate="<%=i%>"><%=categoryList[i].name%></a>
-                    <ul class="child clearfix">
-                    <%
-						for ( var j in categoryList[i].items ){
-					%>
-                    	<li><a href="javascript:;" class="child setCate" app-cate="<%=j%>"><%=categoryList[i].items[j]%></a></li>
-                    <%	
-						}
-					%>
-                    </ul>
-                </li>
-                <%		
-						}
-					})(categoryList);
-				%>
-            </ul>
         </div>
     </div>
 </div>

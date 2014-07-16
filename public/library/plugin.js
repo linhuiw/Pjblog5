@@ -87,11 +87,11 @@ PluginModule.extend('DeletePluginCacheFile', function( id ){
 
 // 插件导航
 PluginModule.extend('AddPluginNavFile', function( params ){
-	if ( params.navs ){
+	if ( params.ControlNavs ){
 		var BlogControlPluginNavs = require('private/chips/' + blog.cache + 'blog.control.plugin.navs'),
 			text = '';
 			
-		BlogControlPluginNavs[params.id + ''] = params.navs;
+		BlogControlPluginNavs[params.id + ''] = params.ControlNavs;
 		for ( var i in BlogControlPluginNavs ){
 			text += 'exports["' + i + '"] = ' + JSON.stringify(BlogControlPluginNavs[i]) + ';\n';
 		}

@@ -14,17 +14,19 @@
 			t = params.query.t,
 			paths = { system: "public/services/" + m },
 			fs = new fso(),
-			resolvePath;
+			resolvePath,
+			pid;
 		
 		if ( !m || !p || m.length === 0 || p.length === 0 ){ Library.json({ success: false, message: "非法操作" }); return; };
 		if ( !t || t.length === 0 ){ t = "system"; };
 		
 		if ( t !== "system" ){
-			var pluginMode = require("private/chips/blog.uri.plugins");
+			var pluginMode = require("private/chips/" + blog.cache + "blog.uri.plugins");
 			if ( pluginMode && pluginMode.indexs && pluginMode.queens && pluginMode.queens[m] && !pluginMode.queens[m].stop ){
-				paths.plugin = "private/plugins/" + pluginMode[t].folder;
+				paths.plugin = "private/plugins/" + pluginMode.queens[m].folder + "/service";
+				pid = pluginMode.queens[m].id;
 			}else{
-				Library.json({ success: false, message: "插件不允许插件，可能已被暂停服务!" });
+				Library.json({ success: false, message: "插件不允许运行，可能已被暂停服务!" });
 				return;
 			}
 		}
@@ -33,15 +35,16 @@
 		
 		var ph = resolve(resolvePath);
 		if ( fs.exist(ph) ){
-			var mode = require(ph),
-				mose = new mode(params);
+			var mode = require(ph);
+			mode.extend("fso", fso);
+			mode.extend("fns", fns);
+			mode.extend("fs", fs);
+			if ( t !== "system" && pid && pid > 0 ){
+				mode.extend("pid", pid);
+			};
+			var mose = new mode(params);
 		
-			if ( mose[p] && typeof mose[p] === "function" ){
-			
-				mose.fso = fso;
-				mose.fns = fns;
-				mose.fs = fs;
-				
+			if ( mose[p] && typeof mose[p] === "function" ){	
 				Library.json(mose[p](params));
 			}else{
 				Library.json({ success: false, message: "该模块中找不到对应的处理方法" });

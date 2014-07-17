@@ -24,15 +24,15 @@ body{ color:#777; background-color:#eeeeee;}
 .nav .one ul li a:link,
 .nav .one ul li a:visited{ color:#777;}
 .nav .one ul li a:hover{ color:#999; background:#005b7f;}
-.nav .one ul li a{ border-bottom:1px dashed #ddd;}
+.nav .one ul li a{ border-bottom:1px solid #ccc;}
 .nav .one ul li:last-child a{ border-bottom:none;}
 .nav .one:hover{ position:relative;}
 .nav .one:hover ul{ display:block; position:absolute; top:40px;}
-.nav .two a:hover{ color:#fff!important; background-color:#999!important;}
-.nav .one ul{ box-shadow:3px 3px 1px #ccc;}
+.nav .two a:hover{ color:#fff!important; background-color:#ccc!important;}
+.nav .one ul{ box-shadow:3px 3px 1px rgba(0,0,0,.2);}
 .footer{ margin-top:100px; padding:30px 0px;}
 .footer .copyright{ height:20px; line-height:20px; padding:5px 0px; text-align:center;}
 .footer .theme{height:20px; line-height:20px; padding:5px 0px; text-align:center;}
 .pages{ background-color:#fff; padding:10px;}
 .pages span{ height:22px; line-height:22px; width:22px; text-align:center; float:left; background-color:#005b7f; color:#fff; display:block; border-radius:3px; margin-left:10px;}
-.pages a{ height:22px; line-height:22px; width:22px; text-align:center; float:left;background-color:#eee; color:#005b7f; display:block; border-radius:3px;margin-left:10px;}
+.pages a{ height:22px; line-height:22px; width:22px; text-align:center; float:left;background-color:#ddd; color:#005b7f; display:block; border-radius:3px;margin-left:10px;}

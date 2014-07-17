@@ -10,8 +10,9 @@
 .article:hover{ background-color:#F8FCFE;}
 .article h1{ line-height:24px; font-size:14px; padding:5px 0px;}
 .article h1 a{ font-size:20px;}
-.article .img{ max-width:664px;  overflow:hidden; text-align:center}
-.article .img img{ max-width:664px;box-shadow:1px 3px 3px #ccc; }
+.article .img{ max-width:664px; text-align:center}
+.article .img img{ max-width:662px;box-shadow:0px 0px 5px rgba(0,0,0,.5); padding:1px; }
+.article .img img:hover{ box-shadow:0px 0px 5px rgba(0,0,0,.8);}
 .article .content{}
 .article .content .info{ height:20px; line-height:20px; padding:5px 0px;}
 .article .content .des{ padding:10px 0 10px 0; font-size:12px; line-height:20px;}
@@ -38,3 +39,21 @@
 .error{ background-color:#fff;}
 .error h6{}
 .error .des{ padding:30px 40px;}
+
+.postform{}
+.postform h3,
+.detail-lists h3{ font-weight:bold; height:20px; line-height:20px; padding:5px 0px; border-bottom:1px solid #eee; margin-bottom:10px;}
+.postform textarea{ width:100%; height:80px; resize:none;}
+.postform input,
+.postform textarea{ border:1px solid #eee; color:#777; font-size:12px;}
+.postform td{ padding:2px 0px;}
+.postform input[type=submit]{ padding:5px 15px; background-color:#fff; color:#777; cursor:pointer; font-size:12px;}
+
+.detail-lists{ margin-bottom:10px;}
+.detail-lists .items{ margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:10px;}
+.detail-lists .items .img{ margin-top:8px;}
+.detail-lists .items .img img{ width:36px; height:36px;}
+.detail-lists .items .infos{ margin-left:50px;}
+.detail-lists .items .infos .nick{ height:20px; line-height:20px; font-weight:bold;}
+.detail-lists .items .infos .time{ height:20px; line-height:20px; margin-bottom:5px;}
+.detail-lists .items .infos .des{ line-height:20px;}

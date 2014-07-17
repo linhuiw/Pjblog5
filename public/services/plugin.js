@@ -27,13 +27,13 @@ PluginModule.extend('install', function( params ){
 	if ( !( id && id.length > 0 ) ){ return rets; };
 
 	if ( this.fs.exist(resolve('private/plugins/' + id + '/config')) ){
-		var plus = require('private/plugins/' + id + '/config'),
-			plugin = new plugins(id);
-			plugin.dbo = this.dbo;
-			plugin.conn = this.conn;
-			plugin.fs = this.fs;
-			plugin.fso = this.fso;
-			plugin.fns = this.fns;
+		var plus = require('private/plugins/' + id + '/config');
+		plugins.extend('dbo', this.dbo);
+		plugins.extend('conn', this.conn);
+		plugins.extend('fs', this.fs);
+		plugins.extend('fso', this.fso);
+		plugins.extend('fns', this.fns);
+		var plugin = new plugins(id);
 
 		try{
 			// 插件信息写入数据库	
@@ -50,6 +50,9 @@ PluginModule.extend('install', function( params ){
 				
 				// 参数加载
 				plugin.AddSettingValue(pid, id);
+				
+				// 首页导航插入
+				plugin.AddAssetsNav(pid, plus);
 				
 				rets.success = true;
 				rets.message = '安装插件成功';
@@ -142,7 +145,7 @@ PluginModule.extend('getPluginSettingMessage', function( params ){
 		rets.folder = uri.queens[uri.indexs[id + '']].folder;
 		
 		rec
-			.sql('Select * From blog_params Where par_pid=' + id)
+			.sql('Select * From blog_params Where par_pid=' + id + ' And par_hide=0')
 			.open(1)
 			.each(function(object){ rets.data[object('par_keyword').value] = { value: object('par_keyvalue').value, id: object('id').value }; })
 			.close();

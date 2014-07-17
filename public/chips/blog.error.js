@@ -1,3 +1,10 @@
 ﻿// JavaScript Document
 exports["1"] = "日志页面ID参数获取失败";
 exports["2"] = "找不到该日志";
+exports["3"] = "未指定插件ID，无法获取插件信息。";
+exports["4"] = "插件不存在";
+exports["5"] = "插件已被暂停服务";
+exports["6"] = "无法找到插件配置文件";
+exports["7"] = "插件不存在AssetNav属性";
+exports["8"] = "未找到插件模板设置路径";
+exports["9"] = "未找到插件模板";

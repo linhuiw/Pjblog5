@@ -57,6 +57,7 @@ PluginModule.extend('AddPluginCacheFile', function( params ){
 	if ( !BlogControlPluginCaches.queens ){ BlogControlPluginCaches.queens = {}; };
 	BlogControlPluginCaches.indexs[params.id + ''] = params.mark;
 	BlogControlPluginCaches.queens[params.mark] = {
+		id: params.id,
 		name: params.name,
 		icon: params.icon,
 		folder: this.folder,
@@ -146,12 +147,76 @@ PluginModule.extend('AddSettingValue', function(id, folder){
 });
 
 PluginModule.extend('DeleteSettingValue', function(id){
-	var rec = new this.dbo.RecordSet(this.conn);
+	var rec = new this.dbo.RecordSet(this.conn),
+		nid;
+		
 	rec
 		.sql('Select * From blog_params Where par_pid=' + id)
-		.open(2)
-		.remove()
+		.open(3)
+		.each(function(object){
+			if ( object('par_hide').value && object('par_keyword').value === 'SYSTEMASSETNAV' ){
+				nid = Number(object('par_keyvalue').value);
+			};
+			object.Delete();
+		})
 		.close();
+		
+	if ( nid && nid > 0 ){
+		var AssetNav = require('../services/category');
+		AssetNav.extend('dbo', this.dbo);
+		AssetNav.extend('conn', this.conn);
+		AssetNav.extend('fs', this.fs);
+		var cate = new AssetNav();
+		cate.remove(nid);
+	};
+});
+
+PluginModule.extend('AddAssetsNav', function(id, plus){
+	if ( plus.AssetNav ){
+		var AssetNav = require('../services/category');
+		AssetNav.extend('dbo', this.dbo);
+		AssetNav.extend('conn', this.conn);
+		AssetNav.extend('fs', this.fs);
+		var cate = new AssetNav();
+
+		var cid = cate.add({
+			cate_name: plus.AssetNav.name,
+			cate_des: plus.AssetNav.des,
+			cate_parent: 0,
+			cate_src: blog.web + '/plugin.asp?id=' + id,
+			cate_outlink: true,
+			cate_isroot: 0,
+			cate_order: 99,
+			cate_icon: '1.gif'
+		});
+
+		if ( cid > 0 ){
+			var rec = new this.dbo.RecordSet(this.conn);
+			rec
+				.sql('Select * From blog_params')
+				.open(2)
+				.add({
+					par_keyword: 'SYSTEMASSETNAV',
+					par_keyvalue: cid + '',
+					par_pid: id,
+					par_hide: true
+				})
+				.close();
+		};
+	};
+});
+
+PluginModule.extend('getSettingParams', function(id){
+	var rec = new this.dbo.RecordSet(this.conn),
+		rets = {};
+		
+	rec
+		.sql('Select * From blog_params Where par_pid=' + id + ' And par_hide=0')
+		.open(1)
+		.each(function(object){ rets[object('par_keyword').value] = object('par_keyvalue').value; })
+		.close();
+		
+	return rets;
 });
 
 return PluginModule;

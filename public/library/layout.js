@@ -160,7 +160,11 @@ LayoutModule.extend('render', function( file ){
 	if ( this.fs.exist(contrast(theme)) ){
 		include(theme, {
 			data: this.params,
-			load: Library.proxy(this.load, this)
+			load: Library.proxy(this.load, this),
+			dbo: this.dbo,
+			conn: this.conn,
+			fs: this.fs,
+			fns: this.fns
 		});
 	};
 });

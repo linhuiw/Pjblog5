@@ -89,4 +89,51 @@ GuestBookModule.extend('post', function( params ){
 	}
 });
 
+GuestBookModule.extend('reply', function(params){
+	var id = params.form.id,
+		reply = params.form.reply,
+		ret = { success: false, message: '回复失败' };
+		
+	if ( !id || id.length === 0 ){
+		ret.message = 'ID不存在';
+		return ret;
+	};
+	
+	var rec = new this.dbo.RecordSet(this.conn);
+	rec
+		.sql('Select * From blog_messages Where id=' + id)
+		.open(3)
+		.update({
+			msg_reply: reply	
+		})
+		.close();
+	
+	ret.success = true;
+	ret.message = '回复成功';
+	
+	return ret;
+});
+
+GuestBookModule.extend('remove', function(params){
+	var id = params.query.id,
+		ret = { success: false, message: '删除失败' };
+		
+	if ( !id || id.length === 0 ){
+		ret.message = 'ID不存在';
+		return ret;
+	};
+	
+	var rec = new this.dbo.RecordSet(this.conn);
+	rec
+		.sql('Select * From blog_messages Where id=' + id)
+		.open(3)
+		.remove()
+		.close();
+	
+	ret.success = true;
+	ret.message = '删除成功';
+	
+	return ret;
+});
+
 return GuestBookModule;

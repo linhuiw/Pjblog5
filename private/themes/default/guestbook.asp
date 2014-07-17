@@ -28,7 +28,6 @@
         	<div class="detail-lists">
             	<h3>留言列表</h3>
             	<%
-				Library.log(data.gets.page)
 				;(function(){
 					var rec = new dbo.RecordSet(conn),
 						keep = [],
@@ -57,17 +56,19 @@
 							ids.push(object("msg_member_id").value);
 						});
 						
-						rec = new dbo.RecordSet(conn);
-						rec
-							.sql("Select * From blog_members Where id in (" + ids.join(",") + ")")
-							.open(1)
-							.each(function(object){
-								uids[object("id") + ""] = {
-									nick: object("member_nick").value,
-									avatar: object("member_avatar").value
-								}
-							})
-							.close();
+						if ( ids.length > 0 ){
+							rec = new dbo.RecordSet(conn);
+							rec
+								.sql("Select * From blog_members Where id in (" + ids.join(",") + ")")
+								.open(1)
+								.each(function(object){
+									uids[object("id") + ""] = {
+										nick: object("member_nick").value,
+										avatar: object("member_avatar").value
+									}
+								})
+								.close();
+						}
 							
 						for ( var i = 0 ; i < keep.length ; i++ ){
 							var nick, avatar;
@@ -89,8 +90,10 @@
 							if ( keep[i].msg_reply.length > 0 ){
 						%>
                         <div class="reply">
+                        	<div class="replybox">
                         	<h4>博主回复：</h4>
                             <div class="repc"><%=keep[i].msg_reply%></div>
+                            </div>
                         </div>
                         <%	
 							};

@@ -22,8 +22,10 @@ define(['appjs/assets/jquery.form.min'],function( require, exports, module ){
 				success: function( params ){
 					if ( params.success ){
 						that.tip.success(params.message);
-						console.log(params.msg);
 						$('#postform').resetForm();
+						setTimeout(function(){
+							window.location.reload();
+						}, 1000);
 					}else{
 						that.tip.error(params.message);
 					}

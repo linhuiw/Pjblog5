@@ -274,15 +274,19 @@ rec.extend('remove', function(){
 
 rec.extend('DualTopPage', function( table, alters, param, orderby, _orderby, pagesize, pageindex, callback , up ){
 	var v = {
-		pageindex: 0,
-		pagesize: 15,
+		pageindex: pageindex,
+		pagesize: pagesize,
 		recordCount: 0,
 		pageCount: 0
 	};
 	
 	var _sql = 'select count(1) from ' + table + ( param ? ' where ' + param : '' );
-	var _recordCount = this.connect.Execute( _sql )(0);
-	
+	var _recordCount = this.connect.Execute( _sql )(0).value;
+
+	if ( _recordCount === 0 ){
+		return v;
+	};
+
 	_recordCount = parseInt( _recordCount, 10 );
 	_pageCount = Math.ceil(_recordCount / pagesize);
 	

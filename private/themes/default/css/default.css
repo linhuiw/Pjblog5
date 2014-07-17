@@ -57,3 +57,6 @@
 .detail-lists .items .infos .nick{ height:20px; line-height:20px; font-weight:bold;}
 .detail-lists .items .infos .time{ height:20px; line-height:20px; margin-bottom:5px;}
 .detail-lists .items .infos .des{ line-height:20px;}
+.detail-lists .items .infos .reply .replybox{ border:1px dashed #ddd; padding:10px 15px; background-color:#f9f9f9;}
+.detail-lists .items .infos .reply .replybox h4{ height:20px; line-height:20px; padding:0px 0 5px 0; border-bottom:1px dashed #ccc; margin-bottom:5px;}
+.detail-lists .items .infos .reply .replybox .repc{ line-height:20px;}

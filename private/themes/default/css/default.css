@@ -33,8 +33,10 @@
 
 .pannel{ padding:10px 15px; background-color:#fff;box-shadow:0px 0px 10px #ccc; border-radius:3px; margin-bottom:20px;}
 .pannel .login{}
-.pannel .login p{ line-height:30px; padding-left:20px;}
-.pannel h6{ height:20px; line-height:20px; padding:5px 0px; border-bottom:1px solid #eee; margin-bottom:10px;}
+.pannel .login p{ line-height:20px; padding-left:20px; padding:5px 10px; border-bottom:1px dashed #eee;}
+.pannel .login p:last-child{ border:none;}
+.pannel .login p i{ margin-right:10px;}
+.pannel h6{ height:20px; line-height:20px; padding:5px 0px; border-bottom:1px solid #eee; }
 
 .error{ background-color:#fff;}
 .error h6{}

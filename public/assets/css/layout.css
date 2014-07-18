@@ -119,13 +119,13 @@ a:hover{ color:#777;}
 #plugin{}
 #plugin .tips{ color:#777; height:20px; margin-bottom:20px;}
 #plugin .tips .installed{ background-color:#fff;}
-#plugin .tips .uninstalled{ background-color:#dfdfdf;}
+#plugin .tips .uninstalled{ background-color:#F8FCFE;}
 #plugin .tips .install-block{ width:20px; height:20px; margin-right:5px; border-radius:2px; box-shadow:2px 1px 3px #ccc;}
 #plugin .tips .install-block-info{ margin-right:20px; height:20px; line-height:20px;font-weight:bold;}
 #plugin .plugin-zone{ margin-right:10px; color:#777;}
 #plugin .plugin-zone .installed{ background-color:#fff;}
 #plugin .plugin-zone .plugins{ padding:10px; border-radius:5px;box-shadow:0px 1px 6px #ccc; margin-bottom:20px;}
-#plugin .plugin-zone .uninstalled{ background-color:#dfdfdf;box-shadow:0px 1px 6px #999;}
+#plugin .plugin-zone .uninstalled{ background-color:#F8FCFE;box-shadow:0px 1px 6px #999;}
 #plugin .plugin-zone .plugins .icon{}
 #plugin .plugin-zone .plugins .tool{ width:60px; height:100%;}
 #plugin .plugin-zone .plugins .tool a{ height:20px; line-height:20px; display:block;}

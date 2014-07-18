@@ -1,8 +1,8 @@
 ﻿@charset "utf-8";
 /* CSS Document */
 
-.articles{}
-.articles .side{ width:300px;}
+.articles{ position:relative;}
+.articles .side{ width:300px; position:absolute; top:0; right:0}
 .articles .list{ margin-right:320px;  box-shadow:0px 0px 10px #ccc;}
 .articles .list h6{ height:40px; line-height:40px; padding:0px 20px; background-color:#F7F7F7; font-size:16px;}
 
@@ -37,6 +37,12 @@
 .pannel .login p:last-child{ border:none;}
 .pannel .login p i{ margin-right:10px;}
 .pannel h6{ height:20px; line-height:20px; padding:5px 0px; border-bottom:1px solid #eee; }
+.pannel .guestitems{ padding:8px 0px; border-bottom:1px dashed #eee; position:relative;}
+.pannel .guestitems img{ width:36px; height:36px; position:absolute; left:0; top:14px;}
+.pannel .guestitems .infos{ margin-left:45px;}
+.pannel .guestitems .infos .nick{ height:20px; line-height:20px; margin-bottom:2px; font-weight:bold;}
+.pannel .guestitems .infos .des{ line-height:20px;}
+.pannel .guestitems .infos .time{ height:20px; line-height:20px; margin-top:2px; color:#aaa;}
 
 .error{ background-color:#fff;}
 .error h6{}

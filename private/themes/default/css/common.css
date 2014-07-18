@@ -14,7 +14,7 @@ body{ color:#777; background-color:#eeeeee;}
 .top a:visited{ color:#fff; text-decoration:none;}
 .top a:hover{ color:#005b7f}
 .top a{ margin-left:10px;}
-.nav{ height:40px; line-height:40px; background-color:#005b7f; margin-bottom:20px;}
+.nav{ height:40px; line-height:40px; background-color:#005b7f; margin-bottom:20px; z-index:6; position:relative;}
 .nav .one{ float:left;}
 .nav .one a:link,
 .nav .one a:visited{ color:#fff; text-decoration:none; }

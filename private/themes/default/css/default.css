@@ -1,7 +1,7 @@
 ﻿@charset "utf-8";
 /* CSS Document */
 
-.articles{ position:relative;}
+.articles{ position:relative; z-index:5;}
 .articles .side{ width:300px; position:absolute; top:0; right:0}
 .articles .list{ margin-right:320px;  box-shadow:0px 0px 10px #ccc;}
 .articles .list h6{ height:40px; line-height:40px; padding:0px 20px; background-color:#F7F7F7; font-size:16px;}

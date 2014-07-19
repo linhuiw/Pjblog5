@@ -142,7 +142,7 @@
 				tip.error('参数错误');
 				return;
 			};
-			p.html('<div class="replybox"><form action="public/async.asp?m=A5A465WA1T545ET35DAS8WWWE6FTYJT46&p=reply&t=plugin" method="post"><input type="hidden" name="id" value="' + id + '" /><p><textarea name="reply"></textarea></p><p><input type="submit" value="保存"> <input type="button" value="关闭" class="close" /></p></form></div>');
+			p.html('<div class="replybox"><form action="public/async.asp?m=<%=pmark%>&p=reply&t=plugin" method="post"><input type="hidden" name="id" value="' + id + '" /><p><textarea name="reply"></textarea></p><p><input type="submit" value="保存"> <input type="button" value="关闭" class="close" /></p></form></div>');
 			p.find('form').ajaxForm({
 				dataType: 'json',
 				beforeSubmit: function(){
@@ -184,7 +184,7 @@
 			};
 			tip.loading();
 			$.getJSON('public/async.asp', {
-				m: 'A5A465WA1T545ET35DAS8WWWE6FTYJT46',
+				m: '<%=pmark%>',
 				p: 'remove',
 				t: 'plugin',
 				id: id

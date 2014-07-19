@@ -1,4 +1,4 @@
-﻿// JavaScript Document
+// JavaScript Document
 define(['appjs/assets/jquery.form.min'],function( require, exports, module ){
 	return new Class({
 		initialize: function(){
@@ -9,12 +9,12 @@ define(['appjs/assets/jquery.form.min'],function( require, exports, module ){
 			$('#postform').ajaxForm({
 				dataType: 'json',
 				beforeSubmit: function(){
-					if ( $("input[name='nick']").size() > 0 && $("input[name='nick']").val().length === 0 ){
-						that.tip.error('请输入昵称');
+					if ( $("input[name='link_name']").size() > 0 && $("input[name='link_name']").val().length === 0 ){
+						that.tip.error('请输入网站名称');
 						return false;
 					};
-					if ( $("input[name='mail']").size() > 0 && $("input[name='mail']").val().length === 0 ){
-						that.tip.error('请输入邮箱');
+					if ( $("input[name='link_src']").size() > 0 && $("input[name='link_src']").val().length === 0 ){
+						that.tip.error('请输入网站地址');
 						return false;
 					};
 					that.tip.loading();

@@ -73,3 +73,13 @@
 .detail-lists .items .infos .reply .replybox{ border:1px dashed #ddd; padding:10px 15px; background-color:#f9f9f9;}
 .detail-lists .items .infos .reply .replybox h4{ height:20px; line-height:20px; padding:0px 0 5px 0; border-bottom:1px dashed #ccc; margin-bottom:5px;}
 .detail-lists .items .infos .reply .replybox .repc{ line-height:20px;}
+
+.texts{}
+.texts .ic{ float:left; width:150px; margin-right:10px; margin-bottom:10px;}
+.ic .des{ color:#ccc; line-height:20px;}
+.ic a{ display:block; height:20px; line-height:20px; overflow:hidden;}
+
+.icons .ic{ float:left; width:300px; margin-right:20px; margin-bottom:10px;}
+.icons .ic img{ width:88px; height:31px; float:left;}
+.icons .ic a,
+.icons .ic .des{ display:block; margin-left:98px;}

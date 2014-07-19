@@ -18,6 +18,7 @@
 <div class="articles clearfix wrap">
 	<div class="side fright">
     	<%include("private/themes/" + data.global.blog_theme + "/side-login.asp", { user: data.user });%>
+        <%include("private/themes/" + data.global.blog_theme + "/side-toparticle.asp", { load: load, dbo: dbo, conn: conn });%>
         <%include("private/themes/" + data.global.blog_theme + "/side-guestbook.asp", { load: load, dbo: dbo, conn: conn });%>
     </div>
 	<div class="list">

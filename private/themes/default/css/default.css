@@ -43,6 +43,11 @@
 .pannel .guestitems .infos .nick{ height:20px; line-height:20px; margin-bottom:2px; font-weight:bold;}
 .pannel .guestitems .infos .des{ line-height:20px;}
 .pannel .guestitems .infos .time{ height:20px; line-height:20px; margin-top:2px; color:#aaa;}
+.pannel .arts{ border-bottom:1px dashed #eee; padding:5px 0px; position:relative;}
+.pannel .arts:hover{border-bottom:1px solid #eee;}
+.pannel .arts a{ display:block; line-height:20px; margin-left:20px;}
+.pannel .arts span{ display:block; line-height:20px;margin-left:20px; color:#ccc; font-size:11px;}
+.pannel .arts a i{ position:absolute; top:5px; left:0;}
 
 .error{ background-color:#fff;}
 .error h6{}

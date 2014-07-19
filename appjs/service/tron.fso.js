@@ -48,7 +48,7 @@ FileSystemObject.extend('dirList', function( fullpath, callback ){
 	for (; !emtor.atEnd(); emtor.moveNext()) {
 		var name = emtor.item().Name;
 		if ( typeof callback === 'function' ){
-			name = callback(emtor.item(), name);
+			name = callback(name, emtor.item());
 			if ( name ){
 				names.push(name);
 			}
@@ -73,7 +73,7 @@ FileSystemObject.extend('fileList', function( fullpath, callback ){
 	for (; !emtor.atEnd(); emtor.moveNext()) {
 		var name = emtor.item().Name;
 		if ( typeof callback === 'function' ){
-			name = callback(emtor.item(), name);
+			name = callback(name, emtor.item());
 			if ( name ){
 				names.push(name);
 			}

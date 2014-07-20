@@ -142,7 +142,7 @@ LayoutModule.extend('load', function( mark, callback ){
 		if ( this.fs.exist(resolve('private/plugins/' + folder + '/exports')) ){
 			var mode = require('private/plugins/' + folder + '/exports');
 			if ( typeof callback === 'function' ){
-				var m = callback.call(mode);
+				var m = callback.call(this, mode);
 				if ( m ){
 					return m;
 				}else{

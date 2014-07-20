@@ -29,13 +29,15 @@
 			com_content: object("com_content").value,
 			com_parent: 0,
 			com_postdate: new Date(object("com_postdate").value).getTime(),
+			com_username: object("com_username").value,
+			com_usermail: object("com_usermail").value,
 			items: []
 		};
 		keep.push(object("id").value);
-		if ( user.indexOf(object("com_member_id").value) === -1 ){
+		if ( user.indexOf(object("com_member_id").value) === -1 && object("com_member_id").value > 0 ){
 			user.push(object("com_member_id").value);
 		};
-		if ( art.indexOf(object("com_article_id").value) === -1 ){
+		if ( art.indexOf(object("com_article_id").value) === -1 && object("com_article_id").value > 0 ){
 			art.push(object("com_article_id").value);
 		};
 	});
@@ -56,12 +58,14 @@
 						com_member_id: object("com_member_id").value,
 						com_content: object("com_content").value,
 						com_parent: parent,
-						com_postdate: new Date(object("com_postdate").value).getTime()
+						com_postdate: new Date(object("com_postdate").value).getTime(),
+						com_username: object("com_username").value,
+						com_usermail: object("com_usermail").value
 					});
-					if ( user.indexOf(object("com_member_id").value) === -1 ){
+					if ( user.indexOf(object("com_member_id").value) === -1 && object("com_member_id").value > 0 ){
 						user.push(object("com_member_id").value);
 					};
-					if ( art.indexOf(object("com_article_id").value) === -1 ){
+					if ( art.indexOf(object("com_article_id").value) === -1 && object("com_article_id").value > 0 ){
 						art.push(object("com_article_id").value);
 					};
 				}
@@ -100,13 +104,23 @@
 %>
 <div id="comment">
 	<%
+		var md5 = require("md5");
 		for ( var i in data ){
 			(function( mid, aid ){
-				var ms = users[mid + ""];
+				var ms;
+				if ( mid > 0 ){
+					ms = users[mid + ""];
+				}else{
+					ms = {
+						member_nick: data[i].com_username,
+						member_avatar: blog.AppPlatForm + "/avatars/" + md5.make(data[i].com_usermail) + ".jpg",
+						id: 0
+					}
+				}
 				var as = arts[aid + ""];
 	%>
     <div class="parent clearfix">
-    	<div class="img fleft"><img src="<%=ms.member_avatar%>" /></div>
+    	<div class="img fleft"><img src="<%=ms.member_avatar%>" onerror="this.src='http://app.webkits.cn/avatars/default.png'" /></div>
         <div class="info">
         	<div class="nick"><a href="?m=user&n=<%=ms.member_nick%>" target="_blank"><%=ms.member_nick%></a> 于 <%=date.format(new Date(data[i].com_postdate), "y-m-d h:i:s")%> 在<a href="article.asp?id=<%=as.id%>" target="_blank">《<%=as.art_title%>》</a>文章中发表评论：</div>
             <div class="des"><i class="fa fa-angle-right"></i><%=data[i].com_content%></div>
@@ -120,11 +134,20 @@
 				if ( data[i].items.length > 0 ){
 					for ( var j = 0 ; j < data[i].items.length ; j++ ){
 						var _data = data[i].items[j];
-						var _ms = users[_data.com_member_id + ""];
+						var _ms;
+						if ( _data.com_member_id > 0 ){
+							_ms = users[_data.com_member_id + ""];
+						}else{
+							_ms = {
+								member_nick: _data.com_username,
+								member_avatar: blog.AppPlatForm + "/avatars/" + md5.make(_data.com_usermail) + ".jpg",
+								id: 0
+							}
+						}
 						var _as = arts[_data.com_article_id + ""];
 	%>
     <div class="child clearfix">
-    	<div class="img fleft"><img src="<%=_ms.member_avatar%>" /></div>
+    	<div class="img fleft"><img src="<%=_ms.member_avatar%>" onerror="this.src='http://app.webkits.cn/avatars/default.png'" /></div>
         <div class="info">
         	<div class="nick"><a href="?m=user&n=<%=_ms.member_nick%>" target="_blank"><%=_ms.member_nick%></a> 于 <%=date.format(new Date(_data.com_postdate), "y-m-d h:i:s")%> 在<a href="article.asp?id=<%=_as.id%>" target="_blank">《<%=_as.art_title%>》</a>文章中发表评论：</div>
             <div class="des"><i class="fa fa-angle-right"></i><%=_data.com_content%></div>

@@ -1,5 +1,5 @@
 ﻿<%
-var nick = http.query("n");
+var nick = fns.HTMLStr(fns.SQLStr(http.query("n")));
 if ( !nick || nick.length === 0 ){
 	nick = "";
 };
@@ -17,6 +17,7 @@ if ( nick.length > 0 ){
 }else{
 	sql = "Select * From blog_members Order By member_logindate DESC";
 };
+
 var date = require("date");
 %>
 <div id="user">

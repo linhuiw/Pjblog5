@@ -1,8 +1,8 @@
 ﻿@charset "utf-8";
 /* CSS Document */
 
-.articles{}
-.articles .side{ width:300px;}
+.articles{ position:relative; z-index:5;}
+.articles .side{ width:300px; position:absolute; top:0; right:0}
 .articles .list{ margin-right:320px;  box-shadow:0px 0px 10px #ccc;}
 .articles .list h6{ height:40px; line-height:40px; padding:0px 20px; background-color:#F7F7F7; font-size:16px;}
 
@@ -33,8 +33,21 @@
 
 .pannel{ padding:10px 15px; background-color:#fff;box-shadow:0px 0px 10px #ccc; border-radius:3px; margin-bottom:20px;}
 .pannel .login{}
-.pannel .login p{ line-height:30px; padding-left:20px;}
-.pannel h6{ height:20px; line-height:20px; padding:5px 0px; border-bottom:1px solid #eee; margin-bottom:10px;}
+.pannel .login p{ line-height:20px; padding-left:20px; padding:5px 10px; border-bottom:1px dashed #eee;}
+.pannel .login p:last-child{ border:none;}
+.pannel .login p i{ margin-right:10px;}
+.pannel h6{ height:20px; line-height:20px; padding:5px 0px; border-bottom:1px solid #eee; }
+.pannel .guestitems{ padding:8px 0px; border-bottom:1px dashed #eee; position:relative;}
+.pannel .guestitems img{ width:36px; height:36px; position:absolute; left:0; top:14px;}
+.pannel .guestitems .infos{ margin-left:45px;}
+.pannel .guestitems .infos .nick{ height:20px; line-height:20px; margin-bottom:2px; font-weight:bold;}
+.pannel .guestitems .infos .des{ line-height:20px;}
+.pannel .guestitems .infos .time{ height:20px; line-height:20px; margin-top:2px; color:#aaa;}
+.pannel .arts{ border-bottom:1px dashed #eee; padding:5px 0px; position:relative;}
+.pannel .arts:hover{border-bottom:1px solid #eee;}
+.pannel .arts a{ display:block; line-height:20px; margin-left:20px;}
+.pannel .arts span{ display:block; line-height:20px;margin-left:20px; color:#ccc; font-size:11px;}
+.pannel .arts a i{ position:absolute; top:5px; left:0;}
 
 .error{ background-color:#fff;}
 .error h6{}
@@ -60,3 +73,13 @@
 .detail-lists .items .infos .reply .replybox{ border:1px dashed #ddd; padding:10px 15px; background-color:#f9f9f9;}
 .detail-lists .items .infos .reply .replybox h4{ height:20px; line-height:20px; padding:0px 0 5px 0; border-bottom:1px dashed #ccc; margin-bottom:5px;}
 .detail-lists .items .infos .reply .replybox .repc{ line-height:20px;}
+
+.texts{}
+.texts .ic{ float:left; width:150px; margin-right:10px; margin-bottom:10px;}
+.ic .des{ color:#ccc; line-height:20px;}
+.ic a{ display:block; height:20px; line-height:20px; overflow:hidden;}
+
+.icons .ic{ float:left; width:300px; margin-right:20px; margin-bottom:10px;}
+.icons .ic img{ width:88px; height:31px; float:left;}
+.icons .ic a,
+.icons .ic .des{ display:block; margin-left:98px;}

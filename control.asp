@@ -28,6 +28,7 @@
 		u,
 		s,
 		uid,
+		pmark,
 		SystemNavs = require("public/chips/blog.control.system.navs"),
 		PluginNavs = require("private/chips/" + blog.cache + "blog.control.plugin.navs"),
 		tfr = require("private/chips/" + blog.cache + "blog.uri.plugins"),
@@ -118,7 +119,8 @@
 		if ( t && t.length > 0 ){
 			var tf;
 			if ( tfr && tfr.indexs && tfr.queens && tfr.indexs[t] && tfr.queens[tfr.indexs[t]] && !tfr.queens[tfr.indexs[t]].stop ){ 
-				tf = tfr.queens[tfr.indexs[t]].folder; 
+				tf = tfr.queens[tfr.indexs[t]].folder;
+				pmark = tfr.indexs[t];
 			}else{ 
 				tf = "404";
 			};		
@@ -160,7 +162,7 @@
             <div class="content-page">
 <%		
 		if ( fs.exist(__u) ){
-			include(u, { dbo: dbo, conn: conn, fs: fs, fns: FNS, http: HTTP, m: m, t: t, uid: uid });
+			include(u, { dbo: dbo, conn: conn, fs: fs, fns: FNS, http: HTTP, m: m, t: t, uid: uid, pmark: pmark });
 		}else{
 			Library.log('<div class="page404"><h6>404</h6><p class="info">抱歉，无法找到模板！</p><p class="uri">Miss Path: ' + u + '</p></div>');
 		}

@@ -42,12 +42,23 @@ PluginModule.extend('setup', function( params ){
 });
 
 PluginModule.extend('uninstall', function( id ){
-	var rec = new this.dbo.RecordSet(this.conn);
+	var rec = new this.dbo.RecordSet(this.conn),
+		folder,
+		msg = {};
 		rec
 			.sql('Select * From blog_plugins Where id=' + id)
-			.open(3)
-			.remove()
-			.close();
+			.process(function(object){
+				if ( !object.Bof && !object.Eof ){
+					folder = object("plu_folder").value;
+					msg.mark = object('plu_mark').value;
+					this.remove();
+				}
+			}, 3);
+			
+	if ( folder && folder.length > 0 ){
+		this.InstallSQL(folder, 'uninstall.sql');
+		this.InstallBySelf(folder, id, msg, 'uninstall');
+	}
 });
 
 // 插件缓存
@@ -217,6 +228,41 @@ PluginModule.extend('getSettingParams', function(id){
 		.close();
 		
 	return rets;
+});
+
+PluginModule.extend('InstallSQL', function(folder, file){
+	var path = contrast('private/plugins/' + folder + '/' + file);
+	if ( this.fs.exist(path) ){
+		var o = new ActiveXObject(Library.com_stream),
+			content;
+			
+			o.Type = 2; o.Mode = 3; 
+			o.Open(); 
+			o.LoadFromFile(path);
+			content = o.ReadText;
+			o.Close;
+			
+			o = null;
+			
+		if ( content.length > 0 ){
+			try{
+				this.conn.Execute(content);
+			}catch(e){}
+		}
+	}
+});
+
+PluginModule.extend('InstallBySelf', function(folder, pid, msg, file){
+	var path = resolve('private/plugins/' + folder + '/' + file);
+	if ( this.fs.exist(path) ){
+		var code = require(path);
+		code.extend('dbo', this.dbo);
+		code.extend('conn', this.conn);
+		code.extend('fs', this.fs);
+		code.extend('fso', this.fso);
+		code.extend('fns', this.fns);
+		try{ new code(folder, pid, msg); }catch(e){}
+	}
 });
 
 return PluginModule;

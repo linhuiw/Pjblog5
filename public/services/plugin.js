@@ -36,12 +36,15 @@ PluginModule.extend('install', function( params ){
 		var plugin = new plugins(id);
 
 		try{
+			// 插件数据库安装
+			plugin.InstallSQL(id, 'install.sql');
+				
 			// 插件信息写入数据库	
 			pid = plugin.setup(plus);
 			
 			if ( pid > 0 ){
 				plus.id = pid;
-				
+
 				// 插件缓存
 				plugin.AddPluginCacheFile(plus);
 				
@@ -53,6 +56,9 @@ PluginModule.extend('install', function( params ){
 				
 				// 首页导航插入
 				plugin.AddAssetsNav(pid, plus);
+				
+				// 自定义安装文件
+				plugin.InstallBySelf(id, pid, plus, 'install');
 				
 				rets.success = true;
 				rets.message = '安装插件成功';
@@ -78,7 +84,6 @@ PluginModule.extend('unInstall', function( params ){
 		plugin.fns = this.fns;
 	
 	try{
-		
 		plugin.DeletePluginCacheFile(id);
 		plugin.DeletePluginNavFile(id);
 		plugin.DeleteSettingValue(id);

@@ -7,6 +7,8 @@
 		Comment = new CommentExports(mark),
 		gets = Comment.getSideValue();
 		
+	var date = require("date");
+		
 	var setting = gets.setting,
 		datas = gets.datas;
 		
@@ -19,7 +21,7 @@
         	<div class="nick"><%=datas[i].nick%></div>
             <div class="des"><a href="article.asp?id=<%=datas[i].aid%>#comment_<%=datas[i].id%>"><%=datas[i].content%></a></div>
             <%if ( setting.dispearDate === "1" ){%>
-            <div class="time"><%=datas[i].time%></div>
+            <div class="time"><%=date.format(new Date(datas[i].time), "y-m-d h:i:s")%></div>
             <%};%>
         </div>
     </div>

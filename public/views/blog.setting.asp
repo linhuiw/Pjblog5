@@ -106,6 +106,20 @@
     </div>
     
     <div class="setform">
+        <h5><i class="fa fa-comments"></i> 评论设置</h5>
+        <table cellpadding="0" cellspacing="0" width="100%" border="0">
+        	<tr>
+                <td width="150">前台显示每页评论数</td>
+                <td><input type="text" value="<%=object("blog_comment_perpage").value%>" name="blog_comment_perpage" class="col-x-1" /></td>
+            </tr>
+            <tr>
+                <td width="150">评论发表时间间隔（MS）</td>
+                <td><input type="text" value="<%=object("blog_comment_delay").value%>" name="blog_comment_delay" class="col-x-1" /></td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="setform">
         <h5><input type="submit" value="保存" /></h5>
     </div>
 </form>

@@ -8,7 +8,11 @@
 <link rel="stylesheet" type="text/css" href="<%=blog.web + "/private/themes/" + data.global.blog_theme%>/css/animate.css" />
 <link rel="stylesheet" type="text/css" href="<%=blog.web + "/private/themes/" + data.global.blog_theme%>/css/common.css" />
 <link rel="stylesheet" type="text/css" href="<%=blog.web + "/private/themes/" + data.global.blog_theme%>/css/default.css" />
+<link rel="stylesheet" type="text/css" href="<%=blog.web%>/appjs/assets/blog.loading.css"/>
 <link rel="stylesheet" type="text/css" href="<%=blog.web%>/fontawesome/css/font-awesome.min.css"/>
+<script type="text/javascript" src="<%=blog.web%>/appjs/assets/tron.js"></script>
+<script type="text/javascript" src="<%=blog.web%>/private/configs/assets.js"></script>
+<script type="text/javascript" src="<%=blog.web%>/appjs/assets/jquery.js"></script>
 <title><%=data.article.art_title%></title>
 </head>
 
@@ -47,8 +51,12 @@
             </div>
             <%}%>
         </div>
+        <%include("private/themes/" + data.global.blog_theme + "/comment.asp", { user: data.user, id: data.gets.id, page: data.gets.page, global: data.global, dbo: dbo, conn: conn, comments: data.comments, pages: data.pages })%>
     </div>
 </div>
 <%include("private/themes/" + data.global.blog_theme + "/footer.asp", { global: data.global });%>
+<script type="text/javascript" language="javascript">
+require('private/themes/<%=data.global.blog_theme%>/js/comment', function( book ){ typeof book === 'function' && new book(); });
+</script>
 </body>
 </html>

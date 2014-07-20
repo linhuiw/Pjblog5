@@ -83,3 +83,49 @@
 .icons .ic img{ width:88px; height:31px; float:left;}
 .icons .ic a,
 .icons .ic .des{ display:block; margin-left:98px;}
+
+.comment{ background-color:#fff; padding:0 30px 30px 30px;}
+.comment .comment-post{ margin-top:20px;}
+.comment h5{ height:20px; line-height:20px; padding:5px 0px; border-bottom:1px solid #eee; font-weight:bold; margin-bottom:10px;}
+.comment .comment-post td{ padding:2px 5px;}
+.comment .comment-post td input,
+.comment .comment-post td textarea{ border:1px solid #eee; resize:none; color:#777;}
+.comment .comment-post td textarea{ width:90%; height:80px;}
+.comment .comment-post td input[type=submit]{ padding:5px 15px; background-color:#fff; color:#777; font-weight:bold; cursor:pointer;}
+
+
+.root-comment,
+.child-comment{ padding:5px 0px 10px 0; border-bottom:1px dashed #eee;}
+.root-comment .comment-box,
+.child-comment .comment-box{ position:relative;}
+.root-comment .comment-box{ margin-right:50px;}
+.child-comment .comment-box{ margin-left:50px;}
+.root-comment .comment-box-user{ position:absolute; top:5px; left:0px; }
+.root-comment .comment-box-info{ margin-left:50px;}
+.child-comment .comment-box-user{ position:absolute; top:5px; right:0px;}
+.child-comment .comment-box-info{ margin-right:50px;}
+
+.root-comment .comment-box-info .nick{ height:20px; line-height:20px;}
+.child-comment .comment-box-info .nick{ height:20px; line-height:20px; text-align:right;}
+.comment-box-info .nick a i{ display:block; height:20px; line-height:20px;}
+
+.root-comment .comment-box-info .time{ height:20px; line-height:20px; color:#ccc;}
+.child-comment .comment-box-info .time{ height:20px; line-height:20px; color:#ccc; text-align:right;}
+.root-comment .comment-box-info .des{ line-height:20px;}
+.child-comment .comment-box-info .des{ line-height:20px; text-align:right;}
+
+.comment-box-user-avatar{}
+.comment-box-user-avatar img{ padding:1px; border:1px solid #eee; width:36px; height:36px;}
+.comment-box-user-avatar .tools{ width:38px; height:20px; text-align:center; margin-top:5px;}
+.comment-box-user-avatar .tools a{ text-align:center; margin:0 3px 0 3px; font-size:10px;} 
+.comment-box-user-avatar .tools a:link,
+.comment-box-user-avatar .tools a:visited{ color:#ccc;}
+.comment-box-user-avatar .tools a:hover{ color:#999;}
+.replybox{ background-color:#fff; width:400px; padding:10px 15px;}
+.replybox h4{ height:20px; line-height:20px; padding:5px 0px; border-bottom:1px solid #eee; font-weight:bold; margin-bottom:10px;}
+.replybox td{ padding:2px 5px;}
+.replybox td input,
+.replybox td textarea{ border:1px solid #eee; resize:none; color:#777;}
+.replybox td textarea{ width:90%; height:80px;}
+.replybox td input[type=submit],
+.replybox td input[type=button]{ padding:5px 15px; background-color:#fff; color:#777; font-weight:bold; cursor:pointer;}

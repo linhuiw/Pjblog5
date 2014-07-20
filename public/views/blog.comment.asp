@@ -112,7 +112,7 @@
             <div class="des"><i class="fa fa-angle-right"></i><%=data[i].com_content%></div>
             <div class="tools">
             	<i class="fa fa-caret-right"></i>操作：
-            	<a href="javascript:;"><i class="fa fa-trash-o"></i>删除这条评论</a>
+            	<a href="javascript:;" class="app-remove" app-cid="<%=data[i].id%>"><i class="fa fa-trash-o"></i>删除这条评论</a>
             </div>
         </div>
     </div>
@@ -130,7 +130,7 @@
             <div class="des"><i class="fa fa-angle-right"></i><%=_data.com_content%></div>
             <div class="tools">
             	<i class="fa fa-caret-right"></i>操作：
-            	<a href="javascript:;"><i class="fa fa-trash-o"></i>删除这条评论</a>
+            	<a href="javascript:;" class="app-remove" app-cid="<%=_data.id%>"><i class="fa fa-trash-o"></i>删除这条评论</a>
             </div>
         </div>
     </div>

@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-﻿// JavaScript Document
-=======
 var GuestBookModule = new Class({
 	initialize: function( configs ){
 		if ( !configs ){
@@ -166,4 +163,3 @@ GuestBookModule.extend('getSideValue', function(){
 });
 
 return GuestBookModule;
->>>>>>> 5f8c3741f09129b54d6bbc49759a2fb79f5c7811

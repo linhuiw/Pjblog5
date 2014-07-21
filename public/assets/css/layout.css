@@ -12,7 +12,7 @@ a:hover{ color:#777;}
 .header .logo sub{ font-size:14px; color:#999;}
 .header .logout i{ color:#fff; height:50px; line-height:50px; font-size:16px; color:#ddd;}
 .header .logout:hover i{ color:#fff;}
-.header .achor{ width:960px; margin:0 auto;}
+.header .achor{ width:960px; margin:0 auto; width:730px; height:50px;}
 .header .achor a{ display:block; float:left; line-height:50px; text-align:center; width:80px;}
 .header .achor a:link,
 .header .achor a:visited{ color:#ddd; font-size:12px; text-decoration:none;}

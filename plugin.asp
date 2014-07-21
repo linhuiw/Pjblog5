@@ -41,6 +41,14 @@
 		this.navigation();
 		this.add("errors", require("public/chips/blog.error"));
 		
+		if ( this.params.error > 0 ){
+			this.add("error", this.params.error); this.render("error.asp"); return;
+		}
+		
+		if ( isNaN(id) || isNaN(page) ){
+			this.add("error", 10); this.render("error.asp"); return;
+		}
+		
 		if ( id < 1 ){ this.add("error", 3); this.render("error.asp"); return; };
 		
 		var msg = this.getPluginMessage(id);

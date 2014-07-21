@@ -57,6 +57,9 @@ LayoutModule.extend('state', function( member ){
 		param.openid = '';
 		param.avatar = '';
 	}else{
+		if ( param.forbit ){
+			this.params.error = 11;
+		};
 		param.logout = blog.web + "/public/logout.asp";
 	};
 	

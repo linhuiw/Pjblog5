@@ -153,16 +153,23 @@
 		if ( !page || page.length === 0 ){ page = "1"; }; page = Number(page); if ( page < 1 ){ page = 1; };
 		if ( !id || id.length === 0 ){ id = "0"; }; id = Number(id);
 		
-		
 		querys.id = id;
 		querys.page = page;
 		this.add("gets", querys);
 		
 		this.navigation();
 		this.loadTags();
-
+		
 		this.add("errors", require("public/chips/blog.error"));
 		
+		if ( this.params.error > 0 ){
+			this.add("error", this.params.error); this.render("error.asp"); return;
+		}
+		
+		if ( isNaN(id) || isNaN(page) ){
+			this.add("error", 10); this.render("error.asp"); return;
+		}
+
 		if ( id < 1 ){ this.add("error", 1); this.render("error.asp"); return; };
 		if ( !this.Article(id) ){ this.render("error.asp"); return; };
 		

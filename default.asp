@@ -63,9 +63,19 @@
 		if ( !page || page.length === 0 ){ page = "1"; }; page = Number(page); if ( page < 1 ){ page = 1; };
 		if ( !cate || cate.length === 0 ){ cate = "0"; }; cate = Number(cate);
 		if ( !tag || tag.length === 0 ){ tag = "0"; }; tag = Number(tag);
-		
+
 		this.navigation();
 		this.loadTags();
+		
+		this.add("errors", require("public/chips/blog.error"));
+		
+		if ( this.params.error > 0 ){
+			this.add("error", this.params.error); this.render("error.asp"); return;
+		}
+		
+		if ( isNaN(cate) || isNaN(page) ){
+			this.add("error", 10); this.render("error.asp"); return;
+		}
 
 		if ( tag > 0 ){ this.tags( tag, page ); querys.tag = this.getTag(tag); }
 		else{ this.categorys( cate, page ); querys.categorys = cate; };

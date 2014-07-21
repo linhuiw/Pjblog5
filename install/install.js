@@ -157,7 +157,7 @@ exports.buildCacheFile = function(){
 	var arrays2 = ['catcherPathFormat', 'filePathFormat', 'imagePathFormat', 'scrawlPathFormat', 'snapscreenPathFormat', 'videoPathFormat'];
 	for ( var i = 0 ; i < arrays.length ; i++ ){
 		if ( ec[arrays[i]] ){
-			ec[arrays[i]] = data.folder.length > 0 ? "/" + data.folder + "/private/" : "/private/";
+			ec[arrays[i]] = "";
 		}
 	}
 	

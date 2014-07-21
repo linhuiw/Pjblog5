@@ -28,7 +28,7 @@
                                     </div>
 
                                     <div class="infobox-data">
-                                        <span class="infobox-data-number">235</span>
+                                        <span class="infobox-data-number"><%=conn.Execute("Select count(id) From blog_articles")(0).value%></span>
                                         <div class="infobox-content">文章总数</div>
                                     </div>
                                 </div>
@@ -43,7 +43,7 @@
                                     </div>
 
                                     <div class="infobox-data">
-                                        <span class="infobox-data-number">3000</span>
+                                        <span class="infobox-data-number"><%=conn.Execute("Select count(id) From blog_members")(0).value%></span>
                                         <div class="infobox-content">用户总数</div>
                                     </div>
                                 </div>
@@ -58,7 +58,7 @@
                                     </div>
 
                                     <div class="infobox-data">
-                                        <span class="infobox-data-number">598</span>
+                                        <span class="infobox-data-number"><%=conn.Execute("Select count(id) From blog_comments")(0).value%></span>
                                         <div class="infobox-content">评论总数</div>
                                     </div>
                                 </div>
@@ -73,7 +73,7 @@
                                     </div>
 
                                     <div class="infobox-data">
-                                        <span class="infobox-data-number">261</span>
+                                        <span class="infobox-data-number"><%=conn.Execute("Select count(id) From blog_messages")(0).value%></span>
                                         <div class="infobox-content">留言总数</div>
                                     </div>
                                 </div>
@@ -88,7 +88,7 @@
                                     </div>
 
                                     <div class="infobox-data">
-                                        <span class="infobox-data-number">12</span>
+                                        <span class="infobox-data-number"><%=conn.Execute("Select count(id) From blog_plugins")(0).value%></span>
                                         <div class="infobox-content">插件总数</div>
                                     </div>
                                 </div>
@@ -103,7 +103,7 @@
                                     </div>
 
                                     <div class="infobox-data">
-                                        <span class="infobox-data-number">157</span>
+                                        <span class="infobox-data-number"><%=conn.Execute("Select count(id) From blog_links")(0).value%></span>
                                         <div class="infobox-content">友链总数</div>
                                     </div>
                                 </div>
@@ -160,51 +160,73 @@
                 </h5>
                 <div class="detail-body clearfix">
                     <div class="detail-body-A3">
+                    	<%
+						;(function( REC ){
+							var rec = new REC(conn);
+							var keep = [], uids = [];
+							var md5 = require("md5");
+							var date = require("date");
+							var u = {};
+							var outs = [];
+							
+							rec
+								.sql('Select top 5 * From blog_comments Order By com_postdate DESC')
+								.open()
+								.each(function( object ){
+									keep.push({
+										id: object("id").value,
+										com_article_id: object("com_article_id").value,
+										com_member_id: object("com_member_id").value,
+										com_content: object("com_content").value,
+										com_postdate: new Date(object("com_postdate").value).getTime(),
+										com_username: object("com_username").value,
+										com_usermail: object("com_usermail").value
+									});
+									if ( uids.indexOf(object("com_member_id").value) === -1 && object("com_member_id").value > 0 ){ uids.push(object("com_member_id").value); };			
+								})
+								.close();
+
+							if ( uids.length > 0 ){
+								rec = new REC(conn);
+								rec
+									.sql("Select * From blog_members Where id in (" + uids.join(",") + ")")
+									.open()
+									.each(function(object){
+										u[object("id") + ""] = {
+											nick: object("member_nick").value,
+											avatar: object("member_avatar").value
+										}
+									})
+									.close();
+							}
+
+							for ( var i = 0 ; i < keep.length ; i++ ){
+								var nick, avatar;
+								if ( keep[i].com_member_id > 0 ){
+									nick = u[keep[i].com_member_id + ""].nick;
+									avatar = u[keep[i].com_member_id + ""].avatar;
+								}else{
+									nick = keep[i].com_username;
+									avatar = blog.AppPlatForm + "/avatars/" + md5.make(keep[i].com_usermail);
+								}
+						%>
                         <div class="detail-body-A3-item clearfix">
-                            <div class="photo fleft"><img src="http://tipoo.cn/assets/avatars/user.jpg" /></div>
+                            <div class="photo fleft"><img src="<%=avatar%>" onerror="this.src='http://app.webkits.cn/avatars/default.png'" /></div>
                             <div class="info">
-                                <div class="name clearfix">evio<span>2014.12.14</span></div>
-                                <div class="word">最新的版本很棒！我想再买一套，不知道店家可以不？</div>
+                                <div class="name clearfix"><%=nick%><span><%=date.format(new Date(keep[i].com_postdate), "y-m-d h:i")%></span></div>
+                                <div class="word"><a href="article.asp?id=<%=keep[i].com_article_id%>#comment_<%=keep[i].id%>" target="_blank"><%=keep[i].com_content%></a></div>
                             </div>
                         </div>
-                        
-                        <div class="detail-body-A3-item clearfix">
-                            <div class="photo fleft"><img src="http://tipoo.cn/assets/avatars/user.jpg" /></div>
-                            <div class="info">
-                                <div class="name clearfix">evio<span>2014.12.14</span></div>
-                                <div class="word">最新的版本很棒！我想再买一套，不知道店家可以不？</div>
-                            </div>
-                        </div>
-                        
-                        <div class="detail-body-A3-item clearfix">
-                            <div class="photo fleft"><img src="http://tipoo.cn/assets/avatars/user.jpg" /></div>
-                            <div class="info">
-                                <div class="name clearfix">evio<span>2014.12.14</span></div>
-                                <div class="word">最新的版本很棒！我想再买一套，不知道店家可以不？</div>
-                            </div>
-                        </div>
-                        
-                        <div class="detail-body-A3-item clearfix">
-                            <div class="photo fleft"><img src="http://tipoo.cn/assets/avatars/user.jpg" /></div>
-                            <div class="info">
-                                <div class="name clearfix">evio<span>2014.12.14</span></div>
-                                <div class="word">最新的版本很棒！</div>
-                            </div>
-                        </div>
-                        
-                        <div class="detail-body-A3-item clearfix">
-                            <div class="photo fleft"><img src="http://tipoo.cn/assets/avatars/user.jpg" /></div>
-                            <div class="info">
-                                <div class="name clearfix">evio<span>2014.12.14</span></div>
-                                <div class="word">最新的版本很棒！我想再买一套，不知道店家可以不？</div>
-                            </div>
-                        </div>
+                        <%
+							}
+						})( dbo.RecordSet );
+						%>
                     </div>
                 </div>
             </div>
         </li>
         
-        <li>
+<!--        <li>
             <div class="detail">
                 <h5 class="detail-head clearfix">
                     <div class="title"><i class="fa fa-send"></i> 最新留言</div>
@@ -250,7 +272,7 @@
                     </div>
                 </div>
             </div>
-        </li>
+        </li>-->
         
         <li>
             <div class="detail">
@@ -303,7 +325,7 @@
                 </h5>
                 <div class="detail-body clearfix">
                     <div class="detail-body-A3">
-                    dasf
+                    暂未开放，敬请期待！
                     </div>
                 </div>
             </div>
@@ -317,7 +339,7 @@
                 </h5>
                 <div class="detail-body clearfix">
                     <div class="detail-body-A3">
-                    dasf
+                    暂未开放，敬请期待！
                     </div>
                 </div>
             </div>

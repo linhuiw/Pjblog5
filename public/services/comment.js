@@ -107,6 +107,7 @@ CommentModule.extend('post', function( params ){
 		data.id = id;
 		ret.success = true;
 		ret.message = '发表评论成功';
+		this.AddCountArticleComment(id);
 		Session(blog.cache + "_comment_delay") = new Date().getTime();
 	}else{
 		return ret;
@@ -174,6 +175,7 @@ CommentModule.extend('reply', function( params ){
 		data.id = id;
 		ret.success = true;
 		ret.message = '回复评论成功';
+		this.AddCountArticleComment(id);
 		Session(blog.cache + "_comment_delay") = new Date().getTime();
 	}else{
 		return ret;
@@ -186,7 +188,9 @@ CommentModule.extend('reply', function( params ){
 CommentModule.extend('remove', function( params ){
 	var id = params.query.id || 0,
 		ret = { success: false, message: '删除评论失败' },
-		that = this;
+		that = this,
+		k = 0,
+		aid = 0;
 
 	if ( id.length === 0 ){
 		id = 0;
@@ -202,10 +206,12 @@ CommentModule.extend('remove', function( params ){
 		.process(function(object){
 			if ( !object.Bof && !object.Bof ){
 				var uid = object('com_member_id').value;
+				aid = object("com_article_id").value;
 				if ( that.group.indexOf('RemoveComment') > -1 || that.uid === uid ){
 					this.remove();
 					ret.success = true;
 					ret.message = '删除评论成功';
+					k = 1;
 				}else{
 					ret.message = '您没有权限删除评论';
 				}
@@ -217,11 +223,50 @@ CommentModule.extend('remove', function( params ){
 		rec
 			.sql('Select * From blog_comments Where com_parent=' + id)
 			.open(3)
-			.remove()
-			.close();
+			.each(function(object){
+				k = k + 1;
+				object.Delete();
+			})
+			.close()
+	};
+	
+	if ( k > 0 ){
+		this.RemoveCountArticleComment(aid, k);
 	}
 	
 	return ret;
+});
+
+CommentModule.extend('AddCountArticleComment', function(id){
+	var rec = new this.dbo.RecordSet(this.conn);
+	rec
+		.sql('Select * From blog_articles Where id=' + id)
+		.process(function(object){
+			if ( !object.Bof && !object.Eof ){
+				var i = object('art_comment_count').value;
+				this.update({
+					art_comment_count: i + 1
+				});
+			}
+		}, 3);
+});
+
+CommentModule.extend('RemoveCountArticleComment', function(id, j){
+	var rec = new this.dbo.RecordSet(this.conn);
+	rec
+		.sql('Select * From blog_articles Where id=' + id)
+		.process(function(object){
+			if ( !object.Bof && !object.Eof ){
+				var i = object('art_comment_count').value;
+				var o = i - j;
+				if ( o < 0 ){
+					o = 0;
+				};
+				this.update({
+					art_comment_count: o
+				});
+			}
+		}, 3);
 });
 
 return CommentModule;

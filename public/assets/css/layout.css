@@ -67,7 +67,9 @@ a:hover{ color:#777;}
 .waterfull li .detail .detail-body .detail-body-A1 .detail-body-A1-item .detail-body-A1-item-content .infobox .infobox-data .infobox-content{ font-weight:bold;}
 
 .waterfull li .detail .detail-body .detail-body-A2{}
-.waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item{ }
+.waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item{ border-bottom:1px dashed #eee; padding:5px 0px;}
+.waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item:last-child{ border:none;}
+.waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item:first-child{ padding-top:0;}
 .waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item .fleft,
 .waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item .fright{height:22px; line-height:22px;}
 .waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item .fright i{ height:22px; line-height:22px;width:22px; text-align:center; color:#ccc;}
@@ -640,7 +642,7 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 .category-pull-list li a{ height:30px; line-height:30px;}
 .category-pull-list li a.root{ width:130px; text-align:right; font-weight:bold; padding-right:30px;float:left; }
 .category-pull-list li .rise{ margin-left:160px;}
-.category-pull-list li a.child{ padding:0px 30px;}
+.category-pull-list li a.child{ width:150px; text-align:left; display:inline-block}
 .category-pull-list li a.child:link,
 .category-pull-list li a.child:visited{ color:#777;}
 .category-pull-list li a.child:hover{ color:#000;}

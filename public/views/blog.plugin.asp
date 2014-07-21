@@ -1,5 +1,5 @@
 <div class="clearfix" id="plugin">
-	<div class="col-x-2 fleft">
+	<div class="col-x-4">
     	<div class="tips">
         	<div class="clearfix">
             	<div class="install-block installed fleft"></div>
@@ -99,5 +99,4 @@
 
         </div>
     </div>
-    <div class="col-x-2 fright"><i class="fa fa-cloud"></i> 此为云端插件，暂未开放，敬请期待！</div>
 </div>

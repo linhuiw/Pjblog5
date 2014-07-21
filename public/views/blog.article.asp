@@ -36,7 +36,7 @@
 			return '草稿箱日志(-2)';
 		}
 		else if ( cate === 0 ){
-			return '垃圾箱日志(0)';
+			return '未分类日志(0)';
 		}
 		else{
 			return window.categorys[window.cate + ''] + "(" + window.cate + ")";
@@ -46,8 +46,8 @@
 <div class="category-pull-list">
 	<div class="mas">
         <a href="javascript:;" class="child setCate" app-cate="-1"><i class="fa fa-recycle"></i> 全部日志</a> 
-        <a href="javascript:;" class="child setCate" app-cate="0"><i class="fa fa-trash-o"></i> 垃圾箱日志</a>
-        <a href="javascript:;" class="child setCate" app-cate="0"><i class="fa fa-clipboard"></i> 草稿箱日志</a>
+        <a href="javascript:;" class="child setCate" app-cate="0"><i class="fa fa-trash-o"></i> 未分类日志</a>
+        <!--<a href="javascript:;" class="child setCate" app-cate="-2"><i class="fa fa-clipboard"></i> 草稿箱日志</a>-->
         <a href="?m=modifyarticle"><i class="fa fa-pencil"></i> 发表日志（高级模式）</a>
     </div>
     <ul class="root">
@@ -55,7 +55,7 @@
             ;(function(categoryList){
                 for ( var i in categoryList ){
         %>
-        <li class="root clearfix">
+        <li class="root">
             <a href="javascript:;" class="root setCate" app-cate="<%=i%>"><%=categoryList[i].name%></a>
             <div class="rise">
             <%for ( var j in categoryList[i].items ){%>

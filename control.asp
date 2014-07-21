@@ -12,7 +12,7 @@
 <script language="javascript" type="text/javascript" src="appjs/assets/jquery.js"></script>
 <script language="javascript" type="text/javascript" src="appjs/assets/tron.js"></script>
 <script language="javascript" type="text/javascript" src="private/configs/assets.js"></script>
-<title>PJBlog X Controler</title>
+<title>PJBlog 5 Controler</title>
 </head>
 <body>
 <%
@@ -60,7 +60,7 @@
 %>
 <!-- 系统导航 开始 -->
 	<div class="header clearfix">
-        <div class="logo fleft">PJBlogX<sub> . Controler</sub></div>
+        <div class="logo fleft">PJBlog5<sub> . Controler</sub></div>
         <a href="javascript:;" class="fright logout"><i class="fa fa-power-off"></i></a>
         <div class="achor">
             <%

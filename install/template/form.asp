@@ -8,7 +8,7 @@
     </tr>
     <tr>
         <td width="200">网站域名</td>
-        <td><input type="text" value="" name="web" style="width:600px;" value="http://"></td>
+        <td><input type="text" value="" name="web" style="width:600px;" value="http://" id="web" readonly="readonly" /></td>
     </tr>
     <tr>
         <td>数据库名称</td>
@@ -16,7 +16,7 @@
     </tr>
     <tr>
         <td>数据库IP地址</td>
-        <td><input type="text" value="" name="dbip" style="width:200px;" value="."> (本地地址就不需要更改)</td>
+        <td><input type="text" value="" name="dbip" style="width:200px;" value="." id="dbip" /> (本地地址就不需要更改)</td>
     </tr>
     <tr>
         <td>数据库用户名</td>
@@ -40,3 +40,13 @@
     </tr>
 </table>
 </form>
+<script>
+var web = document.getElementById('web');
+if ( web ){
+	web.value = window.location.origin;
+}
+var dbip = document.getElementById('dbip');
+if ( dbip ){
+	dbip.value = '.';
+}
+</script>

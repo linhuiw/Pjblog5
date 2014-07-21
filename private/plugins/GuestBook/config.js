@@ -9,12 +9,7 @@ exports.mark = 'A5A465WA1T545ET35DAS8WWWE6FTYJT46';
 exports.ControlNavs = {
 	name: '留言本插件',
 	icon: 'fa-envelope-o',
-	childs: {
-		list: {
-			name: '留言列表',
-			icon: 'fa-list'
-		}
-	}
+	page: 'list'
 }
 exports.AssetNav = {
 	name: '留言本',

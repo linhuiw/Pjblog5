@@ -35,6 +35,9 @@ var folders = fs.dirList(contrast("private/themes"), function( name ){
 });
 %>
 <div id="theme">
+	<%
+		if ( choosed.folder && choosed.folder.length > 0 ){
+	%>
 	<div class="choosed clearfix">
     	<div class="img fleft">
         	<img src="private/themes/<%=choosed.folder%>/<%=choosed.icon%>" />
@@ -54,6 +57,7 @@ var folders = fs.dirList(contrast("private/themes"), function( name ){
         </div>
         <% }; %>
     </div>
+    <%};%>
     <div class="locals">
     	<%
 			if ( locals.length > 0 ){

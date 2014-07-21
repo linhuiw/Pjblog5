@@ -20,6 +20,9 @@
 	
 	var action = http.query("action");
 	
+	var fso = require("../appjs/service/tron.fso");
+	var fs = new fso();
+
 	if ( action === "submit" ){
 		installer.submit(http);
 		include("./template/forminfo.asp", { data: require("./data") });
@@ -43,13 +46,16 @@
 	else if ( action === "oauth" ){
 		var oauth = require("public/library/oauth2"),
 			global = require("private/chips/" + blog.cache + "blog.global");
-		include("./template/oauth.asp", { appid: global.blog_appid, oauth: oauth });
+		include("./template/oauth.asp", { appid: global.blog_appid, oauth: oauth, folder: folder });
 	}
 	else if ( action === "complete" ){
 		installer.setLevel();
 		include("./template/complete.asp");
 	}
 	else{
+		if ( fs.exist(contrast("./data.lock")) ){
+			Response.Redirect("?action=complete");
+		};
 		include("./template/form.asp", { folder: folder });
 	};
 %>

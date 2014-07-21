@@ -1,4 +1,5 @@
 ﻿// JavaScript Document
+var plat = 'http://app.webkits.cn';
 function randoms(l){
 	var x = "123456789poiuytrewqasdfghjklmnbvcxzQWERTYUIPLKJHGFDSAZXCVBNM";
  	var tmp="";
@@ -49,7 +50,7 @@ exports.setup = function(){
 	blog.connection = {"netserver": data.dbip,"access":data.dbname,"username":data.dbusername,"password":data.dbpassword};
 	blog.cookie = randoms(10);
 	blog.cache = randoms(10) + '.';
-	blog.AppPlatForm = "http://app.webkits.cn";
+	blog.AppPlatForm = plat;
 	blog.web = data.web + '/' + blog.base;
 	blog.version = 1;
 	
@@ -82,7 +83,7 @@ exports.dbexcute = function(){
 	var o = new ActiveXObject(Library.com_stream);
 		o.Type = 2; o.Mode = 3; 
 		o.Open(); 
-		o.LoadFromFile(contrast('./sql/2000.sql'));
+		o.LoadFromFile(contrast('./sql/install.sql'));
 		content = o.ReadText;
 		o.Close;
 		
@@ -94,7 +95,7 @@ exports.dbexcute = function(){
 		ret.message = e.message;
 	}
 	
-	conn.Execute("Update blog_global Set blog_appid=" + data.appid + ",blog_appkey='" + data.appkey + "' Where id=1");
+	conn.Execute("Update blog_global Set blog_name='" + data.name + "', blog_title='" + data.name + "', blog_appid=" + data.appid + ",blog_appkey='" + data.appkey + "' Where id=1");
 	
 	var id = conn.Execute('Select top 1 id From blog_categorys Where cate_outlink=0 And cate_isroot=1')(0).value;
 	conn.Execute('Update blog_articles Set art_category=' + id);
@@ -153,9 +154,16 @@ exports.buildCacheFile = function(){
 	var editorconfig = fs.getFileContent(contrast("appjs/assets/ueditor/asp/config.json"));
 	var ec = JSON.parse(editorconfig);
 	var arrays = ["imageUrlPrefix", "scrawlUrlPrefix", "snapscreenUrlPrefix", "catcherUrlPrefix", "videoUrlPrefix", "fileUrlPrefix", "imageManagerUrlPrefix", "fileManagerUrlPrefix"];
+	var arrays2 = ['catcherPathFormat', 'filePathFormat', 'imagePathFormat', 'scrawlPathFormat', 'snapscreenPathFormat', 'videoPathFormat'];
 	for ( var i = 0 ; i < arrays.length ; i++ ){
 		if ( ec[arrays[i]] ){
-			ec[arrays[i]] = data.folder.length > 0 ? "/" + data.folder + "/appjs/assets/ueditor/asp/" : "/appjs/assets/ueditor/asp/";
+			ec[arrays[i]] = data.folder.length > 0 ? "/" + data.folder + "/private/" : "/private/";
+		}
+	}
+	
+	for ( var j = 0 ; j < arrays2.length ; j++ ){
+		if ( ec[arrays2[j]] ){
+			ec[arrays2[j]] = data.folder.length > 0 ? "/" + data.folder + "/private/uploads/{yyyy}{mm}{dd}/{time}{rand:6}" : "/private/uploads/{yyyy}{mm}{dd}/{time}{rand:6}";
 		}
 	}
 	

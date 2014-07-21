@@ -1,10 +1,9 @@
-﻿exports.folder = "blog";
+﻿exports.folder = "";
 exports.name = "刃雪城池";
-exports.dbname = "sq_pjblog5";
-exports.dbusername = "sq_pjblog5";
-exports.dbpassword = "pjblog5";
+exports.dbname = "test";
+exports.dbusername = "evio";
+exports.dbpassword = "1094872";
 exports.dbip = ".";
-exports.appid = "10001";
-exports.appkey = "3f711c6da132cedab8ac1a9d9ac867bb5280f939";
-exports.dbtype = "2000";
-exports.web = "http://webkits.cn";
+exports.appid = "10004";
+exports.appkey = "72ad517093fea177c87596224a16c07e577c9d04";
+exports.web = "http://blog.cn";

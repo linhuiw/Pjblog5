@@ -77,6 +77,7 @@ a:hover{ color:#777;}
 .waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item a:link,
 .waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item a:visited{ color:#777; text-decoration:none;}
 .waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item a:hover{ color:#000;}
+.waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item .time{ margin-left:8px; color:#ccc; padding-bottom:5px;}
 
 
 .waterfull li .detail .detail-body .detail-body-A3{}

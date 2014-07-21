@@ -4,8 +4,9 @@ define([
 ],function( require, exports, module ){
 	return new Class({
 		initialize: function(){
-			this.waterFull();
 			this.formatVersion();
+			this.addNews();
+			this.waterFull();
 		},
 		formatVersion: function(){
 			var keep = [];
@@ -38,7 +39,14 @@ define([
 				itemSelector: '.waterfull li' 
 			}); 
 		},
-		versions: require('http://plats.cn/upgrades/pjblog5.list'),
+		addNews: function(){
+			var data = this.news.data;
+			for ( var i = 0 ; i < data.length ; i++ ){
+				$('#platnews').append('<div class="detail-body-A2-item"><a href="http://app.webkits.cn/article/' + data[i].id + '" target="_blank"><i class="fa fa-angle-right"></i> ' + data[i].title + '</a><div class="time">'+data[i].time+'</div></div>');
+			}
+		},
+		versions: require('http://app.webkits.cn/upgrades/pjblog5.list'),
+		news: require('http://app.webkits.cn/acts/article/up.assets.js'),
 		date: require('appjs/assets/date')
 	});
 });

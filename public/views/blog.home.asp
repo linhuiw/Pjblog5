@@ -281,38 +281,7 @@
                     <div class="more"><a href="" class="fa fa-arrow-circle-right"></a></div>
                 </h5>
                 <div class="detail-body clearfix">
-                    <div class="detail-body-A2">
-                        <div class="detail-body-A2-item clearfix">
-                            <a href="#"><i class="fa fa-angle-right"></i> 中美强硬交锋或成常态 日媒声称G7峰会仍将批中国</a>
-                        </div>
-                        <div class="detail-body-A2-item clearfix">
-                            <a href="#"><i class="fa fa-angle-right"></i> 山西官员持干股被曝后出命案 金道铭出面摆平</a>
-                        </div>
-                        <div class="detail-body-A2-item clearfix">
-                            <a href="#"><i class="fa fa-angle-right"></i> 越船再度骚扰中方作业 中国海警船撞击阻挡(图)</a>
-                        </div>
-                        <div class="detail-body-A2-item clearfix">
-                            <a href="#"><i class="fa fa-angle-right"></i> 中国确认微软谷歌配合美国棱镜项目对华窃密</a>
-                        </div>
-                        <div class="detail-body-A2-item clearfix">
-                            <a href="#"><i class="fa fa-angle-right"></i> 江西省半年内3名省部级官员涉嫌违纪被免职</a>
-                        </div>
-                        <div class="detail-body-A2-item clearfix">
-                            <a href="#"><i class="fa fa-angle-right"></i> FBI通缉一俄罗斯黑客 指控其盗取1亿多美元</a>
-                        </div>
-                        <div class="detail-body-A2-item clearfix">
-                            <a href="#"><i class="fa fa-angle-right"></i> 河南一村庄地下水污染严重 井水一点火就着</a>
-                        </div>
-                        <div class="detail-body-A2-item clearfix">
-                            <a href="#"><i class="fa fa-angle-right"></i> 申办对手接连退出只剩俩 北京有望办2022冬奥会</a>
-                        </div>
-                        <div class="detail-body-A2-item clearfix">
-                            <a href="#"><i class="fa fa-angle-right"></i> 市长称治污怎么能干：几百亿埋地下 老百姓也看不见</a>
-                        </div>
-                        <div class="detail-body-A2-item clearfix">
-                            <a href="#"><i class="fa fa-angle-right"></i> 印度再曝轮奸杀人案：受害者遭强酸和汽油毁容</a>
-                        </div>
-                    </div>
+                    <div class="detail-body-A2 clearfix" id="platnews"></div>
                 </div>
             </div>
         </li>

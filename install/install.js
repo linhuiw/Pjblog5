@@ -10,7 +10,7 @@ function randoms(l){
 };
 
 exports.submit = function( http ){
-	var folder = http.form("folder").replace(/\\$/, '').replace(/\\/g, '/'),
+	var folder = http.form("folder").replace(/\\$/, '').replace(/^\\/, '').replace(/\\/g, '/'),
 		name = http.form("name"),
 		dbname = http.form("dbname"),
 		dbip = http.form("dbip"),
@@ -18,7 +18,7 @@ exports.submit = function( http ){
 		dbpassword = http.form("dbpassword"),
 		appid = http.form("appid"),
 		appkey = http.form("appkey"),
-		web = http.form("web");
+		web = http.form("web").replace(/\/$/, '');
 		
 	var fso = require('../appjs/service/tron.fso');
 	var fs = new fso();

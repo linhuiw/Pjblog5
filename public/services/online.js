@@ -49,4 +49,43 @@ OnLineModule.extend('download', function( params ){
 	};
 });
 
+OnLineModule.extend('dosql', function(params){
+	var id = params.query.id;
+	var AJAX = require('http').ajax;
+	var ajax = new AJAX();
+	var ret = { success: false, message: '更新失败' };
+	try{
+		var content = ajax.get(blog.AppPlatForm + '/upgrades/sqls/' + id + '.js', {});
+		var wrapper = ['return function (dbo, conn, fs, fns, require) { ', content, '};'].join("\n"),
+			__module = (new Function(wrapper))();
+		__module(
+			this.dbo,
+			this.conn,
+			this.fs,
+			this.fns,
+			Library.proxy(require, this)
+		);
+		blog.version = Number(id);
+		var z = '%';
+		var h = '<' + z + '\n;var blog = {};\n';
+		for ( var i in blog ){
+			h += 'blog.' + i + ' = ' + JSON.stringify(blog[i]) + ';\n';
+		}
+		h += z + '>';
+		this.fs.saveFile(contrast('private/configs/configure.asp'), h);
+		var m = ';var blog = {};\n';
+		m += 'blog.version = ' + blog.version + ';\n';
+		m += 'blog.web = "' + blog.web + '";\n';
+		m += 'blog.AppPlatForm = "' + blog.AppPlatForm + '";\n';
+		m += 'blog.base = "' + blog.base + '";\n';
+		m += 'Library.setBase(blog.base);';
+		this.fs.saveFile(contrast('private/configs/assets.js'), m);
+		ret.success = true;
+		ret.message = '更新成功';
+	}catch(e){
+		ret.message = e.message;
+	};
+	return ret;
+});
+
 return OnLineModule

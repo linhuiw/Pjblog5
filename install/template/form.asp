@@ -16,7 +16,7 @@
     </tr>
     <tr>
         <td>数据库IP地址</td>
-        <td><input type="text" value="" name="dbip" style="width:200px;" value="." id="dbip" /> (本地地址就不需要更改)</td>
+        <td><input type="text" value="." name="dbip" style="width:200px;" id="dbip" /> (本地地址就不需要更改)</td>
     </tr>
     <tr>
         <td>数据库用户名</td>
@@ -28,11 +28,11 @@
     </tr>
     <tr>
         <td>PJBlog5官方平台授权的APPID</td>
-        <td><input type="text" value="" name="appid" style="width:300px;"></td>
+        <td><input type="text" name="appid" style="width:300px;" value="10001"> (本地调试用户不要修改这里，线上安装的这里必须填写)</td>
     </tr>
     <tr>
         <td>PJBlog5官方平台授权的APPKEY</td>
-        <td><input type="text" value="" name="appkey" style="width:300px;"></td>
+        <td><input type="text" name="appkey" style="width:300px;" value="EWQREQRWEREW8QW4R4EWQ89R489WQE4R"> (本地调试用户不要修改这里，线上安装的这里必须填写)</td>
     </tr>
     <tr>
         <td></td>
@@ -44,9 +44,5 @@
 var web = document.getElementById('web');
 if ( web ){
 	web.value = window.location.origin;
-}
-var dbip = document.getElementById('dbip');
-if ( dbip ){
-	dbip.value = '.';
 }
 </script>

@@ -14,4 +14,5 @@
     </tr>
 </table>
 <h6>设置您的管理账户：</h6>
-<p style="padding:20px 30px;"><a href="<%=oauth.GetAuthorizeURL(appid, "install/default.asp?action=complete")%>">下一步，点击进行平台验证 绑定管理员信息</a> <a href="?action=local">本地调试安装</a></p>
+<p style="padding:20px 30px;"><a href="<%=oauth.GetAuthorizeURL(appid, "install/default.asp?action=complete")%>">下一步，点击进行平台验证 绑定管理员信息</a></p>
+<p style="padding:20px 30px;"><a href="?action=local">本地调试用户点击这里</a></p>

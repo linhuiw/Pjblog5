@@ -30,6 +30,10 @@
 .articles .detail .detail-content img{ max-width:630px;}
 .articles .detail .tags a{ margin-right:10px;}
 .articles .detail .modify{ height:20px; line-height:20px; padding:10px 10px; color:#ccc;}
+.articles .detail .detail-content table{ border-left:1px solid #ddd; border-top:1px solid #ddd; margin:10px 0px;}
+.articles .detail .detail-content table td{ border-right:1px solid #ddd; border-bottom:1px solid #ddd; padding:3px 5px;}
+.articles .detail .detail-content pre{ padding:10px 15px; border:1px dashed #ddd; background-color:#F8FCFE;}
+.articles .detail .detail-content ol{ margin-left:20px;}
 
 .pannel{ padding:10px 15px; background-color:#fff;box-shadow:0px 0px 10px #ccc; border-radius:3px; margin-bottom:20px;}
 .pannel .login{}

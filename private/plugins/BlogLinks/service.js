@@ -16,6 +16,10 @@ LinkModule.extend('post', function( params ){
 		link_des = params.form.link_des,
 		data = {}, id;
 		
+	if ( !/^http\:\/\//i.test(link_src) ){
+		link_src = 'http://' + link_src;
+	};
+		
 	if ( link_name.length === 0 ){
 		return { success: false, message: '请填写网站名称' };
 	};

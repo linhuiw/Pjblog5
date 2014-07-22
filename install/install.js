@@ -194,3 +194,49 @@ exports.setLevel = function(){
 	var fs = new fso();
 	fs.saveFile(contrast('./complete.lock'), 'locked');
 }
+
+exports.local = function(){
+	var connect = require('public/library/connect');
+	var dbo = connect.dbo;
+	var conn = connect.conn;
+	var id = 0, gid = 2;
+	var fns = require('appjs/service/tron.fns');
+	var hashkey = fns.randoms(40);
+	
+	var rec = new dbo.RecordSet(conn);
+	rec.sql("Select * From blog_groups Where group_name='超级管理员'")
+	.process(function(object){
+		if ( !object.Bof && !object.Eof ){
+			gid = object('id').value;
+		};
+	});
+	
+	rec = new dbo.RecordSet(conn);
+	rec
+		.sql('Select * From blog_members')
+		.on('add', function(object){
+			id = object('id').value;
+		})
+		.open(2)
+		.add({
+			member_mark: '',
+			member_nick: 'admin',
+			member_hashkey: hashkey,
+			member_mail: '',
+			member_group: gid,
+			member_forbit: false,
+			member_avatar: ''
+		})
+		.close();
+	
+	if ( id > 0 ){
+		var cookie = require('appjs/service/tron.cookie');
+		cookie.set(blog.cookie + "_user", "id", id);
+		cookie.set(blog.cookie + "_user", "hashkey", hashkey);
+		cookie.expire(blog.cookie + "_user", 365 * 24 * 60 * 60 * 1000);
+	}
+	
+	var fso = require('../appjs/service/tron.fso');
+	var fs = new fso();
+	fs.saveFile(contrast('./complete.lock'), 'locked');
+}

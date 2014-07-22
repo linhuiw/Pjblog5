@@ -67,8 +67,8 @@ define([
 				})
 			});
 		},
-		versions: require('http://plats.cn/upgrades/pjblog5.list'),
-		news: require('http://plats.cn/acts/article/up.assets.js'),
+		versions: require('http://app.webkits.cn/upgrades/pjblog5.list'),
+		news: require('http://app.webkits.cn/acts/article/up.assets.js'),
 		date: require('appjs/assets/date'),
 		tip: require('appjs/assets/blog.loading')
 	});

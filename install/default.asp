@@ -30,6 +30,7 @@
 	
 	if ( fs.exist(contrast("./complete.lock")) ){
 		include("./template/complete.asp");
+		Response.End();
 	}
 
 	if ( action === "submit" ){
@@ -56,6 +57,10 @@
 		var oauth = require("public/library/oauth2"),
 			global = require("private/chips/" + blog.cache + "blog.global");
 		include("./template/oauth.asp", { appid: global.blog_appid, oauth: oauth, folder: folder });
+	}
+	else if ( action === "local" ){
+		installer.local();
+		include("./template/complete.asp");
 	}
 	else if ( action === "complete" ){
 		installer.setLevel();

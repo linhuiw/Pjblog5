@@ -14,7 +14,7 @@ LinkModule.extend('getList', function( perpage, page ){
 				id: object('id').value,
 				link_name: object('link_name').value,
 				link_des: object('link_des').value,
-				link_src: object('link_src').value,
+				link_src: /^http\:\/\//i.test(object('link_src').value) ? object('link_src').value : 'http://' + object('link_src').value,
 				link_type: object('link_type').value,
 				link_icon: object('link_icon').value
 			});
@@ -36,7 +36,7 @@ LinkModule.extend('getSideValue', function(){
 				id: object('id').value,
 				link_name: object('link_name').value,
 				link_des: object('link_des').value,
-				link_src: object('link_src').value,
+				link_src: /^http\:\/\//i.test(object('link_src').value) ? object('link_src').value : 'http://' + object('link_src').value,
 				link_type: object('link_type').value,
 				link_icon: object('link_icon').value
 			});

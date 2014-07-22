@@ -189,4 +189,8 @@ exports.setLevel = function(){
 	}
 	
 	conn.Close();
+	
+	var fso = require('../appjs/service/tron.fso');
+	var fs = new fso();
+	fs.saveFile(contrast('./complete.lock'), 'locked');
 }

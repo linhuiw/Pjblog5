@@ -22,6 +22,15 @@
 	
 	var fso = require("../appjs/service/tron.fso");
 	var fs = new fso();
+	
+	var step1 = ["submit", "install", "dbsetup", "BuildCacheFile"];
+	if ( fs.exist(contrast("./data.lock")) && step1.indexOf(action) > -1 ){
+		Response.Redirect("?action=oauth");
+	};
+	
+	if ( fs.exist(contrast("./complete.lock")) ){
+		include("./template/complete.asp");
+	}
 
 	if ( action === "submit" ){
 		installer.submit(http);
@@ -54,7 +63,7 @@
 	}
 	else{
 		if ( fs.exist(contrast("./data.lock")) ){
-			Response.Redirect("?action=complete");
+			Response.Redirect("?action=oauth");
 		};
 		include("./template/form.asp", { folder: folder });
 	};

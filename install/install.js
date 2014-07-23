@@ -51,7 +51,7 @@ exports.setup = function(){
 	blog.cookie = randoms(10);
 	blog.cache = randoms(10) + '.';
 	blog.AppPlatForm = plat;
-	blog.web = data.web + '/' + blog.base;
+	blog.web = blog.base && blog.base.length > 0 ? data.web + '/' + blog.base : data.web;
 	blog.version = 1;
 	
 	var assets = ';var blog = {};\n', service = ';var blog = {};\n', ps = '%';

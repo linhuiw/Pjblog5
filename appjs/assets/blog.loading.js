@@ -25,7 +25,8 @@ define(function( require, exports, module ){
 				"left": "0px",
 				//"height": $(window).height() + "px",
 				"width": "100%",
-				bottom: '0px'
+				bottom: '0px',
+				zIndex: '99998'
 			});
 		};
 		
@@ -71,6 +72,7 @@ define(function( require, exports, module ){
 		}else{
 			loading.innerHTML = text ? '<i class="fa fa-refresh fa-spin"></i> ' + text : '<i class="fa fa-refresh fa-spin"></i> 正在发送数据，请稍后..';
 		}
+		$(loading).css({ zIndex: 99999 });
 		
 		$(window).trigger('resize');
 	};

@@ -2,11 +2,22 @@
 define('appjs/assets/jquery.form.min', function( require, exports, module ){
 	return new Class({
 		initialize: function(){
+			$('body').on('blur', '#articles .tool .pannel .tags span', function(){
+				var val = $(this).text() || '';
+				if ( val.length === 0 ){
+					$(this).text('新建标签');
+				}
+			});
+			$('body').on('click focus', '#articles .tool .pannel .tags span', function(){
+				var val = $(this).text() || '';
+				if ( val === '新建标签' ){
+					$(this).text('').focus();
+				}
+			});
 			this.ue = UE.getEditor('editor');
 			this.AddTags();
 			this.installTags();
 			this.setCategory();
-			//this.UploadImage();
 			this.SaveArticle();
 		},
 		AddTags: function(){
@@ -47,49 +58,6 @@ define('appjs/assets/jquery.form.min', function( require, exports, module ){
 				$("input[name='art_category']").val($(this).attr('app-cate'));
 			});
 		},
-/*		UploadImage: function(){
-			var that = this;
-			$('#upload').on('click', function(){
-				if ( !window.doing ){
-					window.doing = true;
-					var center = that.tip.center(that.UploadImageHTML());
-					$(center).find('.close').on('click', function(){
-						that.tip.close();
-					});
-					$(center).find('form').ajaxForm({
-						dataType: 'json',
-						iframe: true,
-						beforeSubmit: function(){
-							if ( window.doing ){
-								return false;
-							}
-							window.doing = true;
-							that.tip.loading('正在上传图片二进制流数据，请稍后...');
-						},
-						success: function( params ){
-							window.doing = false;
-							if ( params.success ){
-								that.tip.success('上传图片成功..');
-								var path = ('private' + params.params.path.split('private')[1]).replace(/\\/g, '/');
-								$('#cover').attr('src', path);
-								$("input[name='art_cover']").val(path);
-							}else{
-								that.tip.error('上传图片失败..');
-							}
-						}
-					});
-					setTimeout(function(){window.doing = false;}, 10);
-				}
-			});
-		},
-		UploadImageHTML: function(){
-			return 	'<div class="uploadimage">' +
-						'<form action="public/ControlUpload.asp" method="post" enctype="multipart/form-data">'+
-							'<div class="file"><input type="file" name="file" value="" /></div>'+
-							'<div class="submit"><input type="submit" value="上传" /> <input type="button" value="关闭" class="close" /></div>'+
-						'</form>'+
-					'</div>';
-		},*/
 		SaveArticle: function(){
 			var that = this;
 			$('#submit').on('click', function(){
@@ -97,7 +65,7 @@ define('appjs/assets/jquery.form.min', function( require, exports, module ){
 						tags = [];
 						
 				$("textarea[name='art_content']").val(contents);
-				$('#articles .tool .pannel .tags .item').each(function(){ tags.push($(this).find('span').html()); });
+				$('#articles .tool .pannel .tags .item').each(function(){ tags.push($(this).find('span').text()); });
 				$("input[name='art_tags']").val(tags.join(','));
 				/*
 				 * !获取图片信息

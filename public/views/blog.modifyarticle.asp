@@ -93,7 +93,7 @@
     
     <div class="arc-content clearfix">
     	<div class="mon-left">
-            <div class="arc-des"><textarea name="art_des" placeholder="日志预览内容简述.."><%=arc.art_des%></textarea></div>
+            <input type="hidden" name="art_des" />
             <div class="arc-html"><textarea name="art_content" id="editor" style="width:100%;height:500px;"><%=arc.art_content%></textarea></div>
         </div>
         <div class="tool">
@@ -125,7 +125,9 @@
                 	<a href="javascript:;" id="addTags"><i class="fa fa-plus"> 添加</i></a>
                 </div>
             </div>
-        	<div class="pannel">
+            <input type="hidden" name="art_tname" value="" />
+            <input type="hidden" name="art_tdes" value="" />
+        	<!--<div class="pannel">
                 <h6><i class="fa fa-share-alt"></i> 别名描述</h6>
                 <table cellpadding="0" cellspacing="0" width="100%" border="0">
                 	<tr>
@@ -137,7 +139,7 @@
                         <td><input type="text" name="art_tdes" value="<%=arc.art_tdes%>" class="col-x-3" /></td>
                     </tr>
                 </table>
-            </div> 
+            </div>--> 
         </div>
     </div>
 </div>

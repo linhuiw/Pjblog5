@@ -51,7 +51,7 @@ ArticleModule.extend('save', function( params ){
 	var id = params.form.id,
 		art_title = params.form.art_title,
 		art_des = params.form.art_des,
-		art_category = params.form.art_category,
+		art_category = params.form.art_category || 0,
 		art_content = this.fns.unSQLStr(this.fns.unHTMLStr(params.form.art_content)),
 		art_tags = this.fns.unSQLStr(this.fns.unHTMLStr(params.form.art_tags)),
 		art_draft = false,
@@ -65,6 +65,7 @@ ArticleModule.extend('save', function( params ){
 		GlobalCache = require('private/chips/' + blog.cache + 'blog.global');
 	
 	if ( art_title.length === 0 ){ rets.message = '标题不能为空'; return rets; };
+	if ( art_title.length > 255 ){ rets.message = '标题太长，限制为255个字符。'; return rets; };
 	if ( art_category.length === 0 ){ rets.message = '请选择分类后提交'; return rets; };
 	art_category = Number(art_category);
 	if ( art_content.length === 0 ){ rets.message = '日志内容不为空'; return rets; };

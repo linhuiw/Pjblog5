@@ -9,6 +9,14 @@
 	 * 返回系统模块变量
 	 */
 	http.createServer(function(params){
+		var Reffer = String(Request.ServerVariables("HTTP_REFERER")).toLowerCase(),
+			Serves = String(Request.ServerVariables("SERVER_NAME")).toLowerCase();
+			
+		if ( Reffer.indexOf("http://" + Serves) !== 0 ){
+			Library.json({ success: false, message: "禁止外部提交！" });
+			return;
+		};
+		
 		var m = params.query.m,
 			p = params.query.p,
 			t = params.query.t,

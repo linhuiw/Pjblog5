@@ -194,7 +194,7 @@ PluginModule.extend('AddAssetsNav', function(id, plus){
 			cate_name: plus.AssetNav.name,
 			cate_des: plus.AssetNav.des,
 			cate_parent: 0,
-			cate_src: blog.web + '/plugin.asp?id=' + id,
+			cate_src: 'plugin.asp?id=' + id,
 			cate_outlink: true,
 			cate_isroot: 0,
 			cate_order: 99,

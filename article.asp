@@ -149,6 +149,8 @@
 		var id = req.query.id,
 			page = req.query.page,
 			querys = {};
+			
+		this.add("req", req);
 		
 		if ( !page || page.length === 0 ){ page = "1"; }; page = Number(page); if ( page < 1 ){ page = 1; };
 		if ( !id || id.length === 0 ){ id = "0"; }; id = Number(id);

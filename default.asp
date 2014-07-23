@@ -59,6 +59,8 @@
 			page = req.query.page,
 			tag = req.query.tag,
 			querys = {};
+			
+		this.add("req", req);
 		
 		if ( !page || page.length === 0 ){ page = "1"; }; page = Number(page); if ( page < 1 ){ page = 1; };
 		if ( !cate || cate.length === 0 ){ cate = "0"; }; cate = Number(cate);

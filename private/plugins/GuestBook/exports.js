@@ -61,7 +61,7 @@ GuestBookModule.extend('getList', function( perpage, page ){
 			avatar = uids[keep[i].msg_member_id + ""].avatar;
 		}else{
 			nick = keep[i].msg_username;
-			avatar = blog.AppPlatForm + "/avatars/" + md5.make(keep[i].msg_usermail) + ".jpg";
+			avatar = blog.AppPlatForm + "/avatar/" + md5.make(keep[i].msg_usermail).toLowerCase();
 		}
 		outs.push({
 			nick: nick,
@@ -144,7 +144,7 @@ GuestBookModule.extend('getSideValue', function(){
 			avatar = uids[keep[i].msg_member_id + ""].avatar;
 		}else{
 			nick = keep[i].msg_username;
-			avatar = blog.AppPlatForm + "/avatars/" + md5.make(keep[i].msg_usermail) + ".jpg";
+			avatar = blog.AppPlatForm + "/avatar/" + md5.make(keep[i].msg_usermail).toLowerCase();
 		}
 		outs.push({
 			nick: nick,

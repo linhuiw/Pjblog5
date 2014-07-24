@@ -71,7 +71,7 @@ TopCommentModule.extend('getSideValue', function(){
 			avatar = u[keep[i].com_member_id + ""].avatar;
 		}else{
 			nick = keep[i].com_username;
-			avatar = blog.AppPlatForm + "/avatars/" + md5.make(keep[i].com_usermail);
+			avatar = blog.AppPlatForm + "/avatar/" + md5.make(keep[i].com_usermail).toLowerCase();
 		}
 		outs.push({
 			nick: nick,

@@ -96,7 +96,7 @@ define([
 									li.append('<ol class="dd-list"></ol>');
 									ol = li.find('ol.dd-list');
 								}
-								ol.append( that.categoryTemplate(data) );
+								ol.append( that.categoryTemplate(data, true) );
 								ol.find('li:last').addClass('animated flash');
 							}
 						}else{
@@ -306,8 +306,13 @@ define([
 				}
 			});
 		},
-		categoryTemplate: function( params ){
-			return '<li class="dd-item dd2-item" app-id="' + (params.id || 0) + '"><div class="dd-handle dd2-handle"><img src="private/icons/1.gif" /></div><div class="dd2-content"><div class="cate_tool"><a href="javascript:;" class="app-add"><i class="fa fa-plus"></i></a> <a href="javascript:;" app-icon="" class="app-icon"><i class="fa fa-image"></i></a> <a href="javascript:;" class="app-modify"><i class="fa fa-pencil-square-o"></i></a> <a href="javascript:;" class="app-delete"><i class="fa fa-trash-o"></i></a> </div><div class="cate_name">' + (params.cate_name || '新建根分类') + '</div><div class="cate_des wordCut">' + (params.cate_des || '这里填写新分类的描述说明..') + '</div><div class="cate_out"><i class="fa fa-times"></i></div><div class="outip"></div></div></li>';
+		categoryTemplate: function( params, isSecond ){
+			var h = '<li class="dd-item dd2-item" app-id="' + (params.id || 0) + '"><div class="dd-handle dd2-handle"><img src="private/icons/1.gif" /></div><div class="dd2-content"><div class="cate_tool">';
+			if ( !isSecond ){
+			h += '<a href="javascript:;" class="app-add"><i class="fa fa-plus"></i></a> ';
+			};
+			h += '<a href="javascript:;" app-icon="" class="app-icon"><i class="fa fa-image"></i></a> <a href="javascript:;" class="app-modify"><i class="fa fa-pencil-square-o"></i></a> <a href="javascript:;" class="app-delete"><i class="fa fa-trash-o"></i></a> </div><div class="cate_name">' + (params.cate_name || '新建根分类') + '</div><div class="cate_des wordCut">' + (params.cate_des || '这里填写新分类的描述说明..') + '</div><div class="cate_out"><i class="fa fa-times"></i></div><div class="outip"></div></div></li>';
+			return h;
 		},
 		iconsTemplate: function(z){
 			var h = '';

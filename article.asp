@@ -119,7 +119,7 @@
 			}else{
 				items[i].com_user.nick = items[i].com_username;
 				items[i].com_user.mail = items[i].com_usermail;
-				items[i].com_user.avatar = blog.AppPlatForm + "/avatars/" + md5.make(items[i].com_usermail) + ".jpg";
+				items[i].com_user.avatar = blog.AppPlatForm + "/avatar/" + md5.make(items[i].com_usermail).toLowerCase();
 				items[i].com_user.id = 0;
 			}
 			params[parents + ""].items.push(items[i]);
@@ -132,7 +132,7 @@
 			}else{
 				params[j].com_user.nick = params[j].com_username;
 				params[j].com_user.mail = params[j].com_usermail;
-				params[j].com_user.avatar = blog.AppPlatForm + "/avatars/" + md5.make(params[j].com_usermail) + ".jpg";
+				params[j].com_user.avatar = blog.AppPlatForm + "/avatar/" + md5.make(params[j].com_usermail).toLowerCase();
 				params[j].com_user.id = 0;
 			}
 			outs.push(params[j]);

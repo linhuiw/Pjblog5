@@ -29,7 +29,7 @@ define([
 		},
 		date: require('appjs/assets/date'),
 		htmlAjaxNotice: function( data ){
-			var h, li = document.createElement('li');
+			var h, li = document.createElement('li'), n = 0;
 			h = 		'<div class="detail">';
 			h +=			'<h5 class="detail-head clearfix">';
 			h +=				'<div class="title"><i class="fa fa-cloud"></i> 云端消息</div>';
@@ -38,8 +38,9 @@ define([
 			h +=			'<div class="detail-body clearfix">';
 			h +=				'<div class="detail-body-A5 zone">';
 			if ( data && data.length && data.length > 0 ){
-			h +=						'<p>您有' + data.length + '条新消息</p>';
+			h +=						'<p class="as">您有' + data.length + '条消息</p>';
 				for ( var i = 0 ; i < data.length ; i++ ){
+					if ( !data[i].checked ){n++;}
 			h +=						'<div class="detail-body-A5-item">'
 			h +=							'<a href="' + (data[i].href + '&access_token=' + window.token + '&oauth_consumer_key=' + window.appid + '&openid=' + window.openid) + '" target="_blank" ' + (data[i].checked ? ' class="normal"' : ' class="bold"') + '><i class="fa fa-angle-right"></i> 您在文章《' + data[i].title + '》中被 &lt;' + data[i].user.nick + '&gt; 回复评论！</a><div class="time"><a href="' + data[i].domain.src + '" target="_blank">' + data[i].domain.name + '</a> ' + this.date.format(new Date(data[i].time), 'y-m-d h:i:s') + '</div></div>'
 				}
@@ -48,7 +49,11 @@ define([
 			h +=			'</div>';
 			h +=		'</div>';
 			$('.waterfull').prepend(li);
-			$(li).html(h);
+			var x = $(li).html(h).find('.as');
+			if ( n > 0 ){
+				var b = x.html();
+				x.html(b + '，' + n + '条新信息。');
+			}
 			$('.waterfull').isotope('insert', li).isotope('layout');
 		},
 		formatVersion: function(){

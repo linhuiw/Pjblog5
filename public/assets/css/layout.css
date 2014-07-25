@@ -89,6 +89,14 @@ a:hover{ color:#777;}
 .waterfull li .detail .detail-body .detail-body-A3 .detail-body-A3-item .info .name span{ float:right; color:#ccc;}
 .waterfull li .detail .detail-body .detail-body-A3 .detail-body-A3-item .info .word{ line-height:18px;}
 
+.waterfull li .detail .detail-body .detail-body-A5 p{ display:block; height:20px; line-height:20px; padding:0px 0px 10px 0;}
+.waterfull li .detail .detail-body .detail-body-A5 .detail-body-A5-item{ line-height:20px; padding:5px 0px; border-top:1px dashed #eee;}
+.waterfull li .detail .detail-body .detail-body-A5 .detail-body-A5-item .time{ color:#ccc;}
+.waterfull li .detail .detail-body .detail-body-A5 .detail-body-A5-item a.bold{ color:#C36;}
+.waterfull li .detail .detail-body .detail-body-A5 .detail-body-A5-item .time a:link,
+.waterfull li .detail .detail-body .detail-body-A5 .detail-body-A5-item .time a:visited{ color:#ccc!important;}
+.waterfull li .detail .detail-body .detail-body-A5 .detail-body-A5-item .time a:hover{}
+
 .page404{background-color:#fff; box-shadow:0px 1px 6px #ccc; text-align:center; padding:200px 0px;}
 .page404 h6{ height:40px; line-height:40px; font-size:24px; color:#000;}
 .page404 .info{ margin:20px 0px; color:#777;}

@@ -28,7 +28,10 @@
 		u,
 		s,
 		uid,
+		token,
+		openid,
 		pmark,
+		globalcache = require("private/chips/" + blog.cache + "blog.global"),
 		SystemNavs = require("public/chips/blog.control.system.navs"),
 		PluginNavs = require("private/chips/" + blog.cache + "blog.control.plugin.navs"),
 		tfr = require("private/chips/" + blog.cache + "blog.uri.plugins"),
@@ -48,6 +51,8 @@
 	
 	common = user.adminStatus(function( rets, object ){
 		uid = object("id").value;
+		token = object("member_token").value;
+		openid = object("member_openid").value;
 	});
 	
 	if ( !common.login || !common.admin ){
@@ -61,7 +66,7 @@
 	<a href="<%=ret.GetAuthorizeURL(global.blog_appid, "control.asp")%>" id="loginform"><strong><i class="fa fa-share-alt-square"></i>后台授权登录</strong></a>
 <%
 			};
-		})(require("private/chips/" + blog.cache + "blog.global"), require("public/library/oauth2"));	
+		})(globalcache, require("public/library/oauth2"));	
 	}else{
 %>
 <!-- 系统导航 开始 -->
@@ -168,7 +173,24 @@
             <div class="content-page">
 <%		
 		if ( fs.exist(__u) ){
-			include(u, { dbo: dbo, conn: conn, fs: fs, fns: FNS, http: HTTP, m: m, t: t, uid: uid, pmark: pmark });
+			include( u, { 
+				dbo: dbo, 
+				conn: conn, 
+				fs: fs, 
+				fns: FNS, 
+				http: HTTP, 
+				m: m, 
+				t: t, 
+				uid: uid, 
+				pmark: pmark, 
+				token: token, 
+				openid: openid 
+			});
+			LoadJscript(function( tms ){
+				window.token = tms.token;
+				window.openid = tms.openid;
+				window.appid = tms.appid;
+			}, { token: token, openid: openid, appid: globalcache.blog_appid });
 		}else{
 			Library.log('<div class="page404"><h6>404</h6><p class="info">抱歉，无法找到模板！</p><p class="uri">Miss Path: ' + u + '</p></div>');
 		}

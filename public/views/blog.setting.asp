@@ -116,6 +116,15 @@
                 <td width="150">评论发表时间间隔（MS）</td>
                 <td><input type="text" value="<%=object("blog_comment_delay").value%>" name="blog_comment_delay" class="col-x-1" /></td>
             </tr>
+            <tr>
+                <td>回复评论云端消息通知</td>
+                <td>
+                	<select name="blog_comment_cloud_notice">
+                        <option value="0" <%if ( !object("blog_comment_cloud_notice").value ){Library.log('selected="selected"');}%>>关闭</option>
+                        <option value="1" <%if ( object("blog_comment_cloud_notice").value ){Library.log('selected="selected"');}%>>开启</option>
+                    </select>
+                </td>
+            </tr>
         </table>
     </div>
     

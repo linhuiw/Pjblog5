@@ -116,6 +116,9 @@ AjaxServer.extend('send', function( options ){
 	};
 	
 	this.object.open(options.method.toUpperCase(), options.url, false);
+	if ( options.method.toUpperCase() === 'POST' ){
+		this.object.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	};
 	this.object.onreadystatechange = function() {
 		if (that.object.readyState === 4) {
 			if (that.object.status === 200){

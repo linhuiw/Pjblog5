@@ -64,6 +64,10 @@ oauth.extend('GetUserInfo', function( token, openid ){
 	return ret;
 });
 
+oauth.extend('SetNotice', function( token, openid, options ){
+	return this.ajax.postJSON(blog.AppPlatForm + "/oauth/set_notice.asp?access_token=" + token + "&oauth_consumer_key=" + this.appid + "&openid=" + openid, options);
+});
+
 oauth.extend('doLogin', function(params){
 	var Member = require("../services/user"),
 		member = new Member();

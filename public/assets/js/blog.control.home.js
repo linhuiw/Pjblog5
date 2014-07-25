@@ -28,7 +28,7 @@ define([
 				$('#versions .zone').append('<p style="padding: 5px; height:20px; line-height:20px;">当前版本：V' + blog.version + ' <a href="?m=update" style="margin-left:100px;">文件校验升级</a></p>');
 			}else{
 				$('#versions .zone').html('<span style="padding: 5px; line-height:20px;">您已是最新版本V' + blog.version + '。无须升级。</span>');
-				$('#versions .zone').append('<p style="padding: 5px; height:20px; line-height:20px;">当前版本：V' + blog.version + ' <a href="?m=update" style="margin-left:70px;">文件校验 修复/升级</a></p>');
+				$('#versions .zone').append('<div style="padding: 5px; line-height:20px;">当前版本：V' + blog.version + ' <div style="margin-top:5px;"><a href="?m=update" style="line-height:20px;">文件校验 修复/升级</a></div></div>');
 			}
 			$('.waterfull')
 			.isotope('layout')

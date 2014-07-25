@@ -9,9 +9,13 @@
 			
 			var uid = 0,
 				group = 0,
+				openid,
+				token,
 				status = member.loginStatus(function(rets, object){
 					uid = object('id').value;
 					group = object('member_group').value;
+					openid = object('member_openid').value;
+					token = object('member_token').value;
 				});
 			
 			if ( !group ){
@@ -25,6 +29,8 @@
 			this.uid = uid;
 			this.login = status.login;
 			this.group = this.GroupLevel(group);
+			this.openid = openid;
+			this.token = token;
 		}else{
 			this.group = this.GroupLevel(2);
 		}
@@ -177,12 +183,100 @@ CommentModule.extend('reply', function( params ){
 		ret.message = '回复评论成功';
 		this.AddCountArticleComment(id);
 		Session(blog.cache + "_comment_delay") = new Date().getTime();
+		
+		if ( global.blog_comment_cloud_notice ){
+			var xs = this.CommentCloudNotice({
+				cid: cid,
+				parentid: root,
+				articleid: id,
+				time: new Date().getTime(),
+				com_username: nick,
+				com_usermail: mail,
+				domainid: global.blog_appid,
+				appkey: global.blog_appkey
+			});
+			
+			ret.message += xs.message;
+		};
 	}else{
 		return ret;
 	}
 	
 	return ret;
 	
+});
+
+CommentModule.extend('CommentCloudNotice', function( options ){
+	try{
+		var rec = new this.dbo.RecordSet(this.conn),
+			fromuid,
+			targetuid,
+			url,
+			title,
+			type = 'comment',
+			domainid = options.domainid,
+			username,
+			usermail,
+			time = options.time;
+			
+		if ( this.openid && this.openid.length > 0 ){
+			fromuid = this.openid;
+			username = '';
+			usermail = '';
+		}else{
+			fromuid = '';
+			username = options.com_username;
+			usermail = options.com_usermail;
+		};
+		
+		var comuid = 0;
+		rec
+			.sql('Select * From blog_comments Where id=' + options.parentid)
+			.process(function(object){
+				if ( !object.Bof && !object.Eof ){
+					comuid = object('com_member_id').value;
+				}
+			});
+
+		if ( comuid > 0 ){
+			rec = new this.dbo.RecordSet(this.conn);
+			rec
+				.sql('Select * From blog_members Where id=' + comuid)
+				.process(function( object ){
+					if ( !object.Bof && !object.Eof ){
+						targetuid = object('member_openid').value;
+					}
+				});
+				
+			url = blog.web + '/article.asp?id=' + options.articleid + '#comment_' + options.cid;
+			
+			rec = new this.dbo.RecordSet(this.conn);
+			rec
+				.sql('Select * From blog_articles Where id=' + options.articleid)
+				.process(function(object){
+					if ( !object.Bof && !object.Eof ){
+						title = object('art_title').value;
+					}
+				});
+				
+			var oauth2 = require('../library/oauth2').oauth;
+			var oauth = new oauth2(options.domainid, options.appkey);
+			return oauth.SetNotice(this.token, this.openid, {
+				fromuid: fromuid,
+				targetuid: targetuid,
+				url: url,
+				title: title,
+				type: type,
+				username: username,
+				usermail: usermail,
+				time: time
+			});
+		}else{
+			return { success: true, message: ' 目标用户为非平台用户 不需要添加云端通知' };
+		}
+	}catch(e){
+		return { success: false, message: e.message };
+	}
 });
 
 CommentModule.extend('remove', function( params ){

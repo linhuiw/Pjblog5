@@ -103,7 +103,7 @@
                 </td>
             </tr>
             <tr>
-                <td width="150">开启日志云端好友交互通知功能</td>
+                <td width="150">开启日志云端好友通知功能</td>
                 <td>
                 	<select name="blog_article_cloud_notice">
                         <option value="0" <%if ( object("blog_article_cloud_notice").value === 0 || !object("blog_article_cloud_notice").value ){Library.log('selected="selected"')}%>>关闭</option>

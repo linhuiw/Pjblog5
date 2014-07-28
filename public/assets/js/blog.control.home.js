@@ -72,7 +72,7 @@ define([
 				for ( var j = 0 ; j < keep.length ; j++ ){
 					$('#versions .zone').append('<div class="clearfix"><div class="ver fleft">V' + keep[j].id + '</div><div class="info"><p>' + keep[j].des + '</p><div class="date">' + (this.date.format(new Date(keep[j].time), 'y-m-d h:i:s')) + ' 发布</div><div class="tool"><a href="javascript:;" class="updatesql" app-id="' + keep[j].id + '"><i class="fa fa-angle-up"></i> 数据升级</a></div></div></div>');
 				}
-				$('#versions .zone').append('<p style="padding: 5px; height:20px; line-height:20px;">当前版本：V' + blog.version + ' <a href="?m=update" style="margin-left:100px;">文件校验升级</a></p>');
+				$('#versions .zone').append('<p style="padding: 5px; height:20px; line-height:20px;">当前版本：V' + blog.version + ' <div style="margin-top:5px;"><a href="?m=update" style="line-height:20px;">文件校验 修复/升级</a></div></p>');
 			}else{
 				$('#versions .zone').html('<span style="padding: 5px; line-height:20px;">您已是最新版本V' + blog.version + '。无须升级。</span>');
 				$('#versions .zone').append('<div style="padding: 5px; line-height:20px;">当前版本：V' + blog.version + ' <div style="margin-top:5px;"><a href="?m=update" style="line-height:20px;">文件校验 修复/升级</a></div></div>');

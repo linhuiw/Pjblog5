@@ -20,7 +20,8 @@ ThemeModule.extend('setup', function( params ){
 });
 
 ThemeModule.extend('install', function( folder ){
-	var ret = { success: false, message: '安装失败' };
+	var ret = { success: false, message: '安装失败' },
+		that = this;
 	
 	if ( this.fs.exist(contrast('private/themes/' + folder), true) ){
 		if ( this.fs.exist(resolve('private/themes/' + folder + '/config')) ){
@@ -66,6 +67,8 @@ ThemeModule.extend('install', function( folder ){
 								})
 								.close();
 						}
+						
+						that.SaveThemesSettingCacheFile();
 					}
 				})( this.fs, this.dbo, this.conn );
 				///////////////////////////////////////
@@ -171,7 +174,24 @@ ThemeModule.extend('SaveThemesSettingValue', function( params ){
 			.close();
 	}
 	
+	this.SaveThemesSettingCacheFile();
+	
 	return { success: true, message: '保存成功' };
+});
+
+ThemeModule.extend('SaveThemesSettingCacheFile', function(){
+	var rec = new this.dbo.RecordSet(this.conn),
+		keys = '\n';
+		
+	rec
+		.sql("Select * From blog_themes")
+		.open(3)
+		.each(function(object){
+			keys += 'exports["' + object('tm_key').value + '"] = "' + object('tm_value').value + '";\n';
+		})
+		.close();
+	
+	this.fs.saveFile(resolve('private/chips/' + blog.cache + 'blog.themes'), keys);
 });
 
 return ThemeModule;

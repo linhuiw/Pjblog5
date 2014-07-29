@@ -48,7 +48,7 @@
             </tbody>
         </table>
     </div>
-    <div class="step"><a href="?step=3&t=local" class="btn fleft">本地安装</a><%if ( next ){%><a href="?step=3&t=online" class="btn">在线安装</a><%};%></div>
+    <div class="step"><%if ( next ){%><a href="?step=3&t=local" class="btn fleft">本地安装</a><a href="?step=3&t=online" class="btn">在线安装</a><%};%></div>
 </div>
 <%		
 	}

@@ -27,7 +27,7 @@ var data = require("./data");
         </tr>
         <tr>
           <td>数据库IP地址</td>
-          <td><%=data.dbip || ""%></td>
+          <td><%=!data.dbip || data.dbip.length === 0 || data.dbip === "." ? "数据库与主机在同一服务器上" : "远程连接数据库: " + data.dbip%></td>
         </tr>
         <tr>
           <td>数据库用户名</td>
@@ -36,6 +36,10 @@ var data = require("./data");
         <tr>
           <td>数据库密码</td>
           <td><%=data.dbpassword || ""%></td>
+        </tr>
+        <tr>
+          <td>数据库连接状态</td>
+          <td><%=data.connected ? "连接成功" : "连接失败"%></td>
         </tr>
         <%if ( data.t === "online" ){%>
         <tr>
@@ -50,7 +54,9 @@ var data = require("./data");
       </table>
     </div>
     <div class="step">
+    <%if (data.connected){%>
     	<a href="?step=3&t=<%=data.t%>" class="btn fleft">上一步</a>
       	<a href="?step=6" class="btn">安装数据</a>
+    <%};%>
     </div>
   </div>

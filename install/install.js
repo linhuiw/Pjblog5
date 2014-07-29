@@ -79,7 +79,7 @@ Setup.extend('step4', function(){
 		params.dbpassword = dbpassword;
 		params.dbip = dbip;
 		params.web = web;
-		params.t = 'online';
+		params.t = 'local';
 	};
 	
 	var h = '';

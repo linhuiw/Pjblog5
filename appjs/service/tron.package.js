@@ -142,7 +142,7 @@ Package.extend('unPack', function( source, target ){
 		headerText = headerInfo.substr(12);
 			
 	var arr = headerText.split('|'), chunkDataLenth = 16 + Number(headerSize) + 1;
-	var root = target + '\\' + arr[0];
+	var root = target;
 	this.fs.autoCreateFolder(root);									// 创建根目录
 	
 	for ( var i = 1 ; i < arr.length - 1 ; i++ ){

@@ -10,6 +10,7 @@ Library
 	.onMap("sha1", "appjs/service/sha1")
 	.onMap("md5", "appjs/service/md5")
 	.onMap("upload", "appjs/service/tron.upload")
+	.onMap("package", "appjs/service/tron.package")
 	.onMap("crc32", "appjs/service/crc32");
 
 Library.setBase(blog.base);

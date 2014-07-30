@@ -49,6 +49,14 @@ define('appjs/assets/jquery.form.min', function( require, exports, module ){
 			$('#articles .tool .pannel .tags .item').each(function(){
 				$(this).find('span').get(0).designMode = 'on';
 				$(this).find('span').get(0).contentEditable = true;
+				var that = this;
+				$(this).find('a').on('click', function(){
+					$(that).animate({
+						opacity: 0
+					}, 'slow', function(){
+						$(this).remove();
+					});
+				});
 			});
 		},
 		setCategory: function(){

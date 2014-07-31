@@ -14,7 +14,7 @@ define(['appjs/assets/jquery.lsotope','appjs/assets/jquery.form.min'], function(
 					$('.wf').isotope('layout');
 				});
 			});
-			this.onSettingFrom();
+			//this.onSettingFrom();
 		},
 		waterFull: function(){ 
 			$('.wf').isotope({itemSelector: '.wf li'});

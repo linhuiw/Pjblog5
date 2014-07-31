@@ -2,7 +2,7 @@
 var Setup = new Class({
 	initialize: function(){
 		this.fs = new this.fso();
-		this.folder = contrast("../").replace(contrast("/"), "");
+		this.folder = contrast("../").replace(contrast("/"), "").replace(/^\\/, '').replace(/\\$/, '');
 		this.step = Number(this.http.query('step') || "1");
 		this.step = this.step < 1 ? 1 : this.step;
 		this.plats = 'http://app.webkits.cn';

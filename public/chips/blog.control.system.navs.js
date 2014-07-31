@@ -10,3 +10,4 @@ exports.level = { icon: 'fa-tachometer', name: '权限', des: '系统用户组�
 exports.theme = { icon: 'fa-picture-o', name: '主题', des: '本地主题。管理你的主题。主题制作请参考官方的API文档。' };
 exports.plugin = { icon: 'fa-windows', name: '插件', des: '插件控制中心，您可以上传自己的插件后在线安装，也可以选择云端插件安装。方便快捷！' };
 exports.update = { icon: 'fa-refresh', name: '在线升级', des: '通过' + blog.AppPlatForm + '平台使用crc32机制来校验文件的完整性', hide: true };
+exports.themesetting = { icon: 'fa-cog', name: '主题设置', des: '配置主题参数，让你的主题更加灵活多样', hide: true };

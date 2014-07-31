@@ -53,7 +53,7 @@ var folders = fs.dirList(contrast("private/themes"), function( name ){
         </div>
         <% if ( choosed.setting ){ %>
         <div class="tols">
-        	<a href="javascript:;" class="app-setting"><i class="fa fa-cogs"></i>设置主题参数</a>
+        	<a href="?m=themesetting" class="app-setting"><i class="fa fa-cogs"></i>设置主题参数</a>
         </div>
         <% }; %>
     </div>

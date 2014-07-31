@@ -94,7 +94,11 @@
     <div class="arc-content clearfix">
     	<div class="mon-left">
             <input type="hidden" name="art_des" />
-            <div class="arc-html"><textarea name="art_content" id="editor" style="width:100%;height:500px;"><%=arc.art_content%></textarea></div>
+            <div class="arc-html">
+            	<textarea id="editor" name="art_content" style="width:100%;height:500px;">
+				<%=arc.art_content.replace(/\&/g, "&amp;").replace(/\</g, "&lt;").replace(/\>/g, "&gt;")%>
+                </textarea>
+            </div>
         </div>
         <div class="tool">
         	<div class="pannel">

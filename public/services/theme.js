@@ -179,6 +179,20 @@ ThemeModule.extend('SaveThemesSettingValue', function( params ){
 	return { success: true, message: '保存成功' };
 });
 
+ThemeModule.extend('getSettingContent', function(params){
+	var fo = params.query.fo;
+	if ( fo && fo.length > 0 ){
+		var html = this.fs.getFileContent(resolve('private/themes/' + fo + '/setting'));
+		if ( html.length > 0 ){
+			return { success: true, message: '获取代码成功', html: html };
+		}else{
+			return { success: true, message: '获取代码失败' };
+		}
+	}else{
+		return { success: false, message: '参数错误' };
+	}
+});
+
 ThemeModule.extend('SaveThemesSettingCacheFile', function(){
 	var rec = new this.dbo.RecordSet(this.conn),
 		keys = '\n';
@@ -187,11 +201,50 @@ ThemeModule.extend('SaveThemesSettingCacheFile', function(){
 		.sql("Select * From blog_themes")
 		.open(3)
 		.each(function(object){
-			keys += 'exports["' + object('tm_key').value + '"] = "' + object('tm_value').value + '";\n';
+			keys += 'exports["' + object('tm_key').value + '"] = ' + JSON.stringify(object('tm_value').value) + ';\n';
 		})
 		.close();
 	
 	this.fs.saveFile(resolve('private/chips/' + blog.cache + 'blog.themes'), keys);
+});
+
+ThemeModule.extend('saveSettingContent', function(params){
+	var code = this.fns.unSQLStr(this.fns.unHTMLStr(params.form.code));
+	if ( !code ){ code = ''; };
+	var global = require("private/chips/" + blog.cache + "blog.global");
+	this.fs.saveFile(resolve('private/themes/' + global.blog_theme + '/setting'), code);
+	var configs = require('private/themes/' + global.blog_theme + '/setting');
+	
+	var rec = new this.dbo.RecordSet(this.conn);
+		rec
+			.sql("Select * From blog_themes")
+			.open(3)
+			.each(function(object){
+				var name = object('tm_key').value,
+					value = object('tm_value').value;
+					
+				if ( !configs[name] ){
+					object.Delete();
+				}else{
+					delete configs[name];
+				}
+			})
+			.close();
+			
+	for ( var i in configs ){
+		rec = new this.dbo.RecordSet(this.conn);
+		rec
+			.sql('Select * From blog_themes')
+			.open(2)
+			.add({
+				tm_key: i,
+				tm_value: configs[i].value
+			})
+			.close();
+	};
+	
+	this.SaveThemesSettingCacheFile();
+	return { success: true, message: '更新成功' };
 });
 
 return ThemeModule;

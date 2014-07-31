@@ -1,10 +1,10 @@
-<%
+﻿<%
 ;var blog = {};
 blog.base = "";
-blog.connection = {"netserver":".","access":"blog","username":"evio","password":"1094872"};
-blog.cookie = "tron";
-blog.cache = "pjblog5.";
+blog.connection = {"netserver":".","access":"test","username":"evio","password":"1094872"};
+blog.cookie = "exi1h6GRTJ";
+blog.cache = "Q9bKazxgDQ.";
 blog.AppPlatForm = "http://app.webkits.cn";
-blog.web = "http://blog.cn/blog";
-blog.version = 1;
+blog.web = "http://blog.cn";
+blog.version = 3;
 %>

@@ -287,7 +287,7 @@ rec.extend('DualTopPage', function( table, alters, param, orderby, _orderby, pag
 		return v;
 	};
 
-	_recordCount = parseInt( _recordCount, 10 );
+	_recordCount = Math.round( _recordCount );
 	_pageCount = Math.ceil(_recordCount / pagesize);
 	
 	if ( pageindex < 1 ){

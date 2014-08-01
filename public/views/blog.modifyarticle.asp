@@ -67,7 +67,7 @@
     
     <div class="category-pull-list">
         <div class="mas"><i class="fa fa-exclamation-circle"></i> 点击下面的分类选择你要的分类名称，红色表示已选中的分类！</div>
-        <ul class="root">
+        <ul class="root clearfix">
             <%;(function(categoryList){
 					for ( var i in categoryList ){
 			%>

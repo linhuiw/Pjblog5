@@ -50,7 +50,7 @@
         <!--<a href="javascript:;" class="child setCate" app-cate="-2"><i class="fa fa-clipboard"></i> 草稿箱日志</a>-->
         <a href="?m=modifyarticle"><i class="fa fa-pencil"></i> 发表日志（高级模式）</a>
     </div>
-    <ul class="root">
+    <ul class="root clearfix">
         <%
             ;(function(categoryList){
                 for ( var i in categoryList ){

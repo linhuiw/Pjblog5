@@ -78,6 +78,8 @@
 		if ( isNaN(cate) || isNaN(page) ){
 			this.add("error", 10); this.render("error.asp"); return;
 		}
+		
+		if (Number(cate) > 0){this.add("globalCategory", this.getCategory(cate) || {});};
 
 		if ( tag > 0 ){ this.tags( tag, page ); querys.tag = this.getTag(tag); }
 		else{ this.categorys( cate, page ); querys.categorys = cate; };

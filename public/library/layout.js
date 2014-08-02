@@ -20,6 +20,7 @@ var LayoutModule = new Class({
 		this.params.error = 0;
 		
 		this.Globaltion();
+		this.ThemeSetting();
 		this.state(member);
 	}
 });
@@ -92,6 +93,10 @@ LayoutModule.extend('destroy', function(){
 
 LayoutModule.extend('Globaltion', function(){
 	this.add('global', require('private/chips/' + blog.cache + 'blog.global'));
+});
+
+LayoutModule.extend('ThemeSetting', function(){
+	this.add('themes', require('private/chips/' + blog.cache + 'blog.themes'));
 });
 
 LayoutModule.extend('navigation', function(){

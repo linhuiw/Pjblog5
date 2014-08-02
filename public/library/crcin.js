@@ -38,7 +38,7 @@ CrcInModule.extend('check', function( files, callback ){
 
 CrcInModule.extend('singleCheck', function( file, crc32 ){
 	if ( !this.fs.exist(contrast(file)) ){
-		return false;
+		return true;
 	};
 	return this.crc32.make(contrast(file)) !== crc32;
 });

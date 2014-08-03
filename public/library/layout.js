@@ -154,6 +154,9 @@ LayoutModule.extend('load', function( mark, callback ){
 	var PluginCache = require('private/chips/' + blog.cache + 'blog.uri.plugins');
 	if ( PluginCache['queens'][mark] ){
 		var folder = PluginCache['queens'][mark]['folder'];
+		if ( PluginCache['queens'][mark].stop ){
+			return;
+		};
 		if ( this.fs.exist(resolve('private/plugins/' + folder + '/exports')) ){
 			var mode = require('private/plugins/' + folder + '/exports');
 			try{

@@ -35,6 +35,42 @@
 		return error;
 	});
 	
+	LAYOUT.extend("getPrevRecord", function(id){
+		var rec = new this.dbo.RecordSet(this.conn),
+			rets = null,
+			that = this;
+			
+		rec
+			.sql("Select top 1 * From blog_articles Where id<" + id + " Order By id DESC")
+			.process(function(object){
+				if ( !object.Bof && !object.Eof ){
+					rets = {};
+					rets.title = object("art_title").value;
+					rets.href = "article.asp?id=" + object("id").value;
+				}
+			});
+		
+		rets && this.add("PrevArticle", rets);
+	});
+	
+	LAYOUT.extend("getNextRecord", function(id){
+		var rec = new this.dbo.RecordSet(this.conn),
+			rets = null,
+			that = this;
+			
+		rec
+			.sql("Select top 1 * From blog_articles Where id>" + id + " Order By id ASC")
+			.process(function(object){
+				if ( !object.Bof && !object.Eof ){
+					rets = {};
+					rets.title = object("art_title").value;
+					rets.href = "article.asp?id=" + object("id").value;
+				}
+			});
+		
+		rets && this.add("NextArticle", rets);
+	});
+	
 	LAYOUT.extend("Comments", function(id, page){
 		var perpage = this.params.global.blog_comment_perpage;
 		var rec = new this.dbo.RecordSet(this.conn);
@@ -175,6 +211,8 @@
 		if ( id < 1 ){ this.add("error", 1); this.render("error.asp"); return; };
 		if ( !this.Article(id) ){ this.render("error.asp"); return; };
 		
+		this.getPrevRecord(id);
+		this.getNextRecord(id);
 		this.Comments(id, page);
 		
 		this.render("article.asp");

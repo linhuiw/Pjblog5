@@ -155,7 +155,7 @@ LayoutModule.extend('load', function( mark, callback ){
 	if ( PluginCache['queens'][mark] ){
 		var folder = PluginCache['queens'][mark]['folder'];
 		if ( PluginCache['queens'][mark].stop ){
-			return;
+			return null;
 		};
 		if ( this.fs.exist(resolve('private/plugins/' + folder + '/exports')) ){
 			var mode = require('private/plugins/' + folder + '/exports');

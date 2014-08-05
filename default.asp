@@ -41,6 +41,7 @@
 				title: object("art_title").value,
 				des: object("art_des").value,
 				category: categorys.cate_name,
+				categoryicon: categorys.cate_icon,
 				catehref: blog.web + "/default.asp?cate=" + categorys.id,
 				tags: that.getTags(object("art_tags").value),
 				tname: object("art_tname").value,

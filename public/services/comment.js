@@ -111,8 +111,10 @@ CommentModule.extend('post', function( params ){
 		
 	if ( cid > 0 ){
 		data.id = id;
+		data.cid = cid;
 		ret.success = true;
 		ret.message = '发表评论成功';
+		ret.data = data;
 		this.AddCountArticleComment(id);
 		Session(blog.cache + "_comment_delay") = new Date().getTime();
 	}else{
@@ -179,8 +181,10 @@ CommentModule.extend('reply', function( params ){
 		
 	if ( cid > 0 ){
 		data.id = id;
+		data.cid = cid;
 		ret.success = true;
 		ret.message = '回复评论成功';
+		ret.data = data;
 		this.AddCountArticleComment(id);
 		Session(blog.cache + "_comment_delay") = new Date().getTime();
 		

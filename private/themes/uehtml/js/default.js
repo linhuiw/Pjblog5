@@ -3,6 +3,7 @@ define(function( require, exports, module ){
 	return new Class({
 		initialize: function(){
 			this.onScroll();
+			$(window).trigger('scroll');
 		},
 		onScroll: function(){
 			$(window).on('scroll', function(){

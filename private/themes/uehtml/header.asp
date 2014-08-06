@@ -1,5 +1,5 @@
 <div class="header">
-  <div class="wrap"> <a href="default.asp" id="hlogo"><img src="<%="private/themes/" + global.blog_theme + "/imgs/5pjsm.png"%>" width="120" height="50"></a>
+  <div class="wrap"> <a href="default.asp" id="hlogo"><img src="<%=themes.logo%>" width="120" height="50"></a>
     <ul id="hnav">
       <%
 			for ( var i = 0 ; i < categorys.length ; i++ ){

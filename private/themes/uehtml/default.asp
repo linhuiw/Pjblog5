@@ -1,13 +1,14 @@
-<%var date = require("date"), url;%><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%var date = require("date"), url, fns = require("fns");%><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <%include("private/themes/" + data.global.blog_theme + "/head.asp", { global: data.global });%>
+<link rel="stylesheet" href="<%=blog.web + "/private/themes/" + data.global.blog_theme%>/scroller/css/jquery.slideBox.css">
 <title><%=data.global.blog_name%></title>
 </head>
 <body>
-<%include("private/themes/" + data.global.blog_theme + "/header.asp", { categorys: data.categorys, gets: data.gets, global: data.global, user: data.user })%>
+<%include("private/themes/" + data.global.blog_theme + "/header.asp", { categorys: data.categorys, gets: data.gets, global: data.global, user: data.user, themes: data.themes })%>
 <div class="banner">
-	<div id="bannerbody"><p><%=data.global.blog_title%></p><p><%=data.global.blog_des%></p><p><a href="http://www.uemo.net" target="_blank">什么是UEMO</a></p></div>
+	<div id="bannerbody"><p><%=data.global.blog_title%></p><p><%=data.global.blog_des%></p><p><a href="<%=data.themes.indexbannerurl%>" target="_blank"><%=data.themes.indexbannertext%></a></p></div>
 </div>
 <div id="sooptions">
 	<div class="wrap">
@@ -32,14 +33,14 @@
 				%>
             </div>
             <div class="search fright">
-            	
+            	<i class="fa fa-bug"></i><%=data.themes.word%>
             </div>
         </div>
     </div>
 </div>
 <div id="content">
 	<div class="wrap clearfix">
-    	<div class="citem" id="citemslide"></div>
+    	<div class="citem" id="citemslide"><%=fns.unSQLStr(fns.unHTMLStr(data.themes.indexImages))%></div>
 
 		<%
 			(function( articles ){
@@ -48,7 +49,7 @@
         <div class="citem">
         	<div class="citemtop">
                 <a href="<%=blog.web%>/article.asp?id=<%=articles[i].id%>" class="cover" target="_blank">
-                    <img src="<%=articles[i].cover%>" onerror="this.src='<%=blog.web%>/private/themes/<%=data.global.blog_theme%>/a.png'" />
+                    <img src="<%=blog.web + "/private/themes/" + data.global.blog_theme%>/imgs/loading.jpg" data-original="<%=articles[i].cover%>" class="lazy" />
                 </a>
                 <div class="citemtxt">
                     <a href="<%=blog.web%>/article.asp?id=<%=articles[i].id%>" class="citemtitle" target="_blank"><%=articles[i].title%></a>
@@ -81,16 +82,19 @@
 			})( data.articles );
 		%>
     </div>
-    <div class="wrap">
+    <div class="wrap clearfix">
     <%include("private/themes/" + data.global.blog_theme + "/pages.asp", { pages: data.pages, url: url });%>
     </div>
-    <div class="wrap">
+    <div class="wrap clearfix">
     	<%include("private/themes/" + data.global.blog_theme + "/side-toparticle.asp", { load: load, dbo: dbo, conn: conn });%>
         <%include("private/themes/" + data.global.blog_theme + "/side-comments.asp", { load: load, dbo: dbo, conn: conn });%>
+        <%include("private/themes/" + data.global.blog_theme + "/side-guestbook.asp", { load: load, dbo: dbo, conn: conn });%>
     </div>
+    <div class="wrap clearfix"><%include("private/themes/" + data.global.blog_theme + "/side-link.asp", { load: load, dbo: dbo, conn: conn });%></div>
 </div>
 <script type="text/javascript">
 require('<%="private/themes/" + data.global.blog_theme + "/js/default"%>', function(common){new common();});
 </script>
+<%include("private/themes/" + data.global.blog_theme + "/footer.asp", { global: data.global });%>
 </body>
 </html>

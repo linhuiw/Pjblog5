@@ -152,6 +152,7 @@ define(['appjs/assets/jquery.form.min'],function( require, exports, module ){
 				h +=		'<div class="replyboxs clearfix">';
 				h +=			'<div class="avatar fleft">';
 				h +=				'<img src="' + src.replace('s=36', 's=64') + '" />'	;
+				h +=				'<a href="javascript:;" class="fa fa-times close"></a>';
 				h +=			'</div>';
 				h +=			'<div class="info">';
 				if ( !window.login ){

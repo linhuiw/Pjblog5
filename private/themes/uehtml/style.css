@@ -633,13 +633,16 @@ html, body {
 .art-zones a:visited{ color:#777;}
 .art-zones a;hover{ color:#999;}
 .art-zones a{ margin-right:10px;}
-.art-detail{ padding:0px 20px;}
+.art-detail{ padding:50px 20px; line-height:20px;}
 .art-detail strong{ font-weight:bold;}
 .art-detail p{ margin-bottom:10px;}
 .art-detail table{ border-left:1px solid #ddd; border-top:1px solid #ddd; margin:10px 0px;}
 .art-detail table td{ border-right:1px solid #ddd; border-bottom:1px solid #ddd; padding:3px 5px;}
 .art-detail pre{ padding:10px 15px; border:1px dashed #ddd; background-color:#F8FCFE;}
 .art-detail ol{ margin-left:20px;}
+.art-detail a:link,
+.art-detail a:visited{ color:#1a6cc1;}
+.art-detail a:hover{ color:#000;}
 .comment{ padding:20px;}
 .comment p{ margin-bottom:10px; line-height:20px;}
 .comment a:link,
@@ -775,3 +778,27 @@ html, body {
 }
 .search i{ margin-right:8px;}
 .art-detail{ padding-bottom:50px;}
+
+.art-zones,
+.art-zones a:link,
+.art-zones a:visited{ color:#1a6cc1;}
+.art-zones a:hover{ color:#36F;}
+.art-tag{ padding:0px 0px 10px 0px;}
+.art-tag .tag{ height:30px; line-height:30px; border-bottom:1px solid #eee; padding-left:30px;}
+.art-tag .tag span,
+.art-tag .tag a{ display:block; float:left;}
+.art-tag .tag span{ display:block; padding:0px 20px; height:30px; border:1px solid #eee; border-bottom:1px solid #fff; position:relative; top:-1px; border-radius:3px 3px 0 0;}
+.art-tag .tag a{ margin-left:10px;}
+.art-tag .tag a:link,
+.art-tag .tag a:visited{color:#1a6cc1;}
+.art-tag .tag a:hover{ color:#000;}
+.art-tag .tag-list{ padding:10px 20px;}
+.art-tag .tag-list a{ display:block; padding:5px 10px; border-bottom:1px dashed #f2f2f2; height:20px; line-height:20px;-webkit-transition: all ease .3s;-moz-transition: all ease .3s;-ms-transition: all ease .3s;-o-transition: all ease .3s; transition: all ease .3s;}
+.art-tag .tag-list a i{ margin-right:10px;}
+.art-tag .tag-list a span{ margin-right:5px;}
+.art-tag .tag-list a:link,
+.art-tag .tag-list a:visited{ color:#777;}
+.art-tag .tag-list a:hover{ color:#000;}
+.art-tag .tag-list a:last-child{ border-bottom:0px;}
+.art-tag .tag-list p i{ margin-right:5px;}
+.art-time{ text-align:center; color:#ccc; padding:20px 0px; font-size:14px; background-color:#F8FCFE; color:#1a6cc1;}

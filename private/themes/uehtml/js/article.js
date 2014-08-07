@@ -3,20 +3,39 @@ define(['appjs/assets/jquery.form.min'],function( require, exports, module ){
 	return new Class({
 		initialize: function(){
 			this.HightLight();
+			this.RelativeArticles();
 			this.resizeImgs();
 			this.ajaxPost();
 			this.ajaxRemove();
-			this.ajaxReply();	
+			this.ajaxReply();
 		},
+		date: require('appjs/assets/date'),
 		HightLight: function(){
 			SyntaxHighlighter.highlight();
 			//调整左右对齐
+			try{
 			for(var i=0,di;di=SyntaxHighlighter.highlightContainers[i++];){
 				var tds = di.getElementsByTagName('td');
 				for(var j=0,li,ri;li=tds[0].childNodes[j];j++){
 					ri = tds[1].firstChild.childNodes[j];
 					ri.style.height = li.style.height = ri.offsetHeight + 'px';
 				}
+			}
+			}catch(e){}
+		},
+		RelativeArticles: function(){
+			var that = this;
+			if ( window.tag ){
+				$.post('public/sync.asp?m=' + window.tag.mark + '&p=getValue&t=plugin&id=' + window.tag.id, { tags: window.tag.tags.join(',') }, function(object){
+					if ( object.success ){
+						if ( object.data.length > 0 ){
+							$('#tag-list').empty();
+							for ( var i = 0 ; i < object.data.length ; i++ ){
+								$('#tag-list').append('<a href="' + object.data[i].href + '" target="_blank"><i class="fa fa-angle-right"></i><span>[ ' + that.date.format(new Date(object.data[i].time), 'y/m-d h:i') + ' ]</span>' + object.data[i].title + '</a>')
+							}
+						}
+					}
+				}, 'json');
 			}
 		},
 		resizeImgs: function(){

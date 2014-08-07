@@ -2,11 +2,22 @@
 define(['appjs/assets/jquery.form.min'],function( require, exports, module ){
 	return new Class({
 		initialize: function(){
+			this.HightLight();
 			this.resizeImgs();
 			this.ajaxPost();
 			this.ajaxRemove();
-			this.ajaxReply();
-			SyntaxHighlighter.all();
+			this.ajaxReply();	
+		},
+		HightLight: function(){
+			SyntaxHighlighter.highlight();
+			//调整左右对齐
+			for(var i=0,di;di=SyntaxHighlighter.highlightContainers[i++];){
+				var tds = di.getElementsByTagName('td');
+				for(var j=0,li,ri;li=tds[0].childNodes[j];j++){
+					ri = tds[1].firstChild.childNodes[j];
+					ri.style.height = li.style.height = ri.offsetHeight + 'px';
+				}
+			}
 		},
 		resizeImgs: function(){
 			$('.art-detail img').each(function(){

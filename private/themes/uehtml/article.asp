@@ -2,6 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <%include("private/themes/" + data.global.blog_theme + "/head.asp", { global: data.global });%>
+<link rel="stylesheet" href="appjs/assets/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css">
+<script src="appjs/assets/ueditor/third-party/SyntaxHighlighter/shCore.js"></script>
 <title><%=data.article.art_title%></title>
 </head>
 <body>

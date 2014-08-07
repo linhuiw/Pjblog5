@@ -6,6 +6,7 @@ define(['appjs/assets/jquery.form.min'],function( require, exports, module ){
 			this.ajaxPost();
 			this.ajaxRemove();
 			this.ajaxReply();
+			SyntaxHighlighter.all();
 		},
 		resizeImgs: function(){
 			$('.art-detail img').each(function(){

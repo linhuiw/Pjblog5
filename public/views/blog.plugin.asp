@@ -21,7 +21,7 @@
 				keep.push(object("plu_mark").value);
 %>
 			<div class="plugins installed clearfix">
-            	<div class="icon fleft"><img src="<%=object("plu_icon").value%>" onerror="this.src='public/assets/img/1402321265_Settings.png'" /></div>
+            	<div class="icon fleft"><img src="private/plugins/<%=object("plu_folder").value%>/<%=object("plu_icon").value%>" onerror="this.src='public/assets/img/1402321265_Settings.png'" /></div>
                 <div class="tool fright">
                 	<%
 						if ( object("plu_stop").value ){
@@ -70,7 +70,7 @@
 				if ( mo.mark && keep.indexOf(mo.mark) === -1 ){
 %>
 			<div class="plugins uninstalled clearfix">
-            	<div class="icon fleft"><img src="<%=mo.icon%>" onerror="this.src='public/assets/img/1402321265_Settings.png'" /></div>
+            	<div class="icon fleft"><img src="<%=dl%>/<%=mo.icon%>" onerror="this.src='public/assets/img/1402321265_Settings.png'" /></div>
                 <div class="tool fright">
                 	<a href="javascript:;" app-id="<%=name%>" class="app-setup AutoSendAjax" app-m="plugin" app-p="install" app-c="确定需要安装这个插件？">
                     	<i class="fa fa-repeat"></i> 安装

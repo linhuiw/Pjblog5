@@ -76,6 +76,12 @@ CommentModule.extend('post', function( params ){
 	
 	var global = require('private/chips/' + blog.cache + 'blog.global');
 	var delay = global.blog_comment_delay;
+	var length = global.blog_comment_length;
+	
+	if ( content.length > Number(length) ){
+		ret.message = '评论字数限制不得超过' + length + '字';
+		return ret;
+	}
 
 	if ( delay && delay > 0 ){
 		var time = Number(Session(blog.cache + "_comment_delay")) || 0;

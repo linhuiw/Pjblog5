@@ -176,6 +176,8 @@ ArticleModule.extend('DelArticle', function( params ){
 				this.remove();
 			}, 3);
 			
+		this.conn.Execute('Delete From blog_comments Where com_article_id=' + id);
+			
 		rets.success = true;
 		rets.message = '删除日志成功';
 		

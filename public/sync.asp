@@ -23,7 +23,8 @@
 			paths = { system: "public/services/" + m },
 			fs = new fso(),
 			resolvePath,
-			pid;
+			pid,
+			pfolder;
 		
 		if ( !m || !p || m.length === 0 || p.length === 0 ){ Library.json({ success: false, message: "非法操作" }); return; };
 		if ( !t || t.length === 0 ){ t = "system"; };
@@ -31,7 +32,8 @@
 		if ( t !== "system" ){
 			var pluginMode = require("private/chips/" + blog.cache + "blog.uri.plugins");
 			if ( pluginMode && pluginMode.indexs && pluginMode.queens && pluginMode.queens[m] && !pluginMode.queens[m].stop ){
-				paths.plugin = "private/plugins/" + pluginMode.queens[m].folder + "/service";
+				pfolder = pluginMode.queens[m].folder;
+				paths.plugin = "private/plugins/" + pfolder + "/service";
 				pid = pluginMode.queens[m].id;
 			}else{
 				Library.json({ success: false, message: "插件不允许运行，可能已被暂停服务!" });
@@ -49,6 +51,8 @@
 			mode.extend("fs", fs);
 			if ( t !== "system" && pid && pid > 0 ){
 				mode.extend("pid", pid);
+				mode.extend("pmark", m);
+				mode.extend("pfolder", pfolder);
 			};
 			var mose = new mode(params);
 		

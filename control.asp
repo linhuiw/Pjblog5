@@ -30,7 +30,9 @@
 		uid,
 		token,
 		openid,
-		pmark,
+		pmark = "",
+		pid = 0,
+		pfolder = "",
 		globalcache = require("private/chips/" + blog.cache + "blog.global"),
 		SystemNavs = require("public/chips/blog.control.system.navs"),
 		PluginNavs = require("private/chips/" + blog.cache + "blog.control.plugin.navs"),
@@ -132,6 +134,8 @@
 			if ( tfr && tfr.indexs && tfr.queens && tfr.indexs[t] && tfr.queens[tfr.indexs[t]] && !tfr.queens[tfr.indexs[t]].stop ){ 
 				tf = tfr.queens[tfr.indexs[t]].folder;
 				pmark = tfr.indexs[t];
+				pid = Number(t);
+				pfolder = tf;
 			}else{ 
 				tf = "404";
 			};		
@@ -184,7 +188,9 @@
 				uid: uid, 
 				pmark: pmark, 
 				token: token, 
-				openid: openid 
+				openid: openid,
+				pid: pid,
+				pfolder: pfolder
 			});
 			LoadJscript(function( tms ){
 				window.token = tms.token;

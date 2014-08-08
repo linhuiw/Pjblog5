@@ -27,7 +27,8 @@
 			
 		var user = new USER(),
 			uid,
-			pid;
+			pid,
+			pfolder;
 		
 		if ( user.adminStatus(function( rets, object ){
 			uid = object("id").value;
@@ -38,7 +39,8 @@
 			if ( t !== "system" ){
 				var pluginMode = require("private/chips/" + blog.cache + "blog.uri.plugins");
 				if ( pluginMode && pluginMode.indexs && pluginMode.queens && pluginMode.queens[m] && !pluginMode.queens[m].stop ){
-					paths.plugin = "private/plugins/" + pluginMode.queens[m].folder + "/service";
+					pfolder = pluginMode.queens[m].folder;
+					paths.plugin = "private/plugins/" + pfolder + "/service";
 					pid = pluginMode.queens[m].id;
 				}else{
 					Library.json({ success: false, message: "插件不允许插件，可能已被暂停服务!" });
@@ -60,6 +62,8 @@
 					mode.extend("uid", uid);
 					if ( t !== "system" && pid && pid > 0 ){
 						mode.extend("pid", pid);
+						mode.extend("pmark", m);
+						mode.extend("pfolder", pfolder);
 					};
 				
 				var mose = new mode(params);

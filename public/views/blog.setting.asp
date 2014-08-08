@@ -126,6 +126,10 @@
                 <td><input type="text" value="<%=object("blog_comment_delay").value%>" name="blog_comment_delay" class="col-x-1" /></td>
             </tr>
             <tr>
+                <td width="150">评论字数控制</td>
+                <td><input type="text" value="<%=object("blog_comment_length").value%>" name="blog_comment_length" class="col-x-1" /></td>
+            </tr>
+            <tr>
                 <td>回复评论云端消息通知</td>
                 <td>
                 	<select name="blog_comment_cloud_notice">

@@ -165,6 +165,9 @@ LayoutModule.extend('load', function( mark, callback ){
 				mode.extend("fs", this.fs);
 				mode.extend("fns", this.fns);
 				mode.extend("http", this.http);
+				mode.extend("pid", PluginCache['queens'][mark].id);
+				mode.extend("pmark", mark);
+				mode.extend("pfolder", folder);
 			}catch(e){}
 			if ( typeof callback === 'function' ){
 				var m = callback.call(this, mode);

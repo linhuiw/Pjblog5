@@ -13,7 +13,7 @@
 		var rets = uploader.upload({
 			saveto: contrast("private/uploads/" + fo),
 			autoName: true,
-			exts: ['jpg', 'jpeg', 'png', 'gif', 'bmp']
+			exts: ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'pbd', 'rar', 'zip', 'txt', 'doc', 'docx', 'pdf']
 		});
 		
 		Library.log(JSON.stringify(rets));

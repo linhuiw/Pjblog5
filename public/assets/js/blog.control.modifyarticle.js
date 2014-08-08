@@ -73,16 +73,16 @@ define('appjs/assets/jquery.form.min', function( require, exports, module ){
 						tags = [];
 						
 				$("textarea[name='art_content']").val(contents);
-				$('#articles .tool .pannel .tags .item').each(function(){ tags.push($(this).find('span').text()); });
+				$('#articles .tool .pannel .tags .item').each(function(){ 
+					tags.push(
+						$(this)
+							.find('span')
+							.text()
+							.replace(/^\s+/, '')
+							.replace(/\s+$/, '')
+					); 
+				});
 				$("input[name='art_tags']").val(tags.join(','));
-				/*
-				 * !获取图片信息
-				 * 2014-7-15
-				 */
-				var img = $(contents).find('img:first');
-				if ( img.size() === 1 ){
-					$("input[name='art_cover']").val(img.attr('src'));
-				};
 				
 				that.doSaveArticle();
 			});

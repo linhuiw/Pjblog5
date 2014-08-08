@@ -87,7 +87,17 @@ ArticleModule.extend('save', function( params ){
 	data.art_content = art_content;
 	data.art_tags = art_tags;
 	data.art_tname = art_tname;
-	data.art_cover = art_cover;
+	
+	var imgexp = /<img([^\s]*?)\ssrc=\"([^\"]*?)\"(.*?)>/i.exec(data.art_content);
+	if ( imgexp && imgexp[2] ){
+		data.art_cover = imgexp[2];
+	}else{
+		data.art_cover = '';
+	};
+	var ist = data.art_cover.indexOf('private');
+	if ( ist > -1 ){
+		data.art_cover = data.art_cover.substr(ist);
+	};
 	data.art_tdes = art_tdes;
 
 	this.SaveArticle(data, rets, art_draft);

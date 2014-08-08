@@ -23,15 +23,32 @@ define(['appjs/assets/jquery.form.min'],function( require, exports, module ){
 			}
 			}catch(e){}
 		},
-		RelativeArticles: function(){
+		RelativeArticles: function(page){
 			var that = this;
+			if ( !page ){ page = 1; };
 			if ( window.tag ){
-				$.post('public/sync.asp?m=' + window.tag.mark + '&p=getValue&t=plugin&id=' + window.tag.id, { tags: window.tag.tags.join(',') }, function(object){
+				$('#tag-list').html('<p><i class="fa fa-refresh fa-spin"></i> 正在查询相关日志，请稍后..</p>');
+				$.post('public/sync.asp?m=' + window.tag.mark + '&p=getValue&t=plugin&id=' + window.tag.id + '&page=' + page, { tags: window.tag.tags.join(',') }, function(object){
 					if ( object.success ){
 						if ( object.data.length > 0 ){
-							$('#tag-list').empty();
+							$('#tag-list').empty().append('<p class="total"><i class="fa fa-bug"></i> 共有相关日志 ' + object.data.length + ' 篇</p>');
 							for ( var i = 0 ; i < object.data.length ; i++ ){
-								$('#tag-list').append('<a href="' + object.data[i].href + '" target="_blank"><i class="fa fa-angle-right"></i><span>[ ' + that.date.format(new Date(object.data[i].time), 'y/m-d h:i') + ' ]</span>' + object.data[i].title + '</a>')
+								$('#tag-list').append('<a href="' + object.data[i].href + '" target="_blank"><i class="fa fa-angle-right"></i><span>[ ' + that.date.format(new Date(object.data[i].time), 'y/m-d h:i') + ' ]</span>' + object.data[i].title + '</a>');
+							}
+							var html_page = '';
+							if ( object.pages && object.pages.to > 1 ){
+								for ( i = object.pages.from ; i <= object.pages.to ; i++ ){
+									if ( i === object.pages.current ){
+										html_page += '<span>' + i + '</span>';
+									}else{
+										html_page += '<a href="javascript:;" class="RelativeArticlesAchor" page="' + i + '">' + i + '</a>';
+									}
+								}
+								$('.tag-page').html(html_page).find('a.RelativeArticlesAchor').on('click', function(){
+									that.RelativeArticles(Number($(this).attr('page')));
+								});
+							}else{
+								$('.tag-page').empty();
 							}
 						}
 					}

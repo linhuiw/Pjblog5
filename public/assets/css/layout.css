@@ -603,7 +603,8 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 #user .list .item .info .name a{ color:#999; text-decoration:none; margin-right:10px;}
 #user .list .item .info .name a i{ display:block; line-height:20px;}
 #user .list .item .info .des{}
-#user .list .item .info .des p{ border-top:1px dashed #eee; height:20px; line-height:20px; padding:3px 0px;}
+#user .list .item .info .des p{ border-top:1px dashed #eee; line-height:20px; padding:3px 0px;}
+#user .list .item .info .des p.group span a{ margin-left:6px;}
 #user .list .item .info .des p i{ margin-right:8px;}
 #user .list .item .info:hover{background-color:#F8FCFE;}
 

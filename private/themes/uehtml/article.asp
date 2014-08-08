@@ -32,7 +32,7 @@
             </div>
             <div class="art-tag">
             	<%if ( data.article.art_tags.length ){%>
-                <div class="tag clearfix"><span>日志标签</span>
+                <div class="tag clearfix"><span>相关日志 - 标签</span>
 				<%
 					for ( var i = 0 ; i < data.article.art_tags.length; i++ ){
 						tags.push(data.article.art_tags[i].id);
@@ -46,6 +46,7 @@
                 <div class="tag-list" id="tag-list">
                 	<p><i class="fa fa-refresh fa-spin"></i> 正在查询相关日志，请稍后..</p>
                 </div>
+                <div class="tag-page clearfix"></div>
                 <%};%>
             </div>
         </div>

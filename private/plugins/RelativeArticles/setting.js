@@ -2,5 +2,5 @@
 exports.tops = {
 	type: 'text',
 	value: '10',
-	des: '调用条数'
+	des: '每页日志数量'
 };

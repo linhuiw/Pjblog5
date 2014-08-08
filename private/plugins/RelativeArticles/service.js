@@ -24,7 +24,18 @@ RelativeArticlesModule.extend('getSettingValue', function(){
 RelativeArticlesModule.extend('getValue', function(params){
 	var id = params.query.id,
 		tags = params.form.tags,
+		page = params.query.page || "1",
 		z = [];
+		
+	if ( page.length === 0 ){
+		page = "1";
+	}
+	
+	page = Number(page);
+	
+	if ( page < 1 ){
+		page = 1;
+	}
 	
 	if ( tags.length === 0 ){
 		return { success: true, message: '获取相关日志成功', data: [] };
@@ -41,26 +52,26 @@ RelativeArticlesModule.extend('getValue', function(params){
 		var setting = this.getSettingValue();
 		var tops = setting.tops && Number(setting.tops) > 0 ? setting.tops : 10;
 		var rec = new this.dbo.RecordSet(this.conn);
+		var condition = "id<>" + id + " And (" + z.join(" Or ") + ")";
+		var ac;
+		
 		try{
-			rec
-				.sql("Select top " + tops + " * From blog_articles Where id<>" + id + " And (" + z.join(" Or ") + ") Order By art_postdate DESC")
-				.open()
-				.each(function(object){
-					outs.push({
-						id: object('id').value,
-						title: object('art_title').value,
-						time: new Date(object('art_postdate').value).getTime(),
-						cover: object('art_cover').value,
-						href: 'article.asp?id=' + object('id').value
-					});
-				})
-				.close();
+			ac = rec.DualTopPage("blog_articles", "*", condition, "art_postdate DESC", "art_postdate ASC", tops, page, function(object){
+				outs.push({
+					id: object('id').value,
+					title: object('art_title').value,
+					time: new Date(object('art_postdate').value).getTime(),
+					cover: object('art_cover').value,
+					href: 'article.asp?id=' + object('id').value
+				});
+			});
 		}catch(e){
 			return { success: false, message: e.message };
 		}
+		
 	};
 	
-	return { success: true, message: '获取相关日志成功', data: outs };
+	return { success: true, message: '获取相关日志成功', data: outs, pages: rec.BuildPage(ac.pageindex, ac.pageCount) };
 });
 
 return RelativeArticlesModule;

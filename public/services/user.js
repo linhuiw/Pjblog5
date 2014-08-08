@@ -191,4 +191,27 @@ MemberModule.extend('RemoveUser', function( params ){
 	return ret;
 });
 
+MemberModule.extend('change', function( params ){
+	var uid = params.query.uid,
+		gid = params.query.gid;
+		
+	if ( isNaN(uid) || isNaN(gid) ){
+		return { success: false, message: '参数错误' };
+	}else{
+		try{
+			var rec = new this.dbo.RecordSet(this.conn);
+			rec
+				.sql('Select * From blog_members Where id=' + uid)
+				.open(3)
+				.update({
+					member_group: gid
+				})
+				.close();
+			return { success: true, message: '操作成功', gid: gid };
+		}catch(e){
+			return { success: false, message: e.message };
+		}
+	}
+});
+
 return MemberModule;

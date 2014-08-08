@@ -18,7 +18,23 @@ if ( nick.length > 0 ){
 	sql = "Select * From blog_members Order By member_logindate DESC";
 };
 
-var date = require("date");
+var date = require("date"), groups = {}, g = [];
+var rec = new dbo.RecordSet(conn);
+rec
+	.sql("Select * From blog_groups")
+	.open()
+	.each(function(object){
+		groups[object("id").value + ""] = object("group_name").value;
+		g.push({
+			id: object("id").value,
+			name: object("group_name").value
+		})
+	})
+	.close();
+LoadJscript(function(g){
+	window.groups = g.groups;
+	window.group = g.group;
+}, { groups: g, group: groups });
 %>
 <div id="user">
 	<div class="top clearfix">
@@ -34,7 +50,7 @@ var date = require("date");
     </div>
     <div class="list waterfull">
     <%
-		var rec = new dbo.RecordSet(conn);
+		rec = new dbo.RecordSet(conn);
 		rec.sql(sql).open();
 		var pages = rec.AdoPage(page, 50, function(object){
 	%>
@@ -45,12 +61,14 @@ var date = require("date");
                     <div class="name clearfix">
                     	<%if ( object("id").value !== uid ){%>
                     	<a href="javascript:;" class="fright AutoSendAjax" app-id="<%=object('id').value%>" app-m="user" app-p="RemoveUser" app-c="删除用户将删除这个用户下的所有评论和留言信息！请慎重！确定要删除吗？"><i class="fa fa-trash-o"></i></a>
-                        <a href="javascript:;" class="fright AutoSendAjax" app-id="<%=object('id').value%>" app-m="user" app-p="ChangeStatus"><i class="fa fa-repeat"></i></a>
+                        <a href="javascript:;" class="fright AutoSendAjax" app-id="<%=object('id').value%>" app-m="user" app-p="ChangeStatus"><i class="fa fa-power-off"></i></a>
+                        <a href="javascript:;" class="fright ChangeGroup" app-id="<%=object('id').value%>" app-group="<%=object("member_group").value%>"><i class="fa fa-bug"></i></a>
                         <%};%>
 						<%=object('member_nick').value%>
                     </div>
                     <div class="des clearfix">
                     	<p class="status"><i class="fa fa-dot-circle-o"></i><%=object('member_forbit').value ? "已被禁止登陆本站" : "正常，可登陆。"%></p>
+                        <p class="group"><i class="fa fa-group"></i><span><%=groups[object("member_group").value + ""] || "未找到分组"%></span></p>
                     	<p><i class="fa fa-child"></i><%=object('member_sex').value === 0 ? "保密" : object('member_sex').value === 1 ? "男" : "女"%></p>
                         <p><i class="fa fa-envelope-o"></i><%=object('member_mail').value%></p>
                         <p><i class="fa fa-link"></i><%=object('member_website').value%></p>

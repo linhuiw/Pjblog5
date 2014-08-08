@@ -793,12 +793,18 @@ html, body {
 .art-tag .tag a:visited{color:#1a6cc1;}
 .art-tag .tag a:hover{ color:#000;}
 .art-tag .tag-list{ padding:10px 20px;}
-.art-tag .tag-list a{ display:block; padding:5px 10px; border-bottom:1px dashed #f2f2f2; height:20px; line-height:20px;-webkit-transition: all ease .3s;-moz-transition: all ease .3s;-ms-transition: all ease .3s;-o-transition: all ease .3s; transition: all ease .3s;}
+.art-tag .tag-list a{ display:block; padding:5px 10px; border-top:1px dashed #f2f2f2; height:20px; line-height:20px;-webkit-transition: all ease .3s;-moz-transition: all ease .3s;-ms-transition: all ease .3s;-o-transition: all ease .3s; transition: all ease .3s;}
 .art-tag .tag-list a i{ margin-right:10px;}
 .art-tag .tag-list a span{ margin-right:5px;}
 .art-tag .tag-list a:link,
 .art-tag .tag-list a:visited{ color:#777;}
 .art-tag .tag-list a:hover{ color:#000;}
-.art-tag .tag-list a:last-child{ border-bottom:0px;}
 .art-tag .tag-list p i{ margin-right:5px;}
+.art-tag .tag-list p.total{ padding-left:25px; height:26px; line-height:26px; color:#1a6cc1;}
 .art-time{ text-align:center; color:#ccc; padding:20px 0px; font-size:14px; background-color:#d9f7b8; color:#6bc30d;}
+.art-tag .tag-page{ padding:0px 20px; padding-left:44px; padding-bottom:20px;}
+.art-tag .tag-page span,
+.art-tag .tag-page a{ display:block; float:left; width:20px; line-height:20px; border:1px solid #ddd; text-align:center; margin-right:5px; font-family:"Courier New", Courier, monospace}
+.art-tag .tag-page span{ background-color:#ddd; color:#fff;}
+.art-tag .tag-page a{ color:#1a6cc1;}
+.art-content{ padding-top:10px;}

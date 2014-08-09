@@ -43,6 +43,7 @@ LayoutModule.extend('state', function( member ){
 			param.sex = object('member_sex').value;
 			param.avatar = object('member_avatar').value;
 			param.openid = object('member_openid').value;
+			param.token = object('member_token').value;
 		});
 	
 	param.login = State.login;
@@ -56,6 +57,7 @@ LayoutModule.extend('state', function( member ){
 		param.mail = '';
 		param.forbit = false;
 		param.openid = '';
+		param.token = '';
 		param.avatar = '';
 	}else{
 		if ( param.forbit ){

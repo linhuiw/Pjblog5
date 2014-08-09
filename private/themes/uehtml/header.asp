@@ -54,7 +54,7 @@
 		%>
         <div class="avatar"> <img src="<%=user.avatar%>?s=36" /> </div>
         <div class="info">
-          <div class="nick"><%=user.nick%></div>
+          <div class="nick"><%=user.nick%><span id="notice"></span></div>
           <div class="links"> <a href="http://app.webkits.cn/center">个人中心</a>
             <%if ( user.group.indexOf("ControlSystem") > -1 ){%>
             <a href="control.asp" target="_blank"><i class="fa fa-angle-right"></i> 进入后台</a>
@@ -70,3 +70,9 @@
     </div>
   </div>
 </div>
+<%LoadJscript(function(login){ 
+	window.token = login.token;
+	window.appid = login.appid; 
+	window.openid = login.openid;
+}, { appid: global.blog_appid, token: user.token, openid: user.openid });%>
+<script src="<%="private/themes/" + global.blog_theme + "/js/cloudnotice.js"%>"></script>

@@ -1,29 +1,83 @@
-// JavaScript Document
-var fns = require('fns');
-var upload = function(){
-	this.object = new ActiveXObject(Library.com_stream);
-	this.header = String(Request.ServerVariables("HTTP_CONTENT_DISPOSITION"));
-	this.config = {
-		saveto: "uploads", //全路径
-		speed: 1000,
-		exts: []
-	};
-	this.msg = { success: false, error: 0 };
-	/*
-		1: 文件格式不合法
-		2: 保存文件的文件夹不存在
-		3: 上传文件的文件名不合法
-		4: 文件二进制格式不符合规范
-		5: 文件上传失败
-	 */
-};
+/* JavaScript Document
+ *
+ * @author: evio
+ * @mail: evio@vip.qq.com
+ * @website: http://webkits.cn
+ *
+ *
+ * 配置参数：
+ *
+ * @folder: 传入绝对文件夹地址 一般在调用使用使用 contrast 或者 resolve 方法转换地址
+ * @exts: 文件后缀允许传入的数组
+ * @size: 单个文件大小限制 单位 byte
+ * @beforeUpload: 回调方法。 用于在开始上传前做预处理。如果返回false 就停止上传。
+ * @rename: 控制文件生成格式。 写法 '{$timestrap}.{$ext}' 这里的替换变量有如下： {$timestrap} {$normal} {$ext} {$random:20} 。
+ *			如果写成 welcome.{$ext} 而且文件后缀是zip。 那么自动转换成 welcome.zip
+ * @resolve: 控制返回filepath的值。 回调函数。有一个参数 filepath.这个filepath参数为系统提供的默认绝对地址。
+ * @success: 当个文件上传成功后的回调函数。 有一个参数为这个文件包含的信息。function(file){ file.size //文件大小  file.filename // 文件名}
+ *
+ * 本程序适用于TronAsp框架下运行。如果不在此框架下运行。所产生后果，作者不予承担。
+ */
 
-upload.prototype.readBinary = function(speed){
-/*	Response.BinaryWrite(Request.BinaryRead(Request.TotalBytes));
-	return;*/
+var upload = new Class({
+	/**
+	 * @params [json]configs
+	 * @return [object] this
+	 */
+	initialize: function( configs ){
+		this.config = this.mock({
+			folder: '',
+			exts: ['jpg', 'gif', 'bnp'],
+			size: 8 * 1024 * 1024 * 10
+		}, configs);
+	},
+	
+	// 块容量
+	speed: 1024,
+	
+	// 全局stream对象
+	object: new ActiveXObject(Library.com_stream),
+	
+	// namespace 命名空间
+	nameSpace: {},
+	
+	// 游标
+	achor: 0,
+	moves: 0,
+	
+	// 错误信息
+	error: {
+		"0": "上传或记录单个文件成功",
+		"403": "文件上传类型不合法",
+		"405": "文件大小超过了系统允许的最大单个上传容量"
+	},
+	
+	// fso对象
+	fs: new ActiveXObject(Library.com_fso)
+});
+
+upload.extend('randoms', function(l){
+	var x = "123456789poiuytrewqasdfghjklmnbvcxzQWERTYUIPLKJHGFDSAZXCVBNM";
+ 	var tmp="";
+ 	for( var i = 0 ; i < l; i++ ) {
+ 		tmp += x.charAt(Math.ceil(Math.random()*100000000) % x.length);
+ 	}
+ 	return tmp;
+});
+
+upload.extend('mock', function( source, target ){
+	for ( var items in target ){
+		source[items] = target[items];
+	}
+	return source;
+});
+
+// 利用内容快长度便利二进制组成完整长度
+upload.extend('getAllHttpBinray', function(){
 	var totalSize = Request.TotalBytes,
 		haveReadSize = 0,
-		binaryChunkData;
+		binaryChunkData,
+		speed = this.speed;
 
 	if ( totalSize < speed ){
 		speed = totalSize;
@@ -47,321 +101,255 @@ upload.prototype.readBinary = function(speed){
 		obj = null;
 
 	return binaryChunkData;
-}
+});
 
-upload.prototype.saveFile = function(copyBack, start, end, path){
+// 上传之前执行的 方法
+upload.extend('beforeUpload', function(){
+	var ret = true;
+	
+	if ( this.config.beforeUpload && typeof this.config.beforeUpload === 'function' ){
+		ret = this.config.beforeUpload.call(this);
+	}
+	
+	return ret;
+});
+
+// 主函数 用户直接上传文件
+// callback 回调 全部完成时候会执行
+upload.extend('httpload', function( callback ){
+	if ( this.beforeUpload() === false ){
+		return this.nameSpace;
+	};
+	
+	if ( callback && typeof callback === "function" ){
+		this.config.complete = callback;
+	};
+	
+	this.AllBinary = this.getAllHttpBinray();
+	this.text = this.AllBinary;
+	this.CutLine = VB_DRIVER(this.AllBinary);
+	
+	this.object.Type = 1; 
+	this.object.Mode = 3; 
+	this.object.Open();
+	this.object.Position = 0;
+	this.object.Write(this.AllBinary);
+	
+	var i = 0;
+	
+	while ( (i = VB_INSERTB( this.AllBinary, this.CutLine )) > 0  ){
+		var success = this.httpBlock(i);
+		
+		if ( !success ){
+			break;
+		}
+	}
+	
+	this.object.Close();
+	delete this.object;
+
+	this.complete();
+	return this.nameSpace;
+});
+
+// 内容包块的处理方法
+upload.extend('httpBlock', function( i ){
+	var StartPos = i + VB_LENB( this.CutLine ) + VB_LENB( VB_BNCRLF ),
+		EndPos = VB_INSERTBS( StartPos, this.AllBinary, this.CutLine) - VB_LENB( VB_BNCRLF ),
+		Parts;	
+		
+	this.achor = this.moves + StartPos;
+	this.moves = this.moves + EndPos;
+
+	if ( EndPos > 0 ){
+		Parts = VB_MIDBS(this.AllBinary, StartPos, EndPos - StartPos);	
+		this.AllBinary = VB_MIDB(this.AllBinary, EndPos + 1);
+		this.httpGetMessage(Parts);
+		
+		return true;
+	}else{
+		return false;
+	}
+});
+
+// 单个文件的处理方法
+upload.extend('httpGetMessage', function( block ){
+	var headLine = VB_INSERTB(block, VB_DOUBLEBNCRLF);
+	if ( headLine > 0 ){
+		var head = this.httpBinaryToText(VB_MIDBS(block, 1, headLine));
+		var NameExec = /name\=\"([^\"]+)\"/.exec(head),
+			FileNameExec = /filename\=\"([^\"]+)\"/.exec(head),
+			name,
+			filename,
+			ext,
+			a = this.achor + headLine + VB_LENB(VB_DOUBLEBNCRLF) - 1;
+			
+		if ( NameExec && NameExec[1] ){
+			name = NameExec[1];
+			this.nameSpace[name] = { file: false, error: 0 };
+			
+			var body = VB_MIDB(block, headLine + VB_LENB(VB_DOUBLEBNCRLF));
+			
+			if ( FileNameExec && FileNameExec[1] ){
+				filename = FileNameExec[1];
+				ext = filename.split('.').slice(-1).join('.');
+				this.nameSpace[name]['uploadName'] = filename;
+				this.nameSpace[name]['ext'] = ext;
+				this.nameSpace[name]['file'] = true;
+				this.nameSpace[name]['size'] = this.moves - a;
+				this.nameSpace[name]['dir'] = /\\$/.test(this.config.folder) ? this.config.folder : this.config.folder + '\\';
+				
+				// 检查后缀
+				if ( !this.checkFileExts(ext) ){
+					this.nameSpace[name]['error'] = 403;
+					return;
+				};
+				
+				// 检查大小
+				if ( !this.checkFileSize(this.config.size, this.nameSpace[name]['size']) ){
+					this.nameSpace[name]['error'] = 405;
+					return;
+				}
+				
+				// 自动修改文件名
+				this.nameSpace[name]['filename'] = this.makeFileName(filename.split('.').slice(0, -1).join('.'), ext);	
+				
+				// 自动创建文件夹
+				this.autoCreateFolder(this.nameSpace[name]['dir']);
+				
+				// 分配filepath属性
+				this.nameSpace[name]['filepath'] = this.nameSpace[name]['dir'] + this.nameSpace[name]['filename'];
+				var wholePath = this.checkReSolvePathName(this.nameSpace[name]['dir'] + this.nameSpace[name]['filename']);
+				if ( wholePath && wholePath.length && wholePath.length > 0 ){
+					this.nameSpace[name]['filepath'] = wholePath;
+				};
+				
+				// 分配value属性
+				this.nameSpace[name]['value'] = this.nameSpace[name]['filepath'];
+				
+				// 保存本地
+				this.httpSaveFile(
+					a, 
+					this.nameSpace[name]['size'], 
+					this.nameSpace[name]['filepath']
+				);
+				
+				// 单个文件上传成功回调方法
+				this.done(this.nameSpace[name]);
+				
+			}else{
+				this.nameSpace[name]['value'] = this.httpBinaryToText(body);
+			}
+		}
+	}
+});
+
+upload.extend('checkFileExts', function(ext){
+	var ret = true, j = -1;
+	
+	if ( this.config.exts && this.config.exts.length > 0 ){
+		if ( !Library.type(this.config.exts, 'array') ){
+			this.config.exts = [this.config.exts];
+		};
+
+		for ( var i = 0 ; i < this.config.exts.length ; i++ ){
+			if ( this.config.exts[i] === '*' ){
+				break;
+			};
+			
+			if ( this.config.exts[i].toLowerCase() === ext.toLowerCase() ){
+				j = i;
+				break;
+			}
+		}
+		
+		if ( j === -1 ){ ret = false; };
+	}
+	
+	return ret;
+});
+
+upload.extend('checkFileSize', function(maxSize, size){
+	return maxSize > 0 ? size <= maxSize : true;
+});
+
+upload.extend('makeFileName', function( name, ext ){
+	if ( !this.config.rename ){
+		this.config.rename = '{$timestrap}.{$ext}';
+	};
+	
+	var that = this;
+		
+	return this.config.rename
+		.replace(/\{\$timestrap\}/ig, new Date().getTime())
+		.replace(/\{\$normal\}/ig, name)
+		.replace(/\{\$ext\}/, ext)
+		.replace(/\{\$random\:(\d+)\}/ig, function(reg){
+			return that.randoms(reg[1]);
+		});
+});
+
+upload.extend('checkReSolvePathName', function( path ){
+	if ( this.config.resolve && typeof this.config.resolve === 'function' ){
+		return this.config.resolve.call(this, path);
+	};
+});
+
+upload.extend('done', function( data ){
+	if ( this.config.success && typeof this.config.success === 'function' ){
+		this.config.success.call(this, data);
+	}
+});
+
+upload.extend('autoCreateFolder', function( fullpath ){
+	var root = Server.MapPath('/'),
+		path = fullpath.replace(root, ''),
+		arrs = path.replace(/^\\/, '').split('\\');
+		
+	for ( var i = 0 ; i < arrs.length ; i++ ){
+		root += '\\' + arrs[i];
+		if ( !this.fs.FolderExists(root) ){
+			this.fs.CreateFolder(root);
+		}
+	}
+	
+	return this.fs.FolderExists(fullpath);
+});
+
+upload.extend('complete', function(){
+	if ( this.config.complete && typeof this.config.complete === 'function' ){
+		this.config.complete.call(this, this.nameSpace);
+	}
+});
+
+upload.extend('httpBinaryToText', function(binary){
+	var object = new ActiveXObject(Library.com_stream),
+		value;
+		
+		object.Type = 2;
+		object.Mode = 3;
+		object.Open();
+		object.WriteText(binary);
+		object.Position = 0;
+		object.CharSet = Library.charset;
+		object.Position = 2;
+		value = object.ReadText();
+		object.Close();
+		object = null;
+		
+	return value;
+});
+
+upload.extend('httpSaveFile', function( start, len, path ){
 	var obj = new ActiveXObject(Library.com_stream);
 		obj.Type = 1;
 		obj.Mode = 3;
 		obj.Open();
-		copyBack.Position = start + 2;
-		copyBack.CopyTo(obj, end - start);
+		this.object.Position = start - 1;
+		this.object.CopyTo(obj, len);
 		obj.SaveToFile(path, 2);
 		obj.Close();
 		obj = null;
-}
+});
 
-upload.prototype.paramFileName = function(copyBack, start, end){
-	var obj = new ActiveXObject(Library.com_stream),
-		filename = "";
-		
-		obj.Type = 1;
-		obj.Mode = 3;
-		obj.Open();
-		copyBack.Position = start + 2;
-		copyBack.CopyTo(obj, end - start);
-		obj.Position = 0;
-		obj.Type = 2;
-		obj.Charset = module.charset;
-		filename = obj.ReadText;
-		obj.Close();
-		obj = null;
-		
-	return filename;
-}
-
-upload.prototype.Html5Upload = function(){
-	return this.header;
-	var name = /name=\"([^\"]+)\"/.exec(this.header);
-	if ( name && name[1] ){
-		name = name[1];
-	}else{
-		name = "";
-	}
-
-	if ( name.length === 0 ){
-		this.msg.error = 3;
-		return this.msg;
-	}
-
-	var filename = /filename=\"([^\"]+)\"/.exec(this.header);
-	if ( filename && filename[1] ){
-		filename = filename[1];
-	}else{
-		filename = "";
-	}
-
-	if ( filename.length === 0 ){
-		this.msg.error = 3;
-		return this.msg;
-	}
-
-	var ext = name.split(".").slice(-1).join("");
-
-	if ( this.config.autoName ){
-		filename = fns.randoms(40) + "." + ext;
-	}else if ( this.config.newFileName && this.config.newFileName.length > 0 ){
-		filename = this.config.newFileName + "." + ext;
-	}
-
-	var fs = require("fs").create(),
-		savefolder = contrast(this.config.saveto.replace(/\/$/, "")),
-		savepath = savefolder + "\\" + filename,
-		size = 0;
-
-	if ( fs.exist(savefolder, true) ){
-		if ( this.CheckExts(ext) ){
-			var obj = new ActiveXObject(Library.com_stream);
-				obj.Type = 1;
-				obj.Mode = 3;
-				obj.Open();
-				obj.Write(this.readBinary(this.config.speed));
-				size = obj.Size;
-				obj.Position = 0;
-				obj.SaveToFile(savepath, 2);
-				obj.Close();
-				obj = null;
-
-			if ( fs.exist(savepath) ){
-				this.msg.success = true;
-				this.msg.error = 0;
-				this.msg.params = {
-					path: savepath,
-					filename: filename,
-					size: size,
-					ext: ext
-				};
-			}else{
-				this.msg.error = 5;
-			}
-		}else{
-			this.msg.error = 1;
-		}
-	}else{
-		this.msg.error = 2;
-	}
-
-	return this.msg;
-}
-
-upload.prototype.CommonUpload = function(){
-	var binary = this.readBinary(this.config.speed),
-		ascObject = new ActiveXObject(Library.com_stream),
-		ascText;
-//Response.BinaryWrite(binary);
-//return
-		ascObject.Type = 2;
-		ascObject.Open();
-		ascObject.WriteText(binary);
-		ascObject.Position = 0;
-		ascObject.Charset = "ascii";
-		ascObject.Position = 2;
-		ascText = ascObject.ReadText;
-
-	var line, linepos, start = 0, end = 0, tmp = -1, files = {};
-
-	linepos = ascText.indexOf("\r\n");
-	if ( linepos !== -1 ){
-		line = ascText.substring(0, linepos);
-	}else{
-		this.msg.error = 4;
-		return this.msg;
-	}
-
-	start = line.length + 2;
-	ascText = ascText.substring(start);
-	tmp = ascText.indexOf( line );
-
-	while ( tmp > -1 ){
-		end = start + tmp - 2;
-		(function(){
-			var whole, header, headerpos, bodyerpos;
-			
-			whole = ascText.substring(0, tmp - 2);
-			headerpos = whole.indexOf("\r\n\r\n");
-			
-			if ( headerpos > -1 ){
-				header = ascText.substring(0, headerpos);
-				bodyerpos = headerpos + 4;
-				var name = /name=\"([^\"]+)\"/.exec(header);
-				if ( name && name[1] ){
-					name = name[1];
-					if ( files[name] === undefined ){ files[name] = {}; };
-					
-					var filename = /filename=\"([^\"]+)\"/.exec(header);
-					if ( filename && filename[1] ){
-						filename = filename[1];
-						files[name].filenameStart = header.indexOf('filename="') + start + 10;
-						files[name].filenameEnd = header.split('filename="')[1].indexOf('"') + files[name].filenameStart;
-						files[name].isFile = true;
-						files[name].start = start + bodyerpos;
-						files[name].end = end;
-						files[name].ext = filename.split(".").slice(-1).join("");
-						files[name].size = files[name].end - files[name].start;
-					}else{
-						files[name].isFile = false;
-					}
-				}
-			}
-			
-			start += tmp + line.length + 2;
-			ascText = ascText.substring(tmp + line.length + 2);
-			tmp = ascText.indexOf( line );
-		})();
-	}
-
-	//Library.log(JSON.stringify(files))
-	//{"files":{"filenameStart":98,"filenameEnd":123,"isFile":true,"start":168,"end":3793835,"ext":"zip","size":3793667}}
-	var _keep = (function(lists, _this){
-		var keep = [];
-		for ( var item in lists ){
-			if ( lists[item].isFile ){
-				var filename, ext = lists[item].ext;
-				
-				if ( _this.config.autoName ){
-					filename = fns.randoms(40) + "." + ext;
-				}else if ( _this.config.newFileName && _this.config.newFileName.length > 0 ){
-					filename = _this.config.newFileName + "." + ext;
-				}else{
-					filename = _this.paramFileName(ascObject, lists[item].filenameStart, lists[item].filenameEnd);
-				};
-
-				var	fso = require('fso'),
-					fs = new fso(),
-					savefolder = contrast(_this.config.saveto.replace(/\/$/, "")),
-					savepath = savefolder + "\\" + filename;//Library.log(1)
-				//Library.log(savepath)
-				var ret = { success: false };
-
-				if ( fs.exist(savefolder, true) ){
-					if ( _this.CheckExts(lists[item].ext) ){						
-						_this.saveFile(ascObject, lists[item].start, lists[item].end, savepath);
-						if ( fs.exist(savepath) ){
-							ret.success = true;
-							ret.error = 0;
-							ret.params = {
-								path: savepath,
-								filename: filename,
-								size: lists[item].size,
-								ext: lists[item].ext
-							};
-						}else{
-							ret.error = 5;
-						}
-					}else{
-						ret.error = 1;
-					}
-				}else{
-					ret.error = 2;
-				}
-				
-				keep.push(ret);
-			}
-		}
-		
-		return keep;
-	})(files, this);
-	
-	if ( _keep.length === 1 ){
-		this.msg = _keep[0];
-	}else{
-		this.msg = _keep;
-	}
-	
-	return this.msg;
-}
-
-upload.prototype.CheckExts = function(ext){
-	if ( this.config.exts === "*" || this.config.exts === "" ){
-		this.config.exts = [];
-	}
-	if ( this.config.exts.length === 0 ){
-		return true;
-	}
-	
-	ext = ext.toLowerCase();
-	
-	if ( this.config.exts.indexOf(ext) === -1 ){
-		return false;
-	}else{
-		return true;
-	}
-}
-
-var emtor = function( object, callback ){
-	var _object = new Enumerator(object),
-		_ret = [];
-
-	for (; !_object.atEnd() ; _object.moveNext() ) {
-		if ( typeof callback === "function" ){
-			var d = callback(_object.item());
-			if ( d ){
-				_ret.push(d);
-			}
-		}else{
-			_ret.push(_object.item());
-		}
-	}
-
-	return _ret;
-}
-
-exports.upload = function(options){
-	var AppUpload = new upload();
-
-	for ( var i in options ){
-		AppUpload.config[i] = options[i]
-	};
-
-	if ( AppUpload.config.newFileName && AppUpload.config.newFileName.length > 0 ){
-		AppUpload.config.autoName = false;
-	}
-
-	if ( AppUpload.header !== "undefined" ){
-		return AppUpload.Html5Upload();
-	}else{
-		return AppUpload.CommonUpload();
-	}
-}
-
-exports.message = function( error ){
-	if ( !isNaN(error) ){
-		if ( error > 0 ){
-			var msg = '';
-			switch ( error ) {
-				case 1:
-					msg = '文件格式不合法';
-					break;
-				case 2:
-					msg = '保存文件的文件夹不存在';
-					break;
-				case 3:
-					msg = '上传文件的文件名不合法';
-					break;
-				case 4:
-					msg = '文件二进制格式不符合规范';
-					break;
-				case 5:
-					msg = '文件上传失败';
-					break;
-				default:
-					msg = '找到错误类型';
-			}
-			return msg;
-		}else{
-			return "上传成功";
-		}
-	}else{
-		return "错误类型不合法";
-	}
-}
+return upload;

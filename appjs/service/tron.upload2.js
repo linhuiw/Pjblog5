@@ -253,6 +253,10 @@ upload.extend('checkFileExts', function(ext){
 		};
 
 		for ( var i = 0 ; i < this.config.exts.length ; i++ ){
+			if ( this.config.exts[i] === '*' ){
+				break;
+			};
+			
 			if ( this.config.exts[i].toLowerCase() === ext.toLowerCase() ){
 				j = i;
 				break;
@@ -266,7 +270,7 @@ upload.extend('checkFileExts', function(ext){
 });
 
 upload.extend('checkFileSize', function(maxSize, size){
-	return size <= maxSize;
+	return maxSize > 0 ? size <= maxSize : true;
 });
 
 upload.extend('makeFileName', function( name, ext ){

@@ -72,6 +72,7 @@ upload.extend('mock', function( source, target ){
 	return source;
 });
 
+// 利用内容快长度便利二进制组成完整长度
 upload.extend('getAllHttpBinray', function(){
 	var totalSize = Request.TotalBytes,
 		haveReadSize = 0,
@@ -102,6 +103,7 @@ upload.extend('getAllHttpBinray', function(){
 	return binaryChunkData;
 });
 
+// 上传之前执行的 方法
 upload.extend('beforeUpload', function(){
 	var ret = true;
 	
@@ -112,12 +114,19 @@ upload.extend('beforeUpload', function(){
 	return ret;
 });
 
-upload.extend('httpload', function(){
+// 主函数 用户直接上传文件
+// callback 回调 全部完成时候会执行
+upload.extend('httpload', function( callback ){
 	if ( this.beforeUpload() === false ){
 		return this.nameSpace;
 	};
 	
+	if ( callback && typeof callback === "function" ){
+		this.config.complete = callback;
+	};
+	
 	this.AllBinary = this.getAllHttpBinray();
+	this.text = this.AllBinary;
 	this.CutLine = VB_DRIVER(this.AllBinary);
 	
 	this.object.Type = 1; 
@@ -138,22 +147,23 @@ upload.extend('httpload', function(){
 	
 	this.object.Close();
 	delete this.object;
-	
+
 	this.complete();
 	return this.nameSpace;
 });
 
+// 内容包块的处理方法
 upload.extend('httpBlock', function( i ){
 	var StartPos = i + VB_LENB( this.CutLine ) + VB_LENB( VB_BNCRLF ),
 		EndPos = VB_INSERTBS( StartPos, this.AllBinary, this.CutLine) - VB_LENB( VB_BNCRLF ),
 		Parts;	
 		
 	this.achor = this.moves + StartPos;
-	this.moves = this.achor + EndPos - StartPos;
+	this.moves = this.moves + EndPos;
 
 	if ( EndPos > 0 ){
 		Parts = VB_MIDBS(this.AllBinary, StartPos, EndPos - StartPos);	
-		this.AllBinary = VB_MIDB(this.AllBinary, EndPos);
+		this.AllBinary = VB_MIDB(this.AllBinary, EndPos + 1);
 		this.httpGetMessage(Parts);
 		
 		return true;
@@ -162,6 +172,7 @@ upload.extend('httpBlock', function( i ){
 	}
 });
 
+// 单个文件的处理方法
 upload.extend('httpGetMessage', function( block ){
 	var headLine = VB_INSERTB(block, VB_DOUBLEBNCRLF);
 	if ( headLine > 0 ){
@@ -170,7 +181,8 @@ upload.extend('httpGetMessage', function( block ){
 			FileNameExec = /filename\=\"([^\"]+)\"/.exec(head),
 			name,
 			filename,
-			ext;
+			ext,
+			a = this.achor + headLine + VB_LENB(VB_DOUBLEBNCRLF) - 1;
 			
 		if ( NameExec && NameExec[1] ){
 			name = NameExec[1];
@@ -184,7 +196,7 @@ upload.extend('httpGetMessage', function( block ){
 				this.nameSpace[name]['uploadName'] = filename;
 				this.nameSpace[name]['ext'] = ext;
 				this.nameSpace[name]['file'] = true;
-				this.nameSpace[name]['size'] = this.moves - this.achor - headLine - 2;
+				this.nameSpace[name]['size'] = this.moves - a;
 				this.nameSpace[name]['dir'] = /\\$/.test(this.config.folder) ? this.config.folder : this.config.folder + '\\';
 				
 				// 检查后缀
@@ -217,7 +229,7 @@ upload.extend('httpGetMessage', function( block ){
 				
 				// 保存本地
 				this.httpSaveFile(
-					this.achor + headLine, 
+					a, 
 					this.nameSpace[name]['size'], 
 					this.nameSpace[name]['filepath']
 				);
@@ -233,16 +245,21 @@ upload.extend('httpGetMessage', function( block ){
 });
 
 upload.extend('checkFileExts', function(ext){
-	var ret = true;
+	var ret = true, j = -1;
 	
 	if ( this.config.exts && this.config.exts.length > 0 ){
 		if ( !Library.type(this.config.exts, 'array') ){
 			this.config.exts = [this.config.exts];
 		};
-		
-		if ( this.config.exts.indexOf(ext) === -1 ){
-			ret = false;
+
+		for ( var i = 0 ; i < this.config.exts.length ; i++ ){
+			if ( this.config.exts[i].toLowerCase() === ext.toLowerCase() ){
+				j = i;
+				break;
+			}
 		}
+		
+		if ( j === -1 ){ ret = false; };
 	}
 	
 	return ret;
@@ -324,7 +341,7 @@ upload.extend('httpSaveFile', function( start, len, path ){
 		obj.Type = 1;
 		obj.Mode = 3;
 		obj.Open();
-		this.object.Position = start;
+		this.object.Position = start - 1;
 		this.object.CopyTo(obj, len);
 		obj.SaveToFile(path, 2);
 		obj.Close();

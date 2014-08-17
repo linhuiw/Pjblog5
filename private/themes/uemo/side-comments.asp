@@ -1,19 +1,10 @@
-﻿<%
-	;(function(mark){
-		var CommentExports = load(mark);
-		if ( CommentExports ){
-%>
-<div class="imitem">
+﻿<div class="imitem">
   	<div class="imhead">用户最新发表的评论</div>  
-    <div class="photo"> 
+    <div class="photo">
 <%
-			var Comment = new CommentExports(mark),
-				gets = Comment.getSideValue(),
-				setting = gets.setting,
-				datas = gets.datas;
-			
-			var date = require("date");
-				
+			var datas = package.getSideValue(),
+				date = require("date");
+
 			if ( datas.length > 0 ){
 				for ( var i = 0 ; i < datas.length ; i++ ){
 %>
@@ -38,7 +29,3 @@
 %>
 	</div>
 </div>
-<%
-		}
-	})("WTRY465WA1T545ET35DAS8WWWE6FTYJT46");
-%>

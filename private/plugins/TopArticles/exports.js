@@ -1,16 +1,12 @@
 // JavaScript Document
-var TopArticlesModule = new Class({
-	initialize: function(mark){
-		this.mark = mark;
-	}
-});
+var TopArticlesModule = new Class({});
 
 TopArticlesModule.extend('getPluginCache', function(){
 	var cachefile = require('private/chips/' + blog.cache + 'blog.uri.plugins'),
 		outs = {};
 	
 	try{
-		outs = cachefile.queens[this.mark];
+		outs = cachefile.queens[this.pmark];
 	}catch(e){};
 	
 	return outs;

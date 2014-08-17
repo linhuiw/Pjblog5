@@ -1,26 +1,11 @@
-var TopCommentModule = new Class({
-	initialize: function( mark ){
-		this.mark = mark;
-	}
-});
-
-TopCommentModule.extend('getPluginCache', function(mark){
-	var cachefile = require('private/chips/' + blog.cache + 'blog.uri.plugins'),
-		outs = {};
-	
-	try{
-		outs = cachefile.queens[mark];
-	}catch(e){};
-	
-	return outs;
-});
+var TopCommentModule = new Class({});
 
 TopCommentModule.extend('getSettingValue', function(){
 	var plugins = require("public/library/plugin");
 		plugins.extend("dbo", this.dbo);
 		plugins.extend("conn", this.conn);
 	var plugin = new plugins(),
-		setting = plugin.getSettingParams(this.getPluginCache(this.mark).id);
+		setting = plugin.getSettingParams(this.pid);
 		
 	return setting;
 });
@@ -83,10 +68,7 @@ TopCommentModule.extend('getSideValue', function(){
 		});
 	}
 		
-	return {
-		setting: setting,
-		datas: outs
-	};
+	return outs;
 });
 
 return TopCommentModule;

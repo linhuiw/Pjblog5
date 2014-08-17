@@ -86,11 +86,11 @@
     <%include("private/themes/" + data.global.blog_theme + "/pages.asp", { pages: data.pages, url: url });%>
     </div>
     <div class="wrap clearfix">
-    	<%include("private/themes/" + data.global.blog_theme + "/side-toparticle.asp", { load: load, dbo: dbo, conn: conn });%>
-        <%include("private/themes/" + data.global.blog_theme + "/side-comments.asp", { load: load, dbo: dbo, conn: conn });%>
-        <%include("private/themes/" + data.global.blog_theme + "/side-guestbook.asp", { load: load, dbo: dbo, conn: conn });%>
+        <%plugin("toparticle");%>
+        <%plugin("topcomment");%>
+        <%plugin("guestbook");%>
     </div>
-    <div class="wrap clearfix"><%include("private/themes/" + data.global.blog_theme + "/side-link.asp", { load: load, dbo: dbo, conn: conn });%></div>
+    <div class="wrap clearfix"><%plugin("link");%></div>
 </div>
 <script type="text/javascript">
 require('<%="private/themes/" + data.global.blog_theme + "/js/default"%>', function(common){new common();});

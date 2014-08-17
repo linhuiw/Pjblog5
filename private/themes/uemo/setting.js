@@ -1,5 +1,4 @@
-// JavaScript Document
-exports.logo = {
+﻿exports.logo = {
 	type: 'text',
 	value: 'http://test.webkits.cn/private/themes/uehtml/imgs/5pjsm.png',
 	des: 'logo图片地址'

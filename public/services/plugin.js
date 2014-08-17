@@ -28,6 +28,26 @@ PluginModule.extend('install', function( params ){
 
 	if ( this.fs.exist(resolve('private/plugins/' + id + '/config')) ){
 		var plus = require('private/plugins/' + id + '/config');
+		
+		// 增加插件mark的判断
+		var hasInstalled = (function(mark, dbo, conn){
+			var rec = new dbo.RecordSet(conn), ints = false;
+			rec
+				.sql("Select id From blog_plugins Where plu_mark='" + mark + "'")
+				.process(function(object){
+					if ( !object.Bof && !object.Eof ){
+						ints = true;
+					}
+				});
+			
+			return ints;
+		})(plus.mark, this.dbo, this.conn);
+		
+		if ( hasInstalled ){
+			rets.message = '此插件已安装';
+			return rets;
+		}
+		
 		plugins.extend('dbo', this.dbo);
 		plugins.extend('conn', this.conn);
 		plugins.extend('fs', this.fs);
@@ -37,29 +57,22 @@ PluginModule.extend('install', function( params ){
 
 		try{
 			// 插件数据库安装
-			plugin.InstallSQL(id, 'install.sql');
-				
+			plugin.InstallSQL(id, 'install.sql');	
 			// 插件信息写入数据库	
 			pid = plugin.setup(plus);
 			
 			if ( pid > 0 ){
 				plus.id = pid;
-
 				// 插件缓存
-				plugin.AddPluginCacheFile(plus);
-				
+				plugin.AddPluginCacheFile(plus);				
 				// 插件导航
-				plugin.AddPluginNavFile(plus);
-				
+				plugin.AddPluginNavFile(plus);				
 				// 参数加载
-				plugin.AddSettingValue(pid, id);
-				
+				plugin.AddSettingValue(pid, id);				
 				// 首页导航插入
-				plugin.AddAssetsNav(pid, plus);
-				
+				plugin.AddAssetsNav(pid, plus);				
 				// 自定义安装文件
-				plugin.InstallBySelf(id, pid, plus, 'install');
-				
+				plugin.InstallBySelf(id, pid, plus, 'install');				
 				rets.success = true;
 				rets.message = '安装插件成功';
 			}

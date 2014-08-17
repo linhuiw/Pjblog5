@@ -5,7 +5,7 @@ exports.mail = 'evio@vip.qq.com';
 exports.site = 'http://webkits.cn';
 exports.des = '用户留言系统。';
 exports.icon = '';
-exports.mark = 'A5A465WA1T545ET35DAS8WWWE6FTYJT46';
+exports.mark = 'QKRJQWELSADJFLJLWERQWLASJKIOERT';
 exports.ControlNavs = {
 	name: '留言本插件',
 	icon: 'fa-envelope-o',

@@ -20,9 +20,28 @@ var LayoutModule = new Class({
 		this.params.error = 0;
 		
 		this.Globaltion();
+		this.ThemeConfigs();
 		this.ThemeSetting();
 		this.state(member);
 	}
+});
+
+LayoutModule.extend('ThemeConfigs', function(){
+	var configs = {};
+	configs.folder = this.params.global.blog_theme;
+	var ThemeModule = require('private/themes/' + configs.folder + '/config');
+	if ( ThemeModule ){
+		configs.name = ThemeModule.name;
+		configs.author = ThemeModule.author;
+		configs.mail = ThemeModule.mail;
+		configs.site = ThemeModule.site;
+		configs.des = ThemeModule.des;
+		configs.icon = blog.web.replace(/\/$/, '') + '/private/themes/' + configs.folder + '/' + ThemeModule.icon;
+		configs.mark = ThemeModule.mark;
+		configs.plugins = ThemeModule.plugins;
+	};
+
+	this.params.ThemeConfigs = configs;
 });
 
 LayoutModule.extend('add', function( key, value ){
@@ -185,6 +204,43 @@ LayoutModule.extend('load', function( mark, callback ){
 	}
 });
 
+LayoutModule.extend('plugin', function(mark, args){
+	if ( this.params.ThemeConfigs.plugins && this.params.ThemeConfigs.plugins[mark] ){
+		var pmark = this.params.ThemeConfigs.plugins[mark].mark;
+		var pfile = 'private/themes/' + this.params.ThemeConfigs.folder + '/' + this.params.ThemeConfigs.plugins[mark].file;
+		var pluginExports = this.load(pmark);
+		if ( pluginExports ){
+			var package = new pluginExports(),
+				plugins = require("public/library/plugin");
+				plugins.extend("dbo", package.dbo);
+				plugins.extend("conn", package.conn);
+
+			var plugin = new plugins(),
+				setting = plugin.getSettingParams(Number(package.pid));
+
+			var params = { 
+				package: package, 
+				setting: setting || {},
+				dbo: package.dbo,
+				conn: package.conn,
+				pid: package.pid,
+				pmark: package.pmark,
+				pfolder: package.pfolder
+			};
+			
+			if ( args ){
+				for ( var i in args ){
+					if ( !params[i] ){
+						params[i] = args[i];
+					}
+				}
+			}
+
+			include(pfile, params);
+		}
+	}
+});
+
 LayoutModule.extend('render', function( file ){
 	var theme = 'private/themes/' + this.params.global.blog_theme + '/' + file;
 	if ( this.fs.exist(contrast(theme)) ){
@@ -194,7 +250,8 @@ LayoutModule.extend('render', function( file ){
 			dbo: this.dbo,
 			conn: this.conn,
 			fs: this.fs,
-			fns: this.fns
+			fns: this.fns,
+			plugin: Library.proxy(this.plugin, this)
 		});
 	};
 });

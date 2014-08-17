@@ -1,15 +1,8 @@
-﻿<%
-	;(function(mark){
-		var topArticleExports = load(mark);
-		if ( topArticleExports ){
-%>
-<div class="imitem">
+﻿<div class="imitem">
   	<div class="imhead">博主最新发表的日志<!--<a href="http://www.uehtml.com/designers?sort=rec" target="_blank" class="immore">更多</a>--></div>  
     <div class="note"> 
 <%
-			var topArt = new topArticleExports(mark),
-			gets = topArt.getSideValue(),
-			setting = topArt.getSettingValue();
+		var gets = package.getSideValue();
 			if ( gets.length > 0 ){
 				for ( var i = 0 ; i < gets.length ; i++ ){
 %>
@@ -29,7 +22,3 @@
 %>
 	</div>
 </div>
-<%
-		}
-	})("A5A465WA1T545ET35ER6QE4A6FTYJT46");
-%>

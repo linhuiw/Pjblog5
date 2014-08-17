@@ -80,23 +80,12 @@ GuestBookModule.extend('getList', function( perpage, page ){
 	}
 });
 
-GuestBookModule.extend('getPluginCache', function(mark){
-	var cachefile = require('private/chips/' + blog.cache + 'blog.uri.plugins'),
-		outs = {};
-	
-	try{
-		outs = cachefile.queens[mark];
-	}catch(e){};
-	
-	return outs;
-});
-
 GuestBookModule.extend('getSettingValue', function(){
 	var plugins = require("public/library/plugin");
 		plugins.extend("dbo", this.dbo);
 		plugins.extend("conn", this.conn);
 	var plugin = new plugins(),
-		setting = plugin.getSettingParams(this.getPluginCache(this.configs.mark).id);
+		setting = plugin.getSettingParams(this.pid);
 		
 	return setting;
 });
@@ -156,10 +145,7 @@ GuestBookModule.extend('getSideValue', function(){
 		});
 	}
 		
-	return {
-		setting: setting,
-		datas: outs
-	};
+	return outs;
 });
 
 return GuestBookModule;

@@ -1,2 +1,2 @@
 ﻿// JavaScript Document
-exports.load = true;
+return new Class({});

@@ -31,20 +31,19 @@ ThemeModule.extend('install', function( folder ){
 			// 检测插件情况
 			///////////////////////////////////////
 			(function( mode, rec ){
-				var marks = mode.plugins,
-					mark = [];
+				var marks = mode.plugins;
 					
-				for ( var i = 0 ; i < marks.length ; i++ ){
-					mark.push("plu_mark='" + marks[i] + "'")
-				};
-				
-				if ( mark.length > 0 ){
-					rec.sql("Select id From blog_plugins Where " + mark.join(" Or ")).process(function( object ){
-						if ( object.RecordCount !== marks.length ){
-							install.success = false;
-							install.message = '缺少必要的插件，无法安装主题';
-						};
-					});
+				for ( var i in marks ){
+					rec
+						.sql("Select id From blog_plugins Where plu_mark='" + marks[i].mark + "'")
+						.process(function( object ){
+							if ( !object.Bof && !object.Eof ){}else{
+								install.success = false;
+								install.message = '缺少插件: ' + marks[i].des;	
+							}
+						});
+						
+					if ( !install.success ){ break; };
 				};
 			})( mode, new this.dbo.RecordSet(this.conn) );
 			

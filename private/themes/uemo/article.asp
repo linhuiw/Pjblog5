@@ -40,7 +40,8 @@
 					<a href="<%=data.article.art_tags[i].href%>"><%=data.article.art_tags[i].tag_name%>(<%=data.article.art_tags[i].tag_count%>)</a>
 				<%		
 					};
-					include("private/themes/" + data.global.blog_theme + "/side-RelativeArticles.asp", { id: data.article.id, tags: tags, load: load });
+					//相关日志插件
+					plugin("relativearticle", { id: data.article.id, tags: tags});
 				%>
                 </div>
                 <div class="tag-list" id="tag-list">

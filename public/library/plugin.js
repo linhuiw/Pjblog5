@@ -233,16 +233,7 @@ PluginModule.extend('getSettingParams', function(id){
 PluginModule.extend('InstallSQL', function(folder, file){
 	var path = contrast('private/plugins/' + folder + '/' + file);
 	if ( this.fs.exist(path) ){
-		var o = new ActiveXObject(Library.com_stream),
-			content;
-			
-			o.Type = 2; o.Mode = 3; 
-			o.Open(); 
-			o.LoadFromFile(path);
-			content = o.ReadText;
-			o.Close;
-			
-			o = null;
+		var content = Library.loader(path);
 			
 		if ( content.length > 0 ){
 			try{

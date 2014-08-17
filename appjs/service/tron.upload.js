@@ -247,16 +247,16 @@ upload.extend('httpGetMessage', function( block ){
 upload.extend('checkFileExts', function(ext){
 	var ret = true, j = -1;
 	
+	if ( this.config.exts === '*' ){
+		return true;
+	};
+	
 	if ( this.config.exts && this.config.exts.length > 0 ){
 		if ( !Library.type(this.config.exts, 'array') ){
 			this.config.exts = [this.config.exts];
 		};
 
-		for ( var i = 0 ; i < this.config.exts.length ; i++ ){
-			if ( this.config.exts[i] === '*' ){
-				break;
-			};
-			
+		for ( var i = 0 ; i < this.config.exts.length ; i++ ){			
 			if ( this.config.exts[i].toLowerCase() === ext.toLowerCase() ){
 				j = i;
 				break;

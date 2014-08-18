@@ -3,8 +3,8 @@ html {
   overflow-x: hidden;
 }
 body {
-  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-family: 'microsoft yahei', "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
   color: #788188;
   background-color: transparent;
   -webkit-font-smoothing: antialiased;
@@ -3914,3 +3914,4 @@ fieldset[disabled] .i-checks input + i:before {
     height: 65%;
   }
 }
+header .breadcrumb{ background-color:#e0eaec!important; border:0; margin-bottom:0; padding-left:0; height:34px; line-height:34px;}

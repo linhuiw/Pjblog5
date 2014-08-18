@@ -1,10 +1,10 @@
 ﻿<div class="imitem">
   	<div class="imhead">用户最新发表的评论</div>  
-    <div class="photo">
+    <div class="photo"> 
 <%
 			var datas = package.getSideValue(),
 				date = require("date");
-
+				
 			if ( datas.length > 0 ){
 				for ( var i = 0 ; i < datas.length ; i++ ){
 %>

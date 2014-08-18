@@ -1,4 +1,4 @@
-<!--#include file="../appjs/service/tron.asp" -->
+﻿<!--#include file="../appjs/service/tron.asp" -->
 <!--#include file="map.asp" -->
 <%
 ;(function( uploader, date, http, fns, fso ){
@@ -77,7 +77,7 @@
 					mode.extend("pfolder", pfolder);
 				};
 			
-			var mose = new mode(params);
+			var mose = new mode();
 		
 			if ( mose[p] && typeof mose[p] === "function" ){
 				mose[p](configs);

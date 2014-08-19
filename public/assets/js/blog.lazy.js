@@ -1,13 +1,14 @@
 // JavaScript Document
 define(function( require, exports, module ){
 	return new Class({
-		initialize: function(){
+		initialize: function( user ){
 			this.onAutoAjax();
 			this.onLogout();
+			this.ajaxNotice( user.token, user.appid, user.openid );
 			
-			if ( Library.isIE ){
-				this.tip.loading('您正在使用IE浏览器，本系统对部分IE浏览器不兼容，请使用CFROME或者火狐浏览器浏览！为了保证用户体验，请谅解！');
-			}
+//			if ( Library.isIE ){
+//				this.tip.loading('您正在使用IE浏览器，本系统对部分IE浏览器不兼容，请使用CFROME或者火狐浏览器浏览！为了保证用户体验，请谅解！');
+//			}
 		},
 		onAutoAjax: function(){
 			var that = this;
@@ -66,6 +67,23 @@ define(function( require, exports, module ){
 						that.tip.error(params.message);
 					}
 				});
+			});
+		},
+		ajaxNotice: function(token, appid, openid){
+			var that = this;
+			$.ajax({
+				type : "get",
+				async: false,
+				url : blog.AppPlatForm + '/oauth/get_notice.asp?access_token=' + token + '&oauth_consumer_key=' + appid + '&openid=' + openid + '&format=jsonp',
+				dataType : "jsonp",
+				jsonp: "callback",
+				jsonpCallback:"callback",
+				success : function(json){
+					//that.htmlAjaxNotice(json);
+				},
+				error:function(){
+					alert('云端获取信息失败');
+				}
 			});
 		},
 		tip: require('appjs/assets/blog.loading')

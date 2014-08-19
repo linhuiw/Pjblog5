@@ -8,7 +8,7 @@ define([
 			this.updatesql();
 			this.addNews();
 			this.waterFull();
-			this.ajaxNotice();
+
 		},
 		ajaxNotice: function(){
 			var that = this;

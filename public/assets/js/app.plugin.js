@@ -157,7 +157,7 @@
                     '<small class="text-muted">1 minutes ago</small>'+
                   '</span>'+
                 '</a>';	
-  setTimeout(function(){addMsg($msg);}, 1500);
+  //setTimeout(function(){addMsg($msg);}, 1500);
 
 	//chosen
 	$(".chosen-select").length && $(".chosen-select").chosen();

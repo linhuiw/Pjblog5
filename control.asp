@@ -81,25 +81,26 @@ if ( UserStatus.login && UserStatus.admin ){
     </form>
     <div class="navbar-right ">
       <ul class="nav navbar-nav m-n hidden-xs nav-user user">
-        <li class="hidden-xs"> <a href="#" class="dropdown-toggle lt" data-toggle="dropdown"> <i class="icon-bell"></i> <span class="badge badge-sm up bg-danger count">2</span> </a>
+        <li class="hidden-xs"> <a href="#" class="dropdown-toggle lt" data-toggle="dropdown"> <i class="icon-bell"></i> <span class="badge badge-sm up bg-danger NoticeCount"></span> </a>
           <section class="dropdown-menu aside-xl animated fadeInUp">
             <section class="panel bg-white">
-              <div class="panel-heading b-light bg-light"> <strong>You have <span class="count">2</span> notifications</strong> </div>
-              <div class="list-group list-group-alt"> <a href="#" class="media list-group-item"> <span class="pull-left thumb-sm"> <img src="images/a0.png" alt="..." class="img-circle"> </span> <span class="media-body block m-b-none"> Use awesome animate.css<br>
-                <small class="text-muted">10 minutes ago</small> </span> </a> <a href="#" class="media list-group-item"> <span class="media-body block m-b-none"> 1.0 initial released<br>
-                <small class="text-muted">1 hour ago</small> </span> </a> </div>
-              <div class="panel-footer text-sm"> <a href="#" class="pull-right"><i class="fa fa-cog"></i></a> <a href="#notes" data-toggle="class:show animated fadeInRight">See all the notifications</a> </div>
+              <div class="panel-heading b-light bg-light"> <strong>您有 <span class="count NoticeCount">0</span> 条云端消息</strong> </div>
+              <div class="list-group list-group-alt"> 
+              	<!--<a href="#" class="media list-group-item"> <span class="pull-left thumb-sm"> <img src="images/a0.png" alt="..." class="img-circle"> </span> <span class="media-body block m-b-none"> Use awesome animate.css<br><small class="text-muted">10 minutes ago</small> </span> </a> 
+                <a href="#" class="media list-group-item"> <span class="media-body block m-b-none"> 1.0 initial released<br><small class="text-muted">1 hour ago</small> </span> </a> -->
+              </div>
+              <!--<div class="panel-footer text-sm"> 
+              	<a href="#" class="pull-right"><i class="fa fa-cog"></i></a>
+                <a href="http://app.webkits.cn/center" data-toggle="class:show animated fadeInRight" target="_blank">查看更多</a> 
+              </div>-->
             </section>
           </section>
         </li>
         <li class="dropdown"> <a href="#" class="dropdown-toggle bg clear" data-toggle="dropdown"> <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm"> <img src="<%=mem.avatar%>?s=36" alt="<%=mem.nick%>"> </span> <%=mem.nick%> <b class="caret"></b> </a>
           <ul class="dropdown-menu animated fadeInRight">
             <li> <span class="arrow top"></span> <a href="?m=setting">网站设置</a> </li>
-            <li> <a href="profile.html">Profile</a> </li>
-            <li> <a href="#"> <span class="badge bg-danger pull-right">3</span> Notifications </a> </li>
-            <li> <a href="docs.html">Help</a> </li>
             <li class="divider"></li>
-            <li> <a href="modal.lockme.html" data-toggle="ajaxModal" >Logout</a> </li>
+            <li> <a href="modal.lockme.html" data-toggle="ajaxModal" class="logout" >退出登录</a> </li>
           </ul>
         </li>
       </ul>
@@ -120,7 +121,7 @@ if ( UserStatus.login && UserStatus.admin ){
 						for ( var i in navs ){
 							if ( !navs[i].hide ){
 				  %>
-                  <li> <a href="?m=<%=i%>"> <i class="fa <%=navs[i].icon + " " + navs[i].color%>"></i> <span><%=navs[i].name%></span> </a> </li>
+                  <li> <a href="?m=<%=i%>"> <i class="<%=navs[i].icon + " " + navs[i].color%>"></i> <span><%=navs[i].name%></span> </a> </li>
                   <%	
 							}		
 						}
@@ -144,7 +145,7 @@ if ( UserStatus.login && UserStatus.admin ){
 								};
                                 if ( navs[i] && navs[i].childs ){
                     %>
-                  <li > <a href="javascript:;" class="auto"> <span class="pull-right text-muted"> <i class="fa fa-angle-left text"></i> <i class="fa fa-angle-down text-active"></i> </span> <i class="fa <%=navs[i].icon%>"> </i> <span><%=navs[i].name%></span> </a>
+                  <li > <a href="javascript:;" class="auto"> <span class="pull-right text-muted"> <i class="fa fa-angle-left text"></i> <i class="fa fa-angle-down text-active"></i> </span> <i class="<%=navs[i].icon%>"> </i> <span><%=navs[i].name%></span> </a>
                     <ul class="nav dk text-sm">
                       <%
 									for ( var j in navs[i].childs ){
@@ -237,7 +238,7 @@ if ( UserStatus.login && UserStatus.admin ){
 						});
 					};
 					
-					var jses = [];
+					var jses = ["public/assets/js/blog.lazy.js"];
 					if ( fs.exist(jspath) ){
 						jses.push(files.js);
 					};
@@ -246,7 +247,8 @@ if ( UserStatus.login && UserStatus.admin ){
 						mem: mem
 					};
 					LoadJscript(function( common ){
-						require(common.jses, function(args){
+						require(common.jses, function(){
+							var args = arguments;
 							for ( var i = 0 ; i < args.length ; i++ ){
 								if ( args[i] ){
 									if ( typeof args[i] === "function" ){

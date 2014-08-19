@@ -152,7 +152,6 @@ var define = function(){};
 		com_stream: 'Adodb.Stream',
 		com_xmlhttp: 'Microsoft.XMLHTTP',
 		com_xml: 'Microsoft.XMLDOM',
-		com_winhttp: 'WinHttp.WinHttpRequest.5.1',
 		type: callType
 	};
 	

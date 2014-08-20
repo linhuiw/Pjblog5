@@ -79,7 +79,7 @@ function AllData(icon, counts, title, des, color){
         </section>
     </div>
     <div class="col-sm-4">
-    	<section class="panel panel-primary">
+    	<section class="panel panel-info">
         	<header class="panel-heading"><i class="fa fa-windows"></i> <span>云端资讯</span></header>a
         </section>
     </div>

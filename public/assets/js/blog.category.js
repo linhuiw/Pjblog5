@@ -1,6 +1,8 @@
 // JavaScript Document
 define([
-	'appjs/assets/jquery.nestable', 
+	'public/assets/js/sortable/jquery.sortable.js', 
+	'public/assets/js/nestable/jquery.nestable.js',
+	'public/assets/js/nestable/nestable.css',
 	'appjs/assets/jquery.form.min'
 ], function( require, exports, module ){
 	return new Class({
@@ -8,20 +10,17 @@ define([
 			this.formatSort();
 			this.onAddNewCategoryByRoot();
 			this.onAddNewCategoryBySecondCategory();
-			this.onMakeFace();
+			this.onMakeFace('.app-icon');
 			this.onCategoryDelete();
 			this.onModifyCategoryForm();
 			this.SaveSort();
 		},
 		formatSort: function(){
-			$(function(){
-				setTimeout(function(){
-					$('.dd').nestable({
-						expandBtnHTML   : '<button data-action="expand" type="button"><i class="fa fa-angle-down"></i></button>',
-						collapseBtnHTML : '<button data-action="collapse" type="button"><i class="fa fa-angle-up"></i></button>',
-						maxDepth        : 2
-					});
-				}, 500);
+			$('#nestable2').show().nestable({
+					expandBtnHTML	: '',
+					collapseBtnHTML	: '',
+					maxDepth        : 2,
+					handleClass		: 'dd-item-content'
 			});
 		},
 		onAddNewCategoryByRoot: function(){
@@ -106,39 +105,23 @@ define([
 				};
 			});
 		},
-		onMakeFace: function(){
+		onMakeFace: function(element){
 			var that = this;
-			$('body').on('click', '.app-icon', function(){
-				if ( !window.doing ){
-					window.doing = true;
-					var _this = this,
-						box = $('#icon-box'),
-						z = $(this).attr('app-icon'),
-						id = $(this).parents('li:first').attr('app-id');
-						
-						box.remove();
-						$('#modifyform').remove();
-						box = document.createElement('div');
-						box.id = 'icon-box';
-						$('body').append(box);	
-						box = $(box);
-						box.addClass('icon-box');
+			$(element).popover({
+				html: true,
+				title: '<button type="button" class="close pull-right" data-dismiss="popover">×</button>选择图标',
+				placement: 'top',
+				content: function(element){
+					var icon = $(this).attr('app-icon');
+					var hand = $(this).parents('.dd-handle:first');
+					var _this = this;
 					
-					box.html(that.iconsTemplate(z));
-					box.css({position: 'absolute'});
-					
-					var box_width = box.outerWidth(),
-						box_height = box.outerHeight(),
-						target_top = $(this).offset().top,
-						target_left = $(this).offset().left;
-						
-					box.css({
-						top: (target_top + 36) + 'px',
-						left: (target_left - box_width - 50) + 'px'
-					});
-					
-					box.find('li').on('click', function(){
-						var name = $(this).attr('app-icon-name');
+					hand.off('click');
+					hand.on('click', '.scrollable li', function(){
+						var id = hand.parents('li:first').attr('data-id'),
+							name = $(this).attr('app-icon-name');
+						var ts = $(this).parents('.popover:first').find('.close');
+							
 						that.tip.loading();
 						$.getJSON('public/async.asp', {
 							m: 'category',
@@ -147,27 +130,19 @@ define([
 							icon: name
 						}, function(params){
 							if ( params.success ){
-								that.tip.success(params.message);
-								$(_this).parents('li:first').find('.dd-handle:first img').attr('src', 'private/icons/' + name);
-								box.remove();
+								that.tip.close();
+								hand.find('.pull-left img').attr('src', 'private/icons/' + name);
+								ts.trigger('click');
+								$(_this).attr('app-icon', name);
 							}else{
 								that.tip.error(params.message);
 							}
 						});
 					});
 					
-					setTimeout(function(){ window.doing = false; }, 10);
+					return "<div class='scrollable'>" + that.iconsTemplate(icon) + "</div>";
 				}
 			});
-			
-			$('body').on('click', function(event){
-				if ( 
-					$(event.target).hasClass('icon-box') || 
-					$(event.target).parents('.icon-box').size() > 0 || 
-					$(event.target).hasClass('app-icon') || 
-					$(event.target).parent().hasClass('app-icon') 	
-				){}else{ $('#icon-box').remove(); };
-			})
 		},
 		onCategoryDelete: function(){
 			var that = this;
@@ -181,7 +156,6 @@ define([
 						p: 'remover',
 						id: id
 					}, function( params ){
-						window.doing = false;
 						if ( params.success ){
 							that.tip.success(params.message);
 							setTimeout(function(){ window.location.reload(); }, 1000);
@@ -195,118 +169,121 @@ define([
 		onModifyCategoryForm: function(){
 			var that = this;
 			$('body').on('click', '.app-modify', function(){
-				if ( !window.doing ){
-					window.doing = true;
-					var id = $(this).parents('li:first').attr('app-id'),
-						_this = this;;
-					that.tip.loading();
-					$.getJSON('public/async.asp', {
-						m: 'category',
-						p: 'getMessage',
-						id: id
-					}, function( params ){
-						window.doing = false;
-						if ( params.success ){
-							that.tip.success(params.message);
-							that.MakeModifyForm(params.data, _this);
-						}else{
-							that.tip.error(params.message);
-						}
-					});
-				}
+				var id = $(this).parents('li:first').attr('data-id'),
+					_this = this;
+				that.tip.loading();
+				$.getJSON('public/async.asp', {
+					m: 'category',
+					p: 'getMessage',
+					id: id
+				}, function( params ){
+					if ( params.success ){
+						that.tip.close();
+						that.MakeModifyForm(params.data, _this);
+					}else{
+						that.tip.error(params.message);
+					}
+				});
 			});
 		},
 		MakeModifyForm: function(data, element){
-			$('#modifyform').remove();
-			$('#icon-box').remove();
-			var box = document.createElement('div'),
-				that = this;
-			box.id = 'modifyform';
-			$('body').append(box);
-			var h = '<form action="public/async.asp?m=category&p=modify" method="post"><input type="hidden" name="id" value="' + data.id + '" />';
-				h	+=	'<table cellpadding="0" cellspacing="0" width="100%" border="0">';
-				h 	+=	'<tr><td width="100">分类名</td><td><input type="text" name="cate_name" value="' + data.cate_name + '" class="col-x-3" /></td></tr>';
-				h 	+=	'<tr><td width="100">外链</td><td><input type="text" name="cate_src" value="' + data.cate_src + '" class="col-x-3" /></td></tr>';
-				h 	+=	'<tr><td width="100">分类描述</td><td><textarea name="cate_des" class="col-x-4" style="height:60px;">' + data.cate_des + '</textarea></td></tr>';
-				h	+=	'<tr><td>&nbsp;</td><td><input type="submit" value="保存分类修改"  /><input type="button" value="关闭" class="close" /></td></tr>';
-				h	+=	'</table>';
-				h += '</form>';
+			$('.modal').remove();
+			var h = '', that = this;
+			h +=	'<div class="modal-dialog modal fade">'
+			h +=	  			'<form action="public/async.asp?m=category&p=modify" method="post"><input type="hidden" name="id" value="' + data.id + '" />';
+			h +=		'<div class="modal-content">';
+			h +=			'<div class="modal-header">';
+			h +=	  			'<button type="button" class="close" data-dismiss="modal">&times;</button>';
+			h +=	  			'<h4 class="modal-title">Modal title</h4>';
+			h +=			'</div>';
+			h +=			'<div class="modal-body">';
 			
-			$('#modifyform').addClass('setform').html(h).css('position', 'absolute');
-			var li = $(element).parents('li:first'),
-				top = li.offset().top + 36,
-				left = li.offset().left + 50,
-				width = li.outerWidth() - 50;
-				
-			$('#modifyform').css({
-				top: top + 'px',
-				left: left + 'px',
-				width: width + 'px',
-				zIndex: 9999
-			})
-			.find('.close').on('click', function(){
-				$('#modifyform').remove();
-			});
+			h +=					'<table cellpadding="0" cellspacing="0" width="100%" border="0">';
+			h +=						'<tr><td width="100">分类名</td><td><input type="text" name="cate_name" value="' + data.cate_name + '" class="form-control" /></td></tr>';
+			h +=						'<tr><td width="100">外链</td><td><input type="text" name="cate_src" value="' + data.cate_src + '" class="form-control" /></td></tr>';
+			h +=						'<tr><td width="100">分类描述</td><td><textarea name="cate_des" class="form-control" style="height:60px;">' + data.cate_des + '</textarea></td></tr>';
+			h +=					'</table>';
 			
-			$('#modifyform').ajaxForm({
+			h +=			'</div>';
+			h +=			'<div class="modal-footer">';
+			h +=	  			'<a href="javascript:;" class="btn btn-default dcode" data-dismiss="modal">取消修改</a>';
+			h +=	  			'<input type="submit" value="保存修改" class="btn btn-primary dosave" />';
+			h +=			'</div>';
+			h +=  		'</div>';
+			h +=				'</form>';
+			h +=	'</div>';
+			$('body').append(h);
+			$('.modal form').ajaxForm({
 				dataType: 'json',
 				beforeSubmit: function(){
-					if ( window.doing ){ return false; };
-					window.doing = true;
 					that.tip.loading();
 				},
 				success: function(params){
-					window.doing = false;
 					if ( params.success ){
-						that.tip.success(params.message);
-						$('#modifyform').find('.close').trigger('click');
-						li.find('.cate_name:first').html(params.data.cate_name);
-						li.find('.cate_des:first').html(params.data.cate_des);
-						li.find('.outip:first').html(params.data.cate_src);
+						var li = $(element).parents('li:first');
+						li.find('.dd-item-content:first').html(params.data.cate_name);
+
 						if ( params.data.cate_outlink ){
-							li.find('.cate_out:first').html('<i class="fa fa-check"></i>');
+							li.find('.doadd:first').hide();
+							var lis = li.find('ol li');
+							lis.find('.bg-primary').removeClass('bg-primary').addClass('bg-info');
+							li.after(lis);
+							li.find('ol').remove();
 						}else{
-							li.find('.cate_out:first').html('<i class="fa fa-times"></i>');
+							li.find('.doadd:first').show();
 						}
+						that.tip.close();
+						$('.modal').find('.dcode').trigger('click');
 					}else{
 						that.tip.error(params.message);
 					}
 				}
 			});
+			$('.modal').modal('show');
 		},
 		SaveSort: function(){
 			var that = this;
 			$('#savesort').on('click', function(){
-				if ( !window.doing ){
-					window.doing = true;
-					var list = [];
-					$('#first>li').each(function(){
-						var id = $(this).attr('app-id'),
-							d = [];
-						$(this).find('ol li').each(function(){
-							var _id = $(this).attr('app-id');
-							d.push(Number(_id));
-						});
-						list.push({
-							id: Number(id),
-							childs: d
-						});
+				var list = [];
+				$('ol.sortable>li').each(function(){
+					var id = $(this).attr('data-id'),
+						d = [];
+					$(this).find('ol li').each(function(){
+						var _id = $(this).attr('data-id');
+						d.push(Number(_id));
 					});
-					that.tip.loading();
-					$.post('public/async.asp?m=category&p=sort', {
-						data: JSON.stringify(list)
-					}, function(params){
-						window.doing = false;
-						if ( params.success ){
-							that.tip.success(params.message);
-						}else{
-							that.tip.error(params.message);
-						}
-					}, 'json');
-				}
+					list.push({
+						id: Number(id),
+						childs: d
+					});
+				});
+				that.tip.loading();
+				$.post('public/async.asp?m=category&p=sort', {
+					data: JSON.stringify(list)
+				}, function(params){
+					if ( params.success ){
+						window.location.reload();
+					}else{
+						that.tip.error(params.message);
+					}
+				}, 'json');
 			});
 		},
 		categoryTemplate: function( params, isSecond ){
+/*			var h = '';
+			h +=	'<li class="dd-item" data-id="<%=category[i].id%>">';
+			h +=		'<div class="dd-handle bg-info">';
+			h +=			'<span class="pull-right">'; 
+			h +=				'<a href="#" data-toggle="tooltip" data-placement="top" data-original-title="在这个分类下新增子分类"><i class="fa fa-plus fa-fw m-r-xs"></i></a>'; 
+			h +=				'<a href="#" data-toggle="tooltip" data-placement="top" data-original-title="修改这个分类的图标"><i class="fa fa-picture-o fa-fw m-r-xs"></i></a>';
+			h +=				'<a href="#" data-toggle="tooltip" data-placement="top" data-original-title="编辑这个分类"><i class="fa fa-pencil fa-fw m-r-xs"></i></a>';
+			h +=				'<a href="#" data-toggle="tooltip" data-placement="top" data-original-title="删除这个分类"><i class="fa fa-times fa-fw"></i></a>'; 
+			h +=			'</span>'; 
+			h +=			'<span class="pull-left media-xs"><i class="fa fa-sort text-muted fa m-r-sm"></i> <img src="private/icons/<%=category[i].cate_icon%>"></span>';
+			h +=			'<div class="dd-item-content"><%=category[i].cate_name%></div>';
+			h +=		'</div>';
+			h +=	'</li>';*/
+			
 			var h = '<li class="dd-item dd2-item" app-id="' + (params.id || 0) + '"><div class="dd-handle dd2-handle"><img src="private/icons/1.gif" /></div><div class="dd2-content"><div class="cate_tool">';
 			if ( !isSecond ){
 			h += '<a href="javascript:;" class="app-add"><i class="fa fa-plus"></i></a> ';

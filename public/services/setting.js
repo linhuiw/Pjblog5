@@ -13,6 +13,12 @@ SetModule.extend('save', function( params ){
 	var rec = new this.dbo.RecordSet(this.conn),
 		rets = { success: false, message: '保存数据库时候出错' };
 		
+	var specails = ["blog_status", "blog_article_cloud_notice", "blog_comment_cloud_notice"];
+		
+	for ( var i = 0 ; i < specails.length ; i++ ){
+		if ( !params.form[specails[i]] ){ params.form[specails[i]] = false; };
+	};
+	
 	try{
 		rec
 			.sql('Select * From blog_global Where id=1')

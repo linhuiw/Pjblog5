@@ -1,0 +1,22 @@
+@charset "utf-8";
+/* CSS Document */
+
+.dd-handle{ padding:15px;}
+.dd-item-content{ cursor:move; font-size:12px; line-height:24px;}
+.dd-list .dd-list{ padding-left:50px;}
+.bg-default{ background-color:#fff;}
+.dd-handle .pull-left img{ position:relative; top:-1px;}
+.alert{ font-size:12px;}
+.bg-info .popover,
+.bg-primary .popover{ color:#777;}
+.popover .scrollable{ height:115px;}
+.popover .scrollable img{ cursor:pointer;}
+.popover .scrollable ul{ list-style:none; margin:0; padding:0;}
+.popover .scrollable ul li{ float:left; margin:5px;}
+
+.modal {
+	position: fixed;
+	top: 20%;
+	z-index: 1050;
+}
+.modal td{ padding:3px 2px}

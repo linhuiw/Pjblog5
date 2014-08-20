@@ -45,6 +45,7 @@
 <link rel="stylesheet" href="public/assets/css/bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="public/assets/css/animate.css" type="text/css" />
 <link rel="stylesheet" href="public/assets/css/font-awesome.min.css" type="text/css" />
+<link rel="stylesheet" type="text/css" href="appjs/assets/blog.loading.css">
 <link rel="stylesheet" href="public/assets/css/simple-line-icons.css" type="text/css" />
 <link rel="stylesheet" href="public/assets/css/font.css" type="text/css" />
 <link rel="stylesheet" href="public/assets/css/app.css" type="text/css" />

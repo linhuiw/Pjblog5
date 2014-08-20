@@ -173,6 +173,17 @@ CategoryModule.extend('modify', function( params ){
 		.open(3)
 		.update(data)
 		.close();
+		
+	if ( data.cate_outlink ){
+		rec = new this.dbo.RecordSet(this.conn);
+		rec
+			.sql('Select * From blog_categorys Where cate_parent=' + id)
+			.open(3)
+			.update({
+				cate_parent: 0
+			})
+			.close();
+	}
 	
 	this.RebuildCacheFile();
 		

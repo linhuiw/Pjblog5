@@ -59,14 +59,14 @@ exports.level = {
 };
 
 exports.theme = { 
-	icon: 'fa-picture-o', 
+	icon: 'icon-screen-desktop icon', 
 	name: '本地主题管理中心', 
 	des: '本地主题。管理你的主题。主题制作请参考官方的API文档。', 
 	color: 'text-warning' 
 };
 
 exports.plugin = { 
-	icon: 'icon-drawer icon', 
+	icon: 'icon-grid icon', 
 	name: '本地插件管理中心', 
 	des: '插件控制中心，您可以上传自己的插件后在线安装，也可以选择云端插件安装。方便快捷！', 
 	color: 'text-danger' 

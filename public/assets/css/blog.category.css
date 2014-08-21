@@ -20,3 +20,10 @@
 	z-index: 1050;
 }
 .modal td{ padding:3px 2px}
+.text-muted a:link,
+.text-muted a:visited{ color:#ccc; line-height:20px;}
+.text-muted a:hover{ color:#777;}
+.timeline-caption-childs{ width:100%;display: block;vertical-align: top; text-align:left; margin-top:24px;}
+.timeline-caption-childs-zone{ padding:0px 0px 0 20px;}
+.timeline-caption-childs-item{ margin-bottom:20px; margin-left:20px;}
+.timeline-caption-childs-item .left{ left:-8px!important;}

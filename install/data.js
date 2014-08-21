@@ -1,6 +1,6 @@
 ﻿exports.folder = "";
 exports.name = "刃雪城池";
-exports.dbname = "test";
+exports.dbname = "blog";
 exports.dbusername = "evio";
 exports.dbpassword = "1094872";
 exports.dbip = ".";

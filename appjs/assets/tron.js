@@ -629,7 +629,7 @@
 		this.state = 0;
 	});
 	
-	AsyncQueue.extend('add', function( foo ){
+	AsyncQueue.extend('then', function( foo ){
 		this.list.push(foo);
 		this.start();
 	});

@@ -602,14 +602,16 @@
 
 (function(lib){
 	/*	异步队列实例：
-		var q = new AsyncQueue();
-		q.add(function(next){
+		var queue = new AsyncQueue();
+		// 开始队列
+		queue
+		.then(function(next){
 			$.get('default.asp', function(){console.log('default ok');next();});
-		});
-		q.add(function(next){
+		})
+		.then(function(next){
 			$.get('article.asp?id=1', function(){console.log('article ok');next();});
-		});
-		q.add(function(next){
+		})
+		.then(function(next){
 			$.get('plugin.asp?id=2', function(){console.log('plugin ok');next();});
 		});
 	*/
@@ -632,6 +634,7 @@
 	AsyncQueue.extend('then', function( foo ){
 		this.list.push(foo);
 		this.start();
+		return this;
 	});
 	
 	AsyncQueue.extend('start', function(first){

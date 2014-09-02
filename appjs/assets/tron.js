@@ -39,11 +39,22 @@
 	 * prototype: extend
 	 * 返回一个实例对象 这个对象继承了原有的方法 extend
 	 */	
-	Class = window.Class = function( object ){
+	Class = window.Class = function( class, object ){
+		if ( !object ){
+			object = class;
+			class = null;
+		};
+		
 		object = object || {};
 		
-		if ( callType(object, 'function') ){ object = object(); };
-		if ( !callType(object, 'object') ){ throw 'Argument is not an object.'; return; };
+		if ( callType(object, 'function') ){ 
+			this.initialize = object; 
+		};
+		
+		if ( !callType(object, 'object') ){ 
+			throw 'Argument is not an object.'; 
+			return; 
+		};
 
 		var factory = function(){
 			return this.initialize ? this.initialize.apply(this, arguments) : this;
@@ -650,6 +661,15 @@
 		this.state = 0;
 		this.list.shift();
 		this.start();
+	});
+	
+	AsyncQueue.extend('loadScriptModule', function(url, callback){
+		return this.then(function(next){
+			Library.request(url, function(){ 
+				typeof callback === 'function' && callback.call(this, url);
+				next(); 
+			});
+		});
 	});
 	
 	window.AsyncQueue = AsyncQueue;

@@ -1,9 +1,0 @@
-﻿exports.folder = "";
-exports.name = "刃雪城池";
-exports.dbname = "blog";
-exports.dbusername = "evio";
-exports.dbpassword = "1094872";
-exports.dbip = ".";
-exports.web = "http://blog.cn";
-exports.t = "local";
-exports.connected = true;

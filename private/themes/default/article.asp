@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" href="<%=blog.web + "/private/themes/" + data.global.blog_theme%>/css/animate.css" />
 <link rel="stylesheet" type="text/css" href="<%=blog.web + "/private/themes/" + data.global.blog_theme%>/css/common.css" />
 <link rel="stylesheet" type="text/css" href="<%=blog.web + "/private/themes/" + data.global.blog_theme%>/css/default.css" />
+<link rel="stylesheet" type="text/css" href="<%=blog.web + "/private/themes/" + data.global.blog_theme%>/css/notice.css" />
 <link rel="stylesheet" type="text/css" href="<%=blog.web%>/appjs/assets/blog.loading.css"/>
 <link rel="stylesheet" type="text/css" href="<%=blog.web%>/fontawesome/css/font-awesome.min.css"/>
 <script type="text/javascript" src="<%=blog.web%>/appjs/assets/tron.js"></script>
@@ -21,16 +22,14 @@
 <%include("private/themes/" + data.global.blog_theme + "/navigation.asp", { categorys: data.categorys, gets: data.gets, global: data.global });%>
 <div class="articles clearfix wrap">
 	<div class="side fright">
-    	<%include("private/themes/" + data.global.blog_theme + "/side-login.asp", { user: data.user });%>
+    	<%include("private/themes/" + data.global.blog_theme + "/side-login.asp", { user: data.user, global: data.global });%>
         <%include("private/themes/" + data.global.blog_theme + "/side-toparticle.asp", { load: load, dbo: dbo, conn: conn });%>
         <%include("private/themes/" + data.global.blog_theme + "/side-topcomment.asp", { load: load, dbo: dbo, conn: conn });%>
-        <%include("private/themes/" + data.global.blog_theme + "/side-guestbook.asp", { load: load, dbo: dbo, conn: conn });%>
-        <%include("private/themes/" + data.global.blog_theme + "/side-link.asp", { load: load, dbo: dbo, conn: conn });%>
     </div>
 	<div class="list">
     	<div class="detail">
         	<h1><%=data.article.art_title%></h1>
-            <div class="info clearfix">
+            <div class="info">
             	<div class="fleft"><a href="<%=data.article.art_categoryHref%>"><i class="fa fa-tree"></i> <%=data.article.art_categoryName%></a> <i class="fa fa-calendar"></i> <%=date.format(new Date(data.article.art_postdate), "y-m-d h:i:s")%></div>
                 <div class="fright"><i class="fa fa-comment"></i> <%=data.article.art_comment_count%></div>
             </div>
@@ -51,6 +50,24 @@
 			%>
             </div>
             <%}%>
+            <div class="prev">
+			<%
+            if ( data.PrevArticle ){
+            %>
+              <div>
+                <i class="fa fa-angle-right"></i> 上一篇：<a href="<%=data.PrevArticle.href%>"><%=data.PrevArticle.title%></a>
+              </div>
+			<%
+            }
+            if ( data.NextArticle ){
+            %>
+              <div>
+                <i class="fa fa-angle-right"></i> 下一篇：<a href="<%=data.NextArticle.href%>"><%=data.NextArticle.title%></a>
+              </div>
+			<%
+            }
+            %>
+            </div>
         </div>
         <%include("private/themes/" + data.global.blog_theme + "/comment.asp", { user: data.user, id: data.gets.id, page: data.gets.page, global: data.global, dbo: dbo, conn: conn, comments: data.comments, pages: data.pages })%>
     </div>

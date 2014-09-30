@@ -6,6 +6,7 @@
 <link rel="stylesheet" type="text/css" href="<%=blog.web + "/private/themes/" + data.global.blog_theme%>/css/animate.css" />
 <link rel="stylesheet" type="text/css" href="<%=blog.web + "/private/themes/" + data.global.blog_theme%>/css/common.css" />
 <link rel="stylesheet" type="text/css" href="<%=blog.web + "/private/themes/" + data.global.blog_theme%>/css/default.css" />
+<link rel="stylesheet" type="text/css" href="<%=blog.web + "/private/themes/" + data.global.blog_theme%>/css/notice.css" />
 <link rel="stylesheet" type="text/css" href="<%=blog.web%>/appjs/assets/blog.loading.css"/>
 <link rel="stylesheet" type="text/css" href="<%=blog.web%>/fontawesome/css/font-awesome.min.css"/>
 <script type="text/javascript" src="<%=blog.web%>/appjs/assets/tron.js"></script>
@@ -17,7 +18,7 @@
 <%include("private/themes/" + data.global.blog_theme + "/navigation.asp", { categorys: data.categorys, gets: data.gets, global: data.global });%>
 <div class="articles clearfix wrap">
 	<div class="side fright">
-    	<%include("private/themes/" + data.global.blog_theme + "/side-login.asp", { user: data.user });%>
+    	<%include("private/themes/" + data.global.blog_theme + "/side-login.asp", { user: data.user, global: data.global });%>
         <%include("private/themes/" + data.global.blog_theme + "/side-toparticle.asp", { load: load, dbo: dbo, conn: conn });%>
         <%include("private/themes/" + data.global.blog_theme + "/side-topcomment.asp", { load: load, dbo: dbo, conn: conn });%>
         <%include("private/themes/" + data.global.blog_theme + "/side-link.asp", { load: load, dbo: dbo, conn: conn });%>
@@ -91,7 +92,7 @@
 							};
 						%>
                         <tr>
-                        	<td width="80" align="center">评论内容</td>
+                        	<td width="80" align="center">留言内容</td>
                             <td><textarea name="content"></textarea></td>
                         </tr>
                         <tr>

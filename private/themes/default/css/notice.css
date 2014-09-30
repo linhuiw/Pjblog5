@@ -1,0 +1,12 @@
+#notice{ margin-left:10px; color:#ff0000; font-weight:normal; cursor:pointer;}
+#noticehtml{ display:none; position:fixed; top:55px; right: 20px; z-index:99999; background-color:rgba(255,255,255,.9); border-radius:3px;}
+#noticehtml a{ display:block;box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding:5px 10px; color:#000; border-top:1px solid #eee;}
+#noticehtml a .avatar{ width:36px; height:36px; float:left;}
+#noticehtml a .info{ margin-left: 50px;}
+#noticehtml a .info .nick{ font-weight:bold; height:22px; line-height:22px;}
+#noticehtml a .info .title{ color:#777; line-height:20px;}
+#noticehtml a .info .domain{ color:#777; line-height:20px;}
+#noticehtml a .info .domainsrc{ color:#777; line-height:20px;}
+#noticehtml a .info .reply{ color:#1a6cc1; height:20px; line-height:20px;}
+#noticehtml .close{ height:20px; line-height:20px; text-align:right; padding:0px 10px;}
+#noticehtml .close i{ cursor:pointer;color:#F63; line-height:20px; display:inline-block;}

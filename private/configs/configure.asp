@@ -2,9 +2,9 @@
 ;var blog = {};
 blog.base = "";
 blog.connection = {"netserver":".","access":"blog","username":"evio","password":"1094872"};
-blog.cookie = "BK7CgmtMBN";
-blog.cache = "dL3NUqDPAk.";
+blog.cookie = "72XTl528DS";
+blog.cache = "8sL2XbJoAK.";
 blog.AppPlatForm = "http://app.webkits.cn";
 blog.web = "http://blog.cn";
-blog.version = 3;
+blog.version = 5;
 %>

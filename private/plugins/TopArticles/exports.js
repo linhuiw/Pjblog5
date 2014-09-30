@@ -35,7 +35,7 @@ TopArticlesModule.extend('getSideValue', function(){
 			outs.push({
 				id: object("id").value,
 				title: object('art_title').value,
-				time: date.format(new Date(object('art_postdate').value), 'y-m/d h:i:s')
+				time: new Date(object('art_postdate').value)
 			})
 		})
 		.close();

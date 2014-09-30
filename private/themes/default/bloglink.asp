@@ -17,7 +17,7 @@
 <%include("private/themes/" + data.global.blog_theme + "/navigation.asp", { categorys: data.categorys, gets: data.gets, global: data.global });%>
 <div class="articles clearfix wrap">
 	<div class="side fright">
-    	<%include("private/themes/" + data.global.blog_theme + "/side-login.asp", { user: data.user });%>
+    	<%include("private/themes/" + data.global.blog_theme + "/side-login.asp", { user: data.user, global: data.global });%>
         <%include("private/themes/" + data.global.blog_theme + "/side-toparticle.asp", { load: load, dbo: dbo, conn: conn });%>
         <%include("private/themes/" + data.global.blog_theme + "/side-topcomment.asp", { load: load, dbo: dbo, conn: conn });%>
         <%include("private/themes/" + data.global.blog_theme + "/side-guestbook.asp", { load: load, dbo: dbo, conn: conn });%>
@@ -44,7 +44,7 @@
 					if ( texts.length > 0 ){
 				%>
 				<h3>文字链接</h3>
-                <div class="texts clearfix">
+                <div class="texts">
 				<%		
 						for ( var m = 0 ; m < texts.length ; m++ ){
 				%>
@@ -62,7 +62,7 @@
 					if ( icons.length > 0 ){
 				%>
                 <h3>图片链接</h3>
-                <div class="icons clearfix">
+                <div class="icons">
                 <%
 						for ( var n = 0 ; n < icons.length ; n++ ){
 				%>

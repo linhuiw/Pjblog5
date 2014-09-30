@@ -1,7 +1,7 @@
 ﻿<%
 if ( pages.to > 1 ){
 %>
-<div class="pages clearfix">
+<div class="pages">
 	<%
 		for ( var i = pages.from ; i <= pages.to ; i++ ){
 			if ( i === pages.current ){

@@ -39,22 +39,11 @@
 	 * prototype: extend
 	 * 返回一个实例对象 这个对象继承了原有的方法 extend
 	 */	
-	Class = window.Class = function( class, object ){
-		if ( !object ){
-			object = class;
-			class = null;
-		};
-		
+	Class = window.Class = function( object ){
 		object = object || {};
 		
-		if ( callType(object, 'function') ){ 
-			this.initialize = object; 
-		};
-		
-		if ( !callType(object, 'object') ){ 
-			throw 'Argument is not an object.'; 
-			return; 
-		};
+		if ( callType(object, 'function') ){ object = object(); };
+		if ( !callType(object, 'object') ){ throw 'Argument is not an object.'; return; };
 
 		var factory = function(){
 			return this.initialize ? this.initialize.apply(this, arguments) : this;
@@ -63,8 +52,6 @@
 		factory.constructor = factory;
 		factory.extend = this.extend;
 		factory.parent = this;
-		factory.__type = 'tron.Class';
-		factory.__version = '1.0';
 		this.factory = factory;
 		this.extend(object);
 		
@@ -84,44 +71,13 @@
 		
 		this.factory = this.factory || this.parent.factory;
 		for ( var i in object ){
-			if ( [
-				'extend', 
-				'constructor', 
-				'parent', 
-				'privates', 
-				'protocol',
-				'__type',
-				'__version'
-			].indexOf(i) === -1 ){
+			if ( ['extend', 'constructor', 'parent'].indexOf(i) === -1 ){
 				this.factory.prototype[i] = object[i];
 			}else{
 				throw 'Can not extend ' + i;
 			}
 		}
 	};
-	
-	/*
-	 * 自动类似oc中的@protype方法
-	 * 自动设置变量的get与set方法
-	 */
-	Class.prototype.protocol = function( Argc ){
-		this.privates = this.privates || {};
-		
-		var firstChart = Argc.charAt(0),
-			nextChart = Argc.substring(1),
-			CharName = firstChart.toUpperCase() + nextChart;
-			
-		this.privates['_' + Argc] = this.privates['_' + Argc] || null;
-		
-		this['get' + CharName] = function(){
-			return this.privates['_' + Argc];
-		};
-		
-		this['set' + CharName] = function( value ){
-			this.privates['_' + Argc] = value;
-		};
-
-	}
 	
 	/*
 	 * 加载器基本属性设置
@@ -610,70 +566,6 @@
 	window.require = Library.proxy(inRequire.construct, inRequire);
 	
 })( window.location );
-
-(function(lib){
-	/*	异步队列实例：
-		var queue = new AsyncQueue();
-		// 开始队列
-		queue
-		.then(function(next){
-			$.get('default.asp', function(){console.log('default ok');next();});
-		})
-		.then(function(next){
-			$.get('article.asp?id=1', function(){console.log('article ok');next();});
-		})
-		.then(function(next){
-			$.get('plugin.asp?id=2', function(){console.log('plugin ok');next();});
-		});
-	*/
-	var AsyncQueue = new Class();
-	
-	AsyncQueue.extend('initialize', function(){
-		/*
-		 * @list 异步队列数组
-		 */
-		!this.list && (this.list = []);
-		
-		/*
-		 * @state 单步完成状态
-		 * 	#0: 已完毕
-		 * 	#1: 进行中
-		 */
-		this.state = 0;
-	});
-	
-	AsyncQueue.extend('then', function( foo ){
-		this.list.push(foo);
-		this.start();
-		return this;
-	});
-	
-	AsyncQueue.extend('start', function(first){
-		if ( this.state === 1 || this.list.length === 0 ){ return ; };
-		
-		if ( this.list.length > 0 ){
-			this.state = 1;
-			this.list[0](lib.proxy(this.next, this));
-		}
-	});
-	
-	AsyncQueue.extend('next', function(){
-		this.state = 0;
-		this.list.shift();
-		this.start();
-	});
-	
-	AsyncQueue.extend('loadScriptModule', function(url, callback){
-		return this.then(function(next){
-			Library.request(url, function(){ 
-				typeof callback === 'function' && callback.call(this, url);
-				next(); 
-			});
-		});
-	});
-	
-	window.AsyncQueue = AsyncQueue;
-})(Library);
 
 // JSON department
 (function () {

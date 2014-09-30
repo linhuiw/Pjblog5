@@ -1,8 +1,8 @@
 ﻿@charset "utf-8";
 /* CSS Document */
 
-.articles{ position:relative; z-index:5;}
-.articles .side{ width:300px; position:absolute; top:0; right:0}
+.articles{ position:relative;} /* z-index:5; */
+.articles .side{ width:300px; position:relative; top:0; right:0}
 .articles .list{ margin-right:320px;  box-shadow:0px 0px 10px #ccc;}
 .articles .list h6{ height:40px; line-height:40px; padding:0px 20px; background-color:#F7F7F7; font-size:16px;}
 
@@ -34,6 +34,7 @@
 .articles .detail .detail-content table td{ border-right:1px solid #ddd; border-bottom:1px solid #ddd; padding:3px 5px;}
 .articles .detail .detail-content pre{ padding:10px 15px; border:1px dashed #ddd; background-color:#F8FCFE;}
 .articles .detail .detail-content ol{ margin-left:20px;}
+.articles .detail .prev{ margin-top:5px; padding-left:10px; line-height:30px;}
 
 .pannel{ padding:10px 15px; background-color:#fff;box-shadow:0px 0px 10px #ccc; border-radius:3px; margin-bottom:20px;}
 .pannel .login{}
@@ -53,7 +54,7 @@
 .pannel .arts span{ display:block; line-height:20px;margin-left:20px; color:#ccc; font-size:11px;}
 .pannel .arts a i{ position:absolute; top:5px; left:0;}
 
-.error{ background-color:#fff;}
+.error{ background-color:#fff; margin-right: -320px !important;}
 .error h6{}
 .error .des{ padding:30px 40px;}
 
@@ -78,11 +79,12 @@
 .detail-lists .items .infos .reply .replybox h4{ height:20px; line-height:20px; padding:0px 0 5px 0; border-bottom:1px dashed #ccc; margin-bottom:5px;}
 .detail-lists .items .infos .reply .replybox .repc{ line-height:20px;}
 
-.texts{}
+.texts{overflow:hidden;}
 .texts .ic{ float:left; width:150px; margin-right:10px; margin-bottom:10px;}
 .ic .des{ color:#ccc; line-height:20px;}
 .ic a{ display:block; height:20px; line-height:20px; overflow:hidden;}
 
+.icons{overflow:hidden;}
 .icons .ic{ float:left; width:300px; margin-right:20px; margin-bottom:10px;}
 .icons .ic img{ width:88px; height:31px; float:left;}
 .icons .ic a,

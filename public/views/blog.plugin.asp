@@ -1,4 +1,4 @@
-<div class="clearfix" id="plugin">
+﻿<div class="clearfix" id="plugin">
 	<div class="col-x-4">
     	<div class="tips">
         	<div class="clearfix">
@@ -69,7 +69,7 @@
 				var mo = require(dl + "/config");
 				if ( mo.mark && keep.indexOf(mo.mark) === -1 ){
 %>
-			<div class="plugins uninstalled clearfix">
+			<div class="plugins uninstalled">
             	<div class="icon fleft"><img src="<%=dl%>/<%=mo.icon%>" onerror="this.src='public/assets/img/1402321265_Settings.png'" /></div>
                 <div class="tool fright">
                 	<a href="javascript:;" app-id="<%=name%>" class="app-setup AutoSendAjax" app-m="plugin" app-p="install" app-c="确定需要安装这个插件？">

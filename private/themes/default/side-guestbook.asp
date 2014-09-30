@@ -2,24 +2,24 @@
 <h6>最新留言</h6>
 <%
 ;(function(){
-	var mark = "A5A465WA1T545ET35DAS8WWWE6FTYJT46",
+	var mark = "QKRJQWELSADJFLJLWERQWLASJKIOERT",
 		GuestBookExports = load(mark),
 		GuestBook = new GuestBookExports({ mark: mark }),
-		gets = GuestBook.getSideValue();
+		gets = GuestBook.getSideValue(),
+		setting = GuestBook.getSettingValue();
 		
-	var setting = gets.setting,
-		datas = gets.datas;
+	var fns = require('fns');
 		
-	if ( datas.length > 0 ){
-		for ( var i = 0 ; i < datas.length ; i++ ){
+	if ( gets.length > 0 ){
+		for ( var i = 0 ; i < gets.length ; i++ ){
 %>
 	<div class="guestitems">
-    	<img src="<%=datas[i].avatar%>" onerror="this.src='http://app.webkits.cn/avatars/default.png'" />
+    	<img src="<%=gets[i].avatar%>" onerror="this.src='http://app.webkits.cn/avatars/default.png'" />
         <div class="infos">
-        	<div class="nick"><%=datas[i].nick%></div>
-            <div class="des"><%=datas[i].content%></div>
+        	<div class="nick"><%=gets[i].nick%></div>
+            <div class="des"><%=fns.removeHTML(gets[i].content)%></div>
             <%if ( setting.dispearDate === "1" ){%>
-            <div class="time"><%=datas[i].time%></div>
+            <div class="time"><%=gets[i].time%></div>
             <%};%>
         </div>
     </div>

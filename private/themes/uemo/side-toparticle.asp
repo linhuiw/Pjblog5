@@ -3,13 +3,14 @@
     <div class="note"> 
 <%
 		var gets = package.getSideValue();
+		var date = require('date');
 			if ( gets.length > 0 ){
 				for ( var i = 0 ; i < gets.length ; i++ ){
 %>
 		<a href="article.asp?id=<%=gets[i].id%>" class="notelist">
         	<i><%=i + 1%>.</i><%=gets[i].title%>
 			<%if ( setting.dispearDate === "1" ){%>
-        	<span><%=gets[i].time%></span>
+        	<span><%=date.format(gets[i].time, "y-m-d h:i:s")%></span>
         	<%};%>
         </a>
 <%					

@@ -5,23 +5,22 @@
 	var mark = "WTRY465WA1T545ET35DAS8WWWE6FTYJT46",
 		CommentExports = load(mark),
 		Comment = new CommentExports(mark),
-		gets = Comment.getSideValue();
+		gets = Comment.getSideValue(),
+		setting = Comment.getSettingValue();
 		
 	var date = require("date");
+	var fns = require('fns');
 		
-	var setting = gets.setting,
-		datas = gets.datas;
-		
-	if ( datas.length > 0 ){
-		for ( var i = 0 ; i < datas.length ; i++ ){
+	if ( gets.length > 0 ){
+		for ( var i = 0 ; i < gets.length ; i++ ){
 %>
 	<div class="guestitems">
-    	<img src="<%=datas[i].avatar%>" onerror="this.src='http://app.webkits.cn/avatars/default.png'" />
+    	<img src="<%=gets[i].avatar%>" onerror="this.src='http://app.webkits.cn/avatars/default.png'" />
         <div class="infos">
-        	<div class="nick"><%=datas[i].nick%></div>
-            <div class="des"><a href="article.asp?id=<%=datas[i].aid%>#comment_<%=datas[i].id%>"><%=datas[i].content%></a></div>
+        	<div class="nick"><%=gets[i].nick%></div>
+            <div class="des"><a href="article.asp?id=<%=gets[i].aid%>#comment_<%=gets[i].id%>"><%=fns.removeHTML(gets[i].content)%></a></div>
             <%if ( setting.dispearDate === "1" ){%>
-            <div class="time"><%=date.format(new Date(datas[i].time), "y-m-d h:i:s")%></div>
+            <div class="time"><%=date.format(new Date(gets[i].time), "y-m-d h:i:s")%></div>
             <%};%>
         </div>
     </div>

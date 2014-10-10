@@ -91,6 +91,8 @@ define(function( require, exports, module ){
 			success.innerHTML = '<h5><i class="fa fa-check"></i> Server Success 200 :</h5><div class="msg">' + (text || '操作成功') + '</div>';
 			$(success).addClass('animated fadeInDown')
 		}
+		
+		$(success).css({ zIndex: 99999 });
 			
 		$(window).trigger('resize');
 		window.timer = setTimeout(function(){ that.close(); }, 3000);
@@ -109,6 +111,7 @@ define(function( require, exports, module ){
 			error.innerHTML = '<h5><i class="fa fa-times"></i> Server Error 500 :</h5><div class="msg">' + (text || '服务端500错误，请联系管理员或者开发者！') + '</div>';
 			$(error).addClass('animated fadeInDown')
 		}
+		$(success).css({ zIndex: 99999 });
 			
 		$(window).trigger('resize');
 		window.timer = setTimeout(function(){ that.close(); }, 3000);

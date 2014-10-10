@@ -72,10 +72,14 @@
 	}else{
 %>
 <!-- 系统导航 开始 -->
+<div class="navdirty"></div>
+<div id="page">
 	<div class="header clearfix">
-        <div class="logo fleft">PJBlog5<sub> . Controler</sub></div>
+    	<a href="javascript:;" class="fleft navcolpase"><i class="fa fa-bars"></i></a>
         <a href="javascript:;" class="fright logout"><i class="fa fa-power-off"></i></a>
-        <div class="achor">
+        <div class="logo fleft">PJBlog5<sub> . Controler</sub></div>
+        
+        <div class="achor" id="navachor">
             <%
                 ;(function( system_navs ){
                     for ( var i in system_navs ){
@@ -96,6 +100,7 @@
 		if ( PluginNavsCount > 0 ){
 %>
         <div class="sidebar fleft">
+        	<a href="javascript:;" class="colpase" title="插件快捷列表"><i class="fa fa-bars"></i></a>
             <div class="sidezone">
                 <h5><i class="fa fa-hand-o-right"></i> 插件快捷列表:</h5>
                	<%
@@ -204,6 +209,7 @@
             </div>
         </div>
     </div>
+</div>
 	<%
 		if ( fs.exist(resolve(s)) ){ s = [s]; }else{ s = []; };
         s.push("public/assets/js/blog.control.lazy.js");

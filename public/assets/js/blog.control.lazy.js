@@ -2,12 +2,59 @@
 define(function( require, exports, module ){
 	return new Class({
 		initialize: function(){
-			this.onAutoAjax();
-			this.onLogout();
-			
 			if ( Library.isIE ){
 				this.tip.loading('您正在使用IE浏览器，本系统对部分IE浏览器不兼容，请使用CFROME或者火狐浏览器浏览！为了保证用户体验，请谅解！');
-			}
+			};
+			
+			this.onAutoAjax();
+			this.onLogout();
+			this.onColpase();
+			this.onWindowResize();
+		},
+		onWindowResize: function(){
+			$(window).on('resize', function(){
+				var width = $(window).width();
+				if ( width < 1062 ){
+					$('.navdirty').empty().html('<h6>系统导航</h6>' + $('#navachor').html()).css('height', Math.max($(window).height(), $('body').outerHeight()) + 'px');
+					if ( !$('.navcolpase').data('installed') ){
+						$('.navcolpase').on('click', function(){
+							var open = $(this).data('open');
+							if ( !open ){
+								$('#page').animate({
+									left: '200px'
+								}, 'fast');
+								$(this).data('open', true);
+							}else{
+								$('#page').animate({
+									left: '0px'
+								}, 'fast');
+								$(this).data('open', false);
+							}
+						}).data('installed', true);
+					}
+				}
+			}).trigger('resize');
+		},
+		onColpase: function(){
+			$('.colpase').on('click', function(){
+				var open = $(this).data('open');
+				if ( !open ){
+					$(this).next().show();
+					$(this).data('open', true);
+				}else{
+					$(this).next().hide();
+					$(this).data('open', false);
+				}
+			});
+			
+			$('body').on('click', function(event){
+				if ( $('.colpase').css('display') === 'none' ){
+					return;
+				}
+				if ( event.target === $('.sidezone').get(0) || $(event.target).parents('.sidezone').size() > 0 || event.target === $('.colpase').get(0) || $(event.target).parents('.colpase').size() > 0 ){}else{
+					$('.colpase').data('open', false).next().hide();
+				}
+			});
 		},
 		onAutoAjax: function(){
 			var that = this;

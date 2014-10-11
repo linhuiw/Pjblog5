@@ -9,7 +9,7 @@ var CategoryModule = new Class({
 	}
 });
 
-CategoryModule.extend('add', function( params ){
+CategoryModule.add('add', function( params ){
 	var rec = new this.dbo.RecordSet(this.conn),
 		id = 0;
 		
@@ -27,7 +27,7 @@ CategoryModule.extend('add', function( params ){
 	return id;
 });
 
-CategoryModule.extend('addor', function( params ){	
+CategoryModule.add('addor', function( params ){	
 	var categorys = {
 		cate_icon: params.form.cate_icon,
 		cate_name: params.form.cate_name,
@@ -53,7 +53,7 @@ CategoryModule.extend('addor', function( params ){
 	return rets;
 });
 
-CategoryModule.extend('SaveIcon', function( params ){
+CategoryModule.add('SaveIcon', function( params ){
 	var id = params.query.id,
 		icon = params.query.icon,
 		rec = new this.dbo.RecordSet(this.conn);
@@ -71,11 +71,11 @@ CategoryModule.extend('SaveIcon', function( params ){
 	return { success: true, message: '保存ICON成功!' };
 });
 
-CategoryModule.extend('remover', function( params ){
+CategoryModule.add('remover', function( params ){
 	return this.remove(params.query.id);
 })
 
-CategoryModule.extend('remove', function(id){
+CategoryModule.add('remove', function(id){
 	var rec = new this.dbo.RecordSet(this.conn),
 		childs = [],
 		blog_articlecut,
@@ -108,7 +108,7 @@ CategoryModule.extend('remove', function(id){
 	return { success: true, message: '删除分类成功' };
 });
 
-CategoryModule.extend('removeCons', function(id, blog_articlecut){
+CategoryModule.add('removeCons', function(id, blog_articlecut){
 	var rec = new this.dbo.RecordSet(this.conn);
 	if ( blog_articlecut === 0 ){
 		rec.sql('Select * From blog_articles Where art_category=' + id).open(3).update({art_category: 0}).close();
@@ -117,13 +117,13 @@ CategoryModule.extend('removeCons', function(id, blog_articlecut){
 	}
 });
 
-CategoryModule.extend('removeSelf', function(id, blog_articlecut){
+CategoryModule.add('removeSelf', function(id, blog_articlecut){
 	var rec = new this.dbo.RecordSet(this.conn);
 	rec.sql('Select * From blog_categorys Where id=' + id).open(3).remove().close();
 	this.removeCons(id, blog_articlecut);
 });
 
-CategoryModule.extend('UpdateSelf', function(id, blog_categoryremovechild, blog_articlecut){
+CategoryModule.add('UpdateSelf', function(id, blog_categoryremovechild, blog_articlecut){
 	var rec = new this.dbo.RecordSet(this.conn);
 	if ( blog_categoryremovechild === 0 ){
 		rec.sql('Select * From blog_categorys Where id=' + id).open(3).update({cate_parent: 0}).close();
@@ -133,7 +133,7 @@ CategoryModule.extend('UpdateSelf', function(id, blog_categoryremovechild, blog_
 	}
 });
 
-CategoryModule.extend('getMessage', function( params ){
+CategoryModule.add('getMessage', function( params ){
 	var id = params.query.id,
 		rec = new this.dbo.RecordSet(this.conn),
 		rets = { success: true, message: '获取数据成功', data: {} };
@@ -153,7 +153,7 @@ CategoryModule.extend('getMessage', function( params ){
 	return rets;
 });
 
-CategoryModule.extend('modify', function( params ){
+CategoryModule.add('modify', function( params ){
 	var id = params.form.id,
 		cate_name = params.form.cate_name,
 		cate_src = params.form.cate_src,
@@ -179,7 +179,7 @@ CategoryModule.extend('modify', function( params ){
 	return { success: true, message: '修改分类信息成功', data: data };
 });
 
-CategoryModule.extend('sort', function( params ){
+CategoryModule.add('sort', function( params ){
 	var data = JSON.parse(params.form.data.replace(/\&\#34\;/g, '"')),
 		rec,
 		j = 0;
@@ -223,7 +223,7 @@ CategoryModule.extend('sort', function( params ){
 	return {success: true, message: '排序成功', data: data};
 });
 
-CategoryModule.extend('SortChilds', function(arrays, parent){
+CategoryModule.add('SortChilds', function(arrays, parent){
 	var rec, j = 0;
 	for ( var i = 0 ; i < arrays.length ; i++ ){
 		j++;
@@ -240,7 +240,7 @@ CategoryModule.extend('SortChilds', function(arrays, parent){
 	}
 });
 
-CategoryModule.extend('list', function(){
+CategoryModule.add('list', function(){
 	var rec = new this.dbo.RecordSet(this.conn),
 		keep = {},
 		list = {};
@@ -285,7 +285,7 @@ CategoryModule.extend('list', function(){
 	};
 });
 
-CategoryModule.extend('RebuildCacheFile', function(){
+CategoryModule.add('RebuildCacheFile', function(){
 	var rec = new this.dbo.RecordSet(this.conn),
 		indexs = {},
 		queen = {};

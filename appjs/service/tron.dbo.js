@@ -64,23 +64,23 @@ var rec = new Class({
 	}
 });
 
-rec.extend('initialize', function( ConnectionObject ){
+rec.add('initialize', function( ConnectionObject ){
 	this.connect = ConnectionObject;
 	this.events = {};
 	this.object = new ActiveXObject(Library.com_record);
 });
 
-rec.extend('sql', function( sql ){
+rec.add('sql', function( sql ){
 	this.sqlstr = sql;
 	return this;
 });
 
-rec.extend('open', function( up ){
+rec.add('open', function( up ){
 	this.object.Open( this.sqlstr, this.connect, 1, up ? up : 1 );
 	return this;
 });
 
-rec.extend('each', function( callback ){
+rec.add('each', function( callback ){
 	if ( !this.object.Bof && !this.object.Eof ){
 		var i = 0;
 		this.object.MoveFirst();
@@ -96,7 +96,7 @@ rec.extend('each', function( callback ){
 	return this;
 });
 
-rec.extend('value', function(){
+rec.add('value', function(){
 	try{ 
 		var tempArr = this.object.GetRows().toArray(); 
 		return this.getRows( tempArr, this.object.Fields.Count );
@@ -105,7 +105,7 @@ rec.extend('value', function(){
 	}
 });
 
-rec.extend('AdoPage', function( absolutePage, pageSize, callback ){
+rec.add('AdoPage', function( absolutePage, pageSize, callback ){
 	var _Core = this.object, 
 		i = 0,
 		ret;
@@ -151,7 +151,7 @@ rec.extend('AdoPage', function( absolutePage, pageSize, callback ){
 	return ret;
 });
 
-rec.extend('BuildPage', function( currentPage, totalPages, perPageCount ){
+rec.add('BuildPage', function( currentPage, totalPages, perPageCount ){
 	if ( perPageCount === undefined ){ perPageCount = 9; }
 		if ( perPageCount > totalPages ){ perPageCount = totalPages; }
 
@@ -186,11 +186,11 @@ rec.extend('BuildPage', function( currentPage, totalPages, perPageCount ){
 		}
 });
 
-rec.extend('execute', function( sql ){
+rec.add('execute', function( sql ){
 	return this.connect.Execute(sql);
 });
 
-rec.extend('process', function(callback, up){
+rec.add('process', function(callback, up){
 	var xet;
 	this.open(up);
 	if ( typeof callback === 'function'){
@@ -200,12 +200,12 @@ rec.extend('process', function(callback, up){
 	return xet ? xet : this;
 });
 
-rec.extend('on', function( event, callback ){
+rec.add('on', function( event, callback ){
 	this.events[event] = callback;
 	return this;
 });
 
-rec.extend('trigger', function(event, params){
+rec.add('trigger', function(event, params){
 	if ( this.events[event] ){
 		if ( !Library.type(params, 'array') ){
 			params = [params];
@@ -216,11 +216,11 @@ rec.extend('trigger', function(event, params){
 	return this;
 });
 
-rec.extend('close', function(){
+rec.add('close', function(){
 	this.object.Close();
 });
 
-rec.extend('add', function( data ){
+rec.add('add', function( data ){
 	this.object.AddNew();
 	for ( var items in data ){
 		this.object(items) = data[items];
@@ -230,7 +230,7 @@ rec.extend('add', function( data ){
 	return this;
 });
 
-rec.extend('update', function(data){
+rec.add('update', function(data){
 	if ( !this.object.Bof && !this.object.Eof ){
 		if ( this.object.RecordCount > 1 ){
 			this.object.MoveFirst();
@@ -254,7 +254,7 @@ rec.extend('update', function(data){
 	return this;
 });
 
-rec.extend('remove', function(){
+rec.add('remove', function(){
 	if ( !this.object.Bof && !this.object.Eof ){
 		if ( this.object.RecordCount > 1 ){
 			this.object.MoveFirst();
@@ -272,7 +272,7 @@ rec.extend('remove', function(){
 	return this;
 });
 
-rec.extend('DualTopPage', function( table, alters, param, orderby, _orderby, pagesize, pageindex, callback , up ){
+rec.add('DualTopPage', function( table, alters, param, orderby, _orderby, pagesize, pageindex, callback , up ){
 	var v = {
 		pageindex: pageindex,
 		pagesize: pagesize,

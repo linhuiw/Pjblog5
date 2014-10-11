@@ -9,7 +9,7 @@ var CrcInModule = new Class({
 	}
 });
 
-CrcInModule.extend('getFileList', function( dir ){
+CrcInModule.add('getFileList', function( dir ){
 	dir = dir.replace(/\\$/, '');
 	var folders = this.fs.dirList(dir, function( name ){ return dir + '\\' + name; }),
 		files = this.fs.fileList(dir, function( name ){ return dir + '\\' + name; });
@@ -26,7 +26,7 @@ CrcInModule.extend('getFileList', function( dir ){
 	}
 });
 
-CrcInModule.extend('check', function( files, callback ){
+CrcInModule.add('check', function( files, callback ){
 	var _files = {};
 	
 	for ( var i = 0 ; i < files.length ; i++ ){
@@ -36,7 +36,7 @@ CrcInModule.extend('check', function( files, callback ){
 	return _files;
 });
 
-CrcInModule.extend('singleCheck', function( file, crc32 ){
+CrcInModule.add('singleCheck', function( file, crc32 ){
 	if ( !this.fs.exist(contrast(file)) ){
 		return true;
 	};

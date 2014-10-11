@@ -49,6 +49,7 @@ var define = function(){};
 (function(){
 	'use strict';
 	
+	// JavaScript Document
 	if ( ![].indexOf ){
 		Array.prototype.indexOf = function( value ){
 			var j = -1;
@@ -72,54 +73,94 @@ var define = function(){};
 		};
 	};
 	
+	if ( ![].forEach ){
+		Array.prototype.forEach = function( callback ){
+			for ( var i = 0 ; i < this.length ; i++ ){
+				if ( typeof callback === 'function' ){
+					callback.call(this, this[i], i);
+				}
+			}
+		};
+	};
+	
 	if ( typeof JSON === "undefined" ){ JSON = new Object(); };
 	
-	var callType = function( object, type ){ 
+	var readVariableType = function( object ){
 		return Object.prototype.toString.call(object).toLowerCase() === "[object " + type + "]"; 
 	};
-	
-	Class = function( object ){
-		object = object || {};
-		
-		if ( callType(object, 'function') ){ object = object(); };
-		if ( !callType(object, 'object') ){ throw 'Argument is not an object.'; return; };
+
+	Class = function(){
+		var ProtectMethods = ['__constructor__', 'initialize'],
+			argc = arguments,
+			that = this;
 
 		var factory = function(){
-			return this.initialize ? this.initialize.apply(this, arguments) : this;
+			this.__constructor__ = 'ECM.CLASS.FACTORY';
+			return typeof this.initialize === 'function' ? this.initialize.apply(this, arguments) : this;
+		};
+		
+		this.constructor = factory;
+		this.constructor.__constructor__ = this.__constructor__ = 'ECM.CLASS';
+		
+		this.constructor.extend = function( object ){
+			if ( object.__constructor__ && object.__constructor__ === 'ECM.CLASS' ){
+				if ( object.prototype ){
+					for ( var i in object.prototype ){
+						if ( ProtectMethods.indexOf(i) === -1 ){
+							that.constructor.prototype[i] = object.prototype[i];
+						}
+					}
+				}
+			};
+			
+			return that.constructor;
+		}
+		
+		this.constructor.toggle = function( objects ){
+			if ( !objects ){ return that.constructor; };
+			if ( readVariableType(objects) !== 'array' ){
+				objects = [objects];
+			};
+			
+			for ( var i = 0 ; i < objects.length ; i++ ){
+				that.constructor.extend(objects[i]);
+			}
+			
+			return that.constructor;
+		}
+		
+		this.constructor.add = function(key, value){
+			if ( !value ){
+				for ( var i in key ){
+					that.constructor.add(i, key[i]);
+				}
+			}else{
+				that.constructor.prototype[key] = value;
+			}
+			
+			return that.constructor;
 		}
 
-		factory.constructor = factory;
-		factory.extend = this.extend;
-		factory.parent = this;
-		this.factory = factory;
-		this.extend(object);
-		
-		return factory;
-	};
-	
-	Class.prototype.extend = function( object, func ){
-		if ( func ){
-			var _object = {};
-			_object[object] = func;
-			object = _object;
-		}
-		
-		this.factory = this.factory || this.parent.factory;
-		for ( var i in object ){
-			if ( ['extend', 'constructor', 'parent'].indexOf(i) === -1 ){
-				this.factory.prototype[i] = object[i];
+		if ( argc.length === 2 ){
+			this.constructor.extend(argc[0]);
+			this.constructor.add(argc[1]);
+		}else if ( argc.length === 1 ){
+			if ( argc[0] && argc[0].__constructor__ && argc[0].__constructor__ === 'ECM.CLASS' ){
+				this.constructor.extend(argc[0]);
 			}else{
-				throw 'Can not extend ' + i;
+				this.constructor.add(argc[0]);
 			}
 		}
-	}
+		
+		return this.constructor;
+	};
 	
 	LoadJscript = function(callback, params){
 		Library.log('<script language="javascript" type="text/javascript">' + ('(' + callback.toString() + ')(' + JSON.stringify(params) + ');') + '</script>\n');
 	};
 	
 	LoadCssFile = function(urls){
-		if ( !callType(urls, 'array') ){
+		if ( !readVariableType(urls, 'array') ){
 			urls = [urls];
 		}
 		for ( var i = 0 ; i < urls.length ; i++ ){
@@ -130,7 +171,7 @@ var define = function(){};
 	};
 	
 	LoadJsFile = function(urls){
-		if ( !callType(urls, 'array') ){
+		if ( !readVariableType(urls, 'array') ){
 			urls = [urls];
 		}
 		for ( var i = 0 ; i < urls.length ; i++ ){
@@ -153,14 +194,14 @@ var define = function(){};
 		com_xmlhttp: 'Microsoft.XMLHTTP',
 		com_xml: 'Microsoft.XMLDOM',
 		com_winhttp: 'WinHttp.WinHttpRequest.5.1',
-		type: callType
+		type: readVariableType
 	};
 	
 	apptions.modules[__filename] = {};
 	
 	var app = new Class(apptions);
 	
-	app.extend({
+	app.add({
 		
 		customReplace: function( data ){
 			return data
@@ -286,7 +327,7 @@ var define = function(){};
 		}
 	});
 	
-	app.extend('request', function( selector, dir ){
+	app.add('request', function( selector, dir ){
 		if ( /^\w:\\.+$/.test(selector) ){
 			return selector;
 		}
@@ -307,7 +348,7 @@ var define = function(){};
 		return selector;
 	});
 	
-	app.extend('setBase', function(str){
+	app.add('setBase', function(str){
 		if ( str === undefined ) { str = ""; }
 
 		if ( str.length > 0 ){
@@ -324,12 +365,12 @@ var define = function(){};
 			exports: {}
 		});
 	
-	factory.extend('initialize', function( file, dir ){
+	factory.add('initialize', function( file, dir ){
 		this.__shortname = file;
 		this.__dirname = dir;
 	});
 	
-	factory.extend('include', function( path, params ){
+	factory.add('include', function( path, params ){
 		var sytaxText = helper.syntax(this.contrast(path));
 		var allParams = [], allParamsValue = [];
 		if ( params ){
@@ -344,19 +385,19 @@ var define = function(){};
 		__module.apply(this, allParamsValue);
 	});
 	
-	factory.extend('getFullFileName', function(){
+	factory.add('getFullFileName', function(){
 		this.__filename = helper.request( this.__shortname, this.__dirname );
 		if ( !/\.asp$/i.test(this.__filename) && !/\.js$/i.test(this.__filename) ){
 			this.__filename += ".js";
 		}
 	});
 	
-	factory.extend('checkModuleExist', function(){
+	factory.add('checkModuleExist', function(){
 		// Library.log('dir: ' + this.__dirname + ' - file: ' + this.__filename + '<br />' );
 		return helper.modules[this.__filename] !== undefined;
 	});
 	
-	factory.extend('loadModuleContent', function(){
+	factory.add('loadModuleContent', function(){
 		var content = helper.loader(this.__filename), 
 			percent = '%';
 			
@@ -371,14 +412,14 @@ var define = function(){};
 		this.content = content;
 	});
 	
-	factory.extend('packageModuleContent', function(){
+	factory.add('packageModuleContent', function(){
 		var wrapper = ['return function (exports, require, module, include, __filename, __dirname, contrast, resolve) { ', this.content, '};'].join("\n"),
 			__module = (new Function(wrapper))();
 			
 		return __module;
 	});
 	
-	factory.extend('reBuildModule', function(){
+	factory.add('reBuildModule', function(){
 		this.getFullFileName();
 		if ( this.checkModuleExist() ){
 			return helper.modules[this.__filename];
@@ -408,17 +449,17 @@ var define = function(){};
 		}
 	});
 	
-	factory.extend('inRequire', function( file ){
+	factory.add('inRequire', function( file ){
 		var fc = new factory( file, this.__filename.split('\\').slice(0, -1).join("\\") );
 		return fc.reBuildModule();
 	});
 	
-	factory.extend('contrast', function( file ){
+	factory.add('contrast', function( file ){
 		if ( file === '.' ){ file = ''; };
 		return helper.request( file, this.__dirname );
 	});
 	
-	factory.extend('resolve', function( file ){
+	factory.add('resolve', function( file ){
 		var path = this.contrast( file );
 		if ( !/\.asp$/i.test(path) && !/\.js$/i.test(path) ){
 			path += ".js";

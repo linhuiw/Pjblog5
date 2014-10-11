@@ -23,15 +23,13 @@
 <div class="articles clearfix wrap">
 	<div class="side fright">
     	<%include("private/themes/" + data.global.blog_theme + "/side-login.asp", { user: data.user, global: data.global });%>
-        <%include("private/themes/" + data.global.blog_theme + "/side-toparticle.asp", { load: load, dbo: dbo, conn: conn });%>
-        <%include("private/themes/" + data.global.blog_theme + "/side-topcomment.asp", { load: load, dbo: dbo, conn: conn });%>
     </div>
 	<div class="list">
     	<div class="detail">
         	<h1><%=data.article.art_title%></h1>
             <div class="info">
             	<div class="fleft"><a href="<%=data.article.art_categoryHref%>"><i class="fa fa-tree"></i> <%=data.article.art_categoryName%></a> <i class="fa fa-calendar"></i> <%=date.format(new Date(data.article.art_postdate), "y-m-d h:i:s")%></div>
-                <div class="fright"><i class="fa fa-comment"></i> <%=data.article.art_comment_count%></div>
+                <div class="fright"></div>
             </div>
             <div class="detail-content"><%=data.article.art_content%></div>
             <%if ( data.article.art_modifydate > 0 ){%>
@@ -69,7 +67,6 @@
             %>
             </div>
         </div>
-        <%include("private/themes/" + data.global.blog_theme + "/comment.asp", { user: data.user, id: data.gets.id, page: data.gets.page, global: data.global, dbo: dbo, conn: conn, comments: data.comments, pages: data.pages })%>
     </div>
 </div>
 <%include("private/themes/" + data.global.blog_theme + "/footer.asp", { global: data.global });%>

@@ -1,2 +1,2 @@
-﻿exports.indexs = {"2":"QKRJQWELSADJFLJLWERQWLASJKIOERT","3":"A5A465WA1T545ET35ER6QE4A6FTYJT46","4":"WTRY465WA1T545ET35DAS8WWWE6FTYJT46","5":"c230c7e78ef7db0518aa014807c2578f7303d425","6":"DER56WRT456RT45ET35DAS8WWWE6FTYJT46"};
-exports.queens = {"QKRJQWELSADJFLJLWERQWLASJKIOERT":{"id":2,"name":"官方留言本插件","icon":"","folder":"GuestBook","stop":false},"A5A465WA1T545ET35ER6QE4A6FTYJT46":{"id":3,"name":"官方插件-最新日志","icon":"","folder":"TopArticles","stop":false},"WTRY465WA1T545ET35DAS8WWWE6FTYJT46":{"id":4,"name":"最新评论插件","icon":"","folder":"TopComment","stop":false},"c230c7e78ef7db0518aa014807c2578f7303d425":{"id":5,"name":"相关日志插件","icon":"","folder":"RelativeArticles","stop":false},"DER56WRT456RT45ET35DAS8WWWE6FTYJT46":{"id":6,"name":"官方友情链接插件","icon":"logo.png","folder":"BlogLinks","stop":false}};
+﻿exports.indexs = {};
+exports.queens = {};

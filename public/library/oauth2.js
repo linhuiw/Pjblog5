@@ -23,7 +23,7 @@ var oauth = new Class({
 	}
 });
 
-oauth.extend('GetToken', function( code ){
+oauth.add('GetToken', function( code ){
 	var ret = this.ajax.getJSON(blog.AppPlatForm + "/oauth/token.asp", {
 		grant_type: "authorization_code",
 		client_id: this.appid,
@@ -40,7 +40,7 @@ oauth.extend('GetToken', function( code ){
 	return ret;
 });
 
-oauth.extend('GetUserOpenID', function( token ){
+oauth.add('GetUserOpenID', function( token ){
 	var ret = this.fns.jsonp(this.ajax.get(blog.AppPlatForm + "/oauth/me.asp", { access_token: token }), "callback");
 
 	if ( ret.error && ret.error > 0 ){
@@ -50,7 +50,7 @@ oauth.extend('GetUserOpenID', function( token ){
 	return ret;
 });
 
-oauth.extend('GetUserInfo', function( token, openid ){
+oauth.add('GetUserInfo', function( token, openid ){
 	var ret = this.ajax.getJSON(blog.AppPlatForm + "/oauth/get_user_info.asp", {
 		access_token: token,
 		oauth_consumer_key: this.appid,
@@ -64,11 +64,11 @@ oauth.extend('GetUserInfo', function( token, openid ){
 	return ret;
 });
 
-oauth.extend('SetNotice', function( token, openid, options ){
+oauth.add('SetNotice', function( token, openid, options ){
 	return this.ajax.postJSON(blog.AppPlatForm + "/oauth/set_notice.asp?access_token=" + token + "&oauth_consumer_key=" + this.appid + "&openid=" + openid, options);
 });
 
-oauth.extend('doLogin', function(params){
+oauth.add('doLogin', function(params){
 	var Member = require("../services/user"),
 		member = new Member();
 

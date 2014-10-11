@@ -9,7 +9,7 @@ var ThemeModule = new Class({
 	}
 });
 
-ThemeModule.extend('setup', function( params ){
+ThemeModule.add('setup', function( params ){
 	var id = params.query.id;
 	
 	if ( !id || id.length === 0 ){
@@ -19,7 +19,7 @@ ThemeModule.extend('setup', function( params ){
 	return this.install(id);
 });
 
-ThemeModule.extend('install', function( folder ){
+ThemeModule.add('install', function( folder ){
 	var ret = { success: false, message: '安装失败' },
 		that = this;
 	
@@ -95,9 +95,9 @@ ThemeModule.extend('install', function( folder ){
 			///////////////////////////////////////
 			if ( ret.success ){
 				var SetFile = require('./setting');
-				SetFile.extend('dbo', this.dbo);
-				SetFile.extend('conn', this.conn);
-				SetFile.extend('fs', this.fs);
+				SetFile.add('dbo', this.dbo);
+				SetFile.add('conn', this.conn);
+				SetFile.add('fs', this.fs);
 				var setFileModule = new SetFile();
 				setFileModule.ReBuildCacheFile();
 			}
@@ -111,7 +111,7 @@ ThemeModule.extend('install', function( folder ){
 	return ret;
 });
 
-ThemeModule.extend('remove', function( params ){
+ThemeModule.add('remove', function( params ){
 	var id = params.query.id;
 	
 	if ( !id || id.length === 0 ){
@@ -123,7 +123,7 @@ ThemeModule.extend('remove', function( params ){
 	return { success: true, message: '删除主题成功' };
 });
 
-ThemeModule.extend('GetSettingValue', function(){
+ThemeModule.add('GetSettingValue', function(){
 	var rec = new this.dbo.RecordSet(this.conn),
 		folder,
 		ret = { success: false, message: '获取资源失败' };
@@ -160,7 +160,7 @@ ThemeModule.extend('GetSettingValue', function(){
 	return ret;
 });
 
-ThemeModule.extend('SaveThemesSettingValue', function( params ){
+ThemeModule.add('SaveThemesSettingValue', function( params ){
 	for ( var i in params.form ){
 		var rec = new this.dbo.RecordSet(this.conn);
 		rec
@@ -178,7 +178,7 @@ ThemeModule.extend('SaveThemesSettingValue', function( params ){
 	return { success: true, message: '保存成功' };
 });
 
-ThemeModule.extend('getSettingContent', function(params){
+ThemeModule.add('getSettingContent', function(params){
 	var fo = params.query.fo;
 	if ( fo && fo.length > 0 ){
 		var html = this.fs.getFileContent(resolve('private/themes/' + fo + '/setting'));
@@ -192,7 +192,7 @@ ThemeModule.extend('getSettingContent', function(params){
 	}
 });
 
-ThemeModule.extend('SaveThemesSettingCacheFile', function(){
+ThemeModule.add('SaveThemesSettingCacheFile', function(){
 	var rec = new this.dbo.RecordSet(this.conn),
 		keys = '\n';
 		
@@ -207,7 +207,7 @@ ThemeModule.extend('SaveThemesSettingCacheFile', function(){
 	this.fs.saveFile(resolve('private/chips/' + blog.cache + 'blog.themes'), keys);
 });
 
-ThemeModule.extend('saveSettingContent', function(params){
+ThemeModule.add('saveSettingContent', function(params){
 	var code = this.fns.unSQLStr(this.fns.unHTMLStr(params.form.code));
 	if ( !code ){ code = ''; };
 	var global = require("private/chips/" + blog.cache + "blog.global");

@@ -56,7 +56,7 @@ var upload = new Class({
 	fs: new ActiveXObject(Library.com_fso)
 });
 
-upload.extend('randoms', function(l){
+upload.add('randoms', function(l){
 	var x = "123456789poiuytrewqasdfghjklmnbvcxzQWERTYUIPLKJHGFDSAZXCVBNM";
  	var tmp="";
  	for( var i = 0 ; i < l; i++ ) {
@@ -65,7 +65,7 @@ upload.extend('randoms', function(l){
  	return tmp;
 });
 
-upload.extend('mock', function( source, target ){
+upload.add('mock', function( source, target ){
 	for ( var items in target ){
 		source[items] = target[items];
 	}
@@ -73,7 +73,7 @@ upload.extend('mock', function( source, target ){
 });
 
 // 利用内容快长度便利二进制组成完整长度
-upload.extend('getAllHttpBinray', function(){
+upload.add('getAllHttpBinray', function(){
 	var totalSize = Request.TotalBytes,
 		haveReadSize = 0,
 		binaryChunkData,
@@ -104,7 +104,7 @@ upload.extend('getAllHttpBinray', function(){
 });
 
 // 上传之前执行的 方法
-upload.extend('beforeUpload', function(){
+upload.add('beforeUpload', function(){
 	var ret = true;
 	
 	if ( this.config.beforeUpload && typeof this.config.beforeUpload === 'function' ){
@@ -116,7 +116,7 @@ upload.extend('beforeUpload', function(){
 
 // 主函数 用户直接上传文件
 // callback 回调 全部完成时候会执行
-upload.extend('httpload', function( callback ){
+upload.add('httpload', function( callback ){
 	if ( this.beforeUpload() === false ){
 		return this.nameSpace;
 	};
@@ -153,7 +153,7 @@ upload.extend('httpload', function( callback ){
 });
 
 // 内容包块的处理方法
-upload.extend('httpBlock', function( i ){
+upload.add('httpBlock', function( i ){
 	var StartPos = i + VB_LENB( this.CutLine ) + VB_LENB( VB_BNCRLF ),
 		EndPos = VB_INSERTBS( StartPos, this.AllBinary, this.CutLine) - VB_LENB( VB_BNCRLF ),
 		Parts;	
@@ -173,7 +173,7 @@ upload.extend('httpBlock', function( i ){
 });
 
 // 单个文件的处理方法
-upload.extend('httpGetMessage', function( block ){
+upload.add('httpGetMessage', function( block ){
 	var headLine = VB_INSERTB(block, VB_DOUBLEBNCRLF);
 	if ( headLine > 0 ){
 		var head = this.httpBinaryToText(VB_MIDBS(block, 1, headLine));
@@ -244,7 +244,7 @@ upload.extend('httpGetMessage', function( block ){
 	}
 });
 
-upload.extend('checkFileExts', function(ext){
+upload.add('checkFileExts', function(ext){
 	var ret = true, j = -1;
 	
 	if ( this.config.exts === '*' ){
@@ -269,11 +269,11 @@ upload.extend('checkFileExts', function(ext){
 	return ret;
 });
 
-upload.extend('checkFileSize', function(maxSize, size){
+upload.add('checkFileSize', function(maxSize, size){
 	return maxSize > 0 ? size <= maxSize : true;
 });
 
-upload.extend('makeFileName', function( name, ext ){
+upload.add('makeFileName', function( name, ext ){
 	if ( !this.config.rename ){
 		this.config.rename = '{$timestrap}.{$ext}';
 	};
@@ -289,19 +289,19 @@ upload.extend('makeFileName', function( name, ext ){
 		});
 });
 
-upload.extend('checkReSolvePathName', function( path ){
+upload.add('checkReSolvePathName', function( path ){
 	if ( this.config.resolve && typeof this.config.resolve === 'function' ){
 		return this.config.resolve.call(this, path);
 	};
 });
 
-upload.extend('done', function( data ){
+upload.add('done', function( data ){
 	if ( this.config.success && typeof this.config.success === 'function' ){
 		this.config.success.call(this, data);
 	}
 });
 
-upload.extend('autoCreateFolder', function( fullpath ){
+upload.add('autoCreateFolder', function( fullpath ){
 	var root = Server.MapPath('/'),
 		path = fullpath.replace(root, ''),
 		arrs = path.replace(/^\\/, '').split('\\');
@@ -316,13 +316,13 @@ upload.extend('autoCreateFolder', function( fullpath ){
 	return this.fs.FolderExists(fullpath);
 });
 
-upload.extend('complete', function(){
+upload.add('complete', function(){
 	if ( this.config.complete && typeof this.config.complete === 'function' ){
 		this.config.complete.call(this, this.nameSpace);
 	}
 });
 
-upload.extend('httpBinaryToText', function(binary){
+upload.add('httpBinaryToText', function(binary){
 	var object = new ActiveXObject(Library.com_stream),
 		value;
 		
@@ -340,7 +340,7 @@ upload.extend('httpBinaryToText', function(binary){
 	return value;
 });
 
-upload.extend('httpSaveFile', function( start, len, path ){
+upload.add('httpSaveFile', function( start, len, path ){
 	var obj = new ActiveXObject(Library.com_stream);
 		obj.Type = 1;
 		obj.Mode = 3;

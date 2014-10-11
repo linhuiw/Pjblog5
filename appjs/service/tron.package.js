@@ -27,7 +27,7 @@ var Package = new Class({
 });
 
 // 打包方法
-Package.extend('doPack', function( source, target ){
+Package.add('doPack', function( source, target ){
 	// 初始化对象
 	this.object.Type = 1; 
 	this.object.Mode = 3; 
@@ -57,7 +57,7 @@ Package.extend('doPack', function( source, target ){
 	this.object = null; 
 });
 
-Package.extend('getFileList', function( dir ){
+Package.add('getFileList', function( dir ){
 	dir = dir.replace(/\\$/, '');
 	var folders = this.fs.dirList(dir, function( name ){ return dir + '\\' + name; }),
 		files = this.fs.fileList(dir, function( name ){ return dir + '\\' + name + '>' + this.Size; });
@@ -77,7 +77,7 @@ Package.extend('getFileList', function( dir ){
 	return files;
 });
 
-Package.extend('AppendFile', function( path ){
+Package.add('AppendFile', function( path ){
 	var obj = new ActiveXObject(Library.com_stream), 
 		filepath = path;
 
@@ -93,7 +93,7 @@ Package.extend('AppendFile', function( path ){
 		obj = null;
 });
 
-Package.extend('setHeaderInfo', function( header ){
+Package.add('setHeaderInfo', function( header ){
 	var headerSize = '00000000' + this.getStrSize(header).toString();
 	var headerText = 'SPK ' + headerSize.substr(headerSize.length - 8) + ' 00 ' + header + ' ';
 	
@@ -109,7 +109,7 @@ Package.extend('setHeaderInfo', function( header ){
 		obj = null;
 });
 
-Package.extend('getStrSize', function( str ){
+Package.add('getStrSize', function( str ){
 	var obj = new ActiveXObject(Library.com_stream),
 		strSize;
 
@@ -126,7 +126,7 @@ Package.extend('getStrSize', function( str ){
 })
 
 // 解包方法
-Package.extend('unPack', function( source, target ){
+Package.add('unPack', function( source, target ){
 	// 初始化对象
 	this.object.Type = 1; 
 	this.object.Mode = 3; 
@@ -167,7 +167,7 @@ Package.extend('unPack', function( source, target ){
 	}
 });
 
-Package.extend('getHeaderInfo', function( path ){
+Package.add('getHeaderInfo', function( path ){
 	var obj = new ActiveXObject(Library.com_stream),
 		text;
 		
@@ -185,7 +185,7 @@ Package.extend('getHeaderInfo', function( path ){
 	return text;	
 })
 
-Package.extend('SaveFile', function( start, length, path ){
+Package.add('SaveFile', function( start, length, path ){
 	var obj = new ActiveXObject(Library.com_stream), 
 		paths = path;
 

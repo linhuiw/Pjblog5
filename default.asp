@@ -3,7 +3,7 @@
 <%
 ;(function( LAYOUT ){
 
-	LAYOUT.extend("categorys", function( id, page ){
+	LAYOUT.add("categorys", function( id, page ){
 		var conditions = ["art_draft=0"];
 		if ( id > 0 ){
 			if ( this.traste.categorys[id + ""] && this.traste.categorys[id + ""].cate_parent > 0 ){
@@ -23,13 +23,13 @@
 		this.Articles(conditions, page);
 	});
 	
-	LAYOUT.extend("tags", function( id, page ){
+	LAYOUT.add("tags", function( id, page ){
 		var conditions = ["art_draft=0"];	
 		if ( id > 0 ){ conditions.push("art_tags like '%{" + id + "}%'"); };	
 		this.Articles(conditions, page);
 	});
 	
-	LAYOUT.extend("Articles", function( conditions, page ){
+	LAYOUT.add("Articles", function( conditions, page ){
 		var rec = new this.dbo.RecordSet(this.conn),
 			params = [],
 			that = this;

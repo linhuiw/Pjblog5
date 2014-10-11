@@ -19,7 +19,7 @@ var httpService = new Class({
 	}
 });
 
-httpService.extend('query', function( params, callback ){
+httpService.add('query', function( params, callback ){
 	var queryEmtor = this.emtor(Request.QueryString(params), callback);
 	if ( queryEmtor.length === 0 ){
 		return;
@@ -27,7 +27,7 @@ httpService.extend('query', function( params, callback ){
 	return queryEmtor.length === 1 ? queryEmtor[0] : queryEmtor;
 });
 
-httpService.extend('form', function( params, callback ){
+httpService.add('form', function( params, callback ){
 	var formEmtor = this.emtor(Request.Form(params), callback);
 	if ( formEmtor.length === 0 ){
 		return;
@@ -35,7 +35,7 @@ httpService.extend('form', function( params, callback ){
 	return formEmtor.length === 1 ? formEmtor[0] : formEmtor;
 });
 
-httpService.extend('createServer', function( callback, filterCallback ){
+httpService.add('createServer', function( callback, filterCallback ){
 	var service = { query: {}, form: {} },
 		queryEmtor = this.emtor(Request.QueryString),
 		formEmtor = this.emtor(Request.Form),
@@ -106,7 +106,7 @@ var AjaxServer = new Class({
 	}
 });
 
-AjaxServer.extend('send', function( options ){
+AjaxServer.add('send', function( options ){
 	var that = this, rets;
 	if ( !options.method ){ options.method = 'get'; };
 	if ( /^get$/i.test(options.method) && options.data ){
@@ -137,7 +137,7 @@ AjaxServer.extend('send', function( options ){
 	}
 });
 
-AjaxServer.extend('get', function(url, data, callback){
+AjaxServer.add('get', function(url, data, callback){
 	return this.send({
 		url: url,
 		data: data,
@@ -151,7 +151,7 @@ AjaxServer.extend('get', function(url, data, callback){
 	});
 });
 
-AjaxServer.extend('post', function( url, data, callback ){
+AjaxServer.add('post', function( url, data, callback ){
 	return this.send({
 		url: url,
 		data: data,
@@ -166,7 +166,7 @@ AjaxServer.extend('post', function( url, data, callback ){
 	});
 });
 
-AjaxServer.extend('getBinary', function( url, data, callback ){
+AjaxServer.add('getBinary', function( url, data, callback ){
 	return this.send({
 		url: url,
 		data: data,
@@ -180,19 +180,19 @@ AjaxServer.extend('getBinary', function( url, data, callback ){
 	});
 });
 
-AjaxServer.extend('getJSON', function(url, data){
+AjaxServer.add('getJSON', function(url, data){
 	return this.get(url, data, function( code ){
 		return JSON.parse(code);
 	});
 });
 
-AjaxServer.extend('postJSON', function(url, data){
+AjaxServer.add('postJSON', function(url, data){
 	return this.post(url, data, function( code ){
 		return JSON.parse(code);
 	});
 });
 
-AjaxServer.extend('SaveFile', function( url, data, file ){
+AjaxServer.add('SaveFile', function( url, data, file ){
 	if ( !file ){ file = data; data = {}; };
 	this.getBinary(url, data, function( rets ){ this.save(rets, file); });
 });

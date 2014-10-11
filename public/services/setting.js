@@ -9,7 +9,7 @@ var SetModule = new Class({
 	}
 });
 
-SetModule.extend('save', function( params ){
+SetModule.add('save', function( params ){
 	var rec = new this.dbo.RecordSet(this.conn),
 		rets = { success: false, message: '保存数据库时候出错' };
 		
@@ -31,7 +31,7 @@ SetModule.extend('save', function( params ){
 	return rets;
 });
 
-SetModule.extend('ReBuildCacheFile', function(){
+SetModule.add('ReBuildCacheFile', function(){
 	var rec = new this.dbo.RecordSet(this.conn),
 		params = {},
 		h = '';

@@ -54,16 +54,16 @@
 			if ( fs.exist(ph) ){
 				var mode = require(ph);
 				
-					mode.extend("fso", fso);
-					mode.extend("fns", fns);
-					mode.extend("fs", fs);
-					mode.extend("dbo", user.dbo);
-					mode.extend("conn", user.conn);
-					mode.extend("uid", uid);
+					mode.add("fso", fso);
+					mode.add("fns", fns);
+					mode.add("fs", fs);
+					mode.add("dbo", user.dbo);
+					mode.add("conn", user.conn);
+					mode.add("uid", uid);
 					if ( t !== "system" && pid && pid > 0 ){
-						mode.extend("pid", pid);
-						mode.extend("pmark", m);
-						mode.extend("pfolder", pfolder);
+						mode.add("pid", pid);
+						mode.add("pmark", m);
+						mode.add("pfolder", pfolder);
 					};
 				
 				var mose = new mode(params);

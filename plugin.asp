@@ -3,7 +3,7 @@
 <%
 ;(function( LAYOUT ){
 	
-	LAYOUT.extend("getPluginMessage", function(id){
+	LAYOUT.add("getPluginMessage", function(id){
 		var rec = new this.dbo.RecordSet(this.conn),
 			ret = {};
 			
@@ -90,8 +90,8 @@
 		this.add("plugin", msg);
 		
 		var plugins = require("public/library/plugin");
-			plugins.extend("dbo", this.dbo);
-			plugins.extend("conn", this.conn);
+			plugins.add("dbo", this.dbo);
+			plugins.add("conn", this.conn);
 		var plugin = new plugins(),
 			setting = plugin.getSettingParams(msg.id);
 			

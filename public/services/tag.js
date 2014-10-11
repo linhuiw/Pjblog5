@@ -9,7 +9,7 @@ var TagModule = new Class({
 	}
 });
 
-TagModule.extend('add', function( tags ){
+TagModule.add('add', function( tags ){
 	if ( !Library.type(tags, 'array') ){
 		tags = [tags];
 	};
@@ -38,7 +38,7 @@ TagModule.extend('add', function( tags ){
 	return rets;
 });
 
-TagModule.extend('remove', function( ids ){
+TagModule.add('remove', function( ids ){
 	if ( !Library.type(ids, 'array') ){
 		ids = [ids];
 	};
@@ -63,7 +63,7 @@ TagModule.extend('remove', function( ids ){
 	};
 });
 
-TagModule.extend('read', function( id ){
+TagModule.add('read', function( id ){
 	var rec = new this.dbo.RecordSet(this.conn), name;
 	rec
 		.sql("Select * From blog_tags Where id=" + id)
@@ -76,7 +76,7 @@ TagModule.extend('read', function( id ){
 	return name;
 });
 
-TagModule.extend('SaveCacheFile', function(){
+TagModule.add('SaveCacheFile', function(){
 	var rec = new this.dbo.RecordSet(this.conn),
 		ret = {};
 	rec

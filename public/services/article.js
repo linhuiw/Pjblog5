@@ -9,7 +9,7 @@ var ArticleModule = new Class({
 	}
 });
 
-ArticleModule.extend('GetArticleList', function( params ){
+ArticleModule.add('GetArticleList', function( params ){
 	var rec = new this.dbo.RecordSet(this.conn),
 		page = Number(params.query.page),
 		cate = Number(params.query.cate),
@@ -47,7 +47,7 @@ ArticleModule.extend('GetArticleList', function( params ){
 	return { success: true, message: '获取日志列表成功', list: list, count: pages ? pages.pageCount : 0 };
 });
 
-ArticleModule.extend('save', function( params ){
+ArticleModule.add('save', function( params ){
 	var id = params.form.id,
 		art_title = params.form.art_title,
 		art_des = params.form.art_des,
@@ -105,7 +105,7 @@ ArticleModule.extend('save', function( params ){
 	return rets;
 });
 
-ArticleModule.extend('SaveArticle', function( data, msg, draft ){
+ArticleModule.add('SaveArticle', function( data, msg, draft ){
 	var rec = new this.dbo.RecordSet(this.conn),
 		id = data.id,
 		date = require('date'),
@@ -165,7 +165,7 @@ ArticleModule.extend('SaveArticle', function( data, msg, draft ){
 	};
 });
 
-ArticleModule.extend('DelArticle', function( params ){
+ArticleModule.add('DelArticle', function( params ){
 	var id = params.query.id;
 	if ( !id || id.length === 0 ){
 		id = 0;

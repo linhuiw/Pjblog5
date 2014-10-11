@@ -9,7 +9,7 @@ var PluginModule = new Class({
 	}
 });
 
-PluginModule.extend('remove', function( params ){
+PluginModule.add('remove', function( params ){
 	var id = params.query.id;
 	if ( id && id.length > 0 && this.fs.clean(contrast('private/plugins/' + id), true) ){
 		return { success: true, message: '删除插件成功' };
@@ -18,7 +18,7 @@ PluginModule.extend('remove', function( params ){
 	}
 });
 
-PluginModule.extend('install', function( params ){
+PluginModule.add('install', function( params ){
 	var id = params.query.id,
 		plugins = require('../library/plugin'),
 		pid = 0,
@@ -48,11 +48,11 @@ PluginModule.extend('install', function( params ){
 			return rets;
 		}
 		
-		plugins.extend('dbo', this.dbo);
-		plugins.extend('conn', this.conn);
-		plugins.extend('fs', this.fs);
-		plugins.extend('fso', this.fso);
-		plugins.extend('fns', this.fns);
+		plugins.add('dbo', this.dbo);
+		plugins.add('conn', this.conn);
+		plugins.add('fs', this.fs);
+		plugins.add('fso', this.fso);
+		plugins.add('fns', this.fns);
 		var plugin = new plugins(id);
 
 		try{
@@ -84,7 +84,7 @@ PluginModule.extend('install', function( params ){
 	return rets;
 });
 
-PluginModule.extend('unInstall', function( params ){
+PluginModule.add('unInstall', function( params ){
 	var id = params.query.id,
 		plugins = require('../library/plugin'),
 		rets = { success: false, message: '卸载插件失败' };
@@ -110,7 +110,7 @@ PluginModule.extend('unInstall', function( params ){
 	return rets;
 });
 
-PluginModule.extend('RunTheplugin', function( params ){
+PluginModule.add('RunTheplugin', function( params ){
 	var id = params.query.id,
 		plugins = require('../library/plugin'),
 		rec = new this.dbo.RecordSet(this.conn),
@@ -131,7 +131,7 @@ PluginModule.extend('RunTheplugin', function( params ){
 	return { success: true, message: '插件已成功启动' };
 });
 
-PluginModule.extend('StopThePlugin', function( params ){
+PluginModule.add('StopThePlugin', function( params ){
 	var id = params.query.id,
 		plugins = require('../library/plugin'),
 		rec = new this.dbo.RecordSet(this.conn),
@@ -152,7 +152,7 @@ PluginModule.extend('StopThePlugin', function( params ){
 	return { success: true, message: '插件已成功停用' };
 });
 
-PluginModule.extend('getPluginSettingMessage', function( params ){
+PluginModule.add('getPluginSettingMessage', function( params ){
 	var id = params.query.id,
 		rets = { success: false, message: '获取插件配置信息失败', data: {} };
 		
@@ -175,7 +175,7 @@ PluginModule.extend('getPluginSettingMessage', function( params ){
 	return rets;
 });
 
-PluginModule.extend('getPluginSettingTemplate', function(params){
+PluginModule.add('getPluginSettingTemplate', function(params){
 	var f = params.query.folder,
 		rets = { success: false, message: '获取模板失败' };
 		
@@ -189,7 +189,7 @@ PluginModule.extend('getPluginSettingTemplate', function(params){
 	return rets;
 });
 
-PluginModule.extend('SavePluginSetting', function( params ){
+PluginModule.add('SavePluginSetting', function( params ){
 	var keys = params.form.par_id,
 		values = params.form.par_keyvalue,
 		rec;

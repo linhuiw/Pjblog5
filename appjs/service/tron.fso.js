@@ -5,22 +5,22 @@ var FileSystemObject = new Class({
 	}
 });
 
-FileSystemObject.extend('exist', function( fullpath, type ){
+FileSystemObject.add('exist', function( fullpath, type ){
 	return type ? this.fs.FolderExists(fullpath) : this.fs.FileExists(fullpath);
 });
 
-FileSystemObject.extend('createFolder', function( fullpath ){
+FileSystemObject.add('createFolder', function( fullpath ){
 	if ( !this.fs.FolderExists(fullpath) ){
 		this.fs.CreateFolder(fullpath);
 	}
 	return this.fs.FolderExists(fullpath);
 });
 
-FileSystemObject.extend('getFolderPathByFile', function( fullpath ){
+FileSystemObject.add('getFolderPathByFile', function( fullpath ){
 	return fullpath.split('\\').slice(0, -1).join('\\');
 });
 
-FileSystemObject.extend('autoCreateFolder', function( fullpath ){
+FileSystemObject.add('autoCreateFolder', function( fullpath ){
 	var root = Server.MapPath('/'),
 		path = fullpath.replace(root, ''),
 		arrs = path.replace(/^\\/, '').split('\\');
@@ -35,7 +35,7 @@ FileSystemObject.extend('autoCreateFolder', function( fullpath ){
 	return this.fs.FolderExists(fullpath);
 });
 
-FileSystemObject.extend('dirList', function( fullpath, callback ){
+FileSystemObject.add('dirList', function( fullpath, callback ){
 	if ( !this.exist(fullpath, true) ){
 		return [];
 	}
@@ -60,7 +60,7 @@ FileSystemObject.extend('dirList', function( fullpath, callback ){
 	return names;
 });
 
-FileSystemObject.extend('fileList', function( fullpath, callback ){
+FileSystemObject.add('fileList', function( fullpath, callback ){
 	if ( !this.exist(fullpath, true) ){
 		return [];
 	}
@@ -85,7 +85,7 @@ FileSystemObject.extend('fileList', function( fullpath, callback ){
 	return names;
 });
 
-FileSystemObject.extend('clean', function( fullpath, type ){
+FileSystemObject.add('clean', function( fullpath, type ){
 	try{
 		if ( type ){
 			this.fs.DeleteFolder(fullpath);
@@ -97,7 +97,7 @@ FileSystemObject.extend('clean', function( fullpath, type ){
 	return !this.exist(fullpath, type);
 });
 
-FileSystemObject.extend('move', function( fullpath, target, type ){
+FileSystemObject.add('move', function( fullpath, target, type ){
 	try{
 		if ( !type ){
 			this.fs.MoveFile(fullpath, target);
@@ -109,7 +109,7 @@ FileSystemObject.extend('move', function( fullpath, target, type ){
 	return this.exist(target, type);
 });
 
-FileSystemObject.extend('copy', function( fullpath, target, type ){
+FileSystemObject.add('copy', function( fullpath, target, type ){
 	try{
 		if ( !type ){
 			this.fs.CopyFile(fullpath, target);
@@ -121,7 +121,7 @@ FileSystemObject.extend('copy', function( fullpath, target, type ){
 	return this.exist(target, type);
 });
 
-FileSystemObject.extend('reName', function( fullpath, name, type ){
+FileSystemObject.add('reName', function( fullpath, name, type ){
 	try{
 		if ( !type ){
 			this.fs.GetFile(fullpath).Name = name;
@@ -137,7 +137,7 @@ FileSystemObject.extend('reName', function( fullpath, name, type ){
 	return this.exist(keep, type);
 });
 
-FileSystemObject.extend('saveFile', function( fullpath, container ){
+FileSystemObject.add('saveFile', function( fullpath, container ){
 	var stream = new ActiveXObject(Library.com_stream);
 		stream.Type = 2; 
 		stream.Mode = 3; 
@@ -151,7 +151,7 @@ FileSystemObject.extend('saveFile', function( fullpath, container ){
 	return this.exist(fullpath);
 });
 
-FileSystemObject.extend('getFileContent', function( fullpath ){
+FileSystemObject.add('getFileContent', function( fullpath ){
 	var stream = new ActiveXObject(Library.com_stream),
 		ret;
 
@@ -167,7 +167,7 @@ FileSystemObject.extend('getFileContent', function( fullpath ){
 	return ret;
 });
 
-FileSystemObject.extend('getFileBinary', function(fullpath){
+FileSystemObject.add('getFileBinary', function(fullpath){
 	var stream = new ActiveXObject(Library.com_stream),
 		ret;
 		

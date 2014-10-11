@@ -46,13 +46,13 @@
 		var ph = resolve(resolvePath);
 		if ( fs.exist(ph) ){
 			var mode = require(ph);
-			mode.extend("fso", fso);
-			mode.extend("fns", fns);
-			mode.extend("fs", fs);
+			mode.add("fso", fso);
+			mode.add("fns", fns);
+			mode.add("fs", fs);
 			if ( t !== "system" && pid && pid > 0 ){
-				mode.extend("pid", pid);
-				mode.extend("pmark", m);
-				mode.extend("pfolder", pfolder);
+				mode.add("pid", pid);
+				mode.add("pmark", m);
+				mode.add("pfolder", pfolder);
 			};
 			var mose = new mode(params);
 		

@@ -6,7 +6,7 @@ var PluginModule = new Class({
 });
 
 // 插件信息入库
-PluginModule.extend('setup', function( params ){
+PluginModule.add('setup', function( params ){
 	var rec = new this.dbo.RecordSet(this.conn),
 		id = 0,
 		installed = false;
@@ -41,7 +41,7 @@ PluginModule.extend('setup', function( params ){
 	return id;
 });
 
-PluginModule.extend('uninstall', function( id ){
+PluginModule.add('uninstall', function( id ){
 	var rec = new this.dbo.RecordSet(this.conn),
 		folder,
 		msg = {};
@@ -62,7 +62,7 @@ PluginModule.extend('uninstall', function( id ){
 });
 
 // 插件缓存
-PluginModule.extend('AddPluginCacheFile', function( params ){
+PluginModule.add('AddPluginCacheFile', function( params ){
 	var BlogControlPluginCaches = require('private/chips/' + blog.cache + 'blog.uri.plugins');
 	if ( !BlogControlPluginCaches.indexs ){ BlogControlPluginCaches.indexs = {}; };
 	if ( !BlogControlPluginCaches.queens ){ BlogControlPluginCaches.queens = {}; };
@@ -82,7 +82,7 @@ PluginModule.extend('AddPluginCacheFile', function( params ){
 	this.fs.saveFile(resolve('private/chips/' + blog.cache + 'blog.uri.plugins'), text);
 });
 
-PluginModule.extend('DeletePluginCacheFile', function( id ){
+PluginModule.add('DeletePluginCacheFile', function( id ){
 	var BlogControlPluginCaches = require('private/chips/' + blog.cache + 'blog.uri.plugins');
 	if ( !BlogControlPluginCaches.indexs ){ BlogControlPluginCaches.indexs = {}; };
 	if ( !BlogControlPluginCaches.queens ){ BlogControlPluginCaches.queens = {}; };
@@ -98,7 +98,7 @@ PluginModule.extend('DeletePluginCacheFile', function( id ){
 });
 
 // 插件导航
-PluginModule.extend('AddPluginNavFile', function( params ){
+PluginModule.add('AddPluginNavFile', function( params ){
 	if ( params.ControlNavs ){
 		var BlogControlPluginNavs = require('private/chips/' + blog.cache + 'blog.control.plugin.navs'),
 			text = '';
@@ -111,7 +111,7 @@ PluginModule.extend('AddPluginNavFile', function( params ){
 	}
 });
 
-PluginModule.extend('DeletePluginNavFile', function( id ){
+PluginModule.add('DeletePluginNavFile', function( id ){
 	var BlogControlPluginNavs = require('private/chips/' + blog.cache + 'blog.control.plugin.navs'),
 		text = '';
 		
@@ -122,7 +122,7 @@ PluginModule.extend('DeletePluginNavFile', function( id ){
 	this.fs.saveFile(resolve('private/chips/' + blog.cache + 'blog.control.plugin.navs'), text);
 });
 
-PluginModule.extend('ReBuildPluginCacheFileByStatus', function( mark, status ){
+PluginModule.add('ReBuildPluginCacheFileByStatus', function( mark, status ){
 	var BlogControlPluginCaches = require('private/chips/' + blog.cache + 'blog.uri.plugins'),
 		text = '';
 		
@@ -136,7 +136,7 @@ PluginModule.extend('ReBuildPluginCacheFileByStatus', function( mark, status ){
 	this.fs.saveFile(resolve('private/chips/' + blog.cache + 'blog.uri.plugins'), text);
 });
 
-PluginModule.extend('AddSettingValue', function(id, folder){
+PluginModule.add('AddSettingValue', function(id, folder){
 	var setFile = 'private/plugins/' + folder + '/setting.js';
 	if ( this.fs.exist(resolve(setFile)) ){
 		var setor = require(setFile),
@@ -157,7 +157,7 @@ PluginModule.extend('AddSettingValue', function(id, folder){
 	}
 });
 
-PluginModule.extend('DeleteSettingValue', function(id){
+PluginModule.add('DeleteSettingValue', function(id){
 	var rec = new this.dbo.RecordSet(this.conn),
 		nid;
 		
@@ -174,20 +174,20 @@ PluginModule.extend('DeleteSettingValue', function(id){
 		
 	if ( nid && nid > 0 ){
 		var AssetNav = require('../services/category');
-		AssetNav.extend('dbo', this.dbo);
-		AssetNav.extend('conn', this.conn);
-		AssetNav.extend('fs', this.fs);
+		AssetNav.add('dbo', this.dbo);
+		AssetNav.add('conn', this.conn);
+		AssetNav.add('fs', this.fs);
 		var cate = new AssetNav();
 		cate.remove(nid);
 	};
 });
 
-PluginModule.extend('AddAssetsNav', function(id, plus){
+PluginModule.add('AddAssetsNav', function(id, plus){
 	if ( plus.AssetNav ){
 		var AssetNav = require('../services/category');
-		AssetNav.extend('dbo', this.dbo);
-		AssetNav.extend('conn', this.conn);
-		AssetNav.extend('fs', this.fs);
+		AssetNav.add('dbo', this.dbo);
+		AssetNav.add('conn', this.conn);
+		AssetNav.add('fs', this.fs);
 		var cate = new AssetNav();
 
 		var cid = cate.add({
@@ -217,7 +217,7 @@ PluginModule.extend('AddAssetsNav', function(id, plus){
 	};
 });
 
-PluginModule.extend('getSettingParams', function(id){
+PluginModule.add('getSettingParams', function(id){
 	var rec = new this.dbo.RecordSet(this.conn),
 		rets = {};
 		
@@ -230,7 +230,7 @@ PluginModule.extend('getSettingParams', function(id){
 	return rets;
 });
 
-PluginModule.extend('InstallSQL', function(folder, file){
+PluginModule.add('InstallSQL', function(folder, file){
 	var path = contrast('private/plugins/' + folder + '/' + file);
 	if ( this.fs.exist(path) ){
 		var content = Library.loader(path);
@@ -243,15 +243,15 @@ PluginModule.extend('InstallSQL', function(folder, file){
 	}
 });
 
-PluginModule.extend('InstallBySelf', function(folder, pid, msg, file){
+PluginModule.add('InstallBySelf', function(folder, pid, msg, file){
 	var path = resolve('private/plugins/' + folder + '/' + file);
 	if ( this.fs.exist(path) ){
 		var code = require(path);
-		code.extend('dbo', this.dbo);
-		code.extend('conn', this.conn);
-		code.extend('fs', this.fs);
-		code.extend('fso', this.fso);
-		code.extend('fns', this.fns);
+		code.add('dbo', this.dbo);
+		code.add('conn', this.conn);
+		code.add('fs', this.fs);
+		code.add('fso', this.fso);
+		code.add('fns', this.fns);
 		try{ new code(folder, pid, msg); }catch(e){}
 	}
 });

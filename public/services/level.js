@@ -9,7 +9,7 @@ var LevelModule = new Class({
 	}
 });
 
-LevelModule.extend('getLevelMessage', function( params ){
+LevelModule.add('getLevelMessage', function( params ){
 	var id = params.query.id,
 		rec = new this.dbo.RecordSet(this.conn),
 		rets = { success: true, message: '获取数据成功' };
@@ -26,11 +26,11 @@ LevelModule.extend('getLevelMessage', function( params ){
 	return rets;
 });
 
-LevelModule.extend('addLevelByAuto', function(){
+LevelModule.add('addLevelByAuto', function(){
 	return this.addLevel("新建权限", '新建权限名称' + new Date().getTime() + " 描述", 'NewLevel');
 });
 
-LevelModule.extend('addLevel', function( name, des, mark ){
+LevelModule.add('addLevel', function( name, des, mark ){
 	var rec = new this.dbo.RecordSet(this.conn),
 		rets = { success: false, message: '操作失败', data: {} };
 		
@@ -56,7 +56,7 @@ LevelModule.extend('addLevel', function( name, des, mark ){
 	return rets;
 });
 
-LevelModule.extend('modifyLevelByForm', function( params ){
+LevelModule.add('modifyLevelByForm', function( params ){
 	var id = params.form.id,
 		code_name = params.form.code_name,
 		code_des = params.form.code_des,
@@ -69,7 +69,7 @@ LevelModule.extend('modifyLevelByForm', function( params ){
 	}
 });
 
-LevelModule.extend('modifyLevel', function( id, name, des, mark ){
+LevelModule.add('modifyLevel', function( id, name, des, mark ){
 	var rec = new this.dbo.RecordSet(this.conn),
 		rets = { success: false, message: '操作失败' },
 		exist = false;
@@ -112,7 +112,7 @@ LevelModule.extend('modifyLevel', function( id, name, des, mark ){
 	return rets;
 });
 
-LevelModule.extend('ReBuildLevelsCacheFile', function(){
+LevelModule.add('ReBuildLevelsCacheFile', function(){
 	var rec = new this.dbo.RecordSet(this.conn),
 		ret = {};
 		
@@ -127,7 +127,7 @@ LevelModule.extend('ReBuildLevelsCacheFile', function(){
 	this.DepartMentCacheFile(ret, resolve('private/chips/' + blog.cache + 'blog.levels'));
 });
 
-LevelModule.extend('ReBuildGroupsCacheFile', function(){
+LevelModule.add('ReBuildGroupsCacheFile', function(){
 	var rec = new this.dbo.RecordSet(this.conn),
 		ret = {};
 		
@@ -142,7 +142,7 @@ LevelModule.extend('ReBuildGroupsCacheFile', function(){
 	this.DepartMentCacheFile(ret, resolve('private/chips/' + blog.cache + 'blog.groups'));
 });
 
-LevelModule.extend('DepartMentCacheFile', function( params, file ){
+LevelModule.add('DepartMentCacheFile', function( params, file ){
 	var h = '';
 	for ( var i in params ){
 		h += 'exports["' + i + '"] = ' + JSON.stringify(params[i]) + ';\n';
@@ -153,7 +153,7 @@ LevelModule.extend('DepartMentCacheFile', function( params, file ){
 	fs.saveFile(file, h);
 });
 
-LevelModule.extend('SaveGroupRights', function( params ){
+LevelModule.add('SaveGroupRights', function( params ){
 	var j = this.fns.unSQLStr(this.fns.unHTMLStr(params.query.j)),
 		rec = new this.dbo.RecordSet(this.conn),
 		id = params.query.id;
@@ -171,7 +171,7 @@ LevelModule.extend('SaveGroupRights', function( params ){
 	return { success: true, message: '保存权限成功' };
 });
 
-LevelModule.extend('LevelRemove', function( params ){
+LevelModule.add('LevelRemove', function( params ){
 	var id = params.query.id,
 		rec = new this.dbo.RecordSet(this.conn),
 		mark,
@@ -194,11 +194,11 @@ LevelModule.extend('LevelRemove', function( params ){
 	return rets;
 });
 
-LevelModule.extend('addGroupByAuto', function(){
+LevelModule.add('addGroupByAuto', function(){
 	return this.addGroup('新建组群', '[]');
 });
 
-LevelModule.extend('addGroup', function( name, code ){
+LevelModule.add('addGroup', function( name, code ){
 	var rec = new this.dbo.RecordSet(this.conn),
 		rets = { success: false, message: '操作失败' };
 		
@@ -220,7 +220,7 @@ LevelModule.extend('addGroup', function( name, code ){
 	return rets;
 });
 
-LevelModule.extend('RemoveGroup', function( params ){
+LevelModule.add('RemoveGroup', function( params ){
 	var rec = new this.dbo.RecordSet(this.conn);
 	var id = params.query.id;
 	rec.sql('Select * From blog_groups Where id=' + id)
@@ -231,7 +231,7 @@ LevelModule.extend('RemoveGroup', function( params ){
 	return { success: true, message: '删除成功' };
 });
 
-LevelModule.extend('getGroupMessage', function( params ){
+LevelModule.add('getGroupMessage', function( params ){
 	var id = params.query.id,
 		rec = new this.dbo.RecordSet(this.conn),
 		rets = { success: true, message: '获取数据成功' };
@@ -246,7 +246,7 @@ LevelModule.extend('getGroupMessage', function( params ){
 	return rets;
 });
 
-LevelModule.extend('modifyGroupByForm', function( params ){
+LevelModule.add('modifyGroupByForm', function( params ){
 	var id = params.form.id,
 		Group_name = params.form.code_name;
 	
@@ -257,7 +257,7 @@ LevelModule.extend('modifyGroupByForm', function( params ){
 	}
 });
 
-LevelModule.extend('modifyGroup', function( id, name ){
+LevelModule.add('modifyGroup', function( id, name ){
 	var rec = new this.dbo.RecordSet(this.conn),
 		rets = { success: false, message: '操作失败' },
 		exist = false;

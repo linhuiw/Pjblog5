@@ -26,7 +26,7 @@ var LayoutModule = new Class({
 	}
 });
 
-LayoutModule.extend('ThemeConfigs', function(){
+LayoutModule.add('ThemeConfigs', function(){
 	var configs = {};
 	configs.folder = this.params.global.blog_theme;
 	var ThemeModule = require('private/themes/' + configs.folder + '/config');
@@ -44,11 +44,11 @@ LayoutModule.extend('ThemeConfigs', function(){
 	this.params.ThemeConfigs = configs;
 });
 
-LayoutModule.extend('add', function( key, value ){
+LayoutModule.add('add', function( key, value ){
 	this.params[key] = value;
 });
 
-LayoutModule.extend('state', function( member ){
+LayoutModule.add('state', function( member ){
 	var that = this,
 		param = {},
 		State = member.loginStatus(function(rets, object){
@@ -88,7 +88,7 @@ LayoutModule.extend('state', function( member ){
 	this.add('user', param);
 });
 
-LayoutModule.extend('GroupLevel', function( id ){
+LayoutModule.add('GroupLevel', function( id ){
 	var GroupCache = require('private/chips/' + blog.cache + 'blog.groups'),
 		LevelCache = require('private/chips/' + blog.cache + 'blog.levels'),
 		_id = id + '',
@@ -106,45 +106,45 @@ LayoutModule.extend('GroupLevel', function( id ){
 	return param;
 });
 
-LayoutModule.extend('destroy', function(){
+LayoutModule.add('destroy', function(){
 	try{
 		this.conn.Close();
 	}catch(e){}
 });
 
-LayoutModule.extend('Globaltion', function(){
+LayoutModule.add('Globaltion', function(){
 	this.add('global', require('private/chips/' + blog.cache + 'blog.global'));
 });
 
-LayoutModule.extend('ThemeSetting', function(){
+LayoutModule.add('ThemeSetting', function(){
 	this.add('themes', require('private/chips/' + blog.cache + 'blog.themes'));
 });
 
-LayoutModule.extend('navigation', function(){
+LayoutModule.add('navigation', function(){
 	var navs = require('private/chips/' + blog.cache + 'blog.categorys');
 	this.add('categorys', navs.queens);
 	this.traste.categorys = navs.indexs;
 });
 
-LayoutModule.extend('getCategory', function( id ){
+LayoutModule.add('getCategory', function( id ){
 	if ( this.traste.categorys && this.traste.categorys[id + ''] ){
 		return this.traste.categorys[id + ''];
 	};
 });
 
-LayoutModule.extend('loadTags', function(){
+LayoutModule.add('loadTags', function(){
 	var tags = require('private/chips/' + blog.cache + 'blog.tags');
 	this.traste.tags = tags;
 });
 
-LayoutModule.extend('getTag', function( id ){
+LayoutModule.add('getTag', function( id ){
 	if ( this.traste.tags && this.traste.tags[id + ''] ){
 		this.traste.tags[id + ''].href = blog.web + '/default.asp?tag=' + id;
 		return this.traste.tags[id + ''];
 	};
 });
 
-LayoutModule.extend('getTags', function( str ){
+LayoutModule.add('getTags', function( str ){
 	if ( !str || str.length === 0 ){
 		return [];
 	};
@@ -156,11 +156,11 @@ LayoutModule.extend('getTags', function( str ){
 	return ret;
 });
 
-LayoutModule.extend('CheckUrlArguments', function( str ){
+LayoutModule.add('CheckUrlArguments', function( str ){
 	 return this.fns.HTMLStr(this.fns.SQLStr(str));
 });
 
-LayoutModule.extend('createServer', function( callback ){
+LayoutModule.add('createServer', function( callback ){
 	var that = this;
 	if ( this.params.global.blog_status === 0 ){
 		this.http.createServer(function( req ){ typeof callback === 'function' && callback.call(that, req); }, Library.proxy(this.CheckUrlArguments, this));
@@ -171,7 +171,7 @@ LayoutModule.extend('createServer', function( callback ){
 	}
 });
 
-LayoutModule.extend('load', function( mark, callback ){
+LayoutModule.add('load', function( mark, callback ){
 	var PluginCache = require('private/chips/' + blog.cache + 'blog.uri.plugins');
 	if ( PluginCache['queens'][mark] ){
 		var folder = PluginCache['queens'][mark]['folder'];
@@ -181,14 +181,14 @@ LayoutModule.extend('load', function( mark, callback ){
 		if ( this.fs.exist(resolve('private/plugins/' + folder + '/exports')) ){
 			var mode = require('private/plugins/' + folder + '/exports');
 			try{
-				mode.extend("dbo", this.dbo);
-				mode.extend("conn", this.conn);
-				mode.extend("fs", this.fs);
-				mode.extend("fns", this.fns);
-				mode.extend("http", this.http);
-				mode.extend("pid", PluginCache['queens'][mark].id);
-				mode.extend("pmark", mark);
-				mode.extend("pfolder", folder);
+				mode.add("dbo", this.dbo);
+				mode.add("conn", this.conn);
+				mode.add("fs", this.fs);
+				mode.add("fns", this.fns);
+				mode.add("http", this.http);
+				mode.add("pid", PluginCache['queens'][mark].id);
+				mode.add("pmark", mark);
+				mode.add("pfolder", folder);
 			}catch(e){}
 			if ( typeof callback === 'function' ){
 				var m = callback.call(this, mode);
@@ -204,7 +204,7 @@ LayoutModule.extend('load', function( mark, callback ){
 	}
 });
 
-LayoutModule.extend('plugin', function(mark, args){
+LayoutModule.add('plugin', function(mark, args){
 	if ( this.params.ThemeConfigs.plugins && this.params.ThemeConfigs.plugins[mark] ){
 		var pmark = this.params.ThemeConfigs.plugins[mark].mark;
 		var pfile = 'private/themes/' + this.params.ThemeConfigs.folder + '/' + this.params.ThemeConfigs.plugins[mark].file;
@@ -212,8 +212,8 @@ LayoutModule.extend('plugin', function(mark, args){
 		if ( pluginExports ){
 			var package = new pluginExports(),
 				plugins = require("public/library/plugin");
-				plugins.extend("dbo", package.dbo);
-				plugins.extend("conn", package.conn);
+				plugins.add("dbo", package.dbo);
+				plugins.add("conn", package.conn);
 
 			var plugin = new plugins(),
 				setting = plugin.getSettingParams(Number(package.pid));
@@ -241,7 +241,7 @@ LayoutModule.extend('plugin', function(mark, args){
 	}
 });
 
-LayoutModule.extend('render', function( file ){
+LayoutModule.add('render', function( file ){
 	var theme = 'private/themes/' + this.params.global.blog_theme + '/' + file;
 	if ( this.fs.exist(contrast(theme)) ){
 		include(theme, {

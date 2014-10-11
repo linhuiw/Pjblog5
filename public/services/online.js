@@ -9,7 +9,7 @@ var OnLineModule = new Class({
 	}
 });
 
-OnLineModule.extend('getNewFile', function( params ){
+OnLineModule.add('getNewFile', function( params ){
 	var id = this.fns.unSQLStr(this.fns.unHTMLStr(params.form.id)),
 		crc = this.fns.unSQLStr(this.fns.unHTMLStr(params.form.crc));
 	
@@ -18,7 +18,7 @@ OnLineModule.extend('getNewFile', function( params ){
 	return { success: CN.singleCheck(id, crc) };
 });
 
-OnLineModule.extend('download', function( params ){
+OnLineModule.add('download', function( params ){
 	try{
 		var id = this.fns.unSQLStr(this.fns.unHTMLStr(params.query.id));
 		var http = require("http"),
@@ -49,7 +49,7 @@ OnLineModule.extend('download', function( params ){
 	};
 });
 
-OnLineModule.extend('dosql', function(params){
+OnLineModule.add('dosql', function(params){
 	var id = params.query.id;
 	var AJAX = require('http').ajax;
 	var ajax = new AJAX();

@@ -9,7 +9,7 @@ var MemberModule = new Class({
 	}
 });
 
-MemberModule.extend('loginStatus', function( callback ){
+MemberModule.add('loginStatus', function( callback ){
 	var rec,
 		cookie = require('cookie'),
 		id = cookie.get(blog.cookie + "_user", "id"),
@@ -40,7 +40,7 @@ MemberModule.extend('loginStatus', function( callback ){
 	return rets;
 });
 
-MemberModule.extend('adminStatus', function( callback ){
+MemberModule.add('adminStatus', function( callback ){
 	var logs = this.loginStatus(function(rets, object){ rets.group = object('member_group').value; typeof callback === 'function' && callback(rets, object); });
 	
 	logs.admin = false;
@@ -68,7 +68,7 @@ MemberModule.extend('adminStatus', function( callback ){
 	return logs;
 });
 
-MemberModule.extend("OauthLogin", function( params ){
+MemberModule.add("OauthLogin", function( params ){
 	var rec = new this.dbo.RecordSet(this.conn),
 		ret = { success: false, message: '登录失败' },
 		fns = require('fns'),
@@ -83,7 +83,7 @@ MemberModule.extend("OauthLogin", function( params ){
 		.process(function(object){
 				if ( object.Bof || object.Eof ){ 
 					object.AddNew(); 
-					object('member_group') = 1;
+					object('member_group') = 2;
 				};
 				
 				object('member_hashkey') = params.hashkey;
@@ -114,13 +114,13 @@ MemberModule.extend("OauthLogin", function( params ){
 	return ret;
 });
 
-MemberModule.extend('logout', function(){
+MemberModule.add('logout', function(){
 	var cookie = require('cookie');
 	cookie.clear(blog.cookie + "_user");
 	return { success: true, message: '退出登录成功' };
 });
 
-MemberModule.extend('ChangeStatus', function( params ){
+MemberModule.add('ChangeStatus', function( params ){
 	var id = params.query.id,
 		ret = { success: false, message: '操作失败' };
 		
@@ -155,7 +155,7 @@ MemberModule.extend('ChangeStatus', function( params ){
 	return ret;
 });
 
-MemberModule.extend('RemoveUser', function( params ){
+MemberModule.add('RemoveUser', function( params ){
 	var id = params.query.id,
 		ret = { success: false, message: '操作失败' },
 		rec;
@@ -191,7 +191,7 @@ MemberModule.extend('RemoveUser', function( params ){
 	return ret;
 });
 
-MemberModule.extend('change', function( params ){
+MemberModule.add('change', function( params ){
 	var uid = params.query.uid,
 		gid = params.query.gid;
 		

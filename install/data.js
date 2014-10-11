@@ -1,0 +1,9 @@
+﻿exports.folder = "";
+exports.name = "PJBlog5";
+exports.dbname = "blog";
+exports.dbusername = "evio";
+exports.dbpassword = "1094872";
+exports.dbip = ".";
+exports.web = "http://blog.cn";
+exports.t = "local";
+exports.connected = true;

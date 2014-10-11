@@ -85,8 +85,12 @@ var define = function(){};
 	
 	if ( typeof JSON === "undefined" ){ JSON = new Object(); };
 	
-	var readVariableType = function( object ){
-		return Object.prototype.toString.call(object).toLowerCase() === "[object " + type + "]"; 
+	var readVariableType = function( object, type ){
+		if ( !type ){
+			return Object.prototype.toString.call(object).toLowerCase();
+		}else{
+			return Object.prototype.toString.call(object).toLowerCase() === "[object " + type + "]"; 
+		}
 	};
 
 	Class = function(){

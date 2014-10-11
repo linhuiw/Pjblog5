@@ -1,0 +1,2 @@
+﻿exports.indexs = {};
+exports.queens = {};

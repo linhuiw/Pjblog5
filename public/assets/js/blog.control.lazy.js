@@ -10,6 +10,24 @@ define(function( require, exports, module ){
 			this.onLogout();
 			this.onColpase();
 			this.onWindowResize();
+			this.onContentTabsChange();
+		},
+		onContentTabsChange: function(){
+			$('.ecm-tabs').each(function(){
+				var that = this;
+				$(this).find('.ecm-tabs-nav').on('click', function(){
+					var i = $.inArray(this, $(that).find('.ecm-tabs-nav').toArray());
+					if ( i && i > -1 && $(that).find('.ecm-tabs-content').eq(i).size() === 1 ){
+						$(that).find('.ecm-tabs-content').hide();
+						$(that).find('.ecm-tabs-content').eq(i).show();
+						$(that).find('.ecm-tabs-nav').removeClass('active');
+						$(this).addClass('active');
+					}
+				});
+				if ( $(this).find('.ecm-tabs-nav').size() > 0 ){
+					$(this).find('.ecm-tabs-nav').trigger('click');
+				}
+			});
 		},
 		onWindowResize: function(){
 			$(window).on('scroll', function(){

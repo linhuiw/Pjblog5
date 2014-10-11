@@ -1,5 +1,6 @@
 // JavaScript Document
 define('appjs/assets/jquery.form.min', function( require, exports, module ){
+	var setClass = 'pluset';
 	return new Class({
 		initialize: function(){
 			this.onDeleteSystemPlugins();
@@ -15,29 +16,26 @@ define('appjs/assets/jquery.form.min', function( require, exports, module ){
 		getPluginSettingData: function(){
 			var that = this;
 			$('.app-setting').on('click', function(){
-				if ( !window.doing && $(this).parents('.plugins:first').find('.im .set form').size() === 0 ){
-					window.doing = true;
-					var id = $(this).attr('app-id');
-					var parent = $(this).parents('.plugins:first');
-					that.tip.loading('正在获取插件配置信息..');
-					$.getJSON('public/async.asp', {
-						m: 'plugin',
-						p: 'getPluginSettingMessage',
-						id: id
-					}, function( params ){
-						if ( params.success ){
-							that.getPluginSettingTemplate(params.data, params.folder, parent, id);
-						}else{
-							window.doing = false;
-							that.tip.error(params.message);
-						}
-					});
-				}
+				$('.' + setClass).remove();
+				$('.actived').removeClass('actived');
+				var id = $(this).attr('app-id');
+				var parent = $(this).parents('.items:first');
+				that.tip.loading('正在获取插件配置信息..');
+				$.getJSON('public/async.asp', {
+					m: 'plugin',
+					p: 'getPluginSettingMessage',
+					id: id
+				}, function( params ){
+					if ( params.success ){
+						that.getPluginSettingTemplate(params.data, params.folder, parent, id);
+					}else{
+						that.tip.error(params.message);
+					}
+				});
 			});
 		},
 		getPluginSettingTemplate: function(data, folder, parent, id){
 			var that = this;
-			that.tip.loading('正在获取插件配置模板..');
 			$.getJSON('public/async.asp', {
 				m: 'plugin',
 				p: 'getPluginSettingTemplate',
@@ -46,7 +44,6 @@ define('appjs/assets/jquery.form.min', function( require, exports, module ){
 				if ( params.success ){
 					that.joinTemplate(data, params.data, parent, id);
 				}else{
-					window.doing = false;
 					that.tip.error(params.message);
 				}
 			});
@@ -62,10 +59,10 @@ define('appjs/assets/jquery.form.min', function( require, exports, module ){
 			
 			h += '<tr><td>&nbsp;</td><td><input type="submit" value="保存" /> <input type="button" value="关闭" class="close" /></td></tr>'
 			
-			parent.find('.im .set').html('<form action="public/async.asp?m=plugin&p=SavePluginSetting&id=' + id + '" method="post" style="margin:0;" class="animated fadeIn"><table cellpadding="0" cellspacing="0" width="100%" border="0">' + h + '</table><div class="titletip">插件配置参数设置</div></form>');
-			window.doing = false;
+			parent.after('<div class="items actived ' + setClass + '"><div class="info"><form action="public/async.asp?m=plugin&p=SavePluginSetting&id=' + id + '" method="post" style="margin:0;" class="animated fadeIn"><h6 class="plu-set-title">插件配置参数设置</h6><table cellpadding="0" cellspacing="0" width="100%" border="0">' + h + '</table></form></div></div>');
+			parent.addClass('actived');
 			this.tip.success('获取数据成功');
-			this.onBindSettingForm(parent.find('.im .set form'));
+			this.onBindSettingForm(parent.next().find('form'));
 		},
 		filedType: function(value, tmp){
 			var v = '', i;
@@ -85,10 +82,10 @@ define('appjs/assets/jquery.form.min', function( require, exports, module ){
 					v += '</select>';
 					break;
 				case 'password':
-					v += '<input type="password" name="par_keyvalue" value="' + value + '" style="width:100%;" />'
+					v += '<input type="password" name="par_keyvalue" value="' + value + '" />'
 					break;
 				default: 
-					v += '<input type="text" name="par_keyvalue" value="' + value + '" style="width:100%;" />';
+					v += '<input type="text" name="par_keyvalue" value="' + value + '" />';
 			}
 			return v;
 		},
@@ -98,14 +95,9 @@ define('appjs/assets/jquery.form.min', function( require, exports, module ){
 			element.ajaxForm({
 				dataType: 'json',
 				beforeSubmit: function(){
-					if ( window.doing ){
-						return;
-					};
-					window.doing = true;
 					that.tip.loading();
 				},
 				success: function(params){
-					window.doing = false;
 					if ( params.success ){
 						that.tip.success(params.message);
 						element.find('.close').trigger('click');
@@ -116,7 +108,8 @@ define('appjs/assets/jquery.form.min', function( require, exports, module ){
 			});
 			
 			element.find('.close').on('click', function(){
-				element.remove();
+				$('.' + setClass).remove();
+				$('.actived').removeClass('actived');
 			});
 		},
 		tip: require('appjs/assets/blog.loading')

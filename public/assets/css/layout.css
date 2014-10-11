@@ -10,6 +10,16 @@ a:link,
 a:visited{ color:#1a6cc1; text-decoration:none;}
 a:hover{ color:#777;}
 
+a,
+.tansAchor{
+    word-wrap: break-word;
+    -webkit-transition: color 0.3s ease-in, background 0.3s ease-in, opacity 0.2s ease-in;
+    -moz-transition: color 0.3s ease-in, background 0.3s ease-in, opacity 0.2s ease-in;
+    -ms-transition: color 0.3s ease-in, background 0.3s ease-in, opacity 0.2s ease-in;
+    -o-transition: color 0.3s ease-in, background 0.3s ease-in, opacity 0.2s ease-in;
+    transition: color 0.3s ease-in, background 0.3s ease-in, opacity 0.2s ease-in;
+}
+
 .header{ height:50px; background-color:#444; padding:0px 30px; line-height:50px; color:#fff; }
 .header .logo{ font-size:18px;}
 .header .logo sub{ font-size:14px; color:#999;}
@@ -132,36 +142,6 @@ a:hover{ color:#777;}
 .col-s-8,
 .col-s-9,
 .col-s-10{display:inline-table; float:left;}
-
-#plugin{}
-#plugin .tips{ color:#777; height:20px; margin-bottom:20px;}
-#plugin .tips .installed{ background-color:#fff;}
-#plugin .tips .uninstalled{ background-color:#F8FCFE;}
-#plugin .tips .install-block{ width:20px; height:20px; margin-right:5px; border-radius:2px; box-shadow:2px 1px 3px #ccc;}
-#plugin .tips .install-block-info{ margin-right:20px; height:20px; line-height:20px;font-weight:bold;}
-#plugin .plugin-zone{ margin-right:10px; color:#777;}
-#plugin .plugin-zone .installed{ background-color:#fff;}
-#plugin .plugin-zone .plugins{ padding:10px; border-radius:5px;box-shadow:0px 1px 6px #ccc; margin-bottom:20px;}
-#plugin .plugin-zone .uninstalled{ background-color:#F8FCFE;box-shadow:0px 1px 6px #999;}
-#plugin .plugin-zone .plugins .icon{}
-#plugin .plugin-zone .plugins .tool{ width:60px; height:100%;}
-#plugin .plugin-zone .plugins .tool a{ height:20px; line-height:20px; display:block;}
-#plugin .plugin-zone .plugins .im{ margin-left:70px; margin-right:70px; padding:5px 10px 5px 0px; border-right:1px solid #eee;}
-#plugin .plugin-zone .uninstalled .im{border-right:1px solid #ccc;}
-#plugin .plugin-zone .plugins .im h6{ font-weight:bold; padding:0px 0px 10px 0px;}
-#plugin .plugin-zone .plugins .im .name{ margin-bottom:5px;}
-#plugin .plugin-zone .plugins .im .name a{ margin-left:10px;}
-#plugin .plugin-zone .plugins a:link,
-#plugin .plugin-zone .plugins a:visited{ color:#888; text-decoration:none;}
-#plugin .plugin-zone .plugins a:hover{ color:#999;}
-#plugin .plugin-zone .plugins .des{ line-height:20px;}
-#plugin .plugin-zone .plugins .mark{ color:#ccc; font-weight:normal; margin-left:10px;}
-#plugin .plugin-zone .uninstalled .mark{ color:#aaa;}
-#plugin .plugin-zone .plugins .set{ margin:10px 0px;}
-#plugin .plugin-zone .plugins .set form{ border:1px solid #eee; display:block; padding:40px 13px 10px 13px; position:relative;}
-#plugin .plugin-zone .plugins .set form td{ padding:5px 8px; height:20px; line-height:20px;}
-#plugin .plugin-zone .plugins .set form td.dname{ text-align:right}
-#plugin .plugin-zone .plugins .set form .titletip{ position:absolute; top:0; left:0; height:30px; line-height:30px; border-right:1px solid #eee; border-bottom:1px solid #eee; padding:0px 20px; background-color:#f9f9f9}
 
 input[type="text"],
 input[type="password"],
@@ -675,6 +655,42 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 .navdirty a:link,
 .navdirty a:visited{ color:#fff;}
 .navdirty a:hover{ color:#CCC; background-color:#444;}
+
+.plu-navs{ height:32px; border-bottom:1px solid #ddd;}
+.plu-navs a{ display:block; height:32px; padding:0px 15px; line-height:32px; font-size:14px; margin:0px 2px;}
+.plu-navs a i{ line-height:32px;}
+.plu-navs a span{ margin-left:8px;}
+.plu-navs a.left{ float:left;}
+.plu-navs a.right{ float:right;}
+.plu-navs a:link,.plu-navs a:visited{ color:#777;}
+.plu-navs a:hover{ color:#555;}
+.plu-navs a.active{ background-color:#fff; border-radius:4px 4px 0 0; box-shadow:0px 0px 8px #ccc;}
+.plu-navs a:first-child{ margin-left:25px;}
+.plu-navs a:last-child{ margin-right:0px;}
+.plu-content{ background-color:#fff; padding:0px 0px; margin-bottom:500px; box-shadow:0px 0px 8px #ccc; border:1px solid #ddd; border-top:0; color:#777; font-size:12px; line-height:20px;}
+.plu-content .items{ padding:15px 25px; border-bottom:1px solid #ddd;}
+.plu-content .items:last-child{ border-bottom:none;}
+.plu-content .items:hover{ background-color:#f9f9f9;}
+.plu-content .items .icon{ float:left;}
+.plu-content .items .icon img{ width:50px; position:relative; top:20px;}
+.plu-content .items .info{ margin-left:75px;}
+.plu-content .items .info h6{ color:#444; font-weight:bold; height:20px; line-height:20px; margin-bottom:3px;}
+.plu-content .items i{ margin-right:5px;}
+.plu-content .items a{ margin-right:15px;}
+.plu-content .items a:link,
+.plu-content .items a:visited{ color:#999;}
+.plu-content .items a:hover{ color:#666;}
+.plu-content .items .des{ margin:3px 0px;}
+.plu-content .stop{ opacity:.6;}
+.plu-content .stop:hover{ opacity:1;}
+.plu-content .actived,
+.plu-content .actived:hover{ background-color:#f9f9f9}
+.plu-content .items .info td{ padding:5px 0px 3px 0;}
+.plu-content .pluset h6{ margin-bottom:0px!important; background-color:#fff; width:150px; position:relative; top:-31px; height:30px!important; line-height:30px!important; text-align:center; border:1px solid #ddd;}
+.plu-content .pluset table{ position:relative; top:-20px;}
+.plu-content .items .info td input[type='submit'],
+.plu-content .items .info td input[type='reset'],
+.plu-content .items .info td input[type='button']{ background-color:#fff; padding:2px 20px;}
 
 @media (max-width: 1120px){
 	.container{ position:relative;}

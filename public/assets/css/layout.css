@@ -4,7 +4,7 @@
 html,
 body,
 #page{ background-image:url(../img/bg.gif); min-height:100%;}
-body{ overflow:hidden;}
+body{ overflow-x:hidden;}
 .wordCut{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;word-break:keep-all;}
 a:link,
 a:visited{ color:#1a6cc1; text-decoration:none;}

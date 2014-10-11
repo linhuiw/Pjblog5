@@ -12,10 +12,13 @@ define(function( require, exports, module ){
 			this.onWindowResize();
 		},
 		onWindowResize: function(){
+			$(window).on('scroll', function(){
+				$('.navdirty').css('height', Math.max($(window).height(), $('#page').outerHeight()) + 'px');
+			});
 			$(window).on('resize', function(){
 				var width = $(window).width();
 				if ( width < 1062 ){
-					$('.navdirty').empty().html('<h6>系统导航</h6>' + $('#navachor').html()).css('height', Math.max($(window).height(), $('body').outerHeight()) + 'px');
+					$('.navdirty').empty().html('<h6>系统导航</h6>' + $('#navachor').html());
 					if ( !$('.navcolpase').data('installed') ){
 						$('.navcolpase').on('click', function(){
 							var open = $(this).data('open');
@@ -33,7 +36,7 @@ define(function( require, exports, module ){
 						}).data('installed', true);
 					}
 				}
-			}).trigger('resize');
+			}).trigger('resize').trigger('scroll');
 		},
 		onColpase: function(){
 			$('.colpase').on('click', function(){

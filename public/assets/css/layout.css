@@ -20,6 +20,14 @@ a,
     transition: color 0.3s ease-in, background 0.3s ease-in, opacity 0.2s ease-in;
 }
 
+.track{
+	-webkit-transition: all 0.3s ease-in;
+    -moz-transition: all 0.3s ease-in;
+    -ms-transition: all 0.3s ease-in;
+    -o-transition: all 0.3s ease-in;
+    transition: all 0.3s ease-in;
+}
+
 .header{ height:50px; background-color:#444; padding:0px 30px; line-height:50px; color:#fff; }
 .header .logo{ font-size:18px;}
 .header .logo sub{ font-size:14px; color:#999;}
@@ -681,6 +689,47 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 .plu-table td .tools a:visited{ color:#999;}
 .plu-table td .tools a:hover{ color:#777;}
 .plu-table td .tools a{ margin-right:10px;}
+.plu-table thead th{border-bottom:1px solid #eee; font-weight:bold; color:#000; height:50px; line-height:50px;}
+.plu-table thead th.tname{ text-align:center;border-right:1px solid #eee;}
+.plu-table thead th.tcontent{ text-align:left; padding:0px 30px;}
+
+#user-box{ position:relative; height:100%;}
+#user-box .searchbox{ width:600px; position:absolute; top:150px; left:50%; margin-left:-300px; background-color:#fff; box-shadow:0px 0px 10px #ccc; box-shadow:0px 0px 10px rgba(0,0,0,.1);}
+#user-box .searchbox .search-all{ float:left; width:40px; height:40px; text-align:center; line-height:40px; display:block; border-right:1px solid #eee;}
+#user-box .searchbox .do-search{ float:right; width:40px; height:40px; text-align:center; line-height:40px; display:block; border-left:1px solid #eee;}
+#user-box .searchbox a i{ display:block;width:40px; height:40px;text-align:center; line-height:40px; font-size:16px; color:#777;}
+#user-box .searchbox a:hover i{ background-color:#f9f9f9;}
+#user-box .searchbox .search-input{ margin-left:50px; margin-right:50px; height:40px;}
+#user-box .searchbox .search-input input{ width:100%; background-color: transparent; border:none; box-shadow:none; height:20px; line-height:20px; padding:10px 0px; font-size:14px;}
+#user-box .searchbox-top{top:0px;left:0px; margin-left:0px; width:100%;}
+#user-box .userbox{ position:absolute; top:60px;left:0px; width:100%;}
+#user-box .userbox .dump{ background-color:#fff; padding:20px 20px; box-shadow:0px 0px 10px #ccc; box-shadow:0px 0px 10px rgba(0,0,0,.1); color:#777;}
+#user-box .userbox .items{ float:left; margin:20px; width:100px; height:58px; cursor:pointer;}
+#user-box .userbox .items .face{ width:36px; height:36px; margin:0 auto; margin-bottom:2px;}
+#user-box .userbox .items .face img{ width:36px; height:36px; border-radius:3px; box-shadow:0px 0px 10px #ccc; box-shadow:0px 0px 10px rgba(0,0,0,.1);}
+#user-box .userbox .items .nick{ height:20px; line-height:20px; width:100px; text-align:center; color:#555;}
+#user-box .detailbox{ position: absolute; top:80px; left:0px; width:100%; height:250px; display:none;}
+#user-box .userbox-bom{ top:380px;}
+#user-box .detailbox .details{ width:600px; margin:0 auto;}
+#user-box .detailbox .details .face{}
+#user-box .detailbox .details .face img{ width:36px; height:36px; padding:1px; background-color:#fff;box-shadow:0px 0px 10px #ccc; box-shadow:0px 0px 10px rgba(0,0,0,.1); float:left;}
+#user-box .detailbox .details .info{ margin-left:55px; background-color:#fff; padding:0;background-color:#fff;box-shadow:0px 0px 10px #ccc; box-shadow:0px 0px 10px rgba(0,0,0,.1);}
+#user-box .detailbox .details .info .p{ padding-left:15px; padding-right:15px;line-height:20px;border-bottom:1px dashed #eee; padding-top:5px; padding-bottom:5px; color:#999;}
+#user-box .detailbox .details .info .p:last-child{ border-bottom:0;}
+#user-box .detailbox .details .info .p i{ margin-right:0px; display:inline-block; width:20px;}
+#user-box .detailbox .details .info .p span{ margin-right:5px;}
+#user-box .detailbox .details .info .p b{ font-weight:normal;}
+#user-box .detailbox .details .info .p b a{ margin-left:10px;}
+#user-box .detailbox .details .info .p b a:link,
+#user-box .detailbox .details .info .p b a:visited{ color:#999;}
+#user-box .detailbox .details .info .p b a:hover{ color:#777;}
+#user-box .detailbox .details .info .nick{ color:#777; font-weight:bold; border-bottom:1px solid #eee; background-color:#f9f9f9; height:20px;}
+#user-box .detailbox .details .info .nick i{ display:block; width:20px; height:20px; line-height:20px; text-align:center;}
+#user-box .detailbox .details .info .nick a:link,
+#user-box .detailbox .details .info .nick a:visited{ color:#999;}
+#user-box .detailbox .details .info .nick a:hover{ color:#777;}
+#user-box .userbox .pages{ padding-left:51px;}
+
 
 @media (max-width: 1120px){
 	.container{ position:relative;}
@@ -700,6 +749,6 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 	.header .navcolpase{ display:block;}
 	#navachor{ display:none;}
 	.logo.fleft{ float:none; text-align:center;}
-	#page{ position:absolute; top:0px; left:0px; width:100%;box-shadow:0px 0px 10px rgba(0,0,0,.8)}
+	#page{ position:absolute; top:0px; left:0px; width:100%;box-shadow:-1px -10px 10px rgba(0,0,0,.8)}
 	.navdirty{ display:block; background-color:#333;}
 }

@@ -170,14 +170,6 @@ MemberModule.add('RemoveUser', function( params ){
 	};
 	
 	rec = new this.dbo.RecordSet(this.conn);
-	rec.sql('Select * From blog_comments Where com_member_id=' + id)
-	.open(3).remove().close();
-	
-	rec = new this.dbo.RecordSet(this.conn);
-	rec.sql('Select * From blog_messages Where msg_member_id=' + id)
-	.open(3).remove().close();
-	
-	rec = new this.dbo.RecordSet(this.conn);
 	rec
 		.sql('Select * From blog_members Where id=' + id)
 		.process(function(object){
@@ -211,6 +203,45 @@ MemberModule.add('change', function( params ){
 		}catch(e){
 			return { success: false, message: e.message };
 		}
+	}
+});
+
+MemberModule.add('searchMembers', function( params ){
+	var nick = params.form.nick || '',
+		page = params.form.page || 1;
+		
+	page = Number(page);
+	if ( page < 1 ){ page = 1; };
+	
+	var rec = new this.dbo.RecordSet(this.conn);
+	var arrays = [],
+	fnCallback = function( object ){
+		arrays.push({
+			avatar: object("member_avatar").value,
+			id: object("id").value,
+			group: object("member_group").value,
+			nick: object("member_nick").value,
+			forbit: object("member_forbit").value,
+			sex: object("member_sex").value === 0 ? "保密" : object("member_sex").value === 1 ? "男" : "女",
+			mail: object("member_mail").value,
+			web: !object("member_website").value ? "" : object("member_website").value,
+			logindate: new Date(object("member_logindate").value).getTime() > 0 ? date.format(new Date(object("member_logindate").value), "y-m-d h:i:s") : "",
+			birthday: new Date(object("member_birthday").value).getTime() > 0 ? date.format(new Date(object("member_birthday").value), "y-m-d h:i:s") : "",
+			address: !object("member_address").value ? "" : object("member_address").value
+		});
+	};
+	
+	if ( nick.length > 0 ){
+		ac = rec.DualTopPage("blog_members", "*", "member_nick like '%" + nick + "%'", "member_logindate DESC", "member_logindate ASC", 40, page, fnCallback);
+	}
+	else{
+		ac = rec.DualTopPage("blog_members", "*", null, "member_logindate DESC", "member_logindate ASC", 40, page, fnCallback);
+	};
+	
+	return {
+		success: true,
+		arrays: arrays,
+		pages: rec.BuildPage(ac.pageindex, ac.pageCount)
 	}
 });
 

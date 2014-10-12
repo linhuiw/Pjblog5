@@ -31,7 +31,7 @@ define(function( require, exports, module ){
 		},
 		onWindowResize: function(){
 			$(window).on('scroll', function(){
-				$('.navdirty').css('height', Math.max($(window).height(), $('#page').outerHeight()) + 'px');
+				$('.navdirty, #page').css('height', ($(window).height() + $('body').scrollTop()) + 'px');
 			});
 			$(window).on('resize', function(){
 				var width = $(window).width();

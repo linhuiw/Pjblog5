@@ -22,6 +22,13 @@
 </div>
 <div class="plu-content">
 <table cellpadding="0" cellspacing="0" border="0" width="100%" class="plu-table">
+	<thead>
+	<tr>
+    	<th class="tname">用户权限组名称</th>
+        <th class="tcontent">权限内容</th>
+    </tr>
+    </thead>
+    <tbody>
 <%
 	rec = new dbo.RecordSet(conn);
 	rec
@@ -63,6 +70,7 @@
 		})
 		.close();
 %>
+	</tbody>
 </table>
 </div>
 <%

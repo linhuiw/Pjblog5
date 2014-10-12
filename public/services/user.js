@@ -213,6 +213,7 @@ MemberModule.add('searchMembers', function( params ){
 	page = Number(page);
 	if ( page < 1 ){ page = 1; };
 	
+	var date = require('date');
 	var rec = new this.dbo.RecordSet(this.conn);
 	var arrays = [],
 	fnCallback = function( object ){

@@ -2,8 +2,6 @@
 define('appjs/assets/jquery.form.min', function( require, exports, module ){
 	return new Class({
 		initialize: function(){
-			this.onAddNewLevel();
-			this.onLevelModify();
 			this.onGroupModify();
 			this.onSaveGroupLevels();
 			$('.app-level-remove, .addGroups').data('callback', function(){
@@ -14,76 +12,6 @@ define('appjs/assets/jquery.form.min', function( require, exports, module ){
 			$('.app-group-remove').data('callback', function(){
 				var tr = $(this).parents('tr:first');
 				tr.remove();
-			});
-		},
-		onAddNewLevel: function(){
-			var that = this;
-			$('#addnewlevel').on('click', function(){
-				that.tip.loading();
-				$.getJSON('public/async.asp', {
-					m: 'level',
-					p: 'addLevelByAuto'
-				}, function( params ){
-					if ( params.success ){
-						that.tip.success(params.message);
-						setTimeout(function(){
-							window.location.reload();
-						}, 1000);
-					}else{
-						that.tip.error(params.message);
-					}
-				});
-			});
-		},
-		onLevelModify: function(){
-			var that = this;
-			$('body').on('click', '.app-level-modify', function( params ){
-				var id = $(this).attr('app-id'),
-					_this = this;
-					
-				that.tip.loading();
-				$.getJSON('public/async.asp', {
-					m: 'level',
-					p: 'getLevelMessage',
-					id: id
-				}, function( params ){
-					if ( params.success ){
-						that.onMakeLevelModifyBox(params);
-					}else{
-						that.tip.error(params.message);
-					}
-				});
-			});
-		},
-		onMakeLevelModifyBox: function( params ){
-			var that = this;
-			var h = '<div class="setforms modifylevel"><form action="public/async.asp?m=level&p=modifyLevelByForm" method="post"><input type="hidden" name="id" value="' + params.id + '" />';
-				h	+=	'<table cellpadding="0" cellspacing="0" width="100%" border="0">';
-				h 	+=	'<tr><td width="50">权限名</td><td><input type="text" name="code_name" value="' + params.name + '" class="col-x-3" /></td></tr>';
-				h 	+=	'<tr><td width="50">标识</td><td><input type="text" name="code_mark" value="' + params.mark + '" class="col-x-3" /></td></tr>';
-				h 	+=	'<tr><td>权限描述</td><td><textarea name="code_des" class="col-x-4" style="height:60px;">' + params.des + '</textarea></td></tr>';
-				h	+=	'<tr><td>&nbsp;</td><td><input type="submit" value="保存"  /><input type="button" value="关闭" class="close" /></td></tr>';
-				h	+=	'</table>';
-				h += '</form></div>';
-			that.tip.center(h);
-			$('.modifylevel .close').on('click', function(){
-				that.tip.close();
-			});
-			$('.modifylevel form').ajaxForm({
-				dataType: 'json',
-				beforeSubmit: function(){
-					that.tip.loading();
-				},
-				success: function( params ){
-					if ( params.success ){
-						that.tip.success(params.message);
-						setTimeout(function(){
-							window.location.reload();
-						}, 1000);
-					}else{
-						that.tip.error(params.message);
-					}
-				}
 			});
 		},
 		onSaveGroupLevels: function(){

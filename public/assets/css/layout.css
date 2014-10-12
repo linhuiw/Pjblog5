@@ -594,28 +594,6 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 #user .list .item .info .des p i{ margin-right:8px;}
 #user .list .item .info:hover{background-color:#F8FCFE;}
 
-#comment{}
-#comment .parent{ margin-bottom:20px;}
-#comment .parent .img{ padding:1px; background-color:#fff;}
-#comment .parent .img img{ width:36px; height:36px;}
-#comment .parent .info{ margin-left:50px; background-color:#fff; box-shadow: 0px 1px 6px #ccc; border-radius:3px; padding:8px 10px; color:#777;}
-#comment .parent .info .nick{ height:20px; line-height:20px; margin-bottom:5px;}
-#comment .parent .info .des{ padding:10px 0; border-top:1px dashed #eee;line-height:20px;}
-#comment .parent .info .des i{ margin-right:10px;}
-#comment .child{ margin-left:50px; margin-bottom:20px;}
-#comment .child .img{ padding:1px; background-color:#fff;}
-#comment .child .img img{ width:36px; height:36px;}
-#comment .child .info{ margin-left:50px; background-color:#fff; box-shadow: 0px 1px 6px #ccc; border-radius:3px; padding:8px 10px; color:#777;}
-#comment .child .info .nick{ height:20px; line-height:20px; margin-bottom:5px;}
-#comment .child .info .des{ padding:10px 0; border-top:1px dashed #eee; line-height:20px;}
-#comment .child .info .des i{ margin-right:10px;}
-#comment .info:hover{ background-color:#F8FCFE;}
-#comment .parent .tools,
-#comment .child .tools{ padding:5px 0px; border-top:1px dashed #eee; height:20px; line-height:20px;}
-#comment .tools a{ margin:0px 10px;}
-#comment .tools a i{ margin-right:5px;}
-#comment .tools i.fa-caret-right{ margin-right:10px;}
-
 .pages{}
 .pages span{ float:left; height:30px; line-height:30px; text-align:center; display:block; width:30px;background-color:#F8FCFE; margin-right:5px; color:#1a6cc1; border-radius:3px;}
 .pages a{ float:left; height:30px; line-height:30px; text-align:center; display:block; width:30px; background-color:#ddd; margin-right:5px; border-radius:3px;}
@@ -667,7 +645,7 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 .plu-navs a.active{ background-color:#fff; border-radius:4px 4px 0 0; box-shadow:0px 0px 8px #ccc;}
 .plu-navs a:first-child{ margin-left:25px;}
 .plu-navs a:last-child{ margin-right:0px;}
-.plu-content{ background-color:#fff; padding:0px 0px; margin-bottom:500px; box-shadow:0px 0px 8px #ccc; border:1px solid #ddd; border-top:0; color:#777; font-size:12px; line-height:20px;}
+.plu-content{ background-color:#fff; padding:0px 0px; box-shadow:0px 0px 8px #ccc; border:1px solid #ddd; border-top:0; color:#777; font-size:12px; line-height:20px;}
 .plu-content .items{ padding:15px 25px; border-bottom:1px solid #ddd;}
 .plu-content .items:last-child{ border-bottom:none;}
 .plu-content .items:hover{ background-color:#f9f9f9;}
@@ -691,6 +669,18 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 .plu-content .items .info td input[type='submit'],
 .plu-content .items .info td input[type='reset'],
 .plu-content .items .info td input[type='button']{ background-color:#fff; padding:2px 20px;}
+
+.plu-table td{ padding:0px 0px; border-bottom:1px solid #eee;}
+.plu-table tr td.dt{ text-align:center; border-right:1px solid #eee; font-weight:bold;}
+.plu-table td p{ padding:3px 10px; border-bottom:1px dashed #ddd;}
+.plu-table td p span{ color:#1a6cc1}
+.plu-table td p span input{ position:relative; top:2px;}
+.plu-table td p strong{ margin-left:10px;}
+.plu-table td .tools{ padding:5px 15px; background-color:#f9f9f9;}
+.plu-table td .tools a:link,
+.plu-table td .tools a:visited{ color:#999;}
+.plu-table td .tools a:hover{ color:#777;}
+.plu-table td .tools a{ margin-right:10px;}
 
 @media (max-width: 1120px){
 	.container{ position:relative;}

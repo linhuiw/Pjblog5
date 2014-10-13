@@ -34,7 +34,7 @@ hook.add('set', function( id, classic ){
 	var h = '';
 	
 	for ( var j in this.hooks ){
-		h += 'exports["' + j + '"] = ' + JSON.stringify(this.hooks[j]) + '\n';
+		h += 'exports["' + j + '"] = ' + JSON.stringify(this.hooks[j]) + ';\n';
 	}
 	
 	this.fs.saveFile(this.HookFile, h);
@@ -103,7 +103,7 @@ hook.add('remove', function(id, classic){
 	var h = '';
 	
 	for ( var j in this.hooks ){
-		h += 'exports["' + j + '"] = ' + JSON.stringify(this.hooks[j]) + '\n';
+		h += 'exports["' + j + '"] = ' + JSON.stringify(this.hooks[j]) + ';\n';
 	}
 	
 	this.fs.saveFile(this.HookFile, h);

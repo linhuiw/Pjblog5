@@ -183,7 +183,7 @@ MemberModule.add('RemoveUser', function( params ){
 	var hooks = require('public/library/hook'),
 		hook = new hooks();
 		
-	hook.get('ECM_USER_REMOVE').proxy(this).complie(id);
+	hook.get('ECM_USER_REMOVE').proxy(this).compile(id);
 	
 	return ret;
 });
@@ -208,7 +208,7 @@ MemberModule.add('change', function( params ){
 			var hooks = require('public/library/hook'),
 				hook = new hooks();
 				
-			hook.get('ECM_USER_GROUPCHANGE').proxy(this).complie();
+			hook.get('ECM_USER_GROUPCHANGE').proxy(this).compile();
 			
 			return { success: true, message: '操作成功', gid: gid };
 		}catch(e){

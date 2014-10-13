@@ -258,7 +258,7 @@ PluginModule.add('InstallBySelf', function(folder, pid, msg, file){
 
 PluginModule.add('hookPort', function(plus, folder, id){
 	if ( plus.hook ){
-		if ( this.exist(resolve('private/plugins/' + folder + '/hook')) ){
+		if ( this.fs.exist(resolve('private/plugins/' + folder + '/hook')) ){
 			var m = require('private/plugins/' + folder + '/hook');
 			var hooks = require('public/library/hook');
 			var hook = new hooks();
@@ -275,7 +275,7 @@ PluginModule.add('hookPop', function(id){
 			var folder = param.folder;
 			var configs = require('private/plugins/' + folder + '/config');
 			if ( configs.hook ){
-				if ( this.exist(resolve('private/plugins/' + folder + '/hook')) ){
+				if ( this.fs.exist(resolve('private/plugins/' + folder + '/hook')) ){
 					var m = require('private/plugins/' + folder + '/hook');
 					var hooks = require('public/library/hook');
 					var hook = new hooks();

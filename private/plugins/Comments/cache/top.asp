@@ -1,0 +1,3 @@
+﻿//<%
+exports.topComment = [];
+exports.topMessage = [];

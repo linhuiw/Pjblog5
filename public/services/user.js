@@ -179,6 +179,11 @@ MemberModule.add('RemoveUser', function( params ){
 				ret.message = '操作成功';
 			}
 		}, 3);
+		
+	var hooks = require('public/library/hook'),
+		hook = new hooks();
+		
+	hook.get('ECM_USER_REMOVE').proxy(this).complie(id);
 	
 	return ret;
 });
@@ -199,6 +204,12 @@ MemberModule.add('change', function( params ){
 					member_group: gid
 				})
 				.close();
+				
+			var hooks = require('public/library/hook'),
+				hook = new hooks();
+				
+			hook.get('ECM_USER_GROUPCHANGE').proxy(this).complie();
+			
 			return { success: true, message: '操作成功', gid: gid };
 		}catch(e){
 			return { success: false, message: e.message };

@@ -256,4 +256,34 @@ PluginModule.add('InstallBySelf', function(folder, pid, msg, file){
 	}
 });
 
+PluginModule.add('hookPort', function(plus, folder, id){
+	if ( plus.hook ){
+		if ( this.exist(resolve('private/plugins/' + folder + '/hook')) ){
+			var m = require('private/plugins/' + folder + '/hook');
+			var hooks = require('public/library/hook');
+			var hook = new hooks();
+			hook.set(id, m);
+		}
+	}
+});
+
+PluginModule.add('hookPop', function(id){
+	var BlogControlPluginCaches = require('private/chips/' + blog.cache + 'blog.uri.plugins');
+	if ( BlogControlPluginCaches.indexs && BlogControlPluginCaches.indexs[id + ''] ){
+		var param = BlogControlPluginCaches.queens[BlogControlPluginCaches.indexs[id + '']];
+		if ( param ){
+			var folder = param.folder;
+			var configs = require('private/plugins/' + folder + '/config');
+			if ( configs.hook ){
+				if ( this.exist(resolve('private/plugins/' + folder + '/hook')) ){
+					var m = require('private/plugins/' + folder + '/hook');
+					var hooks = require('public/library/hook');
+					var hook = new hooks();
+					hook.remove(id, m);
+				}
+			}
+		}
+	}
+});
+
 return PluginModule;

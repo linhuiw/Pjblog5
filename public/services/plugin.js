@@ -70,9 +70,11 @@ PluginModule.add('install', function( params ){
 				// 参数加载
 				plugin.AddSettingValue(pid, id);				
 				// 首页导航插入
-				plugin.AddAssetsNav(pid, plus);				
+				plugin.AddAssetsNav(pid, plus);	
+				// 系统HOOK接入
+				plugin.hookPort(plus, id, pid);		
 				// 自定义安装文件
-				plugin.InstallBySelf(id, pid, plus, 'install');				
+				plugin.InstallBySelf(id, pid, plus, 'install');		
 				rets.success = true;
 				rets.message = '安装插件成功';
 			}
@@ -97,6 +99,7 @@ PluginModule.add('unInstall', function( params ){
 		plugin.fns = this.fns;
 	
 	try{
+		plugin.hookPop(id);
 		plugin.DeletePluginCacheFile(id);
 		plugin.DeletePluginNavFile(id);
 		plugin.DeleteSettingValue(id);

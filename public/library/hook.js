@@ -86,6 +86,7 @@ hook.add('get', function( HookName ){
 });
 
 hook.add('remove', function(id, classic){
+	id = Number(id);
 	for ( var i in classic ){
 		if ( this.hooks[i] ){
 			var v = this.hooks[i];
@@ -93,8 +94,8 @@ hook.add('remove', function(id, classic){
 			if ( t > -1 ){
 				this.hooks[i].splice(t, 1);
 			}
-			if ( v.length === 0 ){
-				delete this.hooks[i]
+			if ( this.hooks[i].length === 0 ){
+				delete this.hooks[i];
 			}
 		}
 	}

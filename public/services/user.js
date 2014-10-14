@@ -6,7 +6,8 @@ var MemberModule = new Class({
 			this.conn = c.conn;
 			this.dbo = c.dbo;
 		}
-	}
+	},
+	__allows__: ['adminStatus', 'logout', 'searchMembers']
 });
 
 MemberModule.add('loginStatus', function( callback ){

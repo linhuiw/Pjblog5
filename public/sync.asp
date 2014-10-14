@@ -55,12 +55,24 @@
 				mode.add("pfolder", pfolder);
 			};
 			var mose = new mode(params);
-		
+			
+			if ( mose.__allows__ && mose.__allows__.length > 0 && p.length > 0 ){
+				if ( mose.__allows__.indexOf(p) === -1 ){
+					Library.json({ success: false, message: "非法越权处理模块" });
+					return;
+				}
+			}
+			
 			if ( mose[p] && typeof mose[p] === "function" ){	
 				Library.json(mose[p](params));
 			}else{
 				Library.json({ success: false, message: "该模块中找不到对应的处理方法" });
 			}
+			
+			try{
+				mose.conn.Close();
+			}catch(e){}
+			
 		}else{
 			Library.json({ success: false, message: "找不到处理模块" });
 		}

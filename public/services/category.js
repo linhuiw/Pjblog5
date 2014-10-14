@@ -6,7 +6,8 @@ var CategoryModule = new Class({
 			this.conn = c.conn;
 			this.dbo = c.dbo;
 		}
-	}
+	},
+	__allows__: ['getMessage', 'list']
 });
 
 CategoryModule.add('add', function( params ){

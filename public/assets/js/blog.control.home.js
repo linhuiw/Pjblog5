@@ -23,7 +23,7 @@ define([
 					that.htmlAjaxNotice(json);
 				},
 				error:function(){
-					alert('云端获取信息失败');
+					// alert('云端获取信息失败');
 				}
 			});
 		},

@@ -73,6 +73,10 @@
 				}else{
 					Library.json({ success: false, message: "该模块中找不到对应的处理方法" });
 				}
+				
+				try{
+					mose.conn.Close();
+				}catch(e){}
 			}else{
 				Library.json({ success: false, message: "找不到处理模块" });
 			}

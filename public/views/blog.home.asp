@@ -146,5 +146,11 @@
                 </div>
             </div>
         </li>
+        <%
+			;(function( hooks ){
+				var hook = new hooks();
+				hook.get("ECM_UI_CONTROLIST").compile(dbo, conn, fs, fns, http, uid, token, openid);
+			})( require("public/library/hook") );
+		%>
     </ul>
 <!--HTML CONTENT-->

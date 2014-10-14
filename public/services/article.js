@@ -6,7 +6,8 @@ var ArticleModule = new Class({
 			this.conn = c.conn;
 			this.dbo = c.dbo;
 		}
-	}
+	},
+	__allows__: ['GetArticleList']
 });
 
 ArticleModule.add('GetArticleList', function( params ){

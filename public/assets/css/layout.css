@@ -1,6 +1,59 @@
 @charset "utf-8";
 /* CSS Document */
-
+@-moz-keyframes SvgAnimate {
+	0% {
+		fill: rgba(255,255,255,0);
+		stroke-dashoffset: -650;
+		stroke-width: 1
+	}
+	80% {
+		fill: rgba(255,255,255,0);
+		stroke-dashoffset: 0;
+		stroke-width: 1
+	}
+	100% {
+		fill: rgba(255,255,255,1);
+		stroke-dashoffset: 0;
+		stroke-width: 0
+	}
+}
+@-webkit-keyframes SvgAnimate {
+	0% {
+		fill: rgba(255,255,255,0);
+		stroke-dashoffset: -650;
+		stroke-width: 2
+	}
+	80% {
+		fill: rgba(255,255,255,0);
+		stroke-dashoffset: 0;
+		stroke-width: 2
+	}
+	100% {
+		fill: rgba(255,255,255,1);
+		stroke-dashoffset: 0;
+		stroke-width: 0
+	}
+}
+@keyframes SvgAnimate {
+	0% {
+		fill: rgba(255,255,255,0);
+		stroke-dashoffset: -650;
+		stroke-width: 2
+	}
+	80% {
+		fill: rgba(255,255,255,0);
+		stroke-dashoffset: 0;
+		stroke-width: 2
+	}
+	100% {
+		fill: rgba(255,255,255,1);
+		stroke-dashoffset: 0;
+		stroke-width: 0
+	}
+}
+html{ -webkit-font-smoothing: antialiased; -webkit-overflow-scrolling: touch; }
+.SvgAnimate svg path { stroke-dasharray: 908.1746215820312; stroke-dashoffset: -650; stroke-width: 2; }
+.SvgAnimate svg path { -webkit-animation: SvgAnimate 2.2s cubic-bezier(0.77,0,0.175,1) both; -moz-animation: SvgAnimate 2.2s cubic-bezier(0.77,0,0.175,1) both; animation: SvgAnimate 2.2s cubic-bezier(0.77,0,0.175,1) both; }
 html,
 body,
 #page{ background-image:url(../img/bg.gif); min-height:100%;}
@@ -26,6 +79,72 @@ a,
     -ms-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
     transition: all 0.3s ease-in;
+}
+.track5{
+	-webkit-transition: all 0.5s ease-in;
+    -moz-transition: all 0.5s ease-in;
+    -ms-transition: all 0.5s ease-in;
+    -o-transition: all 0.5s ease-in;
+    transition: all 0.5s ease-in;
+}
+
+#welcome{ background-color:#41b1e7; position:fixed; top:0px; left:0px; width:100%; min-height:1100px; z-index:99999; opacity:1;}
+#welcome .welcome-wrap{ width:100%; height:100%; position:relative;}
+#welcome .welcome-wrap .svg{ width:300px; height:300px; position:absolute; top:50%; left:50%; margin-top:-150px; margin-left:-150px;}
+#welcome .welcome-wrap .svg .logs{ color:#eee}
+#welcome .welcome-wrap .svg .logs h1{ 
+	text-align:center; 
+	font-size:18px; 
+	height:30px; 
+	line-height:30px;
+	text-shadow:1px 1px 1px rgba(255,255,255,.45);
+	
+	-webkit-animation-delay:100ms;
+	   -moz-animation-delay:100ms;
+	     -o-animation-delay:100ms;
+	    -ms-animation-delay:100ms;
+	        animation-delay:100ms;
+			
+	-webkit-animation-duration:1s;
+	   -moz-animation-duration:1s;
+	     -o-animation-duration:1s;
+	    -ms-animation-duration:1s;
+	        animation-duration:1s;
+}
+#welcome .welcome-wrap .svg .logs p{ text-align:center; height:20px; line-height:20px; margin-top:10px; color:#ddd;}
+#welcome .welcome-wrap .svg .logs .w1{
+	-webkit-animation-delay:100ms; 
+	   -moz-animation-delay:100ms; 
+	     -o-animation-delay:100ms; 
+	    -ms-animation-delay:100ms; 
+	        animation-delay:100ms; 
+	
+	-webkit-animation-duration:1.1s;
+	   -moz-animation-duration:1.1s;
+	     -o-animation-duration:1.1s;
+	    -ms-animation-duration:1.1s;
+	        animation-duration:1.1s;
+}
+#welcome .welcome-wrap .svg .logs .w2{
+	-webkit-animation-delay:100ms; 
+	   -moz-animation-delay:100ms; 
+	     -o-animation-delay:100ms; 
+	    -ms-animation-delay:100ms; 
+	        animation-delay:100ms; 
+	
+	-webkit-animation-duration:1.2s;
+	   -moz-animation-duration:1.2s;
+	     -o-animation-duration:1.2s;
+	    -ms-animation-duration:1.2s;
+	        animation-duration:1.2s;
+}
+.welcomeoutview{ 
+	opacity:0!important;
+	-webkit-transform: scale(.001);
+	    -ms-transform: scale(.001);
+	     -o-transform: scale(.001);
+	   -moz-transform: scale(.001);
+	        transform: scale(.001);
 }
 
 .header{ height:50px; background-color:#444; padding:0px 30px; line-height:50px; color:#fff; }

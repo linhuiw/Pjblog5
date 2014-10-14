@@ -9,6 +9,19 @@ define([
 			this.addNews();
 			this.waterFull();
 			this.ajaxNotice();
+			this.welcome();
+		},
+		welcome: function(){
+			var welcome = $('#welcome');
+			$(window).on('resize', function(){
+				welcome.add(welcome.find('.welcome-wrap')).css('height', $(window).height());
+			}).trigger('resize');
+			setTimeout(function(){
+				welcome.addClass('welcomeoutview');
+				if ( !$.support.transition ){
+					welcome.remove();
+				};
+			}, 3000);
 		},
 		ajaxNotice: function(){
 			var that = this;

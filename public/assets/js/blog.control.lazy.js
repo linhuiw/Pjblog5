@@ -9,7 +9,7 @@ define(function( require, exports, module ){
 	})();
 	return new Class({
 		initialize: function(){
-			if ( Library.isIE ){
+			if ( !$.support.transition ){
 				this.tip.loading('您正在使用IE浏览器，本系统对部分IE浏览器不兼容，请使用CFROME或者火狐浏览器浏览！为了保证用户体验，请谅解！');
 			};
 			

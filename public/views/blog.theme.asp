@@ -1,99 +1,68 @@
-﻿<%
-var rec = new dbo.RecordSet(conn),
-	ChoosedFolder = "",
-	choosed = {},
-	locals = [];
-	rec.sql("Select blog_theme From blog_global Where id=1").process(function( object ){ ChoosedFolder = object("blog_theme").value; });
-	
-var folders = fs.dirList(contrast("private/themes"), function( name ){
-	if ( fs.exist(contrast("private/themes/" + name + "/config.js")) ){
-		var mode = require("private/themes/" + name + "/config");
-		if ( name === ChoosedFolder ){
-			choosed.folder = name
-			choosed.name = mode.name;
-			choosed.author = mode.author;
-			choosed.mail = mode.mail;
-			choosed.site = mode.site;
-			choosed.des = mode.des;
-			choosed.icon = mode.icon;
-			choosed.mark = mode.mark;
-			choosed.plugins = mode.plugins;
-			choosed.setting = fs.exist(resolve("private/themes/" + name + "/setting"));
-		}else{
-			var local = { folder: name };
-			local.name = mode.name;
-			local.author = mode.author;
-			local.mail = mode.mail;
-			local.site = mode.site;
-			local.des = mode.des;
-			local.icon = mode.icon;
-			local.mark = mode.mark;
-			local.plugins = mode.plugins;
-			locals.push(local);
-		};
-	};
-});
-%>
-<div id="theme">
-	<%
-		if ( choosed.folder && choosed.folder.length > 0 ){
-	%>
-	<div class="choosed">
-    	<div class="img fleft">
-        	<img src="private/themes/<%=choosed.folder%>/<%=choosed.icon%>" />
+﻿<div id="welcome" class="track5 themeloading">
+	<div class="welcome-wrap">
+    	<div class="svg SvgAnimate">
+        	<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="300px" height="200px" viewBox="0 0 300 200" enable-background="new 0 0 300 200" xml:space="preserve">
+				<g>
+					<path fill="none" stroke="rgba(255,255,255,.8)" d="M69.863,103.816c-0.864,4.899-3.209,8.161-11.846,8.161H42.055l-0.804,4.557h15.962
+						c9.929,0,15.718-4.279,17.206-12.718l3.489-19.789h-4.556L69.863,103.816z"/>
+					<path fill="none" stroke="rgba(255,255,255,.8)" d="M125.908,103.816l3.489-19.789h-4.557l-3.489,19.789c-1.509,8.558,2.652,12.718,12.721,12.718h16.355
+						l0.804-4.557h-16.355C126.239,111.977,125.045,108.714,125.908,103.816z"/>
+					<path fill="none" stroke="rgba(255,255,255,.8)" d="M177.338,83.694c-10.969,0-21.474,2.009-24.044,16.585c-2.57,14.577,7.225,16.586,18.195,16.586
+						c10.969,0,21.474-2.009,24.044-16.586C198.103,85.703,188.307,83.694,177.338,83.694z M190.976,100.28
+						c-1.586,8.994-6.301,12.029-18.684,12.029c-12.383,0-16.027-3.035-14.441-12.029c1.586-8.994,6.301-12.029,18.684-12.029
+						C188.918,88.25,192.562,91.286,190.976,100.28z"/>
+					<path fill="none" stroke="rgba(255,255,255,.8)" d="M267.451,84.027h-24.405l-0.759,4.305l-2.23,12.646l-2.062,11.695l-0.681,3.861h0.25h11.327h12.829
+						c4.868,0,8.788-1.3,11.758-3.861h0.016l0.003-0.015c3.129-2.707,5.198-6.819,6.171-12.336
+						C281.572,89.509,277.463,84.027,267.451,84.027z M270.725,92.714h-18.476l-1.474,5.742h12.702c4.887,0,7.298,2.214,6.618,6.075
+						c-0.681,3.863-4.092,6.262-8.901,6.262h-16.405l0.52-2.948h16.405c2.212,0,4.95-0.575,5.433-3.315
+						c0.136-0.773,0.551-3.127-4.19-3.127h-14.882l-0.781-0.948l2.759-10.689h21.193L270.725,92.714z"/>
+					<path fill="none" stroke="rgba(255,255,255,.8)" d="M225.346,103.982h6.484l-1.41,7.994h-19.848c-7.48,0-9.932-3.401-8.462-11.738
+						c1.46-8.278,5.106-11.655,12.587-11.655h24.156l0.804-4.557h-24.156c-10.012,0-16.05,5.454-17.947,16.212
+						c-1.907,10.813,2.203,16.295,12.215,16.295h24.405l2.213-12.551l0.776-4.399l0.028-0.158H226.15L225.346,103.982z"/>
+					<path fill="none" stroke="rgba(255,255,255,.8)" d="M58.053,94.499c1.087-6.166-2.733-10.472-9.291-10.472H23.234l-0.804,4.557h4.557h2.66h18.312
+						c4.857,0,6.018,3.187,5.537,5.915c-0.481,2.728-2.766,5.915-7.623,5.915H27.561h-2.66h-4.557l-2.842,16.12h4.557l2.039-11.563
+						h20.971C51.627,104.971,56.966,100.664,58.053,94.499z"/>
+					<path fill="none" stroke="rgba(255,255,255,.8)" d="M110.359,84.027H87.432l-0.804,4.557h22.926c3.87,0,5.565,1.515,5.038,4.501
+						c-0.522,2.959-2.748,4.459-6.618,4.459H85.049l-0.804,4.557h23.426c5.681,0,5.453,3.796,5.248,4.959
+						c-0.203,1.153-1.308,4.917-6.989,4.917H82.504l-0.804,4.557h23.426c7.377,0,11.518-4.758,12.35-9.473
+						c0.437-2.481-0.036-5.439-2.244-7.392c2.052-1.577,3.44-3.865,3.926-6.624C120.138,87.482,116.767,84.027,110.359,84.027z"/>
+				</g>
+			</svg>
+
+            <div class="logs">
+            	<h1 class="animated fadeInUpBig">正在努力加载主题 ...</h1>
+                <p class="animated fadeInUpBig w1">正在获取主题列表</p>
+            </div>
         </div>
-        <div class="info">
-        	<h6><%=choosed.name%></h6>
-        	<div class="it"><i class="fa fa-user"></i><%=choosed.author%></div>
-            <div class="it"><i class="fa fa-envelope-o"></i><%=choosed.mail%></div>
-            <div class="it"><i class="fa fa-external-link-square"></i><%=choosed.site%></div>
-            <div class="it"><i class="fa fa-share-alt"></i><%=choosed.mark%></div>
-            <div class="it"><i class="fa fa-folder-open-o"></i><%=choosed.folder%></div>
-            <div class="it"><i class="fa fa-comment-o"></i><%=choosed.des%></div>
-        </div>
-        <% if ( choosed.setting ){ %>
-        <div class="tols">
-        	<a href="?m=themesetting" class="app-setting"><i class="fa fa-cogs"></i>设置主题参数</a>
-        </div>
-        <% }; %>
     </div>
-    <%};%>
-    <div class="locals">
-    	<%
-			if ( locals.length > 0 ){
-		%>
-        <h6><i class="fa fa-bar-chart-o"></i> 可选主题</h6>
-    	<ul class="wf">
-        	<%
-				for ( var i = 0 ; i < locals.length ; i++ ){
-			%>
-            <li>
-            	<div class="witem">
-                	<div class="img"><img src="private/themes/<%=locals[i].folder%>/<%=locals[i].icon%>" /></div>
-                    <div class="title"><%=locals[i].name%></div>
-                    <div class="info">
-                    	<p><i class="fa fa-user"></i><%=locals[i].author%></p>
-                        <p><i class="fa fa-envelope-o"></i><%=locals[i].mail%></p>
-                        <p><i class="fa fa-external-link-square"></i><%=locals[i].site%></p>
-                        <p><i class="fa fa-share-alt"></i><%=locals[i].mark%></p>
-                        <p><i class="fa fa-comment-o"></i><%=locals[i].des%></p>
-                    </div>
-                    <div class="tols">
-                    	<a href="javascript:;" class="app-setup AutoSendAjax" app-m="theme" app-p="setup" app-id="<%=locals[i].folder%>" app-c="确定安装这个主题？如果确定安装，原主题信息将被撤销！"><i class="fa fa-repeat"></i> 安装</a>
-                        <a href="javascript:;" class="app-remove AutoSendAjax" app-m="theme" app-p="remove" app-id="<%=locals[i].folder%>" app-c="确定删除这个主题吗？删除后无法恢复！"><i class="fa fa-trash-o"></i> 删除</a>
-                    </div>
-                </div>
-            </li>
-            <%	
-				}
-			%>
-        </ul>
-        <%
-			}else{
-		%>
-        <p style="color:#777; padding-left:10px;"><i class="fa fa-exclamation-circle"></i> 抱歉！服务器上未找到本地主题！</p>
-        <%	
-			}
-		%>
+</div>
+<div id="theme" class="clearfix">
+	<div class="theme-image fleft"><div class="theme-image-box"><div class="imgs"></div></div></div>
+    <div class="theme-info">
+    	<h1></h1>
+        <div class="infos">
+        <p class="author"></p>
+        <p class="mail"></p>
+        <p class="link"></p>
+        <p class="mark"></p>
+        <p class="folder"></p>
+        <p class="des"></p>
+        <p class="set"></p>
+        </div>
+    </div>
+</div>
+<div class="themefixs">
+	<div class="themefixs-list">
+    	<div class="themefixs-list-wrap">
+        	<div class="themefixs-list-wrap-hidden" id="scrollbar">
+                <div class="themefixs-list-wrap-items"></div>
+            </div>
+        </div>
+    </div>
+    <div class="themefixs-tabs">
+    	<div class="themefixs-tabs-wrap">
+            <a href="javascript:;" class="do-local">本地主题</a>
+            <a href="javascript:;">云端主题</a>
+        </div>
     </div>
 </div>

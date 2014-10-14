@@ -7,6 +7,7 @@
 	 * Web: http://webkits.cn
 	 */
 	'use strict';
+
 	if ( ![].indexOf ){
 		Array.prototype.indexOf = function( value ){
 			var j = -1;
@@ -29,55 +30,292 @@
 			return j;
 		};
 	};
-	if ( typeof JSON === "undefined" ){ window.JSON = new Object(); };
-	var callType = function( object, type ){ 
-			return Object.prototype.toString.call(object).toLowerCase() === "[object " + type + "]"; 
-		},
-	/*
-	 * Class 原型
-	 * 创建类的公用方法
-	 * prototype: extend
-	 * 返回一个实例对象 这个对象继承了原有的方法 extend
-	 */	
-	Class = window.Class = function( object ){
-		object = object || {};
-		
-		if ( callType(object, 'function') ){ object = object(); };
-		if ( !callType(object, 'object') ){ throw 'Argument is not an object.'; return; };
-
-		var factory = function(){
-			return this.initialize ? this.initialize.apply(this, arguments) : this;
-		}
-
-		factory.constructor = factory;
-		factory.extend = this.extend;
-		factory.parent = this;
-		this.factory = factory;
-		this.extend(object);
-		
-		return factory;
+	
+	if ( ![].forEach ){
+		Array.prototype.forEach = function( callback ){
+			for ( var i = 0 ; i < this.length ; i++ ){
+				if ( typeof callback === 'function' ){
+					callback.call(this, this[i], i);
+				}
+			}
+		};
 	};
 	
-	/*
-	 * 对象继承的方法
-	 * 依赖于this.factory || this.parent.factory
-	 */
-	Class.prototype.extend = function( object, func ){
-		if ( func ){
-			var _object = {};
-			_object[object] = func;
-			object = _object;
+	if ( typeof JSON === "undefined" ){ window.JSON = new Object(); };
+	
+	window.readVariableType = function( object, type ){
+		return Object.prototype.toString.call(object).toLowerCase() === "[object " + type + "]"; 
+	};
+	
+	var callType = window.readVariableType;
+		(function(){
+		window.Class = function(){
+			var ProtectMethods = ['__constructor__', 'initialize'],
+				argc = arguments,
+				that = this;
+	
+			var factory = function(){
+				this.__constructor__ = 'ECM.CLASS.FACTORY';
+				return typeof this.initialize === 'function' ? this.initialize.apply(this, arguments) : this;
+			};
+			
+			this.constructor = factory;
+			this.constructor.__constructor__ = this.__constructor__ = 'ECM.CLASS';
+			
+			this.constructor.extend = function( object ){
+				if ( object.__constructor__ && object.__constructor__ === 'ECM.CLASS' ){
+					if ( object.prototype ){
+						for ( var i in object.prototype ){
+							if ( ProtectMethods.indexOf(i) === -1 ){
+								that.constructor.prototype[i] = object.prototype[i];
+							}
+						}
+					}
+				};
+				
+				return that.constructor;
+			}
+			
+			this.constructor.toggle = function( objects ){
+				if ( !objects ){ return that.constructor; };
+				if ( readVariableType(objects) !== 'array' ){
+					objects = [objects];
+				};
+				
+				for ( var i = 0 ; i < objects.length ; i++ ){
+					that.constructor.extend(objects[i]);
+				}
+				
+				return that.constructor;
+			}
+			
+			this.constructor.add = function(key, value){
+				if ( !value ){
+					for ( var i in key ){
+						that.constructor.add(i, key[i]);
+					}
+				}else{
+					that.constructor.prototype[key] = value;
+				}
+				
+				return that.constructor;
+			}
+	
+			if ( argc.length === 2 ){
+				this.constructor.extend(argc[0]);
+				this.constructor.add(argc[1]);
+			}else if ( argc.length === 1 ){
+				if ( argc[0] && argc[0].__constructor__ && argc[0].__constructor__ === 'ECM.CLASS' ){
+					this.constructor.extend(argc[0]);
+				}else{
+					this.constructor.add(argc[0]);
+				}
+			}
+			
+			return this.constructor;
+		};
+	})();
+	
+	(function(){
+		if ( window.Promise && window.Promise.prototype.then && typeof window.Promise.prototype.then === 'function' ){
+			return;
+		};
+		
+		window.Promise = function( foo ){
+			var state = 'pending',
+				value = null,
+				deferreds = [];
+		
+			this.then = function (onFulfilled, onRejected) {
+				return new Promise(function (resolve, reject) {
+					handle({
+						onFulfilled: typeof onFulfilled === 'function' ? onFulfilled : null,
+						onRejected: typeof onRejected === 'function' ? onRejected : null,
+						resolve: resolve,
+						reject: reject
+					});
+				});
+			};
+		
+			function handle(deferred) {
+				if (state === 'pending') {
+					deferreds.push(deferred);
+					return;
+				}
+			
+				var cb = state === 'fulfilled' ? deferred.onFulfilled : deferred.onRejected,
+					ret;
+				if (cb === null) {
+					cb = state === 'fulfilled' ? deferred.resolve : deferred.reject;
+					cb(value);
+					return;
+				}
+				try {
+					ret = cb(value);
+					deferred.resolve(ret);
+				} catch (e) {
+					deferred.reject(e);
+				} 
+			}
+		
+			function resolve(newValue) {
+				if (newValue && (typeof newValue === 'object' || typeof newValue === 'function')) {
+					var then = newValue.then;
+					if (typeof then === 'function' && then.bind) {
+						doResolve(then.bind(newValue), resolve, reject);
+						return;
+					}else{
+						then.call(newValue, resolve, reject);
+						return;
+					}
+				}
+				state = 'fulfilled';
+				value = newValue;
+				finale();
+			}
+		
+			function reject(reason) {
+				state = 'rejected';
+				value = reason;
+				finale();
+			}
+		
+			function finale() {
+				setTimeout(function () {
+					deferreds.forEach(function (deferred) {
+						handle(deferred);
+					});
+				}, 0);
+			}
+			
+			function doResolve(fn, onFulfilled, onRejected) {
+			  var done = false;
+			  try {
+				fn(
+					function(value){
+					  if (done) return;
+					  done = true;
+					  onFulfilled(value);
+					}, 
+					function (reason) {
+					  if (done) return;
+					  done = true;
+					  onRejected(reason);
+					}
+				);
+			  }catch(ex){
+				if (done) return;
+				done = true;
+				onRejected(ex);
+			  }
+			}
+			
+			typeof foo === 'function' && foo(resolve);
 		}
 		
-		this.factory = this.factory || this.parent.factory;
-		for ( var i in object ){
-			if ( ['extend', 'constructor', 'parent'].indexOf(i) === -1 ){
-				this.factory.prototype[i] = object[i];
-			}else{
-				throw 'Can not extend ' + i;
-			}
+		function ValuePromise(value) {
+		  this.then = function (onFulfilled) {
+			if (typeof onFulfilled !== 'function') return this
+			return new Promise(function (resolve, reject) {
+				try {
+				  resolve(onFulfilled(value))
+				} catch (ex) {
+				  reject(ex);
+				}
+			})
+		  }
 		}
-	};
+		ValuePromise.prototype = Promise.prototype;
+		
+		var TRUE = new ValuePromise(true);
+		var FALSE = new ValuePromise(false);
+		var NULL = new ValuePromise(null);
+		var UNDEFINED = new ValuePromise(undefined);
+		var ZERO = new ValuePromise(0);
+		var EMPTYSTRING = new ValuePromise('');
+		
+		Promise.all = function(arr){
+		  var args = Array.prototype.slice.call(arr);
+		
+		  return new Promise(function (resolve, reject) {
+			if (args.length === 0) return resolve([]);
+			var remaining = args.length;
+			function res(i, val) {
+			  try {
+				if (val && (typeof val === 'object' || typeof val === 'function')) {
+				  var then = val.then;
+				  if (typeof then === 'function') {
+					then.call(val, function (val) { res(i, val) }, reject);
+					return;
+				  }
+				}
+				args[i] = val;
+				if (--remaining === 0) {
+				  resolve(args);
+				}
+			  } catch (ex) {
+				reject(ex);
+			  }
+			}
+			for (var i = 0; i < args.length; i++) {
+			  res(i, args[i]);
+			}
+		  });
+		}
+		
+		Promise.resolve = function (value) {
+		  if (value instanceof Promise) return value;
+		
+		  if (value === null) return NULL;
+		  if (value === undefined) return UNDEFINED;
+		  if (value === true) return TRUE;
+		  if (value === false) return FALSE;
+		  if (value === 0) return ZERO;
+		  if (value === '') return EMPTYSTRING;
+		
+		  if (typeof value === 'object' || typeof value === 'function') {
+			try {
+			  var then = value.then;
+			  if (typeof then === 'function') {
+				return new Promise(then.bind(value));
+			  }
+			} catch (ex) {
+			  return new Promise(function (resolve, reject) {
+				reject(ex);
+			  });
+			}
+		  }
+		
+		  return new ValuePromise(value);
+		}
+	
+		Promise.reject = function (value) {
+		  return new Promise(function (resolve, reject) { 
+			reject(value);
+		  });
+		}
+		
+		Promise.race = function (values) {
+		  return new Promise(function (resolve, reject) { 
+			values.forEach(function(value){
+			  Promise.resolve(value).then(resolve, reject);
+			})
+		  });
+		}
+		
+		/* Prototype Methods */
+		
+		Promise.prototype['catch'] = function (onRejected) {
+		  return this.then(null, onRejected);
+		}
+		
+		Promise.prototype.done = function (onFulfilled, onRejected) {
+		  var self = arguments.length ? this.then.apply(this, arguments) : this;
+		  self.then(null, function (err) {
+			  throw err;
+		  })
+		}
+	})();
 	
 	/*
 	 * 加载器基本属性设置
@@ -113,13 +351,13 @@
 	});
 	
 	// 设置加载器映射
-	application.extend('onMap', function( selector ){
+	application.add('onMap', function( selector ){
 		this.maps[str] = selector;
 		return this;
 	});
 	
 	// 设置加载器基址
-	application.extend('setBase', function( str ){
+	application.add('setBase', function( str ){
 		if ( str && str.length > 0 ){
 			if ( /^http:/i.test(str) ){
 				this.httpBase = str;
@@ -138,7 +376,7 @@
 	});
 	
 	// 接口转移方法
-	application.extend('proxy', function( fn, context ){
+	application.add('proxy', function( fn, context ){
 		return function(){
 			var args = arguments;
 			return fn.apply(context, args);
@@ -146,7 +384,7 @@
 	});
 	
 	// 去除重复方法
-	application.extend('unique', function(arr){
+	application.add('unique', function(arr){
 		var obj = {};
 		var ret = [];
 
@@ -162,7 +400,7 @@
 	});
 	
 	//处理依赖关系方法
-	application.extend('parseDependencies', function( code ){
+	application.add('parseDependencies', function( code ){
 		var ret = [], m;
 			
 		this.regx_REQUIRE_RE.lastIndex = 0
@@ -176,7 +414,7 @@
 	});
 	
 	// script标签加载完毕回调
-	application.extend('ScriptLoaded', function( node, url, callback ){
+	application.add('ScriptLoaded', function( node, url, callback ){
 		node.onload = node.onerror = node.onreadystatechange = function(){
 			if ( /loaded|complete|undefined/i.test(node.readyState) ) {
 				node.onload = node.onerror = node.onreadystatechange = null;
@@ -186,7 +424,7 @@
 	});
 	
 	// 统一的文件加载过程
-	application.extend('request', function( url, callback ){
+	application.add('request', function( url, callback ){
 		var node,
 			isCss = /\.css(?:\?|$)/i.test(url),
 			isScript = /\.js(?:\?|$)/i.test(url),
@@ -224,7 +462,7 @@
 		}
 	});
 	
-	application.extend('CopyJSON', function( data ){
+	application.add('CopyJSON', function( data ){
 		var rets = {};
 		
 		for ( var i in data ){
@@ -235,7 +473,7 @@
 	});
 	
 	// 获取当前正在执行SCRIPT文件方法
-	application.extend('getCurrentScript', function(){
+	application.add('getCurrentScript', function(){
 		var scripts = head.getElementsByTagName("script");
 	
 		for ( var i = scripts.length - 1; i >= 0; i-- ) {
@@ -247,7 +485,7 @@
 	});
 	
 	// 全局define方法
-	application.extend('define', function( deps, factory ){
+	application.add('define', function( deps, factory ){
 		if ( !deps ){ return; };
 		if ( !factory ){
 			if ( typeof deps === 'function' ){
@@ -298,7 +536,7 @@
 		}
 	});
 	
-	REQUIRE.extend('ResolveParentSelector', function( p ){
+	REQUIRE.add('ResolveParentSelector', function( p ){
 		var parentNode = p.replace(Library.host, "");
 			
 		if ( /^\//.test(parentNode) ){
@@ -330,7 +568,7 @@
 		}
 	});
 	
-	REQUIRE.extend('contrast', function( str ){
+	REQUIRE.add('contrast', function( str ){
 		if ( str === undefined || typeof str !== 'string' ){
 			throw 'Tronjs Error Message: Error Selector String. It Must Be Exist. Now It Is Undefined.';
 			return;
@@ -353,7 +591,7 @@
 		return str;
 	});
 	
-	REQUIRE.extend('resolve', function( str ){
+	REQUIRE.add('resolve', function( str ){
 		str = this.contrast(str);
 		
 		if ( !str ) return;
@@ -365,7 +603,7 @@
 		return str;
 	});
 	
-	REQUIRE.extend('construct', function( deps, callback ){
+	REQUIRE.add('construct', function( deps, callback ){
 		if ( !deps ){ return; };
 		if ( !callback ){
 			if ( typeof deps === 'function' ){
@@ -404,12 +642,12 @@
 		}
 	});
 	
-	REQUIRE.extend('terminate', function(){
+	REQUIRE.add('terminate', function(){
 		if ( Library.define.AMD ){ this.AMD(); }
 		else{ this.CMD(); };
 	});
 	
-	REQUIRE.extend('AMD', function(){
+	REQUIRE.add('AMD', function(){
 		if ( this.deps.length > 0 ){
 			this.AMDITEM(0);
 		}else{
@@ -417,7 +655,7 @@
 		}
 	});
 	
-	REQUIRE.extend('AMDITEM', function(i){
+	REQUIRE.add('AMDITEM', function(i){
 		var that = this;
 		if ( this.deps.length > 0 ){
 			if ( i < this.deps.length ){
@@ -454,7 +692,7 @@
 		}
 	});
 	
-	REQUIRE.extend('CMD', function(){
+	REQUIRE.add('CMD', function(){
 		var j = this.deps.length,
 			o = 0,
 			that = this;
@@ -495,7 +733,7 @@
 		}
 	});
 	
-	REQUIRE.extend('Regist', function( params ){
+	REQUIRE.add('Regist', function( params ){
 		this.modules.push({
 			factory: params.factory,
 			deps: params.deps,
@@ -506,7 +744,7 @@
 		//console.log('模块' + params.id + '加载完毕,2,0');
 	});
 	
-	REQUIRE.extend('complete', function( i ){
+	REQUIRE.add('complete', function( i ){
 		if ( this.modules[i] ){
 			this.compile(i);
 		}else{
@@ -514,7 +752,7 @@
 		}
 	});
 	
-	REQUIRE.extend('end', function(){
+	REQUIRE.add('end', function(){
 		for ( var j = 0 ; j < this.callbacks.length ; j++ ){
 			var indexs = this.indexs[j],
 				zoon = [];
@@ -525,11 +763,11 @@
 		}
 	});
 	
-	REQUIRE.extend('inRequire', function( selector ){
+	REQUIRE.add('inRequire', function( selector ){
 		return Library.modules[this.resolve(selector)].exports;
 	});
 	
-	REQUIRE.extend('compile', function( i ){
+	REQUIRE.add('compile', function( i ){
 		var module = this.modules[i],
 			factory = module.factory,
 			deps = module.deps,

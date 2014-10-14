@@ -246,4 +246,33 @@ ThemeModule.add('saveSettingContent', function(params){
 	return { success: true, message: '更新成功' };
 });
 
+ThemeModule.add('getThemes', function(){
+	var rec = new this.dbo.RecordSet(this.conn),
+		ChoosedFolder = "",
+		locals = {};
+		rec.sql("Select top 1 blog_theme From blog_global").process(function( object ){ ChoosedFolder = object("blog_theme").value; });
+	
+	var fso = require('fso'),
+		fs = new fso();
+	
+	fs.dirList(contrast("private/themes"), function( name ){
+		if ( fs.exist(contrast("private/themes/" + name + "/config.js")) ){
+			var mode = require("private/themes/" + name + "/config");
+				var local = { folder: name };
+				local.name = mode.name;
+				local.author = mode.author;
+				local.mail = mode.mail;
+				local.site = mode.site;
+				local.des = mode.des;
+				local.icon = mode.icon;
+				local.mark = mode.mark;
+				local.plugins = mode.plugins;
+				local.setting = fs.exist(contrast("private/themes/" + name + "/setting.js"));
+				locals[name] = local;
+		};
+	});
+	
+	return {themes: locals, current: ChoosedFolder};
+});
+
 return ThemeModule;

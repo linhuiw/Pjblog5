@@ -14,7 +14,7 @@ define([
 		welcome: function(){
 			var welcome = $('#welcome');
 			$(window).on('resize', function(){
-				welcome.add(welcome.find('.welcome-wrap')).css('height', $(window).height());
+				welcome.add(welcome.find('.welcome-wrap')).css('height', $(window).height() + 'px');
 			}).trigger('resize');
 			setTimeout(function(){
 				welcome.addClass('welcomeoutview');

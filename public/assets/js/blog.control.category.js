@@ -36,8 +36,8 @@ define([
 					}
 
 					var data = {
-						cate_icon: '1.gif',
-						cate_name: '新建根分类',
+						cate_icon: 'fa-home',
+						cate_name: '新建分类',
 						cate_des: '这里填写新分类的描述说明..',
 						cate_parent: 0,
 						cate_src: ''
@@ -75,8 +75,8 @@ define([
 						id = $(this).parents('li:first').attr('app-id');
 
 					var data = {
-						cate_icon: '1.gif',
-						cate_name: '新建根分类',
+						cate_icon: 'fa-home',
+						cate_name: '新建分类',
 						cate_des: '这里填写新分类的描述说明..',
 						cate_parent: Number(id),
 						cate_src: ''
@@ -137,8 +137,13 @@ define([
 						left: (target_left - box_width - 50) + 'px'
 					});
 					
-					box.find('li').on('click', function(){
-						var name = $(this).attr('app-icon-name');
+					box.find('.modyiconbox .inputicon input').on('keyup', function(){
+						var value = $(this).val();
+						box.find('.modyiconbox .reloadicon span.fa').attr('class', 'fa ' + value);
+					});
+					
+					box.find('.modyiconbox .inputicon span').on('click', function(){
+						var name = box.find('.modyiconbox .inputicon input').val();
 						that.tip.loading();
 						$.getJSON('public/async.asp', {
 							m: 'category',
@@ -148,7 +153,7 @@ define([
 						}, function(params){
 							if ( params.success ){
 								that.tip.success(params.message);
-								$(_this).parents('li:first').find('.dd-handle:first img').attr('src', 'private/icons/' + name);
+								$(_this).parents('li:first').find('.dd-handle:first span').attr('class', 'fa ' + name);
 								box.remove();
 							}else{
 								that.tip.error(params.message);
@@ -307,23 +312,20 @@ define([
 			});
 		},
 		categoryTemplate: function( params, isSecond ){
-			var h = '<li class="dd-item dd2-item" app-id="' + (params.id || 0) + '"><div class="dd-handle dd2-handle"><img src="private/icons/1.gif" /></div><div class="dd2-content"><div class="cate_tool">';
+			var h = '<li class="dd-item dd2-item" app-id="' + (params.id || 0) + '"><div class="dd-handle dd2-handle"><span class="fa fa-home track"></span></div><div class="dd2-content"><div class="cate_tool">';
 			if ( !isSecond ){
 			h += '<a href="javascript:;" class="app-add"><i class="fa fa-plus"></i></a> ';
 			};
-			h += '<a href="javascript:;" app-icon="" class="app-icon"><i class="fa fa-image"></i></a> <a href="javascript:;" class="app-modify"><i class="fa fa-pencil-square-o"></i></a> <a href="javascript:;" class="app-delete"><i class="fa fa-trash-o"></i></a> </div><div class="cate_name">' + (params.cate_name || '新建根分类') + '</div><div class="cate_des wordCut">' + (params.cate_des || '这里填写新分类的描述说明..') + '</div><div class="cate_out"><i class="fa fa-times"></i></div><div class="outip"></div></div></li>';
+			h += '<a href="javascript:;" app-icon="" class="app-icon"><i class="fa fa-image"></i></a> <a href="javascript:;" class="app-modify"><i class="fa fa-pencil-square-o"></i></a> <a href="javascript:;" class="app-delete"><i class="fa fa-trash-o"></i></a> </div><div class="cate_name">' + (params.cate_name || '新建根分类') + '</div><div class="cate_des wordCut hide-des">' + (params.cate_des || '这里填写新分类的描述说明..') + '</div><div class="cate_out hide-out"><i class="fa fa-times"></i></div><div class="outip hide-ip"></div></div></li>';
 			return h;
 		},
 		iconsTemplate: function(z){
 			var h = '';
-			for ( var i = 0 ; i < window.icons.length ; i++ ){
-				if ( z === window.icons[i] ){
-					h += '<li class="current" app-icon-name="' + window.icons[i] + '"><img src="private/icons/' + window.icons[i] + '" /></li>';
-				}else{
-					h += '<li app-icon-name="' + window.icons[i] + '"><img src="private/icons/' + window.icons[i] + '" /></li>';
-				}
-			}
-			return '<ul class="clearfix">' + h + '</ul>';
+			h +=	'<div class="modyiconbox">';
+			h +=		'<div class="reloadicon"><span class="fa ' + z + '"></span></div>';
+			h +=		'<div class="inputicon clearfix"><input type="text" value="' + z + '" name="icon" /><span class="fa fa-check"></span></div>';
+			h +=	'</div>';
+			return h;
 		},
 		tip: require('appjs/assets/blog.loading')
 	});

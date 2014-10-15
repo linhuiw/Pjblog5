@@ -6,5 +6,5 @@ blog.cookie = "hul7H3hJZ5";
 blog.cache = "3YmHIn6TuQ.";
 blog.AppPlatForm = "http://app.webkits.cn";
 blog.web = "http://blog.cn";
-blog.version = 6;
+blog.version = 7;
 %>

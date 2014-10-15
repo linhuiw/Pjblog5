@@ -1,5 +1,5 @@
 ﻿;var blog = {};
-blog.version = 6;
+blog.version = 7;
 blog.web = "http://blog.cn";
 blog.AppPlatForm = "http://app.webkits.cn";
 blog.base = "";

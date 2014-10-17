@@ -94,7 +94,7 @@ var define = function(){};
 	};
 
 	Class = function(){
-		var ProtectMethods = ['__constructor__', 'initialize'],
+		var ProtectMethods = ['__constructor__'],
 			argc = arguments,
 			that = this;
 

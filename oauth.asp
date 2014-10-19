@@ -7,15 +7,16 @@
 		OAUTH = require("public/library/oauth2"),
 		oauth = new OAUTH.oauth(global.blog_appid, global.blog_appkey),
 		UserMessage;
-	
+	Library.log(123);
 	var tokens = oauth.GetToken(code);
+	Library.log(123);
 	if ( oauth.error === 0 ){
 		var openids = oauth.GetUserOpenID(tokens.access_token);
 		if ( oauth.error === 0 ){
 			UserMessage = oauth.GetUserInfo(tokens.access_token, openids.openid);
 		};
 	};
-	
+	Library.log(123);
 	if ( oauth.error === 0 ){
 		UserMessage.token = tokens.access_token;
 		UserMessage.openid = openids.openid;

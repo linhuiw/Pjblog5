@@ -81,7 +81,7 @@ exports.GetAuthorizeURL = function( appid, from ){
 		callbackURL += '?from=' + from;
 	};
 	callbackURL = escape(callbackURL);
-	return blog.AppPlatForm + "/oauth/login.asp?response_type=code&client_id=" + appid + "&redirect_url=" + callbackURL + "&state=" + randoms(10);
+	return blog.AppPlatForm + "/oauth/login?response_type=code&client_id=" + appid + "&redirect_url=" + callbackURL + "&state=" + randoms(10);
 };
 
 exports.oauth = oauth;

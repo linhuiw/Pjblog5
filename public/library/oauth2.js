@@ -1,87 +1,97 @@
 // JavaScript Document
-function randoms(l){
-	var x = "123456789poiuytrewqasdfghjklmnbvcxzQWERTYUIPLKJHGFDSAZXCVBNM";
- 	var tmp="";
- 	for( var i = 0 ; i < l; i++ ) {
- 		tmp += x.charAt(Math.ceil(Math.random()*100000000) % x.length);
- 	}
- 	return tmp;
+var oAuth = new Class({ version: '2.31' });
+var error = require('./error');
+var stop = false;
+var value = null;
+var http = require("http");
+var ajax = new http.ajax();
+var fns = require('fns');
+http = http.http;
+
+function FilterCallback(str){ 
+	return fns.HTMLStr(fns.SQLStr(str)); 
 };
 
-var oauth = new Class({
-	initialize: function( appid, appkey ){
-		var http = require("http");
-
-			this.ajax = new http.ajax();
-			this.http = http.http;
-			this.fns = require('fns');
-
-		this.appid = appid;
-		this.appkey = appkey;
-
-		this.error = 0;
-	}
+oAuth.add('initialize', function( appid, appkey ){
+	this.error = 0;
+	this.appid = appid;
+	this.appkey = appkey;
 });
 
-oauth.add('GetToken', function( code ){
-	var ret = this.ajax.getJSON(blog.AppPlatForm + "/oauth/token.asp", {
+oAuth.add('then', function( callback ){
+	if ( stop ){ return this; };
+	
+	if ( this.error === 0 ){
+		if ( typeof callback === 'function' ){
+			value = callback.call(this, value) || null;
+		}
+	}else{
+		if ( this.ErrorCallback && typeof this.ErrorCallback === 'function' ){
+			this.ErrorCallback.call(this, error[this.error + ''] || '未找到错误信息', this.error);
+			stop = true;
+		}
+	}
+	
+	return this;
+});
+
+oAuth.add('reject', function( callback ){
+	if ( typeof callback === 'function' ){
+		this.ErrorCallback = callback;
+	}
+	
+	return this;
+});
+
+oAuth.add('createServer', function( callback ){
+	var that = this;
+	http.createServer(function(reqs){
+		typeof callback === 'function' && callback.call(that, reqs);
+	}, FilterCallback);
+});
+
+oAuth.add('getToken', function( code ){
+	var msg = ajax.getJSON(blog.AppPlatForm + "/oauth/token", {
 		grant_type: "authorization_code",
 		client_id: this.appid,
 		client_secret: this.appkey,
 		code: code,
-		redirect_uri: blog.web + '/oauth.asp',
-		format: 'json'
+		redirect_uri: blog.web + '/oauth.asp'
 	});
-
-	if ( ret.error && ret.error > 0 ){
-		this.error = ret.error;
+	
+	if ( msg.error && msg.error > 0 ){
+		this.error = msg.error;
 	}
-
-	return ret;
+	
+	return msg.data;
 });
 
-oauth.add('GetUserOpenID', function( token ){
-	var ret = this.fns.jsonp(this.ajax.get(blog.AppPlatForm + "/oauth/me.asp", { access_token: token }), "callback");
-
-	if ( ret.error && ret.error > 0 ){
-		this.error = ret.error;
-	};
-
-	return ret;
+oAuth.add('getOpenid', function(token){
+	var msg = ajax.getJSON(blog.AppPlatForm + "/oauth/openid", { access_token: token });
+	if ( msg.error && msg.error > 0 ){
+		this.error = msg.error;
+	}else{
+		if ( msg.data.client_id == this.appid ){
+			return msg.data;
+		}else{
+			this.error = 10017;
+			delete msg.data;
+		}
+	}
 });
 
-oauth.add('GetUserInfo', function( token, openid ){
-	var ret = this.ajax.getJSON(blog.AppPlatForm + "/oauth/get_user_info.asp", {
+oAuth.add('getUserInfo', function(token, openid){
+	var msg = ajax.getJSON(blog.AppPlatForm + "/oauth/me", {
 		access_token: token,
 		oauth_consumer_key: this.appid,
 		openid: openid
 	});
-
-	if ( ret.error && ret.error > 0 ){
-		this.error = ret.error;
-	};
-
-	return ret;
+	
+	if ( msg.error && msg.error > 0 ){
+		this.error = msg.error;
+	}
+	
+	return msg.data;
 });
 
-oauth.add('SetNotice', function( token, openid, options ){
-	return this.ajax.postJSON(blog.AppPlatForm + "/oauth/set_notice.asp?access_token=" + token + "&oauth_consumer_key=" + this.appid + "&openid=" + openid, options);
-});
-
-oauth.add('doLogin', function(params){
-	var Member = require("../services/user"),
-		member = new Member();
-
-	return member.OauthLogin(params);
-});
-
-exports.GetAuthorizeURL = function( appid, from ){
-	var callbackURL = blog.web + '/oauth.asp';
-	if ( from && from.length > 0 ){
-		callbackURL += '?from=' + from;
-	};
-	callbackURL = escape(callbackURL);
-	return blog.AppPlatForm + "/oauth/login?response_type=code&client_id=" + appid + "&redirect_url=" + callbackURL + "&state=" + randoms(10);
-};
-
-exports.oauth = oauth;
+return oAuth;

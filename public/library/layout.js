@@ -69,7 +69,7 @@ LayoutModule.add('state', function( member ){
 
 	if ( !State.login ){
 		var OAUTH = require('./oauth2');		
-		param.href = OAUTH.GetAuthorizeURL(this.params.global.blog_appid, "default.asp");
+		param.href = blog.web + '/jump.asp?timestrap=' + new Date().getTime();
 		param.group = that.GroupLevel(1);
 		param.id = 0;
 		param.nick = '';

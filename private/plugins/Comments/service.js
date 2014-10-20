@@ -271,7 +271,6 @@ CommentModule.add('reply', function( params ){
 				cid: cid,
 				parentid: parent,
 				articleid: id,
-				time: new Date().getTime(),
 				com_username: nick,
 				com_usermail: mail,
 				domainid: global.blog_appid,

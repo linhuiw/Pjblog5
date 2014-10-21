@@ -252,18 +252,24 @@ CategoryModule.add('list', function(){
 		.each(function(object){
 			var id = object('id').value,
 				parent = object('cate_parent').value,
-				name = object('cate_name').value;
+				name = object('cate_name').value,
+				icon = object('cate_icon').value;
 			
-			list[id + ''] = name;
+			list[id + ''] = {
+				name: name,
+				icon: icon
+			};
 				
 			if ( parent === 0 ){
 				if ( !keep[id + ''] ){
 					keep[id + ''] = {
 						name: name,
+						icon: icon,
 						items: {}
 					};
 				}else{
 					keep[id + ''].name = name;
+					keep[id + ''].icon = icon;
 					if ( !keep[id + ''].items ){
 						keep[id + ''].items = {};
 					}
@@ -275,7 +281,10 @@ CategoryModule.add('list', function(){
 					}
 				}
 				
-				keep[parent + ''].items[id + ''] = name;
+				keep[parent + ''].items[id + ''] = {
+					name: name,
+					icon: icon
+				};
 			}
 		})
 		.close();

@@ -56,10 +56,10 @@ content: " ";
 clear: both;
 height: 0;
 }
-.clearfix { display: inline-table; }
+.clearfix { display: inline-block;}
 /* Hides from IE-mac \*/
 * html .clearfix { height: 1%; }
-.clearfix { display: block; }
 /* End hide from IE-mac */
 .fleft{ float:left;}
 .fright{ float:right;}
+.clears{ clear:both;}

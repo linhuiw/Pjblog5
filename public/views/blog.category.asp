@@ -1,5 +1,5 @@
-<div class="clearfix" id="category">
-	<div class="clearfix" id="cateTitle">
+<div id="category">
+	<div id="cateTitle">
     	<div class="icon fleft">图标</div>
         <div class="name fleft">分类名</div>
         <div class="des fleft hide-des">分类说明</div>

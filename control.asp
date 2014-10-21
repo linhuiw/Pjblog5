@@ -74,7 +74,7 @@
 <!-- 系统导航 开始 -->
 <div class="navdirty"></div>
 <div id="page">
-	<div class="header clearfix">
+	<div class="header">
     	<a href="javascript:;" class="fleft navcolpase"><i class="fa fa-bars"></i></a>
         <a href="javascript:;" class="fright logout"><i class="fa fa-power-off"></i></a>
         <div class="logo fleft">PJBlog5<sub> . Controler</sub></div>
@@ -95,7 +95,7 @@
         <div class="tool fright"></div>
     </div>
 <!-- 系统导航 结束 -->
-   	<div class="container clearfix <%=PluginNavsCount > 0 ? "plugins" : ""%>">
+   	<div class="container <%=PluginNavsCount > 0 ? "plugins" : ""%>">
 <%
 		if ( PluginNavsCount > 0 ){
 %>

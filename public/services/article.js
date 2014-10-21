@@ -6,88 +6,57 @@ var ArticleModule = new Class({
 			this.conn = c.conn;
 			this.dbo = c.dbo;
 		}
-	},
-	__allows__: ['GetArticleList']
-});
-
-ArticleModule.add('GetArticleList', function( params ){
-	var rec = new this.dbo.RecordSet(this.conn),
-		page = Number(params.query.page),
-		cate = Number(params.query.cate),
-		sql,
-		list = [],
-		arrays = ['id', 'art_title', 'art_des', 'art_category', 'art_tags', 'art_cover'],
-		that = this;
-		
-	if ( cate === -1 ){
-		sql = 'Select ' + arrays.join(',') + ' From blog_articles Where art_draft=0 Order By art_postdate DESC';
 	}
-	else if ( cate === -2 ){
-		sql = 'Select ' + arrays.join(',') + ' From blog_articles Where art_draft=1 Order By art_postdate DESC';
-	}
-	else if ( cate === 0 ){
-		sql = 'Select ' + arrays.join(',') + ' From blog_articles Where art_category=0 And art_draft=0 Order By art_postdate DESC';
-	}
-	else{
-		sql = 'Select ' + arrays.join(',') + ' From blog_articles Where (art_category=' + cate + ' Or art_category in (Select id From blog_categorys Where cate_parent=' + cate + ')) And art_draft=0 Order By art_postdate DESC';
-	};
-	
-	var Adodb = rec.sql(sql).open(1);
-	var pages = Adodb.AdoPage(page, 30, function(object){
-		list.push({
-			id: object('id').value,
-			art_title: object('art_title').value,
-			art_des: that.fns.cutStr(that.fns.removeHTML(object('art_des').value), 200, true, '..'),
-			art_category: object('art_category').value,
-			art_tags: object('art_tags').value,
-			art_cover: object('art_cover').value
-		});
-	});
-	Adodb.close();
-		
-	return { success: true, message: '获取日志列表成功', list: list, count: pages ? pages.pageCount : 0 };
 });
 
 ArticleModule.add('save', function( params ){
-	var id = params.form.id,
-		art_title = params.form.art_title,
-		art_des = params.form.art_des,
-		art_category = params.form.art_category || 0,
-		art_content = this.fns.unSQLStr(this.fns.unHTMLStr(params.form.art_content)),
-		art_tags = this.fns.unSQLStr(this.fns.unHTMLStr(params.form.art_tags)),
+	var id = params.form.id || '0',
+		art_title = params.form.art_title || '',
+		art_des = params.form.art_des || '',
+		art_category = params.form.art_category || '0',
+		art_content = this.fns.unSQLStr(this.fns.unHTMLStr(params.form.art_content || '')),
+		art_tags = this.fns.unSQLStr(this.fns.unHTMLStr(params.form.art_tags || '')),
 		art_draft = false,
-		art_tname = params.form.art_tname,
 		art_cover = params.form.art_cover,
-		art_tdes = params.form.art_tdes;
+		art_monick = false; // 是否用户自己填写
+	
+	if ( id.length === 0 ){ id = '0'; };
+	id = Number(id);
 	
 		
 	var rets = { success: false, message: '保存日志失败' },
 		data = {},
 		GlobalCache = require('private/chips/' + blog.cache + 'blog.global');
-	
+		
+	if ( id > 0 ){ data.id = id; };
 	if ( art_title.length === 0 ){ rets.message = '标题不能为空'; return rets; };
 	if ( art_title.length > 255 ){ rets.message = '标题太长，限制为255个字符。'; return rets; };
 	if ( art_category.length === 0 ){ rets.message = '请选择分类后提交'; return rets; };
 	art_category = Number(art_category);
 	if ( art_content.length === 0 ){ rets.message = '日志内容不为空'; return rets; };
-	if ( art_des.length === 0 ){ art_des = this.fns.cutStr(this.fns.removeHTML(art_content), GlobalCache.blog_articlecut, true, '...'); };
-	if ( art_tdes.length === 0 ){ art_tdes = art_des; };
-	if ( !id || id.length === 0 ){ id = 0; };
-	id = Number(id);
-	if ( id > 0 ){ data.id = id; };
 	
+	// 新增日志的时候
+	if ( id === 0 ){
+		if ( art_des.length === 0 ){ 
+			art_des = this.fns.cutStr(this.fns.removeHTML(art_content), GlobalCache.blog_articlecut, true, '');
+		}else{
+			art_monick = true;
+		}
+	}
+	
+
 	if ( art_tags && art_tags.length > 0 ){
 		art_tags = art_tags.split(',');
 	}else{
 		art_tags = [];
 	}
 	
+	data.art_monick = art_monick;
 	data.art_title = art_title;
 	data.art_des = art_des;
 	data.art_category = art_category;
 	data.art_content = art_content;
 	data.art_tags = art_tags;
-	data.art_tname = art_tname;
 	
 	var imgexp = /<img([^\s]*?)\ssrc=\"([^\"]*?)\"(.*?)>/i.exec(data.art_content);
 	if ( imgexp && imgexp[2] ){
@@ -99,19 +68,19 @@ ArticleModule.add('save', function( params ){
 	if ( ist > -1 ){
 		data.art_cover = data.art_cover.substr(ist);
 	};
-	data.art_tdes = art_tdes;
 
-	this.SaveArticle(data, rets, art_draft);
+	this.SaveArticle(data, rets, art_draft, GlobalCache);
 	
 	return rets;
 });
 
-ArticleModule.add('SaveArticle', function( data, msg, draft ){
+ArticleModule.add('SaveArticle', function( data, msg, draft, GlobalCache ){
 	var rec = new this.dbo.RecordSet(this.conn),
 		id = data.id,
 		date = require('date'),
 		tags = require('./tag'),
-		tag = new tags();
+		tag = new tags(),
+		that = this;
 		
 	if ( id && id > 0 ) { delete data.id; };
 	
@@ -125,9 +94,25 @@ ArticleModule.add('SaveArticle', function( data, msg, draft ){
 			rec
 				.sql('Select * From blog_articles Where id=' + id)
 				.process(function( object ){
-					var tags = object('art_tags').value;
-					if ( tags.length > 0 ){
-						oldTags = tags.replace(/^\{/, '').replace(/\}$/, '').split('}{');
+					if ( !object.Bof && !object.Eof ){
+						var tags = object('art_tags').value;
+						var art_monick = object('art_monick').value;
+						if ( tags.length > 0 ){
+							oldTags = tags.replace(/^\{/, '').replace(/\}$/, '').split('}{');
+						};
+						
+						if ( data.art_des.length === 0 ){
+							data.art_monick = false;
+							data.art_des = that.fns.cutStr(that.fns.removeHTML(data.art_content), GlobalCache.blog_articlecut, true, '');
+						}else{
+							if ( object('art_des').value === data.art_des ){
+								if ( !art_monick ){
+									data.art_des = that.fns.cutStr(that.fns.removeHTML(data.art_content), GlobalCache.blog_articlecut, true, '');
+								}
+							}else{
+								data.art_monick = true;
+							}
+						}
 					}
 				}, 3);
 

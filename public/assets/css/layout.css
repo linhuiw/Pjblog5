@@ -695,8 +695,8 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 #user .list .item .info:hover{background-color:#F8FCFE;}
 
 .pages{}
-.pages span{ float:left; height:30px; line-height:30px; text-align:center; display:block; width:30px;background-color:#F8FCFE; margin-right:5px; color:#1a6cc1; border-radius:3px;}
-.pages a{ float:left; height:30px; line-height:30px; text-align:center; display:block; width:30px; background-color:#ddd; margin-right:5px; border-radius:3px;}
+.pages span{ float:left; height:26px; line-height:26px; text-align:center; display:block; width:26px;background-color:#41b1e7; margin-right:5px; color:#fff;}
+.pages a{ float:left; height:26px; line-height:26px; text-align:center; display:block; width:26px; margin-right:5px; color:#555; }
 
 #update{ background-color:#fff; padding:20px; box-shadow: 0px 1px 6px #ccc; border-radius:3px; color:#777;}
 #update h6{ height:30px; line-height:30px; padding:5px 0px;}
@@ -893,6 +893,66 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 .theme-info .mark{}
 .theme-info .folder{}
 .theme-info .des{}
+
+#artlist{}
+#artlist .art-side{ float:left; width:200px;}
+#artlist .art-wrap{ margin-left:220px;}
+#artlist .art-side .write{ background-color:#41b1e7; color:#fff; display:block; margin-bottom:20px; width:100%; height:50px; line-height:50px; text-align:center; font-size:16px; font-weight:bold; box-shadow:0px 0px 10px rgba(0,0,0,.2); border-radius:3px;}
+#artlist .art-side .write:hover{ background-color:#fff; color:#41b1e7}
+#artlist .art-side .art-cate-zone{ background-color:#fff; box-shadow:0px 0px 10px rgba(0,0,0,.2);}
+#artlist .art-side .write i{ margin-right:5px;}
+#artlist .art-side .art-cate-zone a{ display:block; line-height:30px; padding:5px 15px; height:30px;}
+#artlist .art-side .art-cate-zone a i{ margin-right:5px;}
+#artlist .art-side .art-cate-zone > ul{}
+#artlist .art-side .art-cate-zone > ul > li{}
+#artlist .art-side .art-cate-zone > ul > li > a{ border-bottom:1px solid #eee; background-color:#f9f9f9;}
+#artlist .art-side .art-cate-zone > ul > li > ul{}
+#artlist .art-side .art-cate-zone > ul > li > ul > li{}
+#artlist .art-side .art-cate-zone > ul > li > ul > li > a{ padding-left:30px; border-bottom:1px dashed #eee;}
+#artlist .art-side .art-cate-zone a:link,
+#artlist .art-side .art-cate-zone a:visited{ color:#777;}
+#artlist .art-side .art-cate-zone a:hover{background-color:#41b1e7; color:#fff; border-bottom:1px solid #41b1e7}
+#artlist .art-side .art-cate-zone a.active:link,
+#artlist .art-side .art-cate-zone a.active:visited{background-color:#41b1e7;color:#fff;border-bottom:1px solid #41b1e7}
+#artlist .art-side .art-cate-zone a.active:hover{background-color:#41b1e7;color:#fff;border-bottom:1px solid #41b1e7 }
+#artlist .art-wrap .art-zone{ }
+#artlist .art-wrap .art-zone .art-none{ color:#777; padding:30px 50px;background-color:#fff; box-shadow:0px 0px 10px rgba(0,0,0,.2);}
+#artlist .art-wrap .art-zone .art-none i{ margin-right:5px;}
+#artlist .art-wrap .art-zone .art-detail{ margin-bottom:20px;background-color:#fff; box-shadow:0px 0px 10px rgba(0,0,0,.2);}
+#artlist .art-wrap .art-zone .art-detail h6{ padding:5px 15px; height:30px; line-height:30px; border-bottom:1px solid #eee;background-color:#f9f9f9;}
+#artlist .art-wrap .art-zone .art-detail h6 a:link,
+#artlist .art-wrap .art-zone .art-detail h6 a:visited{ color:#777; font-weight:bold;}
+#artlist .art-wrap .art-zone .art-detail h6 a:hover{color:#41b1e7; }
+#artlist .art-wrap .art-zone .art-detail .art-msg{ padding:15px 15px;}
+#artlist .art-wrap .art-zone .art-detail .art-msg .img{width:220px; float:left;}
+#artlist .art-wrap .art-zone .art-detail .art-msg .img a{}
+#artlist .art-wrap .art-zone .art-detail .art-msg .img a img{ width:220px; border-radius:5px;}
+#artlist .art-wrap .art-zone .art-detail .art-msg .info{ margin-left:240px; color:#999; line-height:20px;}
+#artlist .art-wrap .art-zone .art-detail .art-msg .info .des{ padding:5px 0px;}
+#artlist .art-wrap .art-zone .art-detail .art-msg .info .action{ padding:10px 0px;}
+#artlist .art-wrap .art-zone .art-detail .art-msg .info .action a{ margin-right:15px;}
+#artlist .art-wrap .art-zone .art-detail .art-msg .info .action a i{ margin-right:3px;}
+#artlist .art-wrap .art-zone .art-detail .art-msg .info .action a:link,
+#artlist .art-wrap .art-zone .art-detail .art-msg .info .action a:visited{ color: #999; }
+#artlist .art-wrap .art-zone .art-detail .art-msg .info .action a:hover{ color:#41b1e7;}
+#artlist .art-wrap .art-zone .art-pad{ padding-bottom:20px;}
+/*#artlist .art-wrap .art-zone .art-detail:nth-child(2n+2) .art-msg .img{ float:right;}
+#artlist .art-wrap .art-zone .art-detail:nth-child(2n+2) .art-msg .info{ margin-right:240px; margin-left:0px;}*/
+#artlist .art-wrap .art-zone .dc-title{ height:30px; padding:5px 0px;background-color:#fff; box-shadow:0px 0px 10px rgba(0,0,0,.2); margin-bottom:20px;}
+#artlist .art-wrap .art-zone .dc-title input{ background-color:transparent; border:0px; box-shadow:none; height:30px; line-height:30px; padding:0 10px; margin:0; text-align:center; font-size:14px; font-weight:bold; color:#999;}
+#artlist .art-wrap .art-zone .dc-html{ margin-bottom:20px;}
+#artlist .art-wrap .art-zone .dc-des{ margin-bottom:20px;background-color:#fff; box-shadow:0px 0px 10px rgba(0,0,0,.2);}
+#artlist .art-wrap .art-zone .dc-des textarea{background-color:transparent; border:0px; box-shadow:none;padding:10px; margin:0;}
+#artlist .art-wrap .art-zone .dc-tags{ margin-bottom:20px;background-color:#fff; box-shadow:0px 0px 10px rgba(0,0,0,.2);}
+#artlist .art-wrap .art-zone .dc-tags .tag-title{ height:30px; line-height:30px; padding:5px 15px; background-color:#f9f9f9; border-bottom:1px solid #eee; color:#777;}
+#artlist .art-wrap .art-zone .dc-tags .tag-title i{ margin-right:5px;}
+#artlist .art-wrap .art-zone .dc-tags .tags{ padding:15px;}
+#artlist .art-wrap .art-zone .dc-tags .tags .tag-item{ height:20px; line-height:20px; float:left; padding:5px; border:1px solid #eee; margin-right:10px; margin-bottom:10px;}
+#artlist .art-wrap .art-zone .dc-tags .tags .tag-item input{ background-color:transparent; border:0; padding:0; margin:0; box-shadow:none; float:left}
+#artlist .art-wrap .art-zone .dc-tags .tags .tag-item i{ float:left; height:20px; width:20px; line-height:20px; color:#777; border-left:1px solid #eee; text-align:center; padding-left:5px; cursor:pointer;}
+#artlist .art-wrap .art-zone .dc-tags .tag-action{ padding:0px 15px 15px 15px;}
+#artlist .art-wrap .art-zone .dc-submit{ margin-bottom:50px; padding:0px;}
+#artlist .art-wrap .art-zone .dc-submit input{ background-color:#41b1e7; color:#fff; width:100%; height:50px; line-height:50px; padding:0; margin:0; box-shadow:1px 3px 10px rgba(0,0,0,.5); border:0; font-size:16px; font-weight:bold;}
 
 @media (max-width: 1120px){
 	.container{ position:relative;}

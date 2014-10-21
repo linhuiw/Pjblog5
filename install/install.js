@@ -6,7 +6,7 @@ var Setup = new Class({
 		this.step = Number(this.http.query('step') || "1");
 		this.step = this.step < 1 ? 1 : this.step;
 		this.plats = 'http://app.webkits.cn';
-		this.version = 6;
+		this.version = 1;
 		
 		if ( this.step > 6 ){
 			var connect = require('public/library/connect');

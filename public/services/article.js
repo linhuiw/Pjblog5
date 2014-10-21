@@ -33,6 +33,10 @@ ArticleModule.add('save', function( params ){
 	if ( art_title.length > 255 ){ rets.message = '标题太长，限制为255个字符。'; return rets; };
 	if ( art_category.length === 0 ){ rets.message = '请选择分类后提交'; return rets; };
 	art_category = Number(art_category);
+	if ( art_category < 1 ){
+		rets.message = '请选择分类后提交'; 
+		return rets;
+	}
 	if ( art_content.length === 0 ){ rets.message = '日志内容不为空'; return rets; };
 	
 	// 新增日志的时候

@@ -110,7 +110,8 @@
     	<div class="img"><a href="article.asp?id=<%=params[i].id%>"><img src="<%=params[i].cover%>" onerror="this.src='public/assets/img/bj.jpg'"></a></div>
         <div class="info">
 			<div class="des"><%=params[i].des%></div>
-            <div class="action">
+            <div class="cate">分类：<a href="?m=<%=m%>&cate=<%=params[i].category.id%>"><i class="fa <%=params[i].category.icon%>"></i><%=params[i].category.name%></a></div>
+            <div class="action">操作：
             	<a href="?m=modifyarticle&id=<%=params[i].id%>"><i class="fa fa-edit"></i>编辑</a>
                 <a href="javascript:;" class="AutoSendAjax deletearticle" app-m="article" app-p="DelArticle" app-c="确定删除这个日志吗？" app-id="<%=params[i].id%>"><i class="fa fa-trash-o"></i>删除</a>
             </div>

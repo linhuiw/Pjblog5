@@ -256,6 +256,7 @@ CategoryModule.add('list', function(){
 				icon = object('cate_icon').value;
 			
 			list[id + ''] = {
+				id: id,
 				name: name,
 				icon: icon
 			};

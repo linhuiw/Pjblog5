@@ -929,12 +929,17 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 #artlist .art-wrap .art-zone .art-detail .art-msg .img a img{ width:220px; border-radius:5px;}
 #artlist .art-wrap .art-zone .art-detail .art-msg .info{ margin-left:240px; color:#999; line-height:20px;}
 #artlist .art-wrap .art-zone .art-detail .art-msg .info .des{ padding:5px 0px;}
-#artlist .art-wrap .art-zone .art-detail .art-msg .info .action{ padding:10px 0px;}
-#artlist .art-wrap .art-zone .art-detail .art-msg .info .action a{ margin-right:15px;}
+#artlist .art-wrap .art-zone .art-detail .art-msg .info .action{color: #ccc;}
+#artlist .art-wrap .art-zone .art-detail .art-msg .info .action a{ margin-right:10px;}
 #artlist .art-wrap .art-zone .art-detail .art-msg .info .action a i{ margin-right:3px;}
 #artlist .art-wrap .art-zone .art-detail .art-msg .info .action a:link,
-#artlist .art-wrap .art-zone .art-detail .art-msg .info .action a:visited{ color: #999; }
+#artlist .art-wrap .art-zone .art-detail .art-msg .info .action a:visited{ color: #ccc; }
 #artlist .art-wrap .art-zone .art-detail .art-msg .info .action a:hover{ color:#41b1e7;}
+#artlist .art-wrap .art-zone .art-detail .art-msg .info .cate{ padding:10px 0px 5px 0; color: #ccc;}
+#artlist .art-wrap .art-zone .art-detail .art-msg .info .cate a:link,
+#artlist .art-wrap .art-zone .art-detail .art-msg .info .cate a:visited{ color:#ccc;}
+#artlist .art-wrap .art-zone .art-detail .art-msg .info .cate a:hover{ color:#41b1e7;}
+#artlist .art-wrap .art-zone .art-detail .art-msg .info .cate a i{ margin-right:3px;}
 #artlist .art-wrap .art-zone .art-pad{ padding-bottom:20px;}
 /*#artlist .art-wrap .art-zone .art-detail:nth-child(2n+2) .art-msg .img{ float:right;}
 #artlist .art-wrap .art-zone .art-detail:nth-child(2n+2) .art-msg .info{ margin-right:240px; margin-left:0px;}*/

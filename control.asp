@@ -65,7 +65,7 @@
 <%
 			}else{
 %>
-	<a href="<%=ret.GetAuthorizeURL(global.blog_appid, "control.asp")%>" id="loginform"><strong><i class="fa fa-share-alt-square"></i>后台授权登录</strong></a>
+	<a href="jump.asp?from=<%=escape("control.asp")%>" id="loginform"><strong><i class="fa fa-share-alt-square"></i>后台授权登录</strong></a>
 <%
 			};
 		})(globalcache, require("public/library/oauth2"));	

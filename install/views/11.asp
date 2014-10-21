@@ -12,8 +12,8 @@ var data = require("./data");
     <%};%>
   </div>
   <div class="step">
-    <%if ( data.t === "online" ){ var oauth = require("public/library/oauth2");%> 
-    <a href="<%=oauth.GetAuthorizeURL(data.appid, "install/?step=12")%>" class="btn">云平台授权</a>
+    <%if ( data.t === "online" ){ %> 
+    <a href="../jump.asp?from=<%=escape("install/?step=12")%>" class="btn">云平台授权</a>
     <%}else{%>
     <a href="?step=12" class="btn">本地授权</a>
     <%}%>

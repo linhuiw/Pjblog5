@@ -99,6 +99,9 @@ define([
 			}); 
 		},
 		addNews: function(){
+			if ( !this.news || !this.news.data ){
+				return;
+			};
 			var data = this.news.data;
 			for ( var i = 0 ; i < data.length ; i++ ){
 				$('#platnews').append('<div class="detail-body-A2-item"><a href="http://app.webkits.cn/article/' + data[i].id + '" target="_blank"><i class="fa fa-angle-right"></i> ' + data[i].title + '</a><div class="time">'+data[i].time+'</div></div>');

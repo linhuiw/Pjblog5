@@ -74,9 +74,17 @@ PluginModule.add('install', function( params ){
 				// 系统HOOK接入
 				plugin.hookPort(plus, id, pid);		
 				// 自定义安装文件
-				plugin.InstallBySelf(id, pid, plus, 'install');		
+				plugin.InstallBySelf(id, pid, plus, 'install');
+				
+				// 自动启动插件
+				var oz = this.RunTheplugin({query: { id: pid }});
+				
 				rets.success = true;
 				rets.message = '安装插件成功';
+				
+				if ( oz.success ){
+					rets.message += '并已成功启动插件';
+				};
 			}
 			
 		}catch(e){}

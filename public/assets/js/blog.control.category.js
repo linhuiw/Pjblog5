@@ -177,6 +177,9 @@ define([
 		onCategoryDelete: function(){
 			var that = this;
 			$('body').on('click', '.app-delete', function(){
+				if (!confirm('确定删除？')){
+					return;
+				}
 				if ( !window.doing ){
 					window.doing = true;
 					var id = $(this).parents('li:first').attr('app-id');

@@ -71,6 +71,22 @@ Setup.add('step4', function(){
 		params.appkey = appkey;
 		params.web = web;
 		params.t = 'online';
+		
+		var Ajax = require('../appjs/service/tron.http').ajax;
+		var ajax = new Ajax();
+		try{
+			var msg = ajax.getJSON('http://app.webkits.cn/oauth/setup', {
+				oauth_consumer_key: appid,
+				oauth_consumer_url: web.replace(/^http\:\/\//, '')
+			});
+			
+			if ( msg && msg.error > 0 ){
+				this.error = "网站域名未授权，无法安装，请先在官方平台的授权中心提交你的授权域名";
+			}
+		}catch(e){
+			this.error = "验证网站域名授权失败，无法安装，请联系官方平台管理员";
+		}
+		
 	}else{
 		params.folder = folder;
 		params.name = name;
@@ -88,7 +104,7 @@ Setup.add('step4', function(){
 	};
 	
 	this.fs.saveFile(resolve('./data'), h);
-	this.go('?step=5');
+	!this.error && this.go('?step=5');
 });
 
 Setup.add('step5', function(){

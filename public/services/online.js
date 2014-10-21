@@ -32,7 +32,7 @@ OnLineModule.add('download', function( params ){
 				
 		fs.autoCreateFolder(m.split('\\').slice(0, -1).join('\\'));
 		
-		ajax.getBinary(blog.AppPlatForm + '/compile/download.asp?file=' + id, {}, function( ret ){
+		ajax.getBinary(blog.AppPlatForm + '/public/pjblog5.file.download.asp/download.asp?file=' + id, {}, function( ret ){
 			var obj = new ActiveXObject(Library.com_stream);
 				obj.Type = 1;
 				obj.Mode = 3;
@@ -55,7 +55,7 @@ OnLineModule.add('dosql', function(params){
 	var ajax = new AJAX();
 	var ret = { success: false, message: '更新失败' };
 	try{
-		var content = ajax.get(blog.AppPlatForm + '/upgrades/sqls/' + id + '.js', {});
+		var content = ajax.get(blog.AppPlatForm + '/private/version/static/sql.' + id + '.js', {});
 		var wrapper = ['return function (dbo, conn, fs, fns, require) { ', content, '};'].join("\n"),
 			__module = (new Function(wrapper))();
 		__module(

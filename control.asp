@@ -110,14 +110,13 @@
 				%>
                                 <div class="sidezonechilds">
                                     <h6 class="clearfix">
-                                        <span class="fright"><i class="fa fa-pinterest-square"></i></span>
                                         <i class="fa <%=PluginNavs[i].icon%>"></i> <%=PluginNavs[i].name%>
                                     </h6>
                                     <%
                                         for ( var j in PluginNavs[i].childs ){
                                             var items = PluginNavs[i].childs[j];
                                     %>
-                                    <a href="?t=<%=i%>&m=<%=j%>"><i class="fa fa-angle-right"></i> <i class="fa <%=items.icon%>"></i><%=items.name%></a>
+                                    <a href="?t=<%=i%>&m=<%=j%>"><i class="fa <%=items.icon%>"></i><%=items.name%></a>
                                     <%
                                         }
                                     %>

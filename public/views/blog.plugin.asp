@@ -57,7 +57,7 @@
 		};
 		for ( var i = 0 ; i < configs.length ; i++ ){
 %>
-			<div class="items clearfix tansAchor <%=configs[i].stop && configs[i].id > 0 ? "stop" : ""%>">
+			<div class="items tansAchor <%=configs[i].stop && configs[i].id > 0 ? "stop" : ""%>">
             	<div class="icon"><img src="private/plugins/<%=configs[i].folder%>/<%=configs[i].icon%>" onerror="this.src='<%=errorImage%>'"></div>
                 <div class="info">
                	  <h6><%=configs[i].name%></h6>

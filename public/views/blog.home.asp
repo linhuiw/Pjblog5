@@ -1,3 +1,9 @@
+<%
+;var cookie = require("cookie"),
+	welcome = cookie.get(blog.cookie + "_welcome");
+
+	if ( !welcome || welcome != "ok" ){
+%>
 <div id="welcome" class="track5">
 	<div class="welcome-wrap">
     	<div class="svg SvgAnimate">
@@ -36,6 +42,11 @@
         </div>
     </div>
 </div>
+<%	
+		cookie.set(blog.cookie + "_welcome", "ok");
+		cookie.expire(blog.cookie + "_welcome", 12 * 60 * 60 * 1000);	
+	}
+%>
 <!--HTML CONTENT-->
     <ul class="waterfull">
     	<li id="versions">

@@ -388,7 +388,7 @@ Setup.add('doSQL', function(){
 			cate_outlink: true,
 			cate_isroot: true,
 			cate_order: 1,
-			cate_icon: '1.gif'
+			cate_icon: 'fa-bug'
 		})
 		.close();
 	
@@ -408,7 +408,7 @@ Setup.add('doSQL', function(){
 			cate_outlink: false,
 			cate_isroot: true,
 			cate_order: 2,
-			cate_icon: '1.gif'
+			cate_icon: 'fa-bug'
 		})
 		.close();
 	
@@ -428,7 +428,7 @@ Setup.add('doSQL', function(){
 			cate_outlink: false,
 			cate_isroot: false,
 			cate_order: 1,
-			cate_icon: '1.gif'
+			cate_icon: 'fa-bug'
 		})
 		.close();
 		

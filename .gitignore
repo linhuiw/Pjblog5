@@ -1,1 +1,7 @@
-web.configs
+/web.config
+/aspnet_client/
+/install/step.lock
+/private/chips/
+/private/plugins/
+/private/themes/
+/private/uploads/

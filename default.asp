@@ -137,13 +137,14 @@
 		this.NameSpace.data.articles = params;
 		this.NameSpace.data.pages = rec.BuildPage(DualPages.pageindex, DualPages.pageCount);
 	});
-	
+
 	(new LAYOUT())
 		.createServer()
 		.reject(function(){ this.errorender("error.asp"); })
 		.then(checkRequests)
 		.then(CheckArticles)
-		.render("default.asp");
+		.render("default.asp")
+		.destroy();
 	
 })( require("public/library/layout") );
 %>

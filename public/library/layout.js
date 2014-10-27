@@ -30,13 +30,19 @@ LayoutModule.add('initialize', function(){
 	this.NameSpace.data.user = {};
 	
 	this.Globaltion();
+	
+	if ( this.NameSpace.data.global.blog_status !== 0 ){
+		this.destroy();
+		Response.Redirect('close.asp');
+	}
+	
 	this.ThemeConfigs();
 	this.ThemeSetting();
 	this.state(member);
 	this.categories();
 	this.include();
 	this.SupportStatus();
-	this.plugin();
+	this.MakePlugin();
 });
 
 LayoutModule.add('filterRequests', function( str ){
@@ -242,7 +248,7 @@ LayoutModule.add('include', function(){
 });
 
 LayoutModule.add('render', function(file){
-	this.then(function(){ this.NameSpace.sups.include(file); });
+	return this.then(function(){ this.NameSpace.sups.include(file); });
 });
 
 LayoutModule.add('errorender', function(file){
@@ -257,9 +263,10 @@ LayoutModule.add('errorender', function(file){
 			errorid: this.error
 		});
 	};
+	return this;
 });
 
-LayoutModule.extend('plugin', function(){
+LayoutModule.add('MakePlugin', function(){
 	var that = this;
 	var PluginCache = require('private/chips/' + blog.cache + 'blog.uri.plugins');
 	this.NameSpace.sups.plugin = function(mark, args){
@@ -309,9 +316,9 @@ LayoutModule.extend('plugin', function(){
 					include(pfile, params);
 					
 				};
-			}
-		}
-	}
+			};
+		};
+	};
 });
 
 return LayoutModule;

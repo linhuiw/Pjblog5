@@ -128,7 +128,6 @@
 				categoryicon: categorys.cate_icon,
 				catehref: blog.web + "/default.asp?cate=" + categorys.id,
 				tags: that.getTagsByArray(object("art_tags").value),
-				tname: object("art_tname").value,
 				posttime: new Date(object("art_postdate").value).getTime(),
 				comments: object("art_comment_count").value,
 				cover: object("art_cover").value

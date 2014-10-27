@@ -25,6 +25,7 @@
 					var categorys = that.getCategoryItem(object("art_category").value);
 					params.art_title = object("art_title").value;
 					params.art_categoryName = categorys.cate_name;
+					params.art_categoryIcon = categorys.cate_icon;
 					params.art_categoryHref =  blog.web + "/default.asp?cate=" + categorys.id;
 					params.art_content = object("art_content").value;
 					params.art_tags =  that.getTagsByArray(object("art_tags").value);

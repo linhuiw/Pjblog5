@@ -36,6 +36,7 @@ LayoutModule.add('initialize', function(){
 	this.categories();
 	this.include();
 	this.SupportStatus();
+	this.plugin();
 });
 
 LayoutModule.add('filterRequests', function( str ){
@@ -256,6 +257,61 @@ LayoutModule.add('errorender', function(file){
 			errorid: this.error
 		});
 	};
+});
+
+LayoutModule.extend('plugin', function(){
+	var that = this;
+	var PluginCache = require('private/chips/' + blog.cache + 'blog.uri.plugins');
+	this.NameSpace.sups.plugin = function(mark, args){
+		var data = that.NameSpace.data;
+		if ( data.theme.configs.plugins && data.theme.configs.plugins[mark] ){
+			var pmark = data.theme.configs.plugins[mark].mark;
+			var pfile = data.theme.dir + '/' + data.theme.configs.plugins[mark].file;
+			if ( PluginCache['queens'][pmark] ){
+				var pfolder = PluginCache['queens'][pmark]['folder'];
+				var pid = PluginCache['queens'][pmark]['id'];
+				if ( !PluginCache['queens'][pmark].stop ){
+					var plugin = new Class();
+						plugin.add("dbo", that.NameSpace.coms.dbo);
+						plugin.add("conn", that.NameSpace.coms.conn);
+						plugin.add("fs", that.NameSpace.coms.fs);
+						plugin.add("fns", that.NameSpace.coms.fns);
+						plugin.add("http", that.NameSpace.coms.http);
+						plugin.add("pid", pid);
+						plugin.add("pmark", pmark);
+						plugin.add("pfolder", pfolder);
+						
+					var packages = new Class();
+						packages.extend(require("public/library/plugin")).extend(plugin);
+					
+					if ( that.NameSpace.coms.fs.exist(resolve('private/plugins/' + pfolder + '/exports')) ){
+						plugin.extend(require('private/plugins/' + pfolder + '/exports'));
+					}
+
+					var package = new packages(),
+						setting = package.getSettingParams(Number(pid));
+					
+					var plus = new plugin();
+					
+					var params = {
+						package: plus,
+						setting: setting || {}
+					};
+					
+					if ( args ){
+						for ( var i in args ){
+							if ( !params[i] ){
+								params[i] = args[i];
+							}
+						}
+					}
+		
+					include(pfile, params);
+					
+				};
+			}
+		}
+	}
 });
 
 return LayoutModule;

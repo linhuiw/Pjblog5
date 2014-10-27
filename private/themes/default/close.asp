@@ -5,6 +5,6 @@
 <title>网站已关闭</title>
 </head>
 <body>
-<%=blog_message%>
+<%=data.global.blog_message%>
 </body>
 </html>

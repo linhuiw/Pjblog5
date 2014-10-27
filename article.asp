@@ -83,7 +83,8 @@
 		.then(getArticle)
 		.then(getPrevArticle)
 		.then(getNextArticle)
-		.render("article.asp");
+		.render("article.asp")
+		.destroy();
 	
 })( require("public/library/layout") );
 %>

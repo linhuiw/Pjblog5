@@ -78,7 +78,8 @@
 		.then(getPluginMessage)
 		.then(getPluginConfigs)
 		.then(getPluginSetting)
-		.render(PluginFile);
+		.render(PluginFile)
+		.destroy();
 	
 })( require("public/library/layout") );
 %>

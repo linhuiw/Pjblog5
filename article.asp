@@ -3,45 +3,49 @@
 <%
 ;(function( LAYOUT ){
 	
-	LAYOUT.add("Article", function( id ){
-		var rec = new this.dbo.RecordSet(this.conn),
+	function checkRequests(){
+		if ( !this.NameSpace.reqs.query.id || this.NameSpace.reqs.query.id.length === 0 ){ 
+			this.NameSpace.reqs.query.id = "0"; 
+		}; 
+		this.NameSpace.reqs.query.id = Number(this.NameSpace.reqs.query.id); 
+		if ( this.NameSpace.reqs.query.id < 1 ){
+			this.error = 20004;
+		};
+	}
+	
+	function getArticle(){
+		var rec = new this.NameSpace.coms.dbo.RecordSet(this.NameSpace.coms.conn),
 			params = {},
-			that = this,
-			error = true;
+			that = this;
 			
 		rec
-			.sql("Select * From blog_articles Where art_draft=0 And id=" + id)
+			.sql("Select * From blog_articles Where art_draft=0 And id=" + this.NameSpace.reqs.query.id)
 			.process(function( object ){
 				if ( !object.Bof && !object.Eof ){
-					var categorys = that.getCategory(object("art_category").value);
+					var categorys = that.getCategoryItem(object("art_category").value);
 					params.art_title = object("art_title").value;
 					params.art_categoryName = categorys.cate_name;
 					params.art_categoryHref =  blog.web + "/default.asp?cate=" + categorys.id;
 					params.art_content = object("art_content").value;
-					params.art_tags =  that.getTags(object("art_tags").value);
-					params.art_tname = object("art_tname").value;
+					params.art_tags =  that.getTagsByArray(object("art_tags").value);
 					params.art_postdate = new Date(object("art_postdate").value).getTime();
 					params.art_modifydate = new Date(object("art_modifydate").value).getTime();
 					params.art_comment_count = object("art_comment_count").value;
-					params.art_tdes = object("art_tdes").value;
-					params.id = id;
-					that.add("article", params);
+					params.id = that.NameSpace.reqs.query.id;
+					that.NameSpace.data.article = params;
 				}else{
-					error = false;
-					that.add("error", 2);
+					that.error = 20004;
 				}
 			});
-
-		return error;
-	});
+	};
 	
-	LAYOUT.add("getPrevRecord", function(id){
-		var rec = new this.dbo.RecordSet(this.conn),
+	function getPrevArticle(){
+		var rec = new this.NameSpace.coms.dbo.RecordSet(this.NameSpace.coms.conn),
 			rets = null,
 			that = this;
 			
 		rec
-			.sql("Select top 1 * From blog_articles Where id<" + id + " Order By id DESC")
+			.sql("Select top 1 * From blog_articles Where id<" + this.NameSpace.reqs.query.id + " Order By id DESC")
 			.process(function(object){
 				if ( !object.Bof && !object.Eof ){
 					rets = {};
@@ -50,16 +54,16 @@
 				}
 			});
 		
-		rets && this.add("PrevArticle", rets);
-	});
+		this.NameSpace.data.PrevArticle = rets;
+	}
 	
-	LAYOUT.add("getNextRecord", function(id){
-		var rec = new this.dbo.RecordSet(this.conn),
+	function getNextArticle(){
+		var rec = new this.NameSpace.coms.dbo.RecordSet(this.NameSpace.coms.conn),
 			rets = null,
 			that = this;
 			
 		rec
-			.sql("Select top 1 * From blog_articles Where id>" + id + " Order By id ASC")
+			.sql("Select top 1 * From blog_articles Where id>" + this.NameSpace.reqs.query.id + " Order By id ASC")
 			.process(function(object){
 				if ( !object.Bof && !object.Eof ){
 					rets = {};
@@ -68,44 +72,17 @@
 				}
 			});
 		
-		rets && this.add("NextArticle", rets);
-	});
+		this.NameSpace.data.NextArticle = rets;
+	}
 	
-	(new LAYOUT()).createServer(function( req ){
-		var id = req.query.id,
-			page = req.query.page,
-			querys = {};
-			
-		this.add("req", req);
-		
-		if ( !page || page.length === 0 ){ page = "1"; }; page = Number(page); if ( page < 1 ){ page = 1; };
-		if ( !id || id.length === 0 ){ id = "0"; }; id = Number(id);
-		
-		querys.id = id;
-		querys.page = page;
-		this.add("gets", querys);
-		
-		this.navigation();
-		this.loadTags();
-		
-		this.add("errors", require("public/chips/blog.error"));
-		
-		if ( this.params.error > 0 ){
-			this.add("error", this.params.error); this.render("error.asp"); return;
-		}
-		
-		if ( isNaN(id) || isNaN(page) ){
-			this.add("error", 10); this.render("error.asp"); return;
-		}
-
-		if ( id < 1 ){ this.add("error", 1); this.render("error.asp"); return; };
-		if ( !this.Article(id) ){ this.render("error.asp"); return; };
-		
-		this.getPrevRecord(id);
-		this.getNextRecord(id);
-		
-		this.render("article.asp");
-	});
+	(new LAYOUT())
+		.createServer()
+		.reject(function(){ this.errorender("error.asp"); })
+		.then(checkRequests)
+		.then(getArticle)
+		.then(getPrevArticle)
+		.then(getNextArticle)
+		.render("article.asp");
 	
 })( require("public/library/layout") );
 %>

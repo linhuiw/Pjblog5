@@ -1,16 +1,16 @@
 ﻿<%
-if ( pages.to > 1 ){
+if ( data.pages.to > 1 ){
 %>
 <div class="pages">
 	<%
-		for ( var i = pages.from ; i <= pages.to ; i++ ){
-			if ( i === pages.current ){
+		for ( var i = data.pages.from ; i <= data.pages.to ; i++ ){
+			if ( i === data.pages.current ){
 	%>
     <span><%=i%></span>
     <%			
 			}else{
 	%>
-    <a href="<%=url + "&page=" + i%>"><%=i%></a>
+    <a href="<%=data.actives.url + "&page=" + i%>"><%=i%></a>
     <%			
 			};		
 		};

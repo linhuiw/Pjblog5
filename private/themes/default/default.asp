@@ -5,11 +5,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" type="text/css" href="<%=blog.web + "/private/themes/" + data.global.blog_theme%>/css/reset.css" />
-<link rel="stylesheet" type="text/css" href="<%=blog.web + "/private/themes/" + data.global.blog_theme%>/css/animate.css" />
-<link rel="stylesheet" type="text/css" href="<%=blog.web + "/private/themes/" + data.global.blog_theme%>/css/common.css" />
-<link rel="stylesheet" type="text/css" href="<%=blog.web + "/private/themes/" + data.global.blog_theme%>/css/default.css" />
-<link rel="stylesheet" type="text/css" href="<%=blog.web + "/private/themes/" + data.global.blog_theme%>/css/notice.css" />
+<link rel="stylesheet" type="text/css" href="<%=data.theme.dir%>/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="<%=data.theme.dir%>/css/animate.css" />
+<link rel="stylesheet" type="text/css" href="<%=data.theme.dir%>/css/common.css" />
+<link rel="stylesheet" type="text/css" href="<%=data.theme.dir%>/css/default.css" />
+<link rel="stylesheet" type="text/css" href="<%=data.theme.dir%>/css/notice.css" />
 <link rel="stylesheet" type="text/css" href="<%=blog.web%>/fontawesome/css/font-awesome.min.css"/>
 <script type="text/javascript" src="<%=blog.web%>/appjs/assets/tron.js"></script>
 <script type="text/javascript" src="<%=blog.web%>/private/configs/assets.js"></script>
@@ -19,27 +19,25 @@
 
 <body>
 
-<%include("private/themes/" + data.global.blog_theme + "/navigation.asp", { categorys: data.categorys, gets: data.gets, global: data.global });%>
+<%sups.include("navigation.asp");%>
 <div class="articles clearfix wrap">
 	<div class="side fright">
-    	<%include("private/themes/" + data.global.blog_theme + "/side-login.asp", { user: data.user, global: data.global });%>
+    	<%sups.include("side-login.asp");%>
     </div>
 	<div class="list">
     	<%
-			if ( data.gets.tag ){
-				url = blog.web + "/?tag=" + data.gets.tag;
+			if ( reqs.query.tag ){
+				url = blog.web + "/?tag=" + reqs.query.tag;
 		%>
-        <h6><i class="fa fa-tag"></i> 标签： <%=data.gets.tag.tag_name%></h6>
+        <h6><i class="fa fa-tag"></i> 标签： <%=data.actives.tag.tag_name%></h6>
         <%
 			}
-			else if ( data.gets.categorys ){
-				url = blog.web + "/?cate=" + data.gets.categorys;
+			else{
+				url = blog.web + "/?cate=" + reqs.query.cate;
 		%>
-		<h6><i class="fa fa-star-o"></i> 分类： <%=data.globalCategory.cate_name%></h6>
+		<h6><i class="fa fa-star-o"></i> 分类： <%=data.actives.category.cate_name%></h6>
 		<%	
-			}else{
-				url = blog.web + "/?cate=" + data.gets.categorys;
-			};
+			}
 			
 			for ( var i = 0 ; i < data.articles.length ; i++ ){
 		%>
@@ -65,10 +63,10 @@
             </div>
         <%	
 			};
-			include("private/themes/" + data.global.blog_theme + "/pages.asp", { pages: data.pages, url: url });
+			sups.include("pages.asp");
 		%>
     </div>
 </div>
-<%include("private/themes/" + data.global.blog_theme + "/footer.asp", { global: data.global });%>
+<%sups.include("footer.asp");%>
 </body>
 </html>

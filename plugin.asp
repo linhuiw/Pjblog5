@@ -2,102 +2,83 @@
 <!--#include file="public/map.asp" -->
 <%
 ;(function( LAYOUT ){
+
+	var PluginFile;
 	
-	LAYOUT.add("getPluginMessage", function(id){
-		var rec = new this.dbo.RecordSet(this.conn),
-			ret = {};
+	function checkRequests(){
+		if ( !this.NameSpace.reqs.query.id || this.NameSpace.reqs.query.id.length === 0 ){ 
+			this.NameSpace.reqs.query.id = "0"; 
+		}; 
+		this.NameSpace.reqs.query.id = Number(this.NameSpace.reqs.query.id); 
+		if ( this.NameSpace.reqs.query.id < 1 ){
+			this.error = 20005;
+		};
+	}
+
+	function getPluginMessage(){
+		var pluginModule = require("private/chips/" + blog.cache + "blog.uri.plugins"),
+			mark;
 			
-		rec
-			.sql("Select * From blog_plugins Where id=" + id)
-			.process(function(object){
-				if ( !object.Bof && !object.Eof ){
-					ret.id = object("id").value;
-					ret.mark = object("plu_mark").value;
-					ret.name = object("plu_name").value;
-					ret.des = object("plu_des").value;
-					ret.author = object("plu_author").value;
-					ret.mail = object("plu_mail").value;
-					ret.web = object("plu_web").value;
-					ret.folder = object("plu_folder").value;
-					ret.icon = object("plu_icon").value;
-					ret.stop = object("plu_stop").value;
-				}
-			});
+		if ( pluginModule.indexs && pluginModule.indexs[this.NameSpace.reqs.query.id + ""] ){
+			mark = pluginModule.indexs[this.NameSpace.reqs.query.id + ""];
+		};
 		
-		return ret;
-	});
+		if ( mark ){
+			this.NameSpace.data.plugin = pluginModule.queens[mark];
+			if ( this.NameSpace.data.plugin.stop ){
+				this.error = 20008;
+			}
+		}else{
+			this.error = 20006;
+		}
+	}
 	
-	(new LAYOUT()).createServer(function( req ){
-		var id = req.query.id,
-			page = req.query.page,
-			querys = req;
+	function getPluginConfigs(){
+		var configpath = "private/plugins/" + this.NameSpace.data.plugin.folder + "/config";
+		if ( this.NameSpace.coms.fs.exist(resolve(configpath)) ){
+			var configs = require(configpath);
+			if ( !configs.AssetNav ){
 			
-		this.add("req", req);
-		
-		if ( !page || page.length === 0 ){ page = "1"; }; page = Number(page); if ( page < 1 ){ page = 1; };
-		if ( !id || id.length === 0 ){ id = "0"; }; id = Number(id);
-		
-		this.add("id", id);
-		this.add("page", page);
-		this.add("gets", querys);		
-		this.navigation();
-		this.add("errors", require("public/chips/blog.error"));
-		
-		if ( this.params.error > 0 ){
-			this.add("error", this.params.error); this.render("error.asp"); return;
+				this.error = 20007;
+				return;
+			};
+			if ( !configs.AssetNav.file || configs.AssetNav.file.length === 0 ){
+				this.error = 20007;
+				return;
+			};
+			if ( !this.NameSpace.coms.fs.exist(contrast(this.NameSpace.data.theme.dir + "/" + configs.AssetNav.file)) ){
+				this.error = 20009;
+				return;
+			};
+			
+			PluginFile = configs.AssetNav.file;
+			
+			for ( var i in configs ){
+				this.NameSpace.data.plugin[i] = configs[i];
+			}
+		}else{
+			this.error = 20007;
 		}
-		
-		if ( isNaN(id) || isNaN(page) ){
-			this.add("error", 10); this.render("error.asp"); return;
-		}
-		
-		if ( id < 1 ){ this.add("error", 3); this.render("error.asp"); return; };
-		
-		var msg = this.getPluginMessage(id);
-		
-		if ( !msg ){
-			this.add("error", 4); this.render("error.asp"); 
-			return;
-		};
-		
-		if ( msg.stop ){
-			this.add("error", 5); this.render("error.asp"); 
-			return;
-		};
-		
-		var configpath = "private/plugins/" + msg.folder + "/config";
-		if ( !this.fs.exist(resolve(configpath)) ){
-			this.add("error", 6); this.render("error.asp"); 
-			return;
-		};
-		
-		var configs = require(configpath);
-		if ( !configs.AssetNav ){
-			this.add("error", 7); this.render("error.asp"); 
-			return;
-		};
-		
-		if ( !configs.AssetNav.file || configs.AssetNav.file.length === 0 ){
-			this.add("error", 8); this.render("error.asp"); 
-			return;
-		};
-		
-		if ( !this.fs.exist(contrast("private/themes/" + this.params.global.blog_theme + "/" + configs.AssetNav.file)) ){
-			this.add("error", 9); this.render("error.asp"); 
-			return;
-		};
-		
-		this.add("plugin", msg);
-		
+	}
+	
+	function getPluginSetting(){
 		var plugins = require("public/library/plugin");
-			plugins.add("dbo", this.dbo);
-			plugins.add("conn", this.conn);
+			plugins.add("dbo", this.NameSpace.coms.dbo);
+			plugins.add("conn", this.NameSpace.coms.conn);
 		var plugin = new plugins(),
-			setting = plugin.getSettingParams(msg.id);
-			
-		this.add("setting", setting);
-		this.render(configs.AssetNav.file);
-	});
+			setting = plugin.getSettingParams(this.NameSpace.reqs.query.id);
+		
+		this.NameSpace.data.plugin.settings = setting;
+	}
+	
+	(new LAYOUT())
+		.createServer()
+		.reject(function(){ this.errorender("error.asp"); })
+		.then(checkRequests)
+		.then(getPluginMessage)
+		.then(getPluginConfigs)
+		.then(getPluginSetting)
+		.render(PluginFile);
 	
 })( require("public/library/layout") );
 %>

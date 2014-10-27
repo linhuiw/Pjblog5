@@ -1,34 +1,65 @@
 // JavaScript Document
-var LayoutModule = new Class({
-	initialize: function(){
-		var Member = require("public/services/user"),
-			fns = require('fns'),
-			http = require('http').http,
-			fso = require('fso'),
-			fs = new fso(),
-			member = new Member(),
-			dbo = member.dbo,
-			conn = member.conn;
-		
-		this.dbo = dbo;
-		this.conn = conn;
-		this.fns = fns;
-		this.http = http;
-		this.fs = fs;
-		this.params = {};
-		this.traste = {};
-		this.params.error = 0;
-		
-		this.Globaltion();
-		this.ThemeConfigs();
-		this.ThemeSetting();
-		this.state(member);
-	}
+var LayoutModule = new Class(),
+	error = require('public/library/error'),
+	MemberModule = require("public/services/user"),
+	fso = require('fso'),
+	http = require('http').http,
+	fns = require('fns'),
+	member = new MemberModule(),
+	fs = new fso();
+	
+var stop = false;
+var value = null;
+
+LayoutModule.add('initialize', function(){
+	this.NameSpace = {};
+	
+	this.NameSpace.reqs = {};
+	this.NameSpace.coms = {};
+	this.NameSpace.data = {};
+	this.NameSpace.sups = {};
+	this.error = 0;
+	
+	this.NameSpace.coms.dbo = member.dbo;
+	this.NameSpace.coms.conn = member.conn;
+	this.NameSpace.coms.fns = fns;
+	this.NameSpace.coms.http = http;
+	this.NameSpace.coms.fs = fs;
+	
+	this.NameSpace.data.theme = { configs: {}, setting: {} };
+	this.NameSpace.data.user = {};
+	
+	this.Globaltion();
+	this.ThemeConfigs();
+	this.ThemeSetting();
+	this.state(member);
+	this.categories();
+	this.include();
+	this.SupportStatus();
+});
+
+LayoutModule.add('filterRequests', function( str ){
+	return this.NameSpace.coms.fns.HTMLStr(this.NameSpace.coms.fns.SQLStr(str));
+});
+
+LayoutModule.add('createServer', function( callback ){
+	var that = this;
+
+	this.NameSpace.coms.http.createServer(function(reqs){
+		that.NameSpace.reqs = reqs;
+		typeof callback === 'function' && callback.call(that, this.NameSpace);
+	}, Library.proxy(this.filterRequests, this));
+
+	return this;
+});
+
+LayoutModule.add('Globaltion', function(){
+	this.NameSpace.data.global = require('private/chips/' + blog.cache + 'blog.global');
 });
 
 LayoutModule.add('ThemeConfigs', function(){
 	var configs = {};
-	configs.folder = this.params.global.blog_theme;
+	configs.folder = this.NameSpace.data.global.blog_theme;
 	var ThemeModule = require('private/themes/' + configs.folder + '/config');
 	if ( ThemeModule ){
 		configs.name = ThemeModule.name;
@@ -41,21 +72,21 @@ LayoutModule.add('ThemeConfigs', function(){
 		configs.plugins = ThemeModule.plugins;
 	};
 
-	this.params.ThemeConfigs = configs;
+	this.NameSpace.data.theme.configs = configs;
+	this.NameSpace.data.theme.dir = 'private/themes/' + configs.folder;
 });
 
-LayoutModule.add('add', function( key, value ){
-	this.params[key] = value;
+LayoutModule.add('ThemeSetting', function(){
+	this.NameSpace.data.theme.setting = require('private/chips/' + blog.cache + 'blog.themes');
 });
 
 LayoutModule.add('state', function( member ){
-	var that = this,
-		param = {},
+	var param = {},
 		State = member.loginStatus(function(rets, object){
 			param.id = object('id').value;
 			param.nick = object('member_nick').value;
 			param.mail = object('member_mail').value;
-			param.group = that.GroupLevel(Number(object('member_group').value));
+			param.group = Number(object('member_group').value);
 			param.forbit = object('member_forbit').value;
 			param.birthday = new Date(object('member_birthday').value).getTime();
 			param.address = object('member_address').value;
@@ -67,10 +98,9 @@ LayoutModule.add('state', function( member ){
 	
 	param.login = State.login;
 
-	if ( !State.login ){
-		var OAUTH = require('./oauth2');		
+	if ( !State.login ){		
 		param.href = blog.web + '/jump.asp?timestrap=' + new Date().getTime();
-		param.group = that.GroupLevel(1);
+		param.group = this.GroupLevel(1);
 		param.id = 0;
 		param.nick = '';
 		param.mail = '';
@@ -79,13 +109,12 @@ LayoutModule.add('state', function( member ){
 		param.token = '';
 		param.avatar = '';
 	}else{
-		if ( param.forbit ){
-			this.params.error = 11;
-		};
+		if ( param.forbit ){ this.params.error = 20001; };
+		param.group = this.GroupLevel(param.group);
 		param.logout = blog.web + "/public/logout.asp";
 	};
 	
-	this.add('user', param);
+	this.NameSpace.data.user = param;
 });
 
 LayoutModule.add('GroupLevel', function( id ){
@@ -108,150 +137,123 @@ LayoutModule.add('GroupLevel', function( id ){
 
 LayoutModule.add('destroy', function(){
 	try{
-		this.conn.Close();
+		this.NameSpace.coms.conn.Close();
 	}catch(e){}
 });
 
-LayoutModule.add('Globaltion', function(){
-	this.add('global', require('private/chips/' + blog.cache + 'blog.global'));
+LayoutModule.add('checkStatus', function( mark ){
+	return this.NameSpace.data.user.group.indexOf(mark) > -1;
+});
+LayoutModule.add('SupportStatus', function(){
+	var that = this;
+	this.NameSpace.sups.checkStatus = function(mark){
+		return that.NameSpace.data.user.group.indexOf(mark) > -1;
+	}
 });
 
-LayoutModule.add('ThemeSetting', function(){
-	this.add('themes', require('private/chips/' + blog.cache + 'blog.themes'));
-});
-
-LayoutModule.add('navigation', function(){
+LayoutModule.add('categories', function(){
 	var navs = require('private/chips/' + blog.cache + 'blog.categorys');
-	this.add('categorys', navs.queens);
-	this.traste.categorys = navs.indexs;
+	this.NameSpace.data.categories = {};
+	this.NameSpace.data.categories.indexs = navs.indexs;
+	this.NameSpace.data.categories.queens = navs.queens;
 });
 
-LayoutModule.add('getCategory', function( id ){
-	if ( this.traste.categorys && this.traste.categorys[id + ''] ){
-		return this.traste.categorys[id + ''];
+LayoutModule.add('getCategoryItem', function( id ){
+	if ( !this.NameSpace.data.categories ){
+		this.categories();
 	};
+	
+	if ( this.NameSpace.data.categories && this.NameSpace.data.categories.indexs && this.NameSpace.data.categories.indexs[id + ''] ){
+		return this.NameSpace.data.categories.indexs[id + ''];
+	}
 });
 
-LayoutModule.add('loadTags', function(){
+LayoutModule.add('tags', function(){
 	var tags = require('private/chips/' + blog.cache + 'blog.tags');
-	this.traste.tags = tags;
+	this.NameSpace.data.tags = tags;
 });
 
-LayoutModule.add('getTag', function( id ){
-	if ( this.traste.tags && this.traste.tags[id + ''] ){
-		this.traste.tags[id + ''].href = blog.web + '/default.asp?tag=' + id;
-		return this.traste.tags[id + ''];
+LayoutModule.add('getTagByID', function( id ){
+	if ( !this.NameSpace.data.tags ){
+		this.tags();
+	};
+	
+	if ( this.NameSpace.data.tags && this.NameSpace.data.tags[id + ''] ){
+		this.NameSpace.data.tags[id + ''].href = blog.web + '/default.asp?tag=' + id;
+		return this.NameSpace.data.tags[id + ''];
 	};
 });
 
-LayoutModule.add('getTags', function( str ){
+LayoutModule.add('getTagsByArray', function( str ){
 	if ( !str || str.length === 0 ){
 		return [];
 	};
+
 	var ret = [];
 	str = str.replace(/^\{/, '').replace(/\}$/, '').split('}{');
+	
 	for ( var i = 0 ; i < str.length ; i++ ){
-		ret.push(this.getTag(str[i]))
+		var z = this.getTagByID(str[i]);
+		z && ret.push(z);
 	}
+	
 	return ret;
 });
 
-LayoutModule.add('CheckUrlArguments', function( str ){
-	 return this.fns.HTMLStr(this.fns.SQLStr(str));
-});
-
-LayoutModule.add('createServer', function( callback ){
-	var that = this;
-	if ( this.params.global.blog_status === 0 ){
-		this.http.createServer(function( req ){ typeof callback === 'function' && callback.call(that, req); }, Library.proxy(this.CheckUrlArguments, this));
-		this.destroy();
+LayoutModule.add('then', function( callback ){
+	if ( stop ){ return this; };
+	
+	if ( this.error === 0 ){
+		if ( typeof callback === 'function' ){
+			value = callback.call(this, value) || null;
+		}
 	}else{
-		this.destroy();
-		Response.Redirect("close.asp");
+		if ( this.ErrorCallback && typeof this.ErrorCallback === 'function' ){
+			this.ErrorCallback.call(this, error[this.error + ''] || '未找到错误信息', this.error);
+			stop = true;
+		}
 	}
+	
+	return this;
 });
 
-LayoutModule.add('load', function( mark, callback ){
-	var PluginCache = require('private/chips/' + blog.cache + 'blog.uri.plugins');
-	if ( PluginCache['queens'][mark] ){
-		var folder = PluginCache['queens'][mark]['folder'];
-		if ( PluginCache['queens'][mark].stop ){
-			return null;
+LayoutModule.add('reject', function( callback ){
+	if ( typeof callback === 'function' ){
+		this.ErrorCallback = callback;
+	}
+	
+	return this;
+});
+
+LayoutModule.add('include', function(){
+	var that = this;
+	this.NameSpace.sups.include = function(file){
+		var theme = 'private/themes/' + that.NameSpace.data.global.blog_theme + '/' + file;
+		if ( that.NameSpace.coms.fs.exist(contrast(theme)) ){
+			include(theme, {
+				reqs: that.NameSpace.reqs,
+				coms: that.NameSpace.coms,
+				data: that.NameSpace.data,
+				sups: that.NameSpace.sups
+			});
 		};
-		if ( this.fs.exist(resolve('private/plugins/' + folder + '/exports')) ){
-			var mode = require('private/plugins/' + folder + '/exports');
-			try{
-				mode.add("dbo", this.dbo);
-				mode.add("conn", this.conn);
-				mode.add("fs", this.fs);
-				mode.add("fns", this.fns);
-				mode.add("http", this.http);
-				mode.add("pid", PluginCache['queens'][mark].id);
-				mode.add("pmark", mark);
-				mode.add("pfolder", folder);
-			}catch(e){}
-			if ( typeof callback === 'function' ){
-				var m = callback.call(this, mode);
-				if ( m ){
-					return m;
-				}else{
-					return mode;
-				}
-			}else{
-				return mode;
-			}
-		}
 	}
 });
 
-LayoutModule.add('plugin', function(mark, args){
-	if ( this.params.ThemeConfigs.plugins && this.params.ThemeConfigs.plugins[mark] ){
-		var pmark = this.params.ThemeConfigs.plugins[mark].mark;
-		var pfile = 'private/themes/' + this.params.ThemeConfigs.folder + '/' + this.params.ThemeConfigs.plugins[mark].file;
-		var pluginExports = this.load(pmark);
-		if ( pluginExports ){
-			var package = new pluginExports(),
-				plugins = require("public/library/plugin");
-				plugins.add("dbo", package.dbo);
-				plugins.add("conn", package.conn);
-
-			var plugin = new plugins(),
-				setting = plugin.getSettingParams(Number(package.pid));
-
-			var params = { 
-				package: package, 
-				setting: setting || {},
-				dbo: package.dbo,
-				conn: package.conn,
-				pid: package.pid,
-				pmark: package.pmark,
-				pfolder: package.pfolder
-			};
-			
-			if ( args ){
-				for ( var i in args ){
-					if ( !params[i] ){
-						params[i] = args[i];
-					}
-				}
-			}
-
-			include(pfile, params);
-		}
-	}
+LayoutModule.add('render', function(file){
+	this.then(function(){ this.NameSpace.sups.include(file); });
 });
 
-LayoutModule.add('render', function( file ){
-	var theme = 'private/themes/' + this.params.global.blog_theme + '/' + file;
-	if ( this.fs.exist(contrast(theme)) ){
+LayoutModule.add('errorender', function(file){
+	var theme = 'private/themes/' + this.NameSpace.data.global.blog_theme + '/' + file;
+	if ( this.NameSpace.coms.fs.exist(contrast(theme)) ){
 		include(theme, {
-			data: this.params,
-			load: Library.proxy(this.load, this),
-			dbo: this.dbo,
-			conn: this.conn,
-			fs: this.fs,
-			fns: this.fns,
-			plugin: Library.proxy(this.plugin, this)
+			reqs: this.NameSpace.reqs,
+			coms: this.NameSpace.coms,
+			data: this.NameSpace.data,
+			sups: this.NameSpace.sups,
+			error: error[this.error + ''] || '未找到错误信息',
+			errorid: this.error
 		});
 	};
 });

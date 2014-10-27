@@ -1,6 +1,17 @@
 <!--#include file="PathFormatter.class.asp"-->
 <!--#include file="MultiformProcessor.class.asp"-->
+
 <%
+' ASP 文件上传类
+' Author: techird
+' Email: techird@qq.com
+
+'配置
+'MAX_SIZE 在这里设定了之后如果出现大上传失败，请执行以下步骤
+'IIS 6 
+    '找到位于 C:\Windows\System32\Inetsrv 中的 metabase.XML 打开，找到ASPMaxRequestEntityAllowed 把他修改为需要的值（如10240000即10M）
+'IIS 7
+    '打开IIS控制台，选择 ASP，在限制属性里有一个“最大请求实体主题限制”，设置需要的值
 
 CURRENT_ENCODING = "gb2312"
 
@@ -26,7 +37,6 @@ Class Uploader
         Set stateString = Server.CreateObject("Scripting.Dictionary")
         stateString.Add "SIZE_LIMIT_EXCCEED", "File size exceeded!"
         stateString.Add "TYPE_NOW_ALLOW", "File type not allowed!"
-
     End Sub
 
     Public Property Let MaxSize(ByVal size)
@@ -127,7 +137,6 @@ Class Uploader
         rsFilePath = formatter.format( cfgPathFormat, filename )
         
         savePath = Server.MapPath(rsFilePath)
-
         CheckOrCreatePath(  GetDirectoryName(savePath) )
 
         stream.SaveToFile savePath
@@ -193,11 +202,9 @@ Class Uploader
 
     Private Function CheckOrCreatePath( ByVal path )
         Set fs = Server.CreateObject("Scripting.FileSystemObject")
-        Dim parts, serverpath
-		serverpath = Server.MapPath("/")
-		path = Replace(path, serverpath + "\", "")
+        Dim parts
         parts = Split( path, "\" )
-        path = serverpath + "\"
+        path = ""
         For Each part in parts
             path = path + part + "\"
             If fs.FolderExists( path ) = False Then

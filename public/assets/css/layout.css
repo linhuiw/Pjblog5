@@ -959,6 +959,40 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 #artlist .art-wrap .art-zone .dc-submit{ margin-bottom:50px; padding:0px;}
 #artlist .art-wrap .art-zone .dc-submit input{ background-color:#41b1e7; color:#fff; width:100%; height:50px; line-height:50px; padding:0; margin:0; box-shadow:1px 3px 10px rgba(0,0,0,.5); border:0; font-size:16px; font-weight:bold;}
 
+
+.theme-item{ margin-right:20px; margin-bottom:20px;}
+.theme-item .theme-item-zone{ width:325px; box-shadow:0px 0px 10px rgba(0,0,0,.3)}
+.theme-item .theme-item-zone .theme-item-logo{ text-align:center;background-image:url(../img/bj.jpg); min-height:50px;}
+.theme-item .theme-item-zone .theme-item-logo img{ max-width:100%;}
+.theme-item .theme-item-zone .theme-item-content{ background-color:#fff; margin-top:2px;}
+.theme-item .theme-item-zone .theme-item-content h6{ height:20px; line-height:20px; color:#41b1e7; padding:5px 15px; text-align:center; font-weight:bold;}
+.theme-item .theme-item-zone .theme-item-content .info{ height:20px; line-height:20px; padding:5px 15px;border-top:1px dashed #eee;}
+.theme-item .theme-item-zone .theme-item-content .info .down{ float:left}
+.theme-item .theme-item-zone .theme-item-content .info .price{ float:right;}
+.theme-item .theme-item-zone .theme-item-content .info .down,
+.theme-item .theme-item-zone .theme-item-content .info .price{ color:#777;}
+.theme-item .theme-item-zone .theme-item-content .info .down i,
+.theme-item .theme-item-zone .theme-item-content .info .price i{ margin-right:3px; color:#777;}
+.theme-item .theme-item-zone .theme-item-content .info .down i{ display:inline-block; width:16px; height:20px; text-align:center;}
+
+.theme-item .theme-item-zone .theme-item-content .author{ height:20px; line-height:20px; padding:5px 15px;border-top:1px solid #eee;}
+.theme-item .theme-item-zone .theme-item-content .author .nick{ float:left}
+.theme-item .theme-item-zone .theme-item-content .author .link{ float:right;}
+.theme-item .theme-item-zone .theme-item-content .author .nick,
+.theme-item .theme-item-zone .theme-item-content .author .link{ color:#777;}
+.theme-item .theme-item-zone .theme-item-content .author .nick i,
+.theme-item .theme-item-zone .theme-item-content .author .link i{ margin-right:3px; color:#777;}
+.theme-item .theme-item-zone .theme-item-content .author .nick img{ float:left; margin-right:5px; width:16px; height:16px; position:relative; top:2px;}
+.theme-item .theme-item-zone .theme-item-content .author .link a:link,
+.theme-item .theme-item-zone .theme-item-content .author .link a:visited{ color:#777;}
+.theme-item .theme-item-zone .theme-item-content .author .link a:hover{ color:#41b1e7;}
+
+.theme-item .theme-item-zone .theme-item-content .action{ border-top:1px solid #eee;}
+.theme-item .theme-item-zone .theme-item-content .action a{ display:block; text-align:center; height:20px; line-height:20px; background-color:#f9f9f9; padding:5px 15px;}
+.theme-item .theme-item-zone .theme-item-content .action a:link,
+.theme-item .theme-item-zone .theme-item-content .action a:visited{ color:#ccc;}
+.theme-item .theme-item-zone .theme-item-content .action a:hover{background-color:#41b1e7; color:#fff;}
+
 @media (max-width: 1120px){
 	.container{ position:relative;}
 	.plugins > .fleft{ float:none!important;}

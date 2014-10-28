@@ -62,7 +62,7 @@
     <div class="themefixs-tabs">
     	<div class="themefixs-tabs-wrap">
             <a href="javascript:;" class="do-local">本地主题</a>
-            <a href="javascript:;">云端主题</a>
+            <a href="?m=cloudtheme">云端主题</a>
         </div>
     </div>
 </div>

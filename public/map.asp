@@ -14,4 +14,12 @@ Library
 	.onMap("crc32", "appjs/service/crc32");
 
 Library.setBase(blog.base);
+
+(function( HOST ){
+	var hosts = blog.web.replace(/^http\:\/\//i, "").split("/");
+	if ( hosts && hosts[0] && hosts[0].length > 0 && hosts[0] != HOST ){
+		Response.Redirect(blog.web);
+	};
+})(String(Request.ServerVariables("HTTP_HOST")));
+
 %>

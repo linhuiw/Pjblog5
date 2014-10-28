@@ -34,13 +34,13 @@ define('appjs/assets/jquery.lsotope', function( require, exports, module ){
 					that.makeHTML(params.data.themes, params.data.pages);
 					that.tip.success('获取云端主题成功');
 					that.onWaterFalls();
+					that.onImageLoaded();
 				}else{
 					that.tip.error('获取云端主题失败！');
 				}
 			});
 		},
 		makeHTML: function(themes, pages){
-			console.log(themes);
 			$('#cloud-themes').empty();
 			for ( var i = 0 ; i < themes.length ; i++ ){
 				var data = themes[i];
@@ -52,8 +52,7 @@ define('appjs/assets/jquery.lsotope', function( require, exports, module ){
 		makes: function(data){
 			var h = '';
 			h +=	'<div class="theme-item-zone">';
-			h +=		'<div class="theme-item-logo">';
-			h +=			'<img src="' + blog.AppPlatForm + '/app/' + data.logo + '">';
+			h +=		'<div class="theme-item-logo" app-src="' + blog.AppPlatForm + '/app/' + data.logo + '">';
 			h +=		'</div>';
 			h +=		'<div class="theme-item-content">';
 			h +=			'<h6>' + data.name + '</h6>';
@@ -71,6 +70,20 @@ define('appjs/assets/jquery.lsotope', function( require, exports, module ){
 					itemSelector: '.theme-item' 
 				}); 
 			}catch(e){}
+		},
+		onImageLoaded: function(){
+			$('.theme-item-logo').each(function(){
+				var img = new Image(),
+					src = $(this).attr('app-src'),
+					that = this;
+
+				img.onload = function(){
+					$(that).append(this);
+					$('#cloud-themes').isotope('layout');
+				};
+				
+				img.src = src;
+			});
 		},
 		tip: require('appjs/assets/blog.loading')
 	});

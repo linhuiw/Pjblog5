@@ -28,10 +28,14 @@
 		var user = new USER(),
 			uid,
 			pid,
-			pfolder;
+			pfolder,
+			token,
+			openid;
 		
 		if ( user.adminStatus(function( rets, object ){
 			uid = object("id").value;
+			token = object("member_token").value;
+			openid = object("member_openid").value;
 		}).admin ){
 			if ( !m || !p || m.length === 0 || p.length === 0 ){ Library.json({ success: false, message: "非法操作" }); return; };
 			if ( !t || t.length === 0 ){ t = "system"; };
@@ -60,6 +64,8 @@
 					mode.add("dbo", user.dbo);
 					mode.add("conn", user.conn);
 					mode.add("uid", uid);
+					mode.add("utoken", token);
+					mode.add("uopenid", openid);
 					if ( t !== "system" && pid && pid > 0 ){
 						mode.add("pid", pid);
 						mode.add("pmark", m);

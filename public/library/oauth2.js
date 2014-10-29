@@ -94,4 +94,26 @@ oAuth.add('getUserInfo', function(token, openid){
 	return msg.data;
 });
 
+oAuth.add('downloadApplications', function(mark, token, openid, folder){
+	try{
+		ajax.SaveFile(blog.AppPlatForm + "/oauth/appdownload", {
+			access_token: token,
+			oauth_consumer_key: this.appid,
+			openid: openid,
+			oauth_customer_mark: mark
+		}, contrast('private/' + folder + '/' + mark + '.pbd'));
+		
+		var fso = require('fso'),
+			fs = new fso();
+		
+		if ( fs.exist(contrast('private/' + folder + '/' + mark + '.pbd')) ){
+			return { success: true, message: '下载资源成功' };	
+		}else{
+			return { success: false, message: '下载资源失败' };
+		}
+	}catch(e){
+		return { success: false, message: e.message };
+	}
+});
+
 return oAuth;

@@ -57,22 +57,26 @@ define(function( require, exports, module ){
 		if ( window.timer ){ clearTimeout(window.timer); };
 		var masker = document.getElementById('masker'),
 			loading = document.getElementById('loading');
-		
-		this.close();
-		
-		if ( !masker ){
-			masker = createDiv();
-			masker.id = 'masker';
-		}
-		
-		if ( !loading ){
-			loading = createDiv();
-			loading.id = 'loading';
+			
+		if ( loading ){
 			loading.innerHTML = text ? '<i class="fa fa-refresh fa-spin"></i> ' + text : '<i class="fa fa-refresh fa-spin"></i> 正在发送数据，请稍后..';
 		}else{
-			loading.innerHTML = text ? '<i class="fa fa-refresh fa-spin"></i> ' + text : '<i class="fa fa-refresh fa-spin"></i> 正在发送数据，请稍后..';
+			this.close();
+			
+			if ( !masker ){
+				masker = createDiv();
+				masker.id = 'masker';
+			}
+			
+			if ( !loading ){
+				loading = createDiv();
+				loading.id = 'loading';
+				loading.innerHTML = text ? '<i class="fa fa-refresh fa-spin"></i> ' + text : '<i class="fa fa-refresh fa-spin"></i> 正在发送数据，请稍后..';
+			}else{
+				loading.innerHTML = text ? '<i class="fa fa-refresh fa-spin"></i> ' + text : '<i class="fa fa-refresh fa-spin"></i> 正在发送数据，请稍后..';
+			}
+			$(loading).css({ zIndex: 99999 });
 		}
-		$(loading).css({ zIndex: 99999 });
 		
 		$(window).trigger('resize');
 	};

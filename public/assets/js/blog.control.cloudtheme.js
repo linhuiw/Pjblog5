@@ -3,6 +3,7 @@ define('appjs/assets/jquery.lsotope', function( require, exports, module ){
 	return new Class({
 		initialize: function(){
 			this.SetupCloud();
+			this.onApplicationDownload();
 		},
 		perpage: 10,
 		plugins: null,
@@ -42,7 +43,7 @@ define('appjs/assets/jquery.lsotope', function( require, exports, module ){
 		},
 		makeHTML: function(themes, pages){
 			$('#cloud-themes').empty();
-			for ( var i = 0 ; i < themes.length ; i++ ){
+			for ( var i = 0 ; i < themes.length ; i++ ){	
 				var data = themes[i];
 				var div = document.createElement('div');
 				$('#cloud-themes').append(div);
@@ -58,7 +59,11 @@ define('appjs/assets/jquery.lsotope', function( require, exports, module ){
 			h +=			'<h6>' + data.name + '</h6>';
 			h +=			'<div class="author"><span class="nick"><img src="' + blog.AppPlatForm + '/' + data.author.avatar + '/16">' + data.author.nick + '</span><span class="link"><a href="' + data.web + '" target="_blank"><i class="fa fa-home"></i>预览主题</a></span></div>';
 			h +=			'<div class="info"><span class="down"><i class="fa fa-pie-chart"></i>' + data.down + ' 次</span><span class="price"><i class="fa fa-cny"></i>' + data.price.toFixed(2) + '</span></div>';
-			h +=			'<div class="action"><a href="javascript:;" class="fa fa-plug"></a></div>';
+			if ( window.installeds.indexOf(data.mark) > -1 ){
+			h +=			'<div class="action"><a href="javascript:;" class="app-downloaded">主题已下载</a></div>';
+			}else{
+			h +=			'<div class="action"><a href="javascript:;" class="fa fa-plug app-download"></a></div>';
+			}
 			h +=		'</div>';
 			h +=	'</div>';
 			return h;
@@ -85,6 +90,38 @@ define('appjs/assets/jquery.lsotope', function( require, exports, module ){
 				img.src = src;
 			});
 		},
-		tip: require('appjs/assets/blog.loading')
+		onApplicationDownload: function(){
+			var that = this;
+			$('body').on('click', '.app-download', function(){
+				var node = $(this).parents('.theme-item:first');
+				var data = node.data('theme');
+				var mark = data.mark;
+				if ( mark.length > 0 ){
+					var install = new that.apps(mark, that.tip, 'theme');
+					install.complete = function(mark){
+						that.onAppDownloaded(mark);
+					}
+				}
+			});
+		},
+		onAppDownloaded: function(mark){
+			var that = this;
+			this.tip.loading('正在安装主题...');
+			$.getJSON('public/async.asp', {
+				m: 'theme',
+				p: 'setup',
+				id: mark
+			}, function(params){
+				if ( params.success ){
+					that.tip.success(params.message);
+					$('#cloud-themes').isotope('destroy');
+					that.SetupCloud();
+				}else{
+					that.tip.error(params.message);
+				}
+			});
+		},
+		tip: require('appjs/assets/blog.loading'),
+		apps: require('./app.download')
 	});
 });

@@ -171,13 +171,11 @@
         <li>
             <div class="detail">
                 <h5 class="detail-head clearfix">
-                    <div class="title"><i class="fa fa-picture-o"></i> 最新在线主题</div>
+                    <div class="title"><i class="fa fa-picture-o"></i> 最新云端主题</div>
                     <div class="more"><a href="" class="fa fa-arrow-circle-right"></a></div>
                 </h5>
                 <div class="detail-body clearfix">
-                    <div class="detail-body-A3">
-                    暂未开放，敬请期待！
-                    </div>
+                    <div class="detail-body-A3 clearfix" id="platthemes"></div>
                 </div>
             </div>
         </li>
@@ -185,13 +183,11 @@
         <li>
             <div class="detail">
                 <h5 class="detail-head clearfix">
-                    <div class="title"><i class="fa fa-xing-square"></i> 最新在线插件</div>
+                    <div class="title"><i class="fa fa-xing-square"></i> 最新云端插件</div>
                     <div class="more"><a href="" class="fa fa-arrow-circle-right"></a></div>
                 </h5>
                 <div class="detail-body clearfix">
-                    <div class="detail-body-A3">
-                    暂未开放，敬请期待！
-                    </div>
+                    <div class="detail-body-A3 clearfix" id="platplugins"></div>
                 </div>
             </div>
         </li>

@@ -7,6 +7,8 @@ define([
 			this.formatVersion();
 			this.updatesql();
 			this.addNews();
+			this.addPlugins();
+			this.addThemes();
 			this.waterFull();
 			this.welcome();
 		},
@@ -61,6 +63,42 @@ define([
 				$('#platnews').append('<div class="detail-body-A2-item"><a href="http://app.webkits.cn/article/' + data[i].id + '" target="_blank"><i class="fa fa-angle-right"></i> ' + data[i].title + '</a><div class="time">'+data[i].time+'</div></div>');
 			}
 		},
+		addPlugins: function(){
+			if ( !this.plugins || !this.plugins.data ){
+				return;
+			};
+			var data = this.plugins.data;
+			for ( var i = 0 ; i < data.length ; i++ ){
+				var h = '';
+				h += '<div class="detail-body-A3-item">';
+				h += '	<div class="photo fleft">';
+				h += '		<img src="http://app.webkits.cn/' + data[i].avatar + '/36"></div>';
+				h += '	<div class="info">';
+				h += '		<div class="name">' + data[i].author + '<span>' + data[i].time + '</span></div>';
+				h += '		<div class="word"><a href="http://app.webkits.cn/' + data[i].url + '" target="_blank">' + data[i].name + '</a></div>';
+				h += '	</div>';
+				h += '</div>';
+				$('#platplugins').append(h);
+			}
+		},
+		addThemes: function(){
+			if ( !this.themes || !this.themes.data ){
+				return;
+			};
+			var data = this.themes.data;
+			for ( var i = 0 ; i < data.length ; i++ ){
+				var h = '';
+				h += '<div class="detail-body-A3-item">';
+				h += '	<div class="photo fleft">';
+				h += '		<img src="http://app.webkits.cn/' + data[i].avatar + '/36"></div>';
+				h += '	<div class="info">';
+				h += '		<div class="name">' + data[i].author + '<span>' + data[i].time + '</span></div>';
+				h += '		<div class="word"><a href="http://app.webkits.cn/' + data[i].url + '" target="_blank">' + data[i].name + '</a></div>';
+				h += '	</div>';
+				h += '</div>';
+				$('#platthemes').append(h);
+			}
+		},
 		updatesql: function(){
 			var that = this;
 			$('body').on('click', '.updatesql', function(){
@@ -83,7 +121,9 @@ define([
 			});
 		},
 		versions: require('http://app.webkits.cn/private/version/static/pjblog5.list'),
-		news: require('http://app.webkits.cn/private/news/static/recently'),
+		news: require('http://app.webkits.cn/private/caches/news/static/recently'),
+		themes: require('http://app.webkits.cn/private/caches/apps/static/theme.recently'),
+		plugins: require('http://app.webkits.cn/private/caches/apps/static/plugin.recently'),
 		date: require('appjs/assets/date'),
 		tip: require('appjs/assets/blog.loading')
 	});

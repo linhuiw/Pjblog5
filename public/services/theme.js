@@ -19,6 +19,29 @@ ThemeModule.add('setup', function( params ){
 	return this.install(id);
 });
 
+ThemeModule.add('downloadFromCloud', function(mark){
+	var installer = new Class();
+		installer.add('dbo', this.dbo);
+		installer.add('conn', this.conn);
+		installer.add('fs', this.fs);
+		installer.add('fns', this.fns);
+		installer.add('utoken', this.utoken);
+		installer.add('uopenid', this.uopenid);
+		installer.extend(require('./plugin'));
+		
+		var pluginInstaller = new installer();
+		
+		var downloaded = pluginInstaller.download({query: {mark: mark}});
+		if ( downloaded.success ){
+			downloaded = pluginInstaller.unpackpbd({query: {mark: mark}});
+			if ( downloaded.success ){
+				downloaded = pluginInstaller.install({ query: { id: mark } });
+			}
+		}
+	
+	return downloaded;
+});
+
 ThemeModule.add('install', function( folder ){
 	var ret = { success: false, message: '安装失败' },
 		that = this;
@@ -38,8 +61,11 @@ ThemeModule.add('install', function( folder ){
 						.sql("Select id From blog_plugins Where plu_mark='" + marks[i].mark + "'")
 						.process(function( object ){
 							if ( !object.Bof && !object.Eof ){}else{
-								install.success = false;
-								install.message = '缺少插件: ' + marks[i].des;	
+								var myinstaller = that.downloadFromCloud(marks[i].mark);
+								if ( !myinstaller.success ){
+									install.success = false;
+									install.message = '缺少插件: ' + marks[i].des + '，且无法从云平台下载';
+								}
 							}
 						});
 						

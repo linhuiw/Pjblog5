@@ -8,3 +8,4 @@ blog.AppPlatForm = "http://app.webkits.cn";
 blog.web = "http://blog.cn";
 blog.version = 1;
 %>
+

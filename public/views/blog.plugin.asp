@@ -88,17 +88,12 @@
 <div class="plu-navs">
 	<a href="?m=<%=m%>" class="left <%=q==="installed"?"active": ""%>"><i class="fa fa-archive"></i><span>已安装的插件</span></a>
     <a href="?m=<%=m%>&q=uninstalled" class="left <%=q==="uninstalled"?"active": ""%>"><i class="fa fa-ils"></i><span>未安装的插件</span></a>
-    <a href="?m=<%=m%>&q=cloudplugin" class="right <%=q==="cloudplugin"?"active": ""%>"><i class="fa fa-wifi"></i><span>云端插件下载</span></a>
+    <a href="?m=cloudplugin" class="right"><i class="fa fa-wifi"></i><span>云端插件下载</span></a>
 </div>
 <div class="plu-content">
 <%
 	if ( q === "installed" ){ renderPluginsTemplate(installs); }
 	else if ( q === "uninstalled" ){ renderPluginsTemplate(unInstalls); }
-	else{
-%>
-	<div class="items"><i class="fa fa-github-alt"></i> 抱歉，云端功能暂未开放，敬请期待。</div>
-<%
-	}
 %>
 </div>
 <%

@@ -25,6 +25,7 @@ define(function(require){
 		var that = this;
 		this.tip.loading('正在解压资源');
 		$.getJSON('public/async.asp', { m: this.type, p: 'unpackpbd', mark: this.mark }, function(params){
+			console.log(params)
 			if ( params.success ){
 				that.tip.loading('等待安装...');
 				if ( confirm('资源下载解压完成，是否马上安装？') ){

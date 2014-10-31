@@ -758,6 +758,8 @@ button{ border:1px solid #eee; background-color:#f9f9f9; color:#777; line-height
 .plu-content .items a:link,
 .plu-content .items a:visited{ color:#999;}
 .plu-content .items a:hover{ color:#666;}
+.plu-content .items .down,
+.plu-content .items .price{ margin:3px 0px;}
 .plu-content .items .des{ margin:3px 0px;}
 .plu-content .stop{ opacity:.6;}
 .plu-content .stop:hover{ opacity:1;}

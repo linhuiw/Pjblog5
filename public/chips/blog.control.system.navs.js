@@ -11,3 +11,4 @@ exports.plugin = { icon: 'fa-windows', name: '插件', des: '插件控制中心�
 exports.update = { icon: 'fa-refresh', name: '在线升级', des: '通过' + blog.AppPlatForm + '平台使用crc32机制来校验文件的完整性', hide: true };
 exports.themesetting = { icon: 'fa-cog', name: '主题设置', des: '配置主题参数，让你的主题更加灵活多样', hide: true };
 exports.cloudtheme = { icon: 'fa-cloud', name: '云端主题', des: '与云平台连接的云端主题，实现一键在线安装', hide: true };
+exports.cloudplugin = { icon: 'fa-cloud', name: '云端插件', des: '与云平台连接的云端插件，实现一键在线安装', hide: true };

@@ -224,4 +224,30 @@ PluginModule.add('SavePluginSetting', function( params ){
 	return { success: true, message: '保存信息成功' };
 });
 
+PluginModule.add('download', function(params){
+	var mark = params.query.mark;
+	var global = require("private/chips/" + blog.cache + "blog.global");
+	var OAUTH = require('public/library/oauth2');
+	var oAuth = new OAUTH(global.blog_appid, global.blog_appkey);
+	return oAuth.downloadApplications(mark, this.utoken, this.uopenid, 'plugins');
+});
+
+PluginModule.add('unpackpbd', function(params){
+	var mark = params.query.mark;
+	var fso = require('fso');
+	var fs = new fso();
+	
+	if ( fs.exist(contrast('private/plugins/' + mark + '.pbd')) ){
+		
+		var ClsPack = require('package');
+		var package = new ClsPack();
+		fs.createFolder(contrast('private/plugins/' + mark));
+		package.unPack(contrast('private/plugins/' + mark + '.pbd'), contrast('private/plugins/' + mark));
+		fs.clean(contrast('private/plugins/' + mark + '.pbd'));
+		return { success: true, message: '解压成功' };
+	}else{
+		return { success: false, message: '找不到指定的资源文件' };
+	}
+});
+
 return PluginModule;

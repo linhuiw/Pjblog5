@@ -44,11 +44,11 @@
             for ( var i = 0 ; i < levels.length ; i++ ){
                 if ( code.indexOf(levels[i].id) > -1 ){
     %>
-        <p><span><input type="checkbox" value="<%=levels[i].id%>" checked="checked"> <%=levels[i].name%></span> <strong><%=levels[i].des%></strong></p>			
+        <p><span><input type="checkbox" value="<%=levels[i].id%>" checked="checked"> <%=levels[i].name%></span> <code><%=levels[i].mark%></code> <strong><%=levels[i].des%></strong></p>			
     <%			
                 }else{
     %>
-        <p><span><input type="checkbox" value="<%=levels[i].id%>"> <%=levels[i].name%></span> <strong><%=levels[i].des%></strong></p>
+        <p><span><input type="checkbox" value="<%=levels[i].id%>"> <%=levels[i].name%></span> <code><%=levels[i].mark%></code> <strong><%=levels[i].des%></strong></p>
     <%	
                 }	
             }

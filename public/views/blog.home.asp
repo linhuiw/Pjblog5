@@ -51,7 +51,7 @@
     <ul class="waterfull">
     	<li id="versions">
             <div class="detail">
-                <h5 class="detail-head clearfix">
+                <h5 class="detail-head">
                     <div class="title"><i class="fa fa-git-square"></i> 最新版本信息</div>
                     <div class="more"><a href="<%=blog.AppPlatForm%>" class="fa fa-arrow-circle-right" target="_blank"></a></div>
                 </h5>
@@ -63,7 +63,7 @@
         </li>
         <li>
             <div class="detail">
-                <h5 class="detail-head clearfix">
+                <h5 class="detail-head">
                     <div class="title"><i class="fa fa-tachometer"></i> 系统综合数据</div>
                     <!--<div class="more"><a href="" class="fa fa-arrow-circle-right"></a></div>-->
                 </h5>
@@ -121,7 +121,7 @@
         
         <li>
             <div class="detail">
-                <h5 class="detail-head clearfix">
+                <h5 class="detail-head">
                     <div class="title"><i class="fa fa-joomla"></i> 系统组件支持</div>
                     <!--<div class="more"><a href="" class="fa fa-arrow-circle-right"></a></div>-->
                 </h5>
@@ -158,7 +158,7 @@
         
         <li>
             <div class="detail">
-                <h5 class="detail-head clearfix">
+                <h5 class="detail-head">
                     <div class="title"><i class="fa fa-bullhorn"></i> 官方信息</div>
                     <div class="more"><a href="" class="fa fa-arrow-circle-right"></a></div>
                 </h5>
@@ -170,7 +170,7 @@
         
         <li>
             <div class="detail">
-                <h5 class="detail-head clearfix">
+                <h5 class="detail-head">
                     <div class="title"><i class="fa fa-picture-o"></i> 最新云端主题</div>
                     <div class="more"><a href="" class="fa fa-arrow-circle-right"></a></div>
                 </h5>
@@ -182,7 +182,7 @@
         
         <li>
             <div class="detail">
-                <h5 class="detail-head clearfix">
+                <h5 class="detail-head">
                     <div class="title"><i class="fa fa-xing-square"></i> 最新云端插件</div>
                     <div class="more"><a href="" class="fa fa-arrow-circle-right"></a></div>
                 </h5>

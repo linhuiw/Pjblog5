@@ -196,7 +196,7 @@ a,
 .waterfull li .detail h5 .more a:link,
 .waterfull li .detail h5 .more a:visited{ color:#999; text-decoration:none; font-size:12px;}
 .waterfull li .detail h5 .more a:hover{ color:#E07835;}
-.waterfull li .detail .detail-body{ color:#777;}
+.waterfull li .detail .detail-body{ color:#777; width:100%;}
 
 .waterfull li .detail .detail-body .detail-body-A1{}
 .waterfull li .detail .detail-body .detail-body-A1 .detail-body-A1-item{ width:50%; float:left;}
@@ -211,7 +211,7 @@ a,
 .waterfull li .detail .detail-body .detail-body-A1 .detail-body-A1-item .detail-body-A1-item-content .infobox .infobox-data .infobox-content{ font-weight:bold;}
 
 .waterfull li .detail .detail-body .detail-body-A2{}
-.waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item{ border-bottom:1px dashed #eee; padding:5px 0px;}
+.waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item{ border-bottom:1px dashed #eee; padding:5px 0px; width:100%;}
 .waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item:last-child{ border:none;}
 .waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item:first-child{ padding-top:0;}
 .waterfull li .detail .detail-body .detail-body-A2 .detail-body-A2-item .fleft,

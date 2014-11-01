@@ -51,7 +51,7 @@ define('appjs/assets/jquery.lsotope', function( require, exports, module ){
             h +=	'<div class="icon"><img src="' + blog.AppPlatForm + '/app/' + data.logo + '" /></div>';
             h +=    	'<div class="info">';
             h +=	   	  	'<h6>' + data.name + '</h6>';
-            h +=			'<div class="mark">标识： ' + data.mark + '</div>';
+            h +=			'<div class="mark">标识： <code>' + data.mark + '</code></div>';
             h +=			'<div class="author">作者： <a href="mailto:' + data.author.email + '" target="_blank">' + data.author.nick + '</a> 参考文档：<a href="' + data.author.site + '" target="_blank">查阅</a> </div>';
 			h +=			'<div class="down">下载：' + data.down + ' 次</div>';
 			h +=			'<div class="price">价格：<i class="fa fa-cny"></i>' + data.price.toFixed(2) + '</div>';

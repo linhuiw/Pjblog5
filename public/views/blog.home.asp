@@ -55,7 +55,7 @@
                     <div class="title"><i class="fa fa-git-square"></i> 最新版本信息</div>
                     <div class="more"><a href="<%=blog.AppPlatForm%>" class="fa fa-arrow-circle-right" target="_blank"></a></div>
                 </h5>
-                <div class="detail-body clearfix">
+                <div class="detail-body">
                     <div class="detail-body-A3 zone">
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                     <div class="title"><i class="fa fa-tachometer"></i> 系统综合数据</div>
                     <!--<div class="more"><a href="" class="fa fa-arrow-circle-right"></a></div>-->
                 </h5>
-                <div class="detail-body clearfix">
+                <div class="detail-body">
                     <div class="detail-body-A1">
                         <div class="detail-body-A1-item">
                             <div class="detail-body-A1-item-content">
@@ -125,7 +125,7 @@
                     <div class="title"><i class="fa fa-joomla"></i> 系统组件支持</div>
                     <!--<div class="more"><a href="" class="fa fa-arrow-circle-right"></a></div>-->
                 </h5>
-                <div class="detail-body clearfix">
+                <div class="detail-body">
                     <div class="detail-body-A2">
                     	<%
 							;(function( params ){
@@ -162,8 +162,8 @@
                     <div class="title"><i class="fa fa-bullhorn"></i> 官方信息</div>
                     <div class="more"><a href="" class="fa fa-arrow-circle-right"></a></div>
                 </h5>
-                <div class="detail-body clearfix">
-                    <div class="detail-body-A2 clearfix" id="platnews"></div>
+                <div class="detail-body">
+                    <div class="detail-body-A2" id="platnews"></div>
                 </div>
             </div>
         </li>
@@ -174,8 +174,8 @@
                     <div class="title"><i class="fa fa-picture-o"></i> 最新云端主题</div>
                     <div class="more"><a href="" class="fa fa-arrow-circle-right"></a></div>
                 </h5>
-                <div class="detail-body clearfix">
-                    <div class="detail-body-A3 clearfix" id="platthemes"></div>
+                <div class="detail-body">
+                    <div class="detail-body-A3" id="platthemes"></div>
                 </div>
             </div>
         </li>
@@ -186,8 +186,8 @@
                     <div class="title"><i class="fa fa-xing-square"></i> 最新云端插件</div>
                     <div class="more"><a href="" class="fa fa-arrow-circle-right"></a></div>
                 </h5>
-                <div class="detail-body clearfix">
-                    <div class="detail-body-A3 clearfix" id="platplugins"></div>
+                <div class="detail-body">
+                    <div class="detail-body-A3" id="platplugins"></div>
                 </div>
             </div>
         </li>

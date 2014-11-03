@@ -74,7 +74,7 @@ define([
 				h += '	<div class="photo fleft">';
 				h += '		<img src="http://app.webkits.cn/' + data[i].avatar + '/36"></div>';
 				h += '	<div class="info">';
-				h += '		<div class="word"><a href="http://app.webkits.cn/' + data[i].url + '" target="_blank">' + data[i].name + '</a></div>';
+				h += '		<div class="word"><a href="' + data[i].url + '" target="_blank">' + data[i].name + '</a></div>';
 				h += '		<div class="name">' + data[i].author + '<span>' + data[i].time + '</span></div>';
 				h += '	</div>';
 				h += '</div>';
@@ -92,7 +92,7 @@ define([
 				h += '	<div class="photo fleft">';
 				h += '		<img src="http://app.webkits.cn/' + data[i].avatar + '/36"></div>';
 				h += '	<div class="info">';
-				h += '		<div class="word"><a href="http://app.webkits.cn/' + data[i].url + '" target="_blank">' + data[i].name + '</a></div>';
+				h += '		<div class="word"><a href="' + data[i].url + '" target="_blank">' + data[i].name + '</a></div>';
 				h += '		<div class="name">' + data[i].author + '<span>' + data[i].time + '</span></div>';
 				h += '	</div>';
 				h += '</div>';

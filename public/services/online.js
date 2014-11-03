@@ -32,7 +32,7 @@ OnLineModule.add('download', function( params ){
 				
 		fs.autoCreateFolder(m.split('\\').slice(0, -1).join('\\'));
 		
-		ajax.getBinary(blog.AppPlatForm + '/public/pjblog5.file.download.asp/download.asp?file=' + id, {}, function( ret ){
+		ajax.getBinary(blog.AppPlatForm + '/public/pjblog5.file.download.asp?file=' + id, {}, function( ret ){
 			var obj = new ActiveXObject(Library.com_stream);
 				obj.Type = 1;
 				obj.Mode = 3;

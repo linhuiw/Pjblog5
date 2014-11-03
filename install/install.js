@@ -111,7 +111,7 @@ Setup.add('step5', function(){
 	var params = require('./data');
 	var connected = false;
 	try{
-		var connect = require('appjs/service/tron.dbo').Connection;
+		var connect = require('../appjs/service/tron.dbo').Connection;
 		var conns = new connect();
 		this.conn = conns.connect({ 
 			"netserver": params.dbip, 

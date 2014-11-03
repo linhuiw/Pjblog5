@@ -118,7 +118,7 @@ define(['appjs/assets/iscroll'], function( require, exports, module ){
 			setTimeout(function(){
 				$('.theme-image').addClass('animated').addClass('zoomInLeft');
 			}, 0);
-			$('.theme-image .theme-image-box .imgs').html('<img src="private/themes/' + currentData.folder + '/' + currentData.icon + '" />');
+			$('.theme-image .theme-image-box .imgs').html('<img src="private/themes/' + currentData.folder + '/preview.png" />');
 			$('.theme-info h1').html(currentData.name);
 			$('.theme-info .author').html('<i class="fa fa-user"></i>' + currentData.author);
 			$('.theme-info .mail').html('<i class="fa fa-envelope-o"></i>' + currentData.mail);
@@ -143,7 +143,7 @@ define(['appjs/assets/iscroll'], function( require, exports, module ){
 			h +=			'<div class="themes-image">';
 			h +=				'<div class="bg">';
 			h +=					'<div class="pos">'
-			h +=						'<img src="private/themes/' + data.folder + '/preview.png" />';
+			h +=						'<img src="private/themes/' + data.folder + '/' + data.icon + '" />';
 			h +=						'<div class="tip track wordCut clearfix">';
 			h +=							'<a href="' + data.site + '" target="_blank" class="fleft">' + data.author + '</a>';
 			h +=							'<a href="mailto:' + data.mail + '" class="fright" target="blank">' + data.mail + '</a>';

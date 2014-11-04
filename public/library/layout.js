@@ -351,7 +351,7 @@ LayoutModule.add('MakePlugin', function(){
 						setting = package.getSettingParams(Number(pid));
 					
 					var plus = new plugin();
-					
+
 					var params = {
 						package: plus,
 						setting: setting || {}
@@ -364,7 +364,7 @@ LayoutModule.add('MakePlugin', function(){
 							}
 						}
 					}
-		
+
 					include(pfile, params);
 					
 				};

@@ -43,6 +43,7 @@ LayoutModule.add('initialize', function(){
 	this.include();
 	this.SupportStatus();
 	this.MakePlugin();
+	this.position();
 });
 
 LayoutModule.add('filterRequests', function( str ){
@@ -319,6 +320,42 @@ LayoutModule.add('MakePlugin', function(){
 			};
 		};
 	};
+});
+
+LayoutModule.add('position', function(){
+	var that = this;
+	this.NameSpace.sups.position = function(pos){
+		if ( pos === 'home' ){
+			return that.NameSpace.data.actives && that.NameSpace.data.actives.category && that.NameSpace.reqs.query.cate && that.NameSpace.reqs.query.cate === -1 ? true : false;
+		}
+		else if ( pos === 'category' ){
+			return that.NameSpace.data.actives && that.NameSpace.data.actives.category && that.NameSpace.reqs.query.cate && that.NameSpace.reqs.query.cate > 0 ? true : false;
+		}
+		else if ( pos === 'undercategory' ){
+			return that.NameSpace.data.actives && that.NameSpace.data.actives.category && that.NameSpace.reqs.query.cate && that.NameSpace.reqs.query.cate === 0 ? true : false;
+		}
+		else if ( pos === 'draft' ){
+			return that.NameSpace.data.actives && that.NameSpace.data.actives.category && that.NameSpace.reqs.query.cate && that.NameSpace.reqs.query.cate === -2 ? true : false;
+		}
+		else if ( pos === 'tag' ){
+			return that.NameSpace.data.actives && that.NameSpace.data.actives.tag ? true : false;
+		}
+		else if ( pos === 'article' ){
+			return that.NameSpace.data.article ? true : false;
+		}
+		else if ( pos === 'plugin' ){
+			return that.NameSpace.data.plugin ? true : false;
+		}
+		else if ( pos === 'close' ){
+			return that.NameSpace.data.global.blog_status !== 0 ? true : false;
+		}
+		else if ( pos === 'error' ){
+			return that.error !== 0 ? true : false;
+		}
+		else{
+			return false;
+		}
+	}
 });
 
 return LayoutModule;

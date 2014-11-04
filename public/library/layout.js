@@ -44,6 +44,7 @@ LayoutModule.add('initialize', function(){
 	this.SupportStatus();
 	this.MakePlugin();
 	this.position();
+	this.loadPlugins();
 });
 
 LayoutModule.add('filterRequests', function( str ){
@@ -265,6 +266,56 @@ LayoutModule.add('errorender', function(file){
 		});
 	};
 	return this;
+});
+
+LayoutModule.add('loadPlugins', function(){
+	var that = this;
+	var PluginCache = require('private/chips/' + blog.cache + 'blog.uri.plugins');
+	this.NameSpace.sups.plugins = function(args){
+		var pmark = that.NameSpace.data.plugin.mark;
+		var pfolder = PluginCache['queens'][pmark]['folder'];
+		var pid = PluginCache['queens'][pmark]['id'];
+		
+		if ( !PluginCache['queens'][pmark].stop ){
+			var plugin = new Class();
+				plugin.add("dbo", that.NameSpace.coms.dbo);
+				plugin.add("conn", that.NameSpace.coms.conn);
+				plugin.add("fs", that.NameSpace.coms.fs);
+				plugin.add("fns", that.NameSpace.coms.fns);
+				plugin.add("http", that.NameSpace.coms.http);
+				plugin.add("pid", pid);
+				plugin.add("pmark", pmark);
+				plugin.add("pfolder", pfolder);
+				
+			var packages = new Class();
+				packages.extend(require("public/library/plugin")).extend(plugin);
+			
+			if ( that.NameSpace.coms.fs.exist(resolve('private/plugins/' + pfolder + '/exports')) ){
+				plugin.extend(require('private/plugins/' + pfolder + '/exports'));
+			}
+
+			var package = new packages(),
+				setting = package.getSettingParams(Number(pid));
+			
+			var plus = new plugin();
+			
+			var params = {
+				package: plus,
+				setting: setting || {}
+			};
+			
+			if ( args ){
+				for ( var i in args ){
+					if ( !params[i] ){
+						params[i] = args[i];
+					}
+				}
+			}
+
+			return params;
+			
+		};
+	};
 });
 
 LayoutModule.add('MakePlugin', function(){

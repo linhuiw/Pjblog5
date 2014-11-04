@@ -6,7 +6,7 @@
 		if ( fs.exist(resolve(config)) ){
 			var x = require(config);
 			if ( x.mark && x.mark.length > 0 ){
-				marks.push(x.mark);
+				marks.push({mark: x.mark, version: x.version || 1});
 			}
 		}
 	});

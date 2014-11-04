@@ -50,6 +50,22 @@ define('appjs/assets/jquery.lsotope', function( require, exports, module ){
 				$(div).data('theme', data).addClass('theme-item').html(this.makes(data));
 			}
 		},
+		checkmarks: function(datas, tmark, version){
+			var d = 1;
+			for ( var i = 0 ; i < datas.length ; i++ ){
+				var data = datas[i];
+				mark = data.mark;
+				ver = data.version;
+				if ( mark === tmark ){
+					if ( ver < version ){
+						d = 3; //需要更新
+					}else{
+						d = 2; // 已是最新
+					}
+				}
+			};
+			return d;
+		},
 		makes: function(data){
 			var h = '';
 			h +=	'<div class="theme-item-zone">';
@@ -59,10 +75,14 @@ define('appjs/assets/jquery.lsotope', function( require, exports, module ){
 			h +=			'<h6>' + data.name + '</h6>';
 			h +=			'<div class="author"><span class="nick"><img src="' + blog.AppPlatForm + '/' + data.author.avatar + '/16">' + data.author.nick + '</span><span class="link"><a href="' + data.web + '" target="_blank"><i class="fa fa-home"></i>预览主题</a></span></div>';
 			h +=			'<div class="info"><span class="down"><i class="fa fa-pie-chart"></i>' + data.down + ' 次</span><span class="price"><i class="fa fa-cny"></i>' + data.price.toFixed(2) + '</span></div>';
-			if ( window.installeds.indexOf(data.mark) > -1 ){
-			h +=			'<div class="action"><a href="javascript:;" class="app-downloaded">主题已下载</a></div>';
-			}else{
-			h +=			'<div class="action"><a href="javascript:;" class="fa fa-plug app-download"></a></div>';
+			var tm = this.checkmarks(window.installeds, data.mark, data.version);
+			console.log(tm)
+			if ( tm === 1 ){
+			h +=			'<div class="action"><a href="javascript:;" class="fa fa-plug app-download"></a></div>';	
+			}else if ( tm === 2 ){
+			h +=			'<div class="action"><a href="javascript:;" class="app-downloaded">主题已下载</a></div>';	
+			}else if ( tm === 3 ){
+			h +=			'<div class="action"><a href="javascript:;" class="app-download" style="color:#ff0000;"><i class="fa fa-history"></i> 主题需要更新版本V' + data.version + '</a></div>';	
 			}
 			h +=		'</div>';
 			h +=	'</div>';

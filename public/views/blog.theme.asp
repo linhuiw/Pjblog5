@@ -36,7 +36,7 @@
         </div>
     </div>
 </div>
-<div id="theme" class="clearfix">
+<div id="theme">
 	<div class="theme-image fleft"><div class="theme-image-box"><div class="imgs"></div></div></div>
     <div class="theme-info">
     	<h1></h1>

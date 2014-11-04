@@ -27,6 +27,7 @@
 					params.art_categoryName = categorys.cate_name;
 					params.art_categoryIcon = categorys.cate_icon;
 					params.art_categoryHref =  blog.web + "/default.asp?cate=" + categorys.id;
+					params.art_des = object("art_des").value;
 					params.art_content = object("art_content").value;
 					params.art_tags =  that.getTagsByArray(object("art_tags").value);
 					params.art_postdate = new Date(object("art_postdate").value).getTime();

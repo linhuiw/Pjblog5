@@ -1042,3 +1042,7 @@ color: #c7254e;
 background-color: #f9f2f4;
 border-radius: 4px;
 }
+.copys{}
+.copys h1{ font-weight:bold; padding-bottom:10px;}
+.copys a{ margin:0px 5px;}
+.copys p{ margin-bottom:20px; line-height:20px;}

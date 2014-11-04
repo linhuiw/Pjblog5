@@ -5,7 +5,7 @@
 <div class="login">
 	<h6>用户登录模块</h6>
 	<p><i class="fa fa-info-circle"></i>欢迎回来，<%=data.user.nick%>。<span id="notice"></span></p>
-    <p><a href="http://app.webkits.cn/center"><i class="fa fa-angle-right"></i> 个人中心</a> </p>
+    <p><a href="http://app.webkits.cn/me"><i class="fa fa-angle-right"></i> 个人中心</a> </p>
     <%if ( sups.checkStatus("ControlSystem") ){%>
 	<p><a href="control.asp" target="_blank"><i class="fa fa-angle-right"></i> 进入后台</a></p>
 	<%}%>

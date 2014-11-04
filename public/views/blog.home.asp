@@ -191,6 +191,23 @@
                 </div>
             </div>
         </li>
+        
+        <li>
+            <div class="detail">
+                <h5 class="detail-head">
+                    <div class="title"><i class="fa fa-vimeo-square"></i> 程序开发与版权</div>
+                    <div class="more"><a href="" class="fa fa-arrow-circle-right"></a></div>
+                </h5>
+                <div class="detail-body">
+                    <div class="detail-body-A2 copys">
+                    	<h1>开发团队：</h1>
+                        <p><a href="http://webkits.cn" target="_blank">沈赟杰</a><a href="http://xybk.net" target="_blank">小影</a></p>
+                        <h1>版权所有：</h1>
+                        <p><i class="fa fa-copyright"></i> 2004-2015 版权归<a href="http://www.pjhome.net" target="_blank">陈子舜</a>所有，任何组织和个人不得用于个人商业盈利用途，主题或者插件除外，否则一切后果由该组织或个人承担！本程序团队组织不承担任何法律及连带责任。</p>
+                    </div>
+                </div>
+            </div>
+        </li>
         <%
 			;(function( hooks ){
 				var hook = new hooks();

@@ -140,12 +140,12 @@ Package.add('unPack', function( source, target ){
 	var headerInfo = this.getHeaderInfo(source),
 		headerSize = headerInfo.substr(0, 8),
 		headerText = headerInfo.substr(12);
-			
+	
 	var arr = headerText.split('|'), chunkDataLenth = 16 + Number(headerSize) + 1;
 	var root = target;
 	this.fs.autoCreateFolder(root);									// 创建根目录
-	
-	for ( var i = 1 ; i < arr.length ; i++ ){
+
+	for ( var i = 1 ; i < arr.length - 1; i++ ){
 		if (arr[i].indexOf('>') == -1) {
 			this.fs.autoCreateFolder(root + '\\' + arr[i]);			// 创建文件夹
 		}else{
@@ -178,7 +178,7 @@ Package.add('getHeaderInfo', function( path ){
 		obj.Position = 4 + 3;							// 自动添加了BOM信息，所以需要 + 3
 		var headerLength = Number(obj.ReadText(8));		// 读取文件头长度
 		obj.Position = 4 + 3;
-		text = obj.ReadText(8 + headerLength);			// 读取文件头内容
+		text = obj.ReadText(12 + headerLength);			// 读取文件头内容
 		obj.Close();
 		obj = null;
 					

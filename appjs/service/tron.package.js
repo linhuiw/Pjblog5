@@ -145,7 +145,7 @@ Package.add('unPack', function( source, target ){
 	var root = target;
 	this.fs.autoCreateFolder(root);									// 创建根目录
 	
-	for ( var i = 1 ; i < arr.length ; i++ ){
+	for ( var i = 1 ; i < arr.length - 1 ; i++ ){
 		if (arr[i].indexOf('>') == -1) {
 			this.fs.autoCreateFolder(root + '\\' + arr[i]);			// 创建文件夹
 		}else{

@@ -161,7 +161,7 @@ define(['appjs/assets/iscroll'], function( require, exports, module ){
 			h +=			'<p class="clearfix">';
 			h +=				'<a href="#" app-id="' + data.folder + '" class="fleft theme-review"><i class="fa fa-eye"></i>预览</a>';
 			if ( this.current !== data.folder ){
-			h +=				'<a href="?m=cloudthemes" app-id="' + data.folder + '" class="fright theme-remove AutoSendAjax" app-m="theme" app-p="remove" app-c="确定删除这个主题吗？删除后无法恢复！"><i class="fa fa-trash-o"></i>删除</a>';
+			h +=				'<a href="javascript:;" app-id="' + data.folder + '" class="fright theme-remove AutoSendAjax" app-m="theme" app-p="remove" app-c="确定删除这个主题吗？删除后无法恢复！"><i class="fa fa-trash-o"></i>删除</a>';
 			}
 			h +=			'</p>';	
 			h +=		'</div>';

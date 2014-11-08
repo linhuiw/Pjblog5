@@ -106,7 +106,7 @@ define('appjs/assets/jquery.lsotope', function( require, exports, module ){
 				for ( var i = 0 ; i < params.length ; i++ ){
 					var face = document.createElement('div'),
 						delay = i * 50,
-						html = '<div class="face"><img src="' + params[i].avatar + '?s=36" onerror="this.src=\'http://app.webkits.cn/avatars/default.png\'" /></div><div class="nick wordCut" title="' + params[i].nick + '">' + params[i].nick + '</div>';
+						html = '<div class="face"><img src="' + params[i].avatar + '/36" onerror="this.src=\'http://app.webkits.cn/assets/images/avatar.jpg\'" /></div><div class="nick wordCut" title="' + params[i].nick + '">' + params[i].nick + '</div>';
 						
 					userbox.append(face);
 					users[params[i].id + ''] = params[i];
@@ -149,7 +149,7 @@ define('appjs/assets/jquery.lsotope', function( require, exports, module ){
 			};
 						
 			var html = 		'<div class="details clearfix animated zoomInUp">'
-						+		'<div class="face"><img src="' + users[id].avatar + '?s=36" onerror="this.src=\'http://app.webkits.cn/avatars/default.png\'" /></div>'
+						+		'<div class="face"><img src="' + users[id].avatar + '/36" onerror="this.src=\'http://app.webkits.cn/assets/images/avatar.jpg\'" /></div>'
 						+		'<div class="info">'
 						+			'<div class="nick p">' + zhtml + users[id].nick + '</div>'
 						+			'<div class="status p"><i class="fa fa-dot-circle-o"></i><span>状态：</span><b>' + (users[id].forbit ? '已被禁止登陆本站': '正常，允许登陆。') + '</b></div>'

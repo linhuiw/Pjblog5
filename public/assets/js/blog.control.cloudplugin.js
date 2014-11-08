@@ -4,8 +4,18 @@ define('appjs/assets/jquery.lsotope', function( require, exports, module ){
 		initialize: function(){
 			this.SetupCloud();
 			this.onApplicationDownload();
+			this.onBindPages();
 		},
 		perpage: 10,
+		onBindPages: function(){
+			var that = this;
+			$('body').on('click', '.pages a', function(){
+				var page = $(this).attr('app-page');
+				if ( !isNaN(page) && Number(page) > 0 ){
+					that.getplugin(Number(page));
+				}
+			});
+		},
 		getClouds: function(perpage, page, callback){
 			var that = this;
 			this.tip.loading('正在获取云端插件信息，请稍后..');
@@ -30,20 +40,33 @@ define('appjs/assets/jquery.lsotope', function( require, exports, module ){
 			var that = this;
 			this.getClouds(this.perpage, page, function(params){
 				if ( params.error === 0 && params.data && params.data.plugins && params.data.plugins.length > 0 ){
-					that.makeHTML(params.data.plugins);
+					that.makeHTML(params.data.plugins, params.data.pages);
 					that.tip.success('获取云端插件成功');
 				}else{
 					that.tip.error('获取云端插件失败！');
 				}
 			});
 		},
-		makeHTML: function(datas){
+		makeHTML: function(datas, pages){
+			var that = this;
 			$('#cloud-plugins').empty();
 			for ( var i = 0 ; i < datas.length ; i++ ){	
 				var data = datas[i];
 				var div = document.createElement('div');
 				$('#cloud-plugins').append(div);
 				$(div).data('plugin', data).addClass('items tansAchor').html(this.makes(data));
+			}
+			if ( pages && pages.to > 1 ){
+				var h  = '<div class="pages">';
+				for ( var i = pages.from ; i <= pages.to ; i++ ){
+					if ( i === pages.current ){
+						h += '<span>' + i + '</span>';
+					}else{
+						h += '<a href="javascript:;" app-page="' + i + '" class="cloud_plugin_page">' + i + '</a>';
+					}
+				}
+				h += '</div>';
+				$('#cloud-plugins').append(h);
 			}
 		},
 		makes: function(data){

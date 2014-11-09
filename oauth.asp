@@ -63,12 +63,12 @@
 				_params.hashkey = _hashkey;
 				_params.expires_in = _expires_in;
 				
-				var Member = require("public/services/user");
-					Member.add("dbo", layout.dbo);
-					Member.add("conn", layout.conn);
+				var Member = require("public/modules/_user");
+					Member.add("dbo", layout.NameSpace.coms.dbo);
+					Member.add("conn", layout.NameSpace.coms.conn);
 				var member = new Member();
 			
-				return member.OauthLogin(_params);
+				return member._oAuthLogin(_params);
 			})
 			
 			.then(function(login){

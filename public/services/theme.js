@@ -144,9 +144,16 @@ ThemeModule.add('remove', function( params ){
 		return { success: false, message: '参数错误' };
 	};
 	
-	this.fs.clean('private/themes/' + id, true);
+	var de = this.fs.clean(contrast('private/themes/' + id), true);
+	if ( !de ){
+		de = this.fs.clean(contrast('private/themes/' + id), true);
+	}
 	
-	return { success: true, message: '删除主题成功' };
+	if ( de ){
+		return { success: true, message: '删除主题成功' };
+	}else{
+		return { success: false, message: '删除主题失败，可能服务器没有删除文件夹权限！' };
+	}
 });
 
 ThemeModule.add('GetSettingValue', function(){

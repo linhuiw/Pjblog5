@@ -506,7 +506,7 @@ html, body{
 .page-side .header-seperation .header-logo .site-urls a:link,
 .page-side .header-seperation .header-logo .site-urls a:visited{ color:#bbb;}
 .page-side .header-seperation .header-logo .site-urls a:hover{ color:#fff; background-color:#000;}
-.page-side .sidebar-profile{ padding:25px 20px 10px 20px;}
+.page-side .sidebar-profile{ padding:25px 20px 15px 20px;}
 .page-side .sidebar-profile img{ width:60px; height:60px; overflow:hidden; border-radius:100%; box-shadow:0px 0px 10px rgba(0,0,0,.9);}
 .page-side .sidebar-profile .profile-body{ margin-left:70px;}
 .page-side .sidebar-profile .profile-body .sidebar-user-links a:Link,
@@ -518,10 +518,13 @@ html, body{
 	font-size: 10.5px;
 	padding-left: 15px;
 	padding-right: 15px;
-	padding-top: 15px;
+	padding-top: 8px;
+	padding-bottom:7px;
 	text-transform: uppercase;
 	font-weight: 600;
 	letter-spacing: 0.2px;
+	background-color:#22262e;
+	margin-top:10px;
 }
 .page-side .menu-title a{ color:#808285;}
 .page-side .menu-title a:hover{ color:#fff;}

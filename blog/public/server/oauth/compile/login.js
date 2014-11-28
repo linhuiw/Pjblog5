@@ -16,7 +16,14 @@ var login = new Class(function( querys, forms ){
 		}else{
 			this.error = 10002;
 		}
-	}).getToken();
+	})
+	.getToken()
+	.getOpenid()
+	.getUserInfo()
+	.save()
+	.then(function(){
+		Response.Redirect(this.from);
+	});
 });
 
 login.add('getFrom', function(querysfrom){
@@ -34,28 +41,94 @@ login.add('getState', function(){
 });
 
 login.add('getToken', function(){
-	console.log(blog.appsite + "/oauth/token?grant_type=authorization_code&client_id=" + this.appid + "&client_secret=" + this.appkey + "&code=" + this.code + "&redirect_uri=" + blog.mysite)
-	var msg = ajax.getJSON(blog.appsite + "/oauth/token", {
-		grant_type: "authorization_code",
-		client_id: this.appid,
-		client_secret: this.appkey,
-		code: this.code,
-		redirect_uri: blog.mysite
-	});
-	console.log(msg.error)
+	return this.then(function(){
+		var msg = new ajax().getJSON(blog.appsite + "/oauth/token", {
+			grant_type: "authorization_code",
+			client_id: this.appid,
+			client_secret: this.appkey,
+			code: this.code,
+			redirect_uri: blog.mysite
+		});
+		
+		if ( msg.error && msg.error > 0 ){
+			this.error = msg.error;
+			this.reject();
+		}else{
+			this.resolve();
+			this.token = msg.data.access_token;
+			this.hashkey = msg.data.token_hashkey;
+			this.expires_in = msg.data.expires_in;
+		}
 	
-	if ( msg.error && msg.error > 0 ){
-		this.error = msg.error;
-		this.reject();
-	}else{
-		console.log(1)
-		this.resolve();
-		this.token = msg.data.access_token;
-		this.hashkey = msg.data.token_hashkey;
-		this.expires_in = msg.data.expires_in;
-		console.log(this.token, this.hashkey,this.expires_in)
-	}
-})
+	});
+});
+
+login.add('getOpenid', function(){
+	return this.then(function(){
+		var msg = new ajax().getJSON(blog.appsite + "/oauth/openid", { access_token: this.token });
+		if ( msg.error && msg.error > 0 ){
+			this.error = msg.error;
+			this.reject();
+		}else{
+			if ( msg.data.client_id == this.appid ){
+				this.resolve();
+				this.openid = msg.data.openid;
+			}else{
+				this.reject();
+				this.error = 10017;
+			}
+		}
+	});
+});
+
+login.add('getUserInfo', function(){
+	return this.then(function(){
+		var msg = new ajax().getJSON(blog.appsite + "/oauth/me", {
+			access_token: this.token,
+			oauth_consumer_key: this.appid,
+			openid: this.openid
+		});
+
+		if ( msg.error && msg.error > 0 ){
+			this.error = msg.error;
+			this.reject();
+		}else{
+			this.resolve();
+			this.user = msg.data;
+		}
+	});
+});
+
+login.add('save', function(){
+	return this.then(function(){
+
+		var user = require(':public/library/user');
+
+		var params = {
+			hashkey: this.hashkey,
+			openid: this.openid,
+			nick: this.user.nick,
+			mail: this.user.mail,
+			birthday: this.user.birthday < 0 ? 0 : this.user.birthday,
+			address: this.user.address || '',
+			website: this.user.website || '',
+			sex: this.user.sex || 0,
+			avatar: this.user.sex || 0,
+			token: this.token,
+			expires_in: this.expires_in
+		}
+		
+		var users = new user();
+		var status = users.oAuthLogin(params);
+		
+		if ( status.success ){
+			this.resolve();
+		}else{
+			this.error = 10019;
+			this.reject();
+		}
+	});
+});
 
 login.extend(task);
 

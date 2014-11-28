@@ -12,5 +12,15 @@
 			compile: resolve('server/control/compile/home.js'),
 			type: 'html'
 		}
+	},
+	oauth: {
+		jump: {
+			compile: resolve('server/oauth/compile/jump.js'),
+			type: 'json'
+		},
+		login: {
+			compile: resolve('server/oauth/compile/login.js'),
+			type: 'json'
+		}
 	}
 }

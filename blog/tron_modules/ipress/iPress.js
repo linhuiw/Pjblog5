@@ -76,6 +76,7 @@
 		};
 		
 		var tokens = token.split(':');
+
 		if ( tokens.length > 1 ){
 			outTokens.controler = tokens[0];
 			tokens = tokens[1].split('.');
@@ -123,7 +124,11 @@
 						});
 						return Requests;
 					};
-				PageServiceModule = new PageService(token.searchers, FormRequest);
+				if ( typeof PageService === 'function' ){
+					PageServiceModule = new PageService(token.searchers, FormRequest);
+				}else{
+					PageServiceModule = PageService;
+				}
 			});
 		};
 		
@@ -136,7 +141,7 @@
 		var PathModule = this.iControler.get(token.controler, token.views);
 		var that = this;
 		var PageServiceModule = null;
-		
+
 		// 编译为HTML
 		if ( PathModule.type === 'html' ){
 			 fs(PathModule.page)
@@ -156,7 +161,7 @@
 		}
 		
 		// 编译为JSON
-		else if ( type === 'json' ){
+		else if ( PathModule.type === 'json' ){
 			PageServiceModule = that.compile(PathModule);
 			if ( PageServiceModule ){
 				console.json(PageServiceModule);
@@ -167,7 +172,7 @@
 		
 		// 编译为文本
 		else{
-			console.log(that.compile(PathModule));
+			console.log(this.compile(PathModule));
 		}
 	});
 	

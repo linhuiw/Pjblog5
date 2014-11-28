@@ -15,6 +15,7 @@ var login = new Class(function( querys, forms ){
 			this.resolve();
 		}else{
 			this.error = 10002;
+			this.reject();
 		}
 	})
 	.getToken()

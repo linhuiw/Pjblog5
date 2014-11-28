@@ -1,0 +1,9 @@
+{
+	page: {
+		home: {
+			page: contrast('server/page/views/home.asp'),
+			compile: resolve('server/page/compile/home.js'),
+			type: 'html'
+		}
+	}
+}

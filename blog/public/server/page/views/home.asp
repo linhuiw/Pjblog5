@@ -1,1 +1,1 @@
-11
+<a href="<%=iPress.setURL('control', 'home')%>">进入后台</a>

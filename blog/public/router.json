@@ -5,5 +5,12 @@
 			compile: resolve('server/page/compile/home.js'),
 			type: 'html'
 		}
+	},
+	control: {
+		home: {
+			page: contrast('server/control/views/home.asp'),
+			compile: resolve('server/control/compile/home.js'),
+			type: 'html'
+		}
 	}
 }

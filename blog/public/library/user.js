@@ -61,7 +61,7 @@ user.add('status', function(){
 	
 	if ( id > 0 && hashkey.length > 0 ){
 		rec.top(1).select('member_nick', 'member_mail', 'member_group', 'member_forbit', 'member_logindate', 'member_avatar', 'member_token', 'member_openid').and('id', id).and('member_hashkey', hashkey).open().exec(function(object){
-			data.nick = object(0).vlaue;
+			data.nick = object(0).value;
 			data.mail = object(1).value;
 			data.group = object(2).value;
 			data.forbit = object(3).value;

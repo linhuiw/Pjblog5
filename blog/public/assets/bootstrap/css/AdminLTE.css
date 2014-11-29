@@ -11,7 +11,7 @@
 html,
 body {
   overflow-x: hidden!important;
-  font-family: 'Source Sans Pro', sans-serif;
+  font: normal 12px/1.6em Microsoft YaHei,Tahoma,simsun;
   -webkit-font-smoothing: antialiased;
   min-height: 100%;
   background: #f9f9f9;
@@ -524,6 +524,7 @@ body > .header .logo .icon {
 .sidebar .sidebar-menu > li > a > .glyphicon,
 .sidebar .sidebar-menu > li > a > .ion {
   width: 20px;
+  font-size:14px;
 }
 .sidebar .sidebar-menu .treeview-menu {
   display: none;
@@ -535,10 +536,15 @@ body > .header .logo .icon {
   margin: 0;
 }
 .sidebar .sidebar-menu .treeview-menu > li > a {
-  padding: 5px 5px 5px 15px;
+  padding: 10px 5px 10px 15px;
   display: block;
   font-size: 14px;
   margin: 0px 0px;
+}
+.sidebar .sidebar-menu .treeview-menu > li.active > a{
+	color:#586b7d;
+	font-weight: bold;
+	border-right:5px solid #586b7d;
 }
 .sidebar .sidebar-menu .treeview-menu > li > a > .fa,
 .sidebar .sidebar-menu .treeview-menu > li > a > .glyphicon,
@@ -546,7 +552,8 @@ body > .header .logo .icon {
   width: 20px;
 }
 .user-panel {
-  padding: 10px;
+  padding: 20px;
+  border-bottom: 1px solid #293846;
 }
 .user-panel:before,
 .user-panel:after {
@@ -2588,7 +2595,7 @@ Component: timeline
 }
 /* skin-black logo */
 .skin-black .logo {
-  background-color: #333333;
+  background-color: #293846;
   color: #f9f9f9;
 }
 .skin-black .logo > a {
@@ -2612,14 +2619,14 @@ Component: timeline
 }
 /* skin-black sidebar */
 .skin-black .sidebar {
-  border-bottom: 1px solid #333;
+  border-bottom: 0px solid #333;
 }
 .skin-black .sidebar > .sidebar-menu > li {
-  border-top: 1px solid #333;
+  border-top: 0px solid #333;
   border-bottom: 0px solid #444;
 }
 .skin-black .sidebar > .sidebar-menu > li:first-of-type {
-  border-top: 1px solid #444;
+  border-top: 0px solid #444;
 }
 .skin-black .sidebar > .sidebar-menu > li:first-of-type > a {
   border-top: 0px solid #333;
@@ -2630,14 +2637,14 @@ Component: timeline
 .skin-black .sidebar > .sidebar-menu > li > a:hover,
 .skin-black .sidebar > .sidebar-menu > li.active > a {
   color: #f6f6f6;
-  background: #444;
+  background: #293846;
 }
 .skin-black .sidebar > .sidebar-menu > li > .treeview-menu {
   margin: 0 1px;
-  background: #444;
+  background: #293846;
 }
 .skin-black .left-side {
-  background: #333;
+  background: #2f4050;
 }
 .skin-black .sidebar a {
   color: #eee;
@@ -3399,3 +3406,4 @@ fieldset[disabled] .btn-vk.active {
   color: #587ea3;
   background-color: #ffffff;
 }
+.sidebar-nav-tip{ padding: 15px 15px 0px 15px; color: #586b7d; font-weight: bold; font-size: 12px;}

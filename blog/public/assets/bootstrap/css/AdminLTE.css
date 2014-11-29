@@ -54,7 +54,7 @@ body > .header {
 }
 /*right side - contins main content*/
 .right-side {
-  background-color: #f9f9f9;
+  background-color: #f3f3f4;
   margin-left: 220px;
 }
 /*left side - contains sidebar*/
@@ -3416,3 +3416,37 @@ fieldset[disabled] .btn-vk.active {
   background-color: #ffffff;
 }
 .sidebar-nav-tip{ padding: 15px 15px 15px 15px; color: #586b7d; font-weight: bold; font-size: 12px;}
+.ibox {
+    clear: both;
+    margin-bottom: 25px;
+    margin-top: 0;
+    padding: 0;
+}
+.ibox:after,
+.ibox:before {
+    display: table;
+}
+.ibox-title {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #ffffff;
+    border-color: #e7eaec;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 4px 0px 0;
+    color: inherit;
+    margin-bottom: 0;
+    padding: 14px 15px 7px;
+    height: 48px;
+}
+.ibox-content {
+    background-color: #ffffff;
+    color: inherit;
+    padding: 15px 20px 20px 20px;
+    border-color: #e7eaec;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 1px 0px;
+}

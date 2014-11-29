@@ -3,7 +3,7 @@ var setting = new Class(function(querys, forms){
 	this.data = {};
 	
 	// your code here.
-	this.data.gets = this.gets();
+	this.gets();
 	
 	return this.data;
 	
@@ -12,9 +12,8 @@ var setting = new Class(function(querys, forms){
 // 获取数据
 setting.add('gets', function(){
 	var rec = new dbo(blog.tb + 'global', blog.conn);
-	var json = rec.top(1).selectAll().and('id', 1).toJSON()[0];
-	
-	return json;
+	var json = rec.selectAll().and('id', 1).toJSON()[0];
+	this.data.gets = json;
 });
 
 // 提交数据

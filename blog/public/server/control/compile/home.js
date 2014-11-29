@@ -14,10 +14,9 @@ var home = new Class(function(querys, forms){
 // 系统统计数据
 home.add('Statistics', function(){
 	var counts = {};
-	counts['文章总数'] = blog.conn.Execute('Select count(id) From ' + blog.tb + 'articles')(0).value;
-	counts['用户总数'] = blog.conn.Execute('Select count(id) From ' + blog.tb + 'members')(0).value;
-	counts['插件总数'] = blog.conn.Execute('Select count(id) From ' + blog.tb + 'plugins')(0).value;
-	counts['主题总数'] = blog.conn.Execute('Select count(id) From ' + blog.tb + 'themes')(0).value;
+	counts.article = blog.conn.Execute('Select count(id) From ' + blog.tb + 'articles')(0).value;
+	counts.user = blog.conn.Execute('Select count(id) From ' + blog.tb + 'members')(0).value;
+	counts.plugin = blog.conn.Execute('Select count(id) From ' + blog.tb + 'plugins')(0).value;
 	
 	return counts;
 });

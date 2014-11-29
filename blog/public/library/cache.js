@@ -2,7 +2,7 @@ var cache = new Class();
 
 cache.add('all', function(){
 	this.groups();
-	this.linits();
+	this.limits();
 });
 
 cache.add('groups', function(){

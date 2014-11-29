@@ -1,70 +1,135 @@
-<%
-console.log("evio是" + evio + "<br />");
-
-for (var i in iis) {
-	console.log(i + ": " + (iis[i] ? "支持" : "不支持") + "<br />")
-}
-
-for (var i in statistics) {
-	console.log(i + ": " + statistics[i] + "<br />")
-}
-%>
-
 <div class="row">
-    <div class="col-lg-3">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <span class="label label-success pull-right">月</span>
-                <h5>收入</h5>
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3>
+                    <%=statistics.article%>
+                </h3>
+                <p>
+                    	文章总数
+                </p>
             </div>
-            <div class="ibox-content">
-                <h1 class="no-margins">40 886,200</h1>
-                <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i>
-                </div>
-                <small>总收入</small>
+            <div class="icon">
+                <i class="ion ion-stats-bars"></i>
             </div>
+            <a href="<%=iPress.setURL('control', 'wrap', 'article')%>" class="small-box-footer">
+            <i class="fa fa-arrow-circle-right"></i>
+            </a>
         </div>
     </div>
-    <div class="col-lg-3">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <span class="label label-info pull-right">全年</span>
-                <h5>订单</h5>
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-yellow">
+            <div class="inner">
+                <h3>
+                    <%=statistics.user%>
+                </h3>
+                <p>
+                    	粉丝数
+                </p>
             </div>
-            <div class="ibox-content">
-                <h1 class="no-margins">275,800</h1>
-                <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
-                </div>
-                <small>新订单</small>
+            <div class="icon">
+                <i class="ion ion-person-add"></i>
             </div>
+            <a href="<%=iPress.setURL('control', 'wrap', 'user')%>" class="small-box-footer">
+             <i class="fa fa-arrow-circle-right"></i>
+            </a>
         </div>
     </div>
-    <div class="col-lg-3">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <span class="label label-primary pull-right">今天</span>
-                <h5>访客</h5>
+    <div class="col-lg-3 col-xs-12">
+        <!-- small box -->
+        <div class="small-box bg-red">
+            <div class="inner">
+                <h3>
+                    <%=statistics.plugin%>
+                </h3>
+                <p>
+                    	插件数
+                </p>
             </div>
-            <div class="ibox-content">
-                <h1 class="no-margins">106,120</h1>
-                <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i>
-                </div>
-                <small>新访客</small>
+            <div class="icon">
+                <i class="ion ion-ios7-pricetag-outline"></i>
             </div>
+            <a href="<%=iPress.setURL('control', 'wrap', 'plugin')%>" class="small-box-footer">
+             <i class="fa fa-arrow-circle-right"></i>
+            </a>
         </div>
     </div>
-    <div class="col-lg-3">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <span class="label label-danger pull-right">最近一个月</span>
-                <h5>活跃用户</h5>
-            </div>
-            <div class="ibox-content">
-                <h1 class="no-margins">80,600</h1>
-                <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i>
-                </div>
-                <small>12月</small>
-            </div>
+    <div class="col-lg-3 col-xs-12">
+    	<div class="alert alert-info alert-dismissable">
+            <i class="fa fa-info"></i>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <b>快捷入口</b> 选择最常用的操作以便快速到达功能点。<br />
+            <a href="">写日志</a>
+            <a href="">分类</a>
+            <a href="">插件</a>
+            <a href="">主题</a>
         </div>
     </div>
+</div>
+
+<!--data-placement="bottom" data-toggle="tooltip" data-original-title="前往云平台"-->
+<div class="row">
+	<div class="col-md-4">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>云端更新</h5>
+                        <div class="ibox-tools">
+                            <a class="close-link" href="<%=blog.appsite + '/download'%>" target="_blank"> <i class="fa fa-location-arrow"></i> </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+您是最新版本了
+                    </div>
+                </div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="ibox float-e-margins box">
+                    <div class="ibox-title">
+                        <h5>组件支持</h5>
+                        <div class="ibox-tools">
+                            <a class="close-link" href="<%=blog.appsite + '/download'%>" target="_blank"> <i class="fa fa-location-arrow"></i> </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content box-body">
+						<ul class="todo-list">
+							<%
+								;(function(){
+									for ( var i in iis ){
+							%>
+							<li>
+                                <input type="checkbox" value="" name="" <%=iis[i] ? 'checked': ''%>>                                            
+                                <span class="text"><%=i.toUpperCase()%></span>
+                                <%
+                                	if ( iis[i] ){
+                                %>
+                                <small class="label label-info pull-right"><i class="fa fa-check"></i> 支持</small>
+                                <%
+                                	}else{
+                                %>
+                                <small class="label label-danger pull-right"><i class="fa fa-close"></i> 缺少</small>
+                                <%
+                                	}
+                                %>
+                            </li>
+							<%
+									}
+								})();
+							%>
+                        </ul>
+                    </div>
+                </div>
+			</div>
+		</div>
+		
+	</div>
+	<div class="col-md-8">
+		2
+	</div>
 </div>

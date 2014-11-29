@@ -125,7 +125,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: Microsoft YaHei,Tahoma,simsun;
 }
 /* Page Header */
 .page-header {
@@ -1265,7 +1265,7 @@ body > .header .logo .icon {
 .box {
   position: relative;
   background: #ffffff;
-  border-top: 2px solid #c1c1c1;
+  border-top: 0px solid #c1c1c1;
   margin-bottom: 20px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -1510,7 +1510,7 @@ body > .header .logo .icon {
   background: #f3f4f5;
   margin-bottom: 2px;
   border-left: 2px solid #e6e7e8;
-  color: #444;
+  color:#999;
 }
 .box .todo-list > li:last-of-type {
   margin-bottom: 0;
@@ -1536,7 +1536,6 @@ body > .header .logo .icon {
 .box .todo-list > li .text {
   display: inline-block;
   margin-left: 5px;
-  font-weight: 600;
 }
 .box .todo-list > li .label {
   margin-left: 10px;
@@ -3421,6 +3420,7 @@ fieldset[disabled] .btn-vk.active {
     margin-bottom: 25px;
     margin-top: 0;
     padding: 0;
+    box-shadow: 4px 4px 1px rgba(0,0,0,.02);
 }
 .ibox:after,
 .ibox:before {
@@ -3449,4 +3449,49 @@ fieldset[disabled] .btn-vk.active {
     border-image: none;
     border-style: solid solid none;
     border-width: 1px 0px;
+}
+.ibox-title h5{ margin: 0;}
+.ibox-content {
+    clear: both;
+}
+.ibox-heading {
+    background-color: #f3f6fb;
+    border-bottom: none;
+}
+.ibox-heading h3 {
+    font-weight: 200;
+    font-size: 24px;
+}
+.ibox-title h5 {
+    display: inline-block;
+    font-size: 14px;
+    margin: 0 0 7px;
+    padding: 0;
+    text-overflow: ellipsis;
+    float: left;
+    font-weight: 600;
+    color: #777;
+}
+.ibox-title .label {
+    float: left;
+    margin-left: 4px;
+}
+.ibox-tools {
+    display: inline-block;
+    float: right;
+    margin-top: 0;
+    position: relative;
+    padding: 0;
+}
+.ibox-tools a {
+    cursor: pointer;
+    margin-left: 5px;
+    color: #c4c4c4;
+}
+.ibox-tools a.btn-primary {
+    color: #fff;
+}
+.ibox-tools .dropdown-menu > li > a {
+    padding: 4px 10px;
+    font-size: 12px;
 }

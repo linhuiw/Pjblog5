@@ -22,5 +22,11 @@
 			compile: resolve('server/oauth/compile/login.js'),
 			type: 'json'
 		}
+	},
+	async: {
+		setting: {
+			compile: resolve('server/async/setting.js'),
+			type: 'json'
+		}
 	}
 }

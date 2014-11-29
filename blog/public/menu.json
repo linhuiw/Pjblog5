@@ -16,7 +16,7 @@
 		icon: 'fa-file-text-o'
 	},
 	user: {
-		name: '用户',
+		name: '粉丝',
 		icon: 'fa-user'
 	},
 	group: {

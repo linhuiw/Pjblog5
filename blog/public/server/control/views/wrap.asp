@@ -64,7 +64,7 @@
                                         <li><!-- start message -->
                                             <a href="#">
                                                 <div class="pull-left">
-                                                    <img src="../../img/avatar3.png" class="img-circle" alt="User Image"/>
+                                                    <img src="" class="img-circle" alt="User Image"/>
                                                 </div>
                                                 <h4>
                                                     Support Team
@@ -76,7 +76,7 @@
                                         <li>
                                             <a href="#">
                                                 <div class="pull-left">
-                                                    <img src="../../img/avatar2.png" class="img-circle" alt="user image"/>
+                                                    <img src="" class="img-circle" alt="user image"/>
                                                 </div>
                                                 <h4>
                                                     AdminLTE Design Team
@@ -88,7 +88,7 @@
                                         <li>
                                             <a href="#">
                                                 <div class="pull-left">
-                                                    <img src="../../img/avatar.png" class="img-circle" alt="user image"/>
+                                                    <img src="" class="img-circle" alt="user image"/>
                                                 </div>
                                                 <h4>
                                                     Developers
@@ -100,7 +100,7 @@
                                         <li>
                                             <a href="#">
                                                 <div class="pull-left">
-                                                    <img src="../../img/avatar2.png" class="img-circle" alt="user image"/>
+                                                    <img src="" class="img-circle" alt="user image"/>
                                                 </div>
                                                 <h4>
                                                     Sales Department
@@ -112,7 +112,7 @@
                                         <li>
                                             <a href="#">
                                                 <div class="pull-left">
-                                                    <img src="../../img/avatar.png" class="img-circle" alt="user image"/>
+                                                    <img src="" class="img-circle" alt="user image"/>
                                                 </div>
                                                 <h4>
                                                     Reviewers
@@ -136,7 +136,7 @@
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header bg-light-blue">
-                                    <img src="../../img/avatar3.png" class="img-circle" alt="User Image" />
+                                    <img src="" class="img-circle" alt="User Image" />
                                     <p>
                                         Jane Doe - Web Developer
                                         <small>Member since Nov. 2012</small>
@@ -266,12 +266,15 @@
 						window.$ = window.jQuery = jQuerys[0];
 					}
 				}).then(function(){
-					return require(['public/assets/bootstrap/js/bootstrap.min.js', 'public/assets/bootstrap/js/AdminLTE/app.js']);
+					return require(['public/assets/bootstrap/js/bootstrap.min.js']);
 				}).then(function(){
-					var arr = [];
+					return require(['public/assets/bootstrap/js/AdminLTE/app.js'])
+				}).then(function(){
+					var arr = [':public/assets/js/common'];
 					if ( file.js ){ arr.push(file.js); };
 					if ( file.css ){ arr.push(file.css); };
-					require(arr, function( installers ){
+					require(arr, function( common, installers ){
+						new common();
 						if ( typeof installers == 'function' ){
 							new installers();
 						}

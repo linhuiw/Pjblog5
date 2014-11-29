@@ -16,9 +16,4 @@ setting.add('gets', function(){
 	this.data.gets = json;
 });
 
-// 提交数据
-setting.add('sets', function(){
-	
-});
-
 module.exports = setting;

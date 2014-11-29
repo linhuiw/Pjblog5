@@ -13,7 +13,7 @@
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="<%=iPress.setURL('control', 'wrap', 'article')%>" class="small-box-footer">
+            <a href="<%=iPress.setURL('control', 'wrap', { m: 'article'})%>" class="small-box-footer">
             <i class="fa fa-arrow-circle-right"></i>
             </a>
         </div>
@@ -32,7 +32,7 @@
             <div class="icon">
                 <i class="ion ion-person-add"></i>
             </div>
-            <a href="<%=iPress.setURL('control', 'wrap', 'user')%>" class="small-box-footer">
+            <a href="<%=iPress.setURL('control', 'wrap', { m: 'user' })%>" class="small-box-footer">
              <i class="fa fa-arrow-circle-right"></i>
             </a>
         </div>
@@ -51,7 +51,7 @@
             <div class="icon">
                 <i class="ion ion-ios7-pricetag-outline"></i>
             </div>
-            <a href="<%=iPress.setURL('control', 'wrap', 'plugin')%>" class="small-box-footer">
+            <a href="<%=iPress.setURL('control', 'wrap', { m: 'plugin' })%>" class="small-box-footer">
              <i class="fa fa-arrow-circle-right"></i>
             </a>
         </div>

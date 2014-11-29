@@ -30,7 +30,7 @@
 <body class="skin-black">
 <!-- header logo: style can be found in header.less -->
         <header class="header">
-            <a href="../../index.html" class="logo">
+            <a href="<%=iPress.setURL('page', 'home')%>" target="_blank" class="logo">
                 <!-- Add the class icon to your logo image or logo icon to add the margining -->
                 PJBlog5 iPress
             </a>
@@ -288,7 +288,7 @@
                         <div class="pull-left info">
                             <p>Hello, <%=blog.user.nick%></p>
 
-                            <a href="#"><i class="fa fa-circle text-info"></i> 在线</a>
+                            <a href="<%=blog.appsite + '/me'%>" target="_blank"><i class="fa fa-circle text-info"></i> 个人中心</a>
                         </div>
                     </div>
                     <!-- /.search form -->
@@ -317,7 +317,7 @@
                             <ul class="treeview-menu">
                             <%
                             		for ( var j in childs ){
-                            			var actives = pmenu === j ? 'active' : '';
+                            			var actives = amenu === i && pmenu === j ? 'active' : '';
                             %>
                             	<li class="<%=actives%>"><a href="<%=iPress.setURL('control', 'wrap', { m: i, p: j })%>"><i class="fa fa-angle-double-right"></i> <%=childs[j]%></a></li>
                             <%

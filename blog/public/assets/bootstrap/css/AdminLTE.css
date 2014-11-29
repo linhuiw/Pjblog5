@@ -2602,7 +2602,8 @@ Component: timeline
   color: #f9f9f9;
 }
 .skin-black .logo:hover {
-  background: #303030;
+  /*background: #586b7d;*/
+	color: #586b7d;
 }
 /* skin-black content header */
 .skin-black .right-side > .content-header {
@@ -3406,4 +3407,4 @@ fieldset[disabled] .btn-vk.active {
   color: #587ea3;
   background-color: #ffffff;
 }
-.sidebar-nav-tip{ padding: 15px 15px 0px 15px; color: #586b7d; font-weight: bold; font-size: 12px;}
+.sidebar-nav-tip{ padding: 15px 15px 15px 15px; color: #586b7d; font-weight: bold; font-size: 12px;}

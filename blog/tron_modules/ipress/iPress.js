@@ -103,12 +103,6 @@
 		var token = this.token;
 		var PathModule = mods || this.iControler.get(token.controler, token.views);
 		
-		var Event = this.iEvent.get(token.controler);
-		
-		if ( !Event ){
-			return;
-		}
-		
 		var PageServiceModule = null;
 		
 		if ( PathModule.compile && PathModule.compile.length > 0 ){
@@ -141,6 +135,12 @@
 		var PathModule = this.iControler.get(token.controler, token.views);
 		var that = this;
 		var PageServiceModule = null;
+		
+		var Event = this.iEvent.get(token.controler);
+		
+		if ( !Event ){
+			return;
+		}
 
 		// 编译为HTML
 		if ( PathModule.type === 'html' ){
@@ -168,6 +168,11 @@
 			}else{
 				this.error = 500;
 			}
+		}
+		
+		// 不输出
+		else if ( PathModule.type === 'none' ){
+			this.compile(PathModule)
 		}
 		
 		// 编译为文本

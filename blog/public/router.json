@@ -7,9 +7,9 @@
 		}
 	},
 	control: {
-		home: {
-			page: contrast('server/control/views/home.asp'),
-			compile: resolve('server/control/compile/home.js'),
+		wrap: {
+			page: contrast('server/control/views/wrap.asp'),
+			compile: resolve('server/control/compile/wrap.js'),
 			type: 'html'
 		}
 	},

@@ -60,7 +60,7 @@ user.add('status', function(){
 	id = Number(id);
 	
 	if ( id > 0 && hashkey.length > 0 ){
-		rec.top(1).select('member_nick', 'member_mail', 'member_group', 'member_forbit', 'member_logindate', 'member_avatar', 'member_token', 'member_openid').and('id', id).and('member_hashkey', hashkey).exec(function(object){
+		rec.top(1).select('member_nick', 'member_mail', 'member_group', 'member_forbit', 'member_logindate', 'member_avatar', 'member_token', 'member_openid').and('id', id).and('member_hashkey', hashkey).open().exec(function(object){
 			data.nick = object(0).vlaue;
 			data.mail = object(1).value;
 			data.group = object(2).value;
@@ -74,11 +74,11 @@ user.add('status', function(){
 	};
 	
 	if ( data.status === 1 ){
-		var groupCache = require(':private/groups.json');
+		var groupCache = require(':private/caches/groups.json');
 		if ( groupCache[data.group + ''] ){
 			var code = groupCache[data.group + ''].group_code;
 			if ( code.length > 0 ){
-				var codeCache = require(':private/limits.json');
+				var codeCache = require(':private/caches/limits.json');
 				for ( var i = 0 ; i < code.length ; i++ ){
 					if ( 
 						codeCache.indexs[code[i] + ''] &&

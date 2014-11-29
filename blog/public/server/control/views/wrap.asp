@@ -14,7 +14,7 @@
     		Library.setBase(argcs.base);
     	}, {base: blog.base});
     %>
-    <script language="javascript"> require('com-plugin-pace').then(function(){ pace.start({ document: false });}); </script>
+    <script language="javascript"> require('com-plugin-pace').then(function(pace){ pace[0].start({ document: false });}); </script>
     <!-- bootstrap 3.0.2 -->
     <link href="public/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- font Awesome -->

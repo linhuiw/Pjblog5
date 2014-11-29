@@ -1,11 +1,9 @@
-require('connect');
-
 var user = new Class();
 
 user.add('oAuthLogin', function(params){
 	var msg = { success: false, message: '操作失败' };
-	var redbo = new dbo('blog_members', blog.conn);
-	var count = blog.conn.Execute("Select Count(id) From blog_members Where member_openid='" + params.openid + "'")(0).value;
+	var rec = new dbo(blog.tb + 'members', blog.conn);
+	var count = blog.conn.Execute("Select Count(id) From " + blog.tb + "members Where member_openid='" + params.openid + "'")(0).value;
 
 	var data = {
 		member_hashkey: params.hashkey,
@@ -25,12 +23,12 @@ user.add('oAuthLogin', function(params){
 	
 	try{
 		if ( count > 0 ){
-			redbo.top(1).selectAll().and('member_openid', params.openid).open(3).set(data).save().exec(function(object){
+			rec.top(1).selectAll().and('member_openid', params.openid).open(3).set(data).save().exec(function(object){
 				id = object('id').value;
 			}).close();
 		}else{
 			data.member_group = 2;
-			redbo.create().set(data).save().exec(function(object){
+			rec.create().set(data).save().exec(function(object){
 				id = object('id').value;
 			}).close();
 		}
@@ -45,6 +43,56 @@ user.add('oAuthLogin', function(params){
 	}catch(e){}
 	
 	return msg;
+});
+
+/*
+ * 用户状态码
+ * 	@ 0 	未登陆
+ *  @ 1		普通会员
+ *  @ 2		管理员
+ */
+user.add('status', function(){
+	var $ = require('cookie');
+	var rec = new dbo(blog.tb + 'members', blog.conn);
+	var id = $.cookie(blog.pix + 'user_id') || '0';
+	var hashkey = $.cookie(blog.pix + 'user_hashkey') || '';
+	var data = { status: 0 };
+	id = Number(id);
+	
+	if ( id > 0 && hashkey.length > 0 ){
+		rec.top(1).select('member_nick', 'member_mail', 'member_group', 'member_forbit', 'member_logindate', 'member_avatar', 'member_token', 'member_openid').and('id', id).and('member_hashkey', hashkey).exec(function(object){
+			data.nick = object(0).vlaue;
+			data.mail = object(1).value;
+			data.group = object(2).value;
+			data.forbit = object(3).value;
+			data.logindate = new Date(object(4).value).getTime();
+			data.avatar = object(5).value;
+			data.token = object(6).value;
+			data.openid = object(7).value;
+			data.status = 1;
+		}).close();
+	};
+	
+	if ( data.status === 1 ){
+		var groupCache = require(':private/groups.json');
+		if ( groupCache[data.group + ''] ){
+			var code = groupCache[data.group + ''].group_code;
+			if ( code.length > 0 ){
+				var codeCache = require(':private/limits.json');
+				for ( var i = 0 ; i < code.length ; i++ ){
+					if ( 
+						codeCache.indexs[code[i] + ''] &&
+						codeCache.indexs[code[i] + ''] === 'ControlSystem'
+					){
+						data.status = 2;
+						break;
+					}
+				}
+			}
+		}
+	}
+	
+	return data;
 });
 
 module.exports = user;

@@ -21,7 +21,11 @@
 	},
 	group: {
 		name: '权限组与权限',
-		icon: 'fa-qrcode'
+		icon: 'fa-qrcode',
+		childs: {
+			usergroup: '权限组',
+			level: '限制级权限'
+		}
 	},
 	theme: {
 		name: '主题',

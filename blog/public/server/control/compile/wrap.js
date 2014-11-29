@@ -4,6 +4,7 @@ var wrap = new Class(function(querys, forms){
 	
 	this.getMenu();
 	this.getQuerys(querys);	
+	this.getBreadcrumb(querys);
 	this.getContentFile();
 	this.getCompile(querys, forms);
 	
@@ -61,14 +62,33 @@ wrap.add('getContentFile', function(){
 		fs(contrast('../views/' + asp)).exist().then(function(){
 			file.asp = asp;
 		});
-		fs(contrast(':public/assets/css/' + asp)).exist().then(function(){
-			file.css = ':public/assets/css/' + css;
+		fs(contrast(':public/assets/css/control/' + css)).exist().then(function(){
+			file.css = ':public/assets/css/control/' + css;
 		});
-		fs(contrast(':public/assets/js/' + asp)).exist().then(function(){
-			file.js = ':public/assets/js/' + js;
+		fs(contrast(':public/assets/js/control/' + js)).exist().then(function(){
+			file.js = ':public/assets/js/control/' + js;
 		});
 		this.data.file = file;
 	}
+});
+
+wrap.add('getBreadcrumb', function(querys){
+	var title = '', 
+		crumbs = ['PJBlog5 iPresS'];
+		
+	if ( this.data.menu[querys.m] ){
+		crumbs.push(this.data.menu[querys.m].name);
+		title = this.data.menu[querys.m].name;
+		this.data.crumbIcon = this.data.menu[querys.m].icon;
+		
+		if ( this.data.menu[querys.m].childs && this.data.menu[querys.m].childs[querys.p] ){
+			crumbs.push(this.data.menu[querys.m].childs[querys.p]);
+			title = this.data.menu[querys.m].childs[querys.p];
+		}
+	}
+	
+	this.data.crumbTitle = title;
+	this.data.crumb = crumbs;
 });
 
 module.exports = wrap;

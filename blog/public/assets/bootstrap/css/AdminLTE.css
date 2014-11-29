@@ -409,11 +409,14 @@ body > .header .logo .icon {
 }
 .right-side > .content-header {
   position: relative;
-  padding: 15px 15px 10px 20px;
+  padding: 20px 15px 20px 20px;
+  border-bottom: 1px solid #e7eaec !important;
 }
 .right-side > .content-header > h1 {
   margin: 0;
   font-size: 24px;
+  color: #777;
+  font-family: Microsoft YaHei,Tahoma,simsun;
 }
 .right-side > .content-header > h1 > small {
   font-size: 15px;
@@ -422,21 +425,21 @@ body > .header .logo .icon {
   font-weight: 300;
 }
 .right-side > .content-header > .breadcrumb {
-  float: right;
+
   background: transparent;
   margin-top: 0px;
   margin-bottom: 0;
   font-size: 12px;
-  padding: 7px 5px;
-  position: absolute;
-  top: 15px;
-  right: 10px;
+  padding: 15px 0px 7px 0px;
+
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   border-radius: 2px;
+  
+  color:#999;
 }
 .right-side > .content-header > .breadcrumb > li > a {
-  color: #444;
+  color: #777;
   text-decoration: none;
 }
 .right-side > .content-header > .breadcrumb > li > a > .fa,
@@ -444,9 +447,13 @@ body > .header .logo .icon {
 .right-side > .content-header > .breadcrumb > li > a > .ion {
   margin-right: 5px;
 }
+.right-side > .content-header > h1 > .fa{
+	margin-right: 10px;
+}
 .right-side > .content-header > .breadcrumb > li + li:before {
   content: '>\00a0';
 }
+
 @media screen and (max-width: 767px) {
   .right-side > .content-header > .breadcrumb {
     position: relative;
@@ -2570,8 +2577,8 @@ Component: timeline
 */
 /* skin-black navbar */
 .skin-black .navbar {
-  background-color: #ffffff;
-  border-bottom: 1px solid #eee;
+  background-color: #f3f3f4;
+  border-bottom: 4px solid #e7eaec;
 }
 .skin-black .navbar .nav a {
   color: #999;
@@ -2608,7 +2615,7 @@ Component: timeline
 }
 /* skin-black content header */
 .skin-black .right-side > .content-header {
-  background: transparent;
+  background: #fff;
   box-shadow: none;
 }
 /* Skin-red user panel */

@@ -355,7 +355,7 @@
                 <section class="content">
                  <%
                  	if ( file.asp ){
-                 		include(file.asp);
+                 		include(file.asp, compiles);
                  	}else{
                  		console.log('找不到文件[' + file.asp + ']');
                  	}

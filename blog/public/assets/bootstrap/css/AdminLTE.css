@@ -339,7 +339,7 @@ body > .header .navbar {
 }
 body > .header .navbar .sidebar-toggle {
   float: left;
-  padding: 9px 5px;
+  padding: 9px 15px;
   margin-top: 8px;
   margin-right: 0;
   margin-bottom: 8px;
@@ -350,6 +350,7 @@ body > .header .navbar .sidebar-toggle {
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;
   border-radius: 0 !important;
+  color: #293846!important;
 }
 body > .header .navbar .sidebar-toggle:hover .icon-bar {
   background: #f6f6f6;
@@ -2573,7 +2574,7 @@ Component: timeline
   border-bottom: 1px solid #eee;
 }
 .skin-black .navbar .nav a {
-  color: #333333;
+  color: #999;
 }
 .skin-black .navbar .nav > li > a:hover,
 .skin-black .navbar .nav > li > a:active,

@@ -1,11 +1,26 @@
 var wrap = new Class(function(querys, forms){
 	this.data = {};
+	this.data.compiles = {};
 	
 	this.getMenu();
 	this.getQuerys(querys);	
 	this.getContentFile();
+	this.getCompile(querys, forms);
 	
 	return this.data;
+});
+
+wrap.add('getCompile', function(querys, forms){
+	var path = '', that = this;
+	path += this.data.amenu + '.';
+	if ( this.data.pmenu.length > 0 ){
+		path += this.data.pmenu + '.';
+	}
+	path += 'js';
+	fs(resolve(path)).exist().then(function(){
+		var moduled = require(path);
+		that.data.compiles = new moduled(querys, forms);
+	});
 });
 
 wrap.add('getMenu', function(){

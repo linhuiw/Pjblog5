@@ -303,90 +303,42 @@
                     <!-- /.search form -->
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
-                        <li>
-                            <a href="../../index.html">
-                                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="../widgets.html">
-                                <i class="fa fa-th"></i> <span>Widgets</span> <small class="badge pull-right bg-green">new</small>
-                            </a>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-bar-chart-o"></i>
-                                <span>Charts</span>
+                    	<%
+                    		for ( var i in menu ){
+                    			var childs = menu[i].childs;
+                    			var actived = amenu === i ? 'active' : ''
+                    	%>
+                    	<li class="<%=(childs ? 'treeview' : '') + ' ' + actived%>">
+                            <a href="<%=childs ? 'javascript:;' : iPress.setURL('control', 'wrap', { m: i })%>">
+                                <i class="fa <%=menu[i].icon%>"></i> <span><%=menu[i].name%></span>
+                                <%
+                                	if ( childs ){
+                                %>
                                 <i class="fa fa-angle-left pull-right"></i>
+                                <%
+                                	}
+                                %>
                             </a>
+                            <%
+                            	if ( childs ){
+                            %>
                             <ul class="treeview-menu">
-                                <li><a href="../charts/morris.html"><i class="fa fa-angle-double-right"></i> Morris</a></li>
-                                <li><a href="../charts/flot.html"><i class="fa fa-angle-double-right"></i> Flot</a></li>
-                                <li><a href="../charts/inline.html"><i class="fa fa-angle-double-right"></i> Inline charts</a></li>
+                            <%
+                            		for ( var j in childs ){
+                            			var actives = pmenu === j ? 'active' : '';
+                            %>
+                            	<li class="<%=actives%>"><a href="<%=iPress.setURL('control', 'wrap', { m: i, p: j })%>"><i class="fa fa-angle-double-right"></i> <%=childs[j]%></a></li>
+                            <%
+                            		}
+                            %>
                             </ul>
+                            <%
+                            	}
+                            %>
                         </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-laptop"></i>
-                                <span>UI Elements</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="../UI/general.html"><i class="fa fa-angle-double-right"></i> General</a></li>
-                                <li><a href="../UI/icons.html"><i class="fa fa-angle-double-right"></i> Icons</a></li>
-                                <li><a href="../UI/buttons.html"><i class="fa fa-angle-double-right"></i> Buttons</a></li>
-                                <li><a href="../UI/sliders.html"><i class="fa fa-angle-double-right"></i> Sliders</a></li>
-                                <li><a href="../UI/timeline.html"><i class="fa fa-angle-double-right"></i> Timeline</a></li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-edit"></i> <span>Forms</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="../forms/general.html"><i class="fa fa-angle-double-right"></i> General Elements</a></li>
-                                <li><a href="../forms/advanced.html"><i class="fa fa-angle-double-right"></i> Advanced Elements</a></li>
-                                <li><a href="../forms/editors.html"><i class="fa fa-angle-double-right"></i> Editors</a></li>                                
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-table"></i> <span>Tables</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="../tables/simple.html"><i class="fa fa-angle-double-right"></i> Simple tables</a></li>
-                                <li><a href="../tables/data.html"><i class="fa fa-angle-double-right"></i> Data tables</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="../calendar.html">
-                                <i class="fa fa-calendar"></i> <span>Calendar</span>
-                                <small class="badge pull-right bg-red">3</small>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="../mailbox.html">
-                                <i class="fa fa-envelope"></i> <span>Mailbox</span>
-                                <small class="badge pull-right bg-yellow">12</small>
-                            </a>
-                        </li>
-                        <li class="treeview active">
-                            <a href="#">
-                                <i class="fa fa-folder"></i> <span>Examples</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="invoice.html"><i class="fa fa-angle-double-right"></i> Invoice</a></li>
-                                <li><a href="login.html"><i class="fa fa-angle-double-right"></i> Login</a></li>
-                                <li><a href="register.html"><i class="fa fa-angle-double-right"></i> Register</a></li>
-                                <li><a href="lockscreen.html"><i class="fa fa-angle-double-right"></i> Lockscreen</a></li>
-                                <li><a href="404.html"><i class="fa fa-angle-double-right"></i> 404 Error</a></li>
-                                <li><a href="500.html"><i class="fa fa-angle-double-right"></i> 500 Error</a></li>                                
-                                <li class="active"><a href="blank.html"><i class="fa fa-angle-double-right"></i> Blank Page</a></li>
-                            </ul>
-                        </li>
+                    	<%
+                    		}
+                    	%>
                     </ul>
                 </section>
                 <!-- /.sidebar -->
@@ -409,19 +361,36 @@
 
                 <!-- Main content -->
                 <section class="content">
-                 
+                 <%
+                 	if ( file.asp ){
+                 		include(file.asp);
+                 	}else{
+                 		console.log('找不到文件[' + file.asp + ']');
+                 	}
+                 %>
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
-
-
-        <!-- jQuery 2.0.2 -->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-        <!-- Bootstrap -->
-        <script src="public/assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-        <!-- AdminLTE App -->
-        <script src="public/assets/bootstrap/js/AdminLTE/app.js" type="text/javascript"></script>
-
+		<%
+			modules.scriptExec(function(file){
+				require('jquery').then(function(jQuerys){
+					if ( !window.jQuery ){
+						window.$ = window.jQuery = jQuerys[0];
+					}
+				}).then(function(){
+					return require(['public/assets/bootstrap/js/bootstrap.min.js', 'public/assets/bootstrap/js/AdminLTE/app.js']);
+				}).then(function(){
+					var arr = [];
+					if ( file.js ){ arr.push(file.js); };
+					if ( file.css ){ arr.push(file.css); };
+					require(arr, function( installers ){
+						if ( typeof installers == 'function' ){
+							new installers();
+						}
+					})
+				});
+			}, file);
+		%>
 </body>
 </html>

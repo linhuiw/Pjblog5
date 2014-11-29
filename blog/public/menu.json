@@ -1,0 +1,42 @@
+{
+	home: {
+		name: '主页',
+		icon: 'fa-home'
+	},
+	setting: {
+		name: '网站设置',
+		icon: 'fa-cogs'
+	},
+	category: {
+		name: '分类导航',
+		icon: 'fa-pie-chart'
+	},
+	article: {
+		name: '日志',
+		icon: 'fa-file-text-o'
+	},
+	user: {
+		name: '用户',
+		icon: 'fa-user'
+	},
+	group: {
+		name: '权限组与权限',
+		icon: 'fa-qrcode'
+	},
+	theme: {
+		name: '主题',
+		icon: 'fa-html5',
+		childs: {
+			local: '本地主题',
+			cloud: '云端主题'
+		}
+	},
+	plugin: {
+		name: '插件',
+		icon: 'fa-windows',
+		childs: {
+			local: '本地插件',
+			cloud: '云端插件'
+		}
+	}
+}

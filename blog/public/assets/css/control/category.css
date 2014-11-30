@@ -17,11 +17,13 @@ ol.example li.placeholder:before {
   /** Define arrowhead **/
 }
 
-.ibox-content{ padding: 15px 0 20px 0!important;}
-.ibox-content ol{ list-style: none; padding: 0; margin: 0;}
-.ibox-content ol ol li{ padding-left: 40px;}
-.ibox-content li{ line-height:20px; border-top:1px solid #eee;}
-.ibox-content li .category{ padding: 8px 15px;}
+.ibox-content{ padding: 0px 0 0px 0!important;}
+.ibox-content .nested_with_switch,
+.ibox-content .nested_with_switch ol{ list-style: none; padding: 0; margin: 0;}
+.ibox-content .nested_with_switch ol li{ }
+.ibox-content .nested_with_switch li{ line-height:20px; border-top:1px solid #eee;}
+.ibox-content .nested_with_switch li .category{ padding: 8px 15px;}
+.ibox-content .nested_with_switch li > ol > li{ background-color: #fcfcfc;}
 
 ol.vertical li.placeholder {
     position: relative;
@@ -40,3 +42,9 @@ ol.vertical li.placeholder {
       border: 5px solid transparent;
       border-left-color: red;
       border-right: none; }
+      
+.handlemove{ cursor: move;border-right: 1px solid #ddd;}
+.action a{ margin-left: 10px; font-weight: normal!important;}
+.action a:link,
+.action a:visited{ color: #ddd;}
+.action a:hover{ color: #999;}

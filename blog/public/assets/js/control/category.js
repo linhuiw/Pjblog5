@@ -134,7 +134,7 @@
 		var oldContainer, that = this;
 		var group = $("ol.nested_with_switch").sortable("destroy").sortable({
 		  group: 'nested',
-		  handle: 'i.fa-arrows-alt',
+		  handle: '.handlemove',
 		  afterMove: function (placeholder, container) {
 		    if(oldContainer != container){
 		      if(oldContainer)
@@ -145,6 +145,8 @@
 		    }
 		  },
 		  onDrop: function (item, container, _super) {
+		    container.el.removeClass("active");
+		    _super(item);
 		    
 		    var source = Number($(item).attr('data-id'));
 		  	var target = $(container.el).attr('data-id');
@@ -154,8 +156,7 @@
     		var jsonString = JSON.stringify(data, null, ' ');
 
 		  	that.setParent(source, tp, jsonString, function(){
-		  		container.el.removeClass("active");
-		    	_super(item);
+		  		
 		  	});
 		  },
 		  isValidTarget: function(item, container){

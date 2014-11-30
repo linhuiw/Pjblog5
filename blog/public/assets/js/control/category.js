@@ -27,6 +27,8 @@
 		this.addCategory();
 		this.onIconEvent();
 		this.saveData();
+		this.savesort();
+		this.DelData();
 		$('#refresh').on('click', function(event, callback){
 			var _this = this;
 			$(this).addClass('fa-spin');
@@ -152,7 +154,7 @@
 	
 	category.add('sortable', function(){
 		var oldContainer, that = this;
-		var group = $("ol.nested_with_switch").sortable("destroy").sortable({
+		this.group = $("ol.nested_with_switch").sortable("destroy").sortable({
 		  group: 'nested',
 		  handle: '.handlemove',
 		  afterMove: function (placeholder, container) {
@@ -168,11 +170,8 @@
 		    var source = Number($(item).attr('data-id'));
 		  	var target = $(container.el).attr('data-id');
 		  	var tp = target && target.length > 0 ? Number(target) : 0;
-		  	
-		  	var data = group.sortable("serialize").get()[0];
-    		var jsonString = JSON.stringify(data, null, ' ');
 
-		  	that.setParent(source, tp, jsonString, function(){
+		  	that.setParent(source, tp, function(){
 		  		container.el.removeClass("active");
 		    	_super(item);
 		  	});
@@ -259,12 +258,11 @@
 		});
 	});
 
-	category.add('setParent', function(id, parent, orders, callback){
+	category.add('setParent', function(id, parent, callback){
 		window.doing = true;
 		$.post(window.modules.category.setParent + '=' + new Date().getTime(), {
 			id: id,
-			parent: parent,
-			orders: orders
+			parent: parent
 		}, function(params){
 			if ( params.success ){
 				if ( typeof callback === 'function' ){
@@ -335,6 +333,48 @@
 				alert(params.message);
 			}
 		}, 'json');
+	});
+	
+	category.add('savesort', function(){
+		var that = this;
+		$('#savesort').on('click', function(){
+			var data = that.group.sortable("serialize").get()[0];
+			var jsonString = JSON.stringify(data, null, ' ');
+			window.doing = true;
+			$.post(window.modules.category.saveSort + '=' + new Date().getTime(), {
+				orders: data
+			}, function(params){
+				if ( params.success ){
+					$('#refresh').trigger('click', function(){
+						window.doing = false;
+					});
+				}else{
+					alert(params.message);
+				}
+			}, 'json');
+		});
+	});
+	
+	category.add('DelData', function(){
+		var that = this;
+		$('body').on('click', '.remove', function(){
+			if ( !confirm('确定删除？') ){
+				return false;
+			}
+			var id = $(this).attr('data-id');
+			window.doing = true;
+			$.post(window.modules.category.delData + '=' + new Date().getTime(), {
+				id: id
+			}, function(params){
+				if ( params.success ){
+					$('#refresh').trigger('click', function(){
+						window.doing = false;
+					});
+				}else{
+					alert(params.message);
+				}
+			}, 'json');
+		});
 	});
 
 	

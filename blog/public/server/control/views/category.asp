@@ -5,7 +5,9 @@ modules.scriptExec(function( data ){
 	url: iPress.setURL('async', 'category', { m: 'getdata' }),
 	setParent: iPress.setURL('async', 'category', { m: 'setparent' }),
 	addRootCategory: iPress.setURL('async', 'category', { m: 'insdata' }),
-	saveIcon: iPress.setURL('async', 'category', { m: 'seticon' })
+	saveIcon: iPress.setURL('async', 'category', { m: 'seticon' }),
+	saveSort: iPress.setURL('async', 'category', { m: 'setsort' }),
+	delData: iPress.setURL('async', 'category', { m: 'deldata' })
 })
 %>
 
@@ -20,7 +22,7 @@ modules.scriptExec(function( data ){
 					<a class="collapse-link addCategory" href="javascript:;" data-id="{id}"><i class="fa fa-plus"></i></a>
 					<a class="collapse-link saveData" href="javascript:;"><i class="fa fa-pencil"></i></a>
 					<a class="collapse-link changeIcon" href="javascript:;" data-icon="{cate_icon}" data-id="{id}"><i class="fa fa-image"></i></a>
-					<a class="collapse-link" href="javascript:;"><i class="fa fa-close"></i></a>
+					<a class="collapse-link remove" href="javascript:;" data-id="{id}"><i class="fa fa-close"></i></a>
 	  			</div>
 	  		</div>
 			<div class="row category-edit-row hide">
@@ -69,7 +71,7 @@ modules.scriptExec(function( data ){
 	  			<div class="col-md-2 text-right action">
 					<a class="collapse-link saveData" href="javascript:;"><i class="fa fa-pencil"></i></a>
 					<a class="collapse-link changeIcon" href="javascript:;" data-icon="{cate_icon}" data-id="{id}"><i class="fa fa-image"></i></a>
-					<a class="collapse-link" href="javascript:;"><i class="fa fa-close"></i></a>
+					<a class="collapse-link remove" href="javascript:;" data-id="{id}"><i class="fa fa-close"></i></a>
 	  			</div>
 	  		</div>
 			<div class="row category-edit-row hide">
@@ -117,6 +119,7 @@ modules.scriptExec(function( data ){
 		        <h5>分类导航管理</h5>
 		        <div class="ibox-tools">
                     <a class="collapse-link" id="addroot"><i class="fa fa-plus"></i></a>
+                    <a class="collapse-link" id="savesort"><i class="fa fa-save"></i></a>
                     <a class="collapse-link" id="refresh"><i class="fa fa-refresh"></i></a>
                 </div>
 		    </div>

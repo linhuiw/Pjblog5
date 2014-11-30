@@ -10,4 +10,8 @@ var category = new Class(function(querys, getforms){
 	}
 });
 
+category.add('getdata', function(querys, getforms, categoryPromise){
+	return categoryPromise.gets();
+});
+
 module.exports = category;

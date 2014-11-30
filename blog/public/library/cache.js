@@ -77,7 +77,7 @@ cache.add('categorys', function(){
 	var libcate = require('category');
 	var modcate = new libcate();
 	
-	var data = modcate.gets();
+	var data = JSON.stringify(modcate.gets());
 	var success = false;
 	fs(contrast(':private/caches/categorys.json')).create(data).then(function(){success = true}).fail(function(){success = false;}).stop();
 	return success;

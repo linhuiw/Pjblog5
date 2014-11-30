@@ -28,8 +28,7 @@ category.add('gets', function(){
 		queens.push(parent[i]);
 	}
 	
-	var data = JSON.stringify({indexs: indexs, queens: queens});
-	return data;
+	return {indexs: indexs, queens: queens};
 });
 
 module.exports = category;

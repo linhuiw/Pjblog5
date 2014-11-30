@@ -98,7 +98,7 @@ category.add('setparent', function(querys, getforms, categoryPromise){
 	return msg;
 });
 
-category.add('saveicon', function(querys, getforms, categoryPromise){
+category.add('seticon', function(querys, getforms, categoryPromise){
 	var msg = { success: false, message: '保存图标失败' };
 	
 	try {

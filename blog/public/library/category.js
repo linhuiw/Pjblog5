@@ -50,10 +50,8 @@ category.add('save', function(data){
 		rec.selectAll().and('id', data.cate_parent).open().exec(function(){}, function(object){
 			data.cate_parent = 0;
 		}).close();
-		rec.resetSQL().selectAll().and('id', id).open(3).set(data).save().close();
-	}else{
-		rec.selectAll().and('id', id).open(3).set(data).save().close();
 	}
+	rec.resetSQL().selectAll().and('id', id).open(3).set(data).save().close();
 	
 	var caches = require(':public/library/cache');
 	var cache = new caches();

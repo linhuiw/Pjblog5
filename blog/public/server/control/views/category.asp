@@ -8,13 +8,13 @@ modules.scriptExec(function( data ){
 %>
 
 <script type="text/html" id="category-template-root">
-	<li data-parent="{cate_parent}" data-order="{cate_order}" data-count="{count}" data-id="{id}">
+	<li data-parent="{cate_parent}" data-order="{cate_order}" data-count="{count}" data-id="{id}" data-out="{cate_outlink}">
 	  	<div class="category"><i class="fa fa-arrows-alt"></i>{cate_name}</div>
-	  	<ol class="{nodrop}" data-parent="{cate_parent}" data-order="{cate_order}" data-count="{count}" data-id="{id}">{childrens}</ol>
+	  	<ol class="{nodrop}" data-parent="{cate_parent}" data-order="{cate_order}" data-count="{count}" data-id="{id}" data-out="{cate_outlink}">{childrens}</ol>
 	</li>
 </script>
 <script type="text/html" id="category-template-child">
-	<li data-parent="{cate_parent}" data-order="{cate_order}" data-id="{id}"><div class="category"><i class="fa fa-arrows-alt"></i>{cate_name}</div></li>
+	<li data-parent="{cate_parent}" data-order="{cate_order}" data-id="{id}" data-out="{cate_outlink}"><div class="category"><i class="fa fa-arrows-alt"></i>{cate_name}</div></li>
 </script>
 
 <div class="iPress-wrap">

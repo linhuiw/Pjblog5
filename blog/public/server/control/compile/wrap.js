@@ -2,6 +2,8 @@ var wrap = new Class(function(querys, forms){
 	this.data = {};
 	this.data.compiles = {};
 	
+	
+	this.getLocked();
 	this.getMenu();
 	this.getQuerys(querys);	
 	this.getBreadcrumb(querys);
@@ -89,6 +91,12 @@ wrap.add('getBreadcrumb', function(querys){
 	
 	this.data.crumbTitle = title;
 	this.data.crumb = crumbs;
+});
+
+wrap.add('getLocked', function(){
+	if ( Session(blog.pix + 'locked') ){
+		
+	}
 });
 
 module.exports = wrap;

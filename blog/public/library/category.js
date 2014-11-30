@@ -3,7 +3,7 @@ var category = new Class();
 category.add('gets', function(){
 	var parent = {}, childs = {}, indexs = {}, queens = [];
 	var rec = new dbo(blog.tb + 'categorys', blog.conn);
-	rec.selectAll().asc('cate_order').open().each(function(object){
+	rec.selectAll().asc('cate_order').asc('id').open().each(function(object){
 		var cate = {};
 		for ( var i = 0; i < object.fields.count ; i++ ) {
 			cate[object.fields(i).name] = object.fields(i).value;

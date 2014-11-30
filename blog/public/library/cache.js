@@ -3,8 +3,10 @@ var cache = new Class();
 cache.add('all', function(){
 	this.groups();
 	this.limits();
+	this.global();
 });
 
+// 用户组
 cache.add('groups', function(){
 	var rec = new dbo(blog.tb + 'groups', blog.conn);
 	var indexs = {};
@@ -28,6 +30,7 @@ cache.add('groups', function(){
 	return success;
 });
 
+// 权限
 cache.add('limits', function(){
 	var rec = new dbo(blog.tb + 'levels', blog.conn);
 	var indexs = {}, queens = {};
@@ -51,6 +54,16 @@ cache.add('limits', function(){
 	var data = JSON.stringify({indexs: indexs, queens: queens});
 	var success = false;
 	fs(contrast(':private/caches/limits.json')).create(data).then(function(){success = true}).fail(function(){success = false;}).stop();
+	return success;
+});
+
+// 整站设置
+cache.add('global', function(){
+	var rec = new dbo(blog.tb + 'global', blog.conn);
+	var json = rec.selectAll().and('id', 1).toJSON()[0];
+	var data = JSON.stringify(json);
+	var success = false;
+	fs(contrast(':private/caches/global.json')).create(data).then(function(){success = true}).fail(function(){success = false;}).stop();
 	return success;
 });
 

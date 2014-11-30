@@ -281,6 +281,9 @@
 	
 	category.add('addRootCategory', function(){
 		$('body').on('click', '#addroot', function(){
+			if ( !confirm('确定添加？') ){
+				return false;
+			}
 			window.doing = true;
 			$.post(window.modules.category.addRootCategory + '=' + new Date().getTime(), {
 				pid: 0
@@ -298,6 +301,9 @@
 	
 	category.add('addCategory', function(){
 		$('body').on('click', '.addCategory', function(){
+			if ( !confirm('确定添加？') ){
+				return false;
+			}
 			var id = $(this).attr('data-id');
 			window.doing = true;
 			$.post(window.modules.category.addRootCategory + '=' + new Date().getTime(), {

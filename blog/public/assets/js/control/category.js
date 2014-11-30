@@ -110,13 +110,16 @@
 		return html;
 	});
 	
-	category.add('setParent', function(id, parent){
+	category.add('setParent', function(id, parent, callback){
 		window.doing = true;
 		$.post(window.modules.category.setParent + '=' + new Date().getTime(), {
 			id: id,
 			parent: parent
 		}, function(params){
 			if ( params.success ){
+				if ( typeof callback === 'function' ){
+					callback();
+				}
 				$('#refresh').trigger('click', function(){
 					window.doing = false;
 				});
@@ -141,13 +144,15 @@
 		    }
 		  },
 		  onDrop: function (item, container, _super) {
-		    container.el.removeClass("active")
-		    _super(item);
+		    
 		    var source = Number($(item).attr('data-id'));
 		  	var target = $(container.el).attr('data-id');
 		  	var tp = target && target.length > 0 ? Number(target) : 0;
 
-		  	that.setParent(source, tp);
+		  	that.setParent(source, tp, function(){
+		  		container.el.removeClass("active");
+		    	_super(item);
+		  	});
 		  },
 		  isValidTarget: function(item, container){
 		  	if ( window.doing ){ return false; };

@@ -49,6 +49,9 @@ ol.vertical li.placeholder {
 .action a:visited{ color: #ddd;}
 .action a:hover{ color: #999;}
 
+.bors{ padding:10px 0px; border-top:1px solid #eee; margin-top:10px;}
+.bors .form-control{ padding:0px 12px; line-height:20px; font-size:12px; border:1px solid #eee;}
+
 @media screen and (max-width: 767px) {
   .ibox-content .nested_with_switch li > ol > li .handlemove{
   	text-align: left!important;

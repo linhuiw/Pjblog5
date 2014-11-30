@@ -18,16 +18,48 @@ modules.scriptExec(function( data ){
 	  			<div class="col-md-5">{cate_des}</div>
 	  			<div class="col-md-2 text-right action">
 					<a class="collapse-link addCategory" href="javascript:;" data-id="{id}"><i class="fa fa-plus"></i></a>
-					<a class="collapse-link" href="javascript:;"><i class="fa fa-pencil"></i></a>
+					<a class="collapse-link saveData" href="javascript:;"><i class="fa fa-pencil"></i></a>
 					<a class="collapse-link changeIcon" href="javascript:;" data-icon="{cate_icon}" data-id="{id}"><i class="fa fa-image"></i></a>
 					<a class="collapse-link" href="javascript:;"><i class="fa fa-close"></i></a>
 	  			</div>
 	  		</div>
+			<div class="row category-edit-row hide">
+				<div class="col-md-1">&nbsp;</div>
+				<div class="col-md-11 bors">
+					<form method="post" class="form-horizontal" action="<%=iPress.setURL('async', 'category', {m: 'setdata'})%>">
+						<input type="hidden" name="id" value="{id}" />
+						<div class="form-group">
+							<label class="col-sm-1 control-label">分类名</label>
+							<div class="col-sm-11">
+								<input type="text" class="form-control" value="{cate_name}" name="cate_name">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-1 control-label">分类描述</label>
+							<div class="col-sm-11">
+								<input type="text" class="form-control" value="{cate_des}" name="cate_des">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-1 control-label">外链</label>
+							<div class="col-sm-11">
+								<input type="text" class="form-control" value="{cate_src}" name="cate_src">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-1 control-label">&nbsp;</label>
+							<div class="col-sm-11">
+								<button class="btn btn-success edit-save"><i class="fa fa-save"></i> 保存</button>
+								<button class="btn btn-danger edit-close"><i class="fa fa-close"></i> 关闭</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
 	  	</div>
 	  	<ol class="{nodrop}" data-parent="{cate_parent}" data-order="{cate_order}" data-count="{count}" data-id="{id}" data-out="{cate_outlink}">{childrens}</ol>
 	</li>
-</script>
-<script type="text/html" id="category-template-child">
+</script><script type="text/html" id="category-template-child">
 	<li data-parent="{cate_parent}" data-order="{cate_order}" data-id="{id}" data-out="{cate_outlink}">
 		<div class="category">
 			<div class="row">

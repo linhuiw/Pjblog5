@@ -31,26 +31,32 @@ modules.scriptExec(function( data ){
 					<form method="post" class="form-horizontal" action="<%=iPress.setURL('async', 'category', {m: 'setdata'})%>">
 						<input type="hidden" name="id" value="{id}" />
 						<div class="form-group">
-							<label class="col-sm-1 control-label">分类名</label>
-							<div class="col-sm-11">
+							<label class="col-sm-2 control-label">分类名</label>
+							<div class="col-sm-10">
 								<input type="text" class="form-control" value="{cate_name}" name="cate_name">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-1 control-label">分类描述</label>
-							<div class="col-sm-11">
+							<label class="col-sm-2 control-label">分类描述</label>
+							<div class="col-sm-10">
 								<input type="text" class="form-control" value="{cate_des}" name="cate_des">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-1 control-label">外链</label>
-							<div class="col-sm-11">
+							<label class="col-sm-2 control-label">外链</label>
+							<div class="col-sm-10">
 								<input type="text" class="form-control" value="{cate_src}" name="cate_src">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-1 control-label">&nbsp;</label>
-							<div class="col-sm-11">
+							<label class="col-sm-2 control-label">排序</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" value="{cate_order}" name="cate_order">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">&nbsp;</label>
+							<div class="col-sm-10">
 								<button class="btn btn-success edit-save"><i class="fa fa-save"></i> 保存</button>
 								<button class="btn btn-danger edit-close"><i class="fa fa-close"></i> 关闭</button>
 							</div>
@@ -80,26 +86,32 @@ modules.scriptExec(function( data ){
 					<form method="post" class="form-horizontal" action="<%=iPress.setURL('async', 'category', {m: 'setdata'})%>">
 						<input type="hidden" name="id" value="{id}" />
 						<div class="form-group">
-							<label class="col-sm-1 control-label">分类名</label>
-							<div class="col-sm-11">
+							<label class="col-sm-2 control-label">分类名</label>
+							<div class="col-sm-10">
 								<input type="text" class="form-control" value="{cate_name}" name="cate_name">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-1 control-label">分类描述</label>
-							<div class="col-sm-11">
+							<label class="col-sm-2 control-label">分类描述</label>
+							<div class="col-sm-10">
 								<input type="text" class="form-control" value="{cate_des}" name="cate_des">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-1 control-label">外链</label>
-							<div class="col-sm-11">
+							<label class="col-sm-2 control-label">外链</label>
+							<div class="col-sm-10">
 								<input type="text" class="form-control" value="{cate_src}" name="cate_src">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-1 control-label">&nbsp;</label>
-							<div class="col-sm-11">
+							<label class="col-sm-2 control-label">排序</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" value="{cate_order}" name="cate_order">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">&nbsp;</label>
+							<div class="col-sm-10">
 								<button class="btn btn-success edit-save"><i class="fa fa-save"></i> 保存</button>
 								<button class="btn btn-danger edit-close"><i class="fa fa-close"></i> 关闭</button>
 							</div>
@@ -119,7 +131,7 @@ modules.scriptExec(function( data ){
 		        <h5>分类导航管理</h5>
 		        <div class="ibox-tools">
                     <a class="collapse-link" id="addroot"><i class="fa fa-plus"></i></a>
-                    <a class="collapse-link" id="savesort"><i class="fa fa-save"></i></a>
+<!--                    <a class="collapse-link" id="savesort"><i class="fa fa-save"></i></a>-->
                     <a class="collapse-link" id="refresh"><i class="fa fa-refresh"></i></a>
                 </div>
 		    </div>

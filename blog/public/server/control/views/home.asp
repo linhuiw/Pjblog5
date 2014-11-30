@@ -103,20 +103,20 @@
 								;(function(){
 									for ( var i in iis ){
 							%>
-							<li>
-                                <input type="checkbox" value="" name="" <%=iis[i] ? 'checked': ''%>>                                            
-                                <span class="text"><%=i.toUpperCase()%></span>
+							<li>                                         
+                                
                                 <%
                                 	if ( iis[i] ){
                                 %>
-                                <small class="label label-info pull-right"><i class="fa fa-check"></i> 支持</small>
+                                <small class="label label-info"><i class="fa fa-check"></i></small>
                                 <%
                                 	}else{
                                 %>
-                                <small class="label label-danger pull-right"><i class="fa fa-close"></i> 缺少</small>
+                                <small class="label label-danger"><i class="fa fa-close"></i></small>
                                 <%
                                 	}
                                 %>
+                                <span class="text"><%=i.toUpperCase()%></span>
                             </li>
 							<%
 									}

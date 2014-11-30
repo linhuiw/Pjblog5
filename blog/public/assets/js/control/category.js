@@ -23,6 +23,7 @@
 	category.add('installon', function(){
 		var that = this;
 		this.getTemplate();
+		this.addRootCategory();
 		$('#refresh').on('click', function(event, callback){
 			var _this = this;
 			$(this).addClass('fa-spin');
@@ -37,26 +38,6 @@
 	
 	category.add('installtrigger', function(){
 		$('#refresh').trigger('click');
-	});
-	
-	category.add('getAjaxData', function(callback){
-		var that = this;
-		var doing = window.doing;
-		if ( !doing ){
-			window.doing = true;
-		}
-		$.getJSON(window.modules.category.url + '=' + new Date().getTime(), function(params){
-			if ( params.success ){
-				that.ajaxData = params.data;
-				typeof callback === 'function' && callback.call(that);
-			}else{
-				that.ajaxData = null;
-				alert(params.message);
-			};
-			if ( !doing ){
-				window.doing = false;
-			};
-		});
 	});
 	
 	category.add('getTemplate', function(){
@@ -110,26 +91,6 @@
 		return html;
 	});
 	
-	category.add('setParent', function(id, parent, orders, callback){
-		window.doing = true;
-		$.post(window.modules.category.setParent + '=' + new Date().getTime(), {
-			id: id,
-			parent: parent,
-			orders: orders
-		}, function(params){
-			if ( params.success ){
-				if ( typeof callback === 'function' ){
-					callback();
-				}
-				$('#refresh').trigger('click', function(){
-					window.doing = false;
-				});
-			}else{
-				alert(params.message);
-			}
-		}, 'json');
-	});
-	
 	category.add('sortable', function(){
 		var oldContainer, that = this;
 		var group = $("ol.nested_with_switch").sortable("destroy").sortable({
@@ -180,6 +141,63 @@
 		  group: 'no-drop',
 		  drag: false
 		})
+	});
+
+	category.add('getAjaxData', function(callback){
+		var that = this;
+		var doing = window.doing;
+		if ( !doing ){
+			window.doing = true;
+		}
+		$.getJSON(window.modules.category.url + '=' + new Date().getTime(), function(params){
+			if ( params.success ){
+				that.ajaxData = params.data;
+				typeof callback === 'function' && callback.call(that);
+			}else{
+				that.ajaxData = null;
+				alert(params.message);
+			};
+			if ( !doing ){
+				window.doing = false;
+			};
+		});
+	});
+
+	category.add('setParent', function(id, parent, orders, callback){
+		window.doing = true;
+		$.post(window.modules.category.setParent + '=' + new Date().getTime(), {
+			id: id,
+			parent: parent,
+			orders: orders
+		}, function(params){
+			if ( params.success ){
+				if ( typeof callback === 'function' ){
+					callback();
+				}
+				$('#refresh').trigger('click', function(){
+					window.doing = false;
+				});
+			}else{
+				alert(params.message);
+			}
+		}, 'json');
+	});
+	
+	category.add('addRootCategory', function(){
+		$('body').on('click', '#addroot', function(){
+			window.doing = true;
+			$.post(window.modules.category.addRootCategory + '=' + new Date().getTime(), {
+				pid: 0
+			}, function(params){
+				if ( params.success ){
+					$('#refresh').trigger('click', function(){
+						window.doing = false;
+					});
+				}else{
+					alert(params.message);
+				}
+			}, 'json');
+		});
 	});
 
 	

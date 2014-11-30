@@ -461,7 +461,7 @@ body > .header .logo .icon {
     top: 0;
     right: 0;
     float: none;
-    background: #efefef;
+
   }
 }
 @media (max-width: 767px) {

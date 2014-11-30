@@ -3,7 +3,8 @@ modules.scriptExec(function( data ){
 	window.modules.category = data;
 }, {
 	url: iPress.setURL('async', 'category', { m: 'getdata' }),
-	setParent: iPress.setURL('async', 'category', { m: 'setparent' })
+	setParent: iPress.setURL('async', 'category', { m: 'setparent' }),
+	addRootCategory: iPress.setURL('async', 'category', { m: 'insdata' })
 })
 %>
 
@@ -49,7 +50,7 @@ modules.scriptExec(function( data ){
 		    <div class="ibox-title">
 		        <h5>分类导航管理</h5>
 		        <div class="ibox-tools">
-                    <a class="collapse-link"><i class="fa fa-plus"></i></a>
+                    <a class="collapse-link" id="addroot"><i class="fa fa-plus"></i></a>
                     <a class="collapse-link" id="refresh"><i class="fa fa-refresh"></i></a>
                 </div>
 		    </div>

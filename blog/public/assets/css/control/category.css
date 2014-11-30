@@ -48,3 +48,13 @@ ol.vertical li.placeholder {
 .action a:link,
 .action a:visited{ color: #ddd;}
 .action a:hover{ color: #999;}
+
+@media screen and (max-width: 767px) {
+  .ibox-content .nested_with_switch li > ol > li .handlemove{
+  	text-align: left!important;
+  	border-right: 1px solid #fff!important;
+  }
+  .ibox-content .nested_with_switch li > ol > li .category{
+  	padding-left: 50px;
+  }
+}

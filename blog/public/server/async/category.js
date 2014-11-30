@@ -56,6 +56,7 @@ category.add('setdata', function(querys, getforms, categoryPromise){
 		data.cate_des = forms.cate_des;
 		data.cate_src = forms.cate_src;
 		data.cate_outlink = data.cate_src ? true : false;
+		if (data.cate_src) {data.cate_parent = 0};
 		
 		categoryPromise.save(data);
 		
@@ -79,6 +80,21 @@ category.add('setparent', function(querys, getforms, categoryPromise){
 
 		categoryPromise.save(data);
 		
+		msg.success = true;
+		msg.message = '保存分类成功';
+	}catch(e){
+		msg.message = e.message;
+	}
+
+	return msg;
+});
+
+category.add('setsort', function(querys, getforms, categoryPromise){
+	var msg = { success: false, message: '保存分类失败' };
+	
+	try {
+		var forms = getforms();
+
 		var cate = {}, sons = [], orders = JSON.parse(forms.orders);
 		for (var i=0; i<orders.length; i++) {
 			cate = {id: Number(orders[i].id), cate_order: Number(orders[i].order)};
@@ -112,6 +128,22 @@ category.add('seticon', function(querys, getforms, categoryPromise){
 		
 		msg.success = true;
 		msg.message = '保存图标成功';
+	}catch(e){
+		msg.message = e.message;
+	}
+
+	return msg;	
+});
+
+category.add('deldata', function(querys, getforms, categoryPromise){
+	var msg = { success: false, message: '删除分类失败' };
+	
+	try {
+		var id = getforms().id;
+		id = Number(id);
+				
+		msg.success = true;
+		msg.message = '删除分类成功';
 	}catch(e){
 		msg.message = e.message;
 	}

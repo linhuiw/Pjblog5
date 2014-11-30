@@ -101,4 +101,43 @@ cache.add('tags', function(){
 	return success;
 });
 
+// 主题参数
+cache.add('themes', function(){
+	var json = {};
+	var rec = new dbo(blog.tb + 'themes', blog.conn);
+	rec.selectAll().asc('id').open().each(function(object){
+		json[object('tm_key').value] = object('tm_value').value
+	}).close();
+	
+	var data = JSON.stringify(json);
+	var success = false;
+	fs(contrast(':private/caches/themes.json')).create(data).then(function(){success = true}).fail(function(){success = false;}).stop();
+	return success;
+});
+
+// 插件缓存
+cache.add('plugins', function(){
+	var indexs = {}, queens = {};
+	var rec = new dbo(blog.tb + 'plugins', blog.conn);
+	rec.selectAll().asc('id').open().each(function(object){
+		var plugin = {};
+		for ( var i = 0; i < object.fields.count ; i++ ) {
+			plugin[object.fields(i).name] = object.fields(i).value;
+		}
+		
+		indexs[object('id').value] = object('plu_mark').value;
+		queens[object('plu_mark').value] = plugin;
+	}).close();
+	
+	var data = JSON.stringify({indexs: indexs, queens: queens});
+	var success = false;
+	fs(contrast(':private/caches/plugins.json')).create(data).then(function(){success = true}).fail(function(){success = false;}).stop();
+	return success;
+});
+
+// 插件导航
+cache.add('pluNavs', function(){
+	
+});
+
 module.exports = cache;

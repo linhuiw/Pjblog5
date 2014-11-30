@@ -30,7 +30,7 @@ category.add('insdata', function(querys, getforms, categoryPromise){
 		cate_des: '默认描述', 
 		cate_name: '默认导航名称', 
 		cate_order: 99,
-		cate_outlink: 1,
+		cate_outlink: 0,
 		cate_src: '',
 		cate_isroot: 1
 	}),
@@ -96,6 +96,26 @@ category.add('setparent', function(querys, getforms, categoryPromise){
 	}
 
 	return msg;
+});
+
+category.add('saveicon', function(querys, getforms, categoryPromise){
+	var msg = { success: false, message: '保存图标失败' };
+	
+	try {
+		var forms = getforms();
+		var data = {};
+		data.id = Number(forms.id);
+		data.cate_icon = forms.icon;
+
+		categoryPromise.save(data);
+		
+		msg.success = true;
+		msg.message = '保存图标成功';
+	}catch(e){
+		msg.message = e.message;
+	}
+
+	return msg;	
 });
 
 module.exports = category;

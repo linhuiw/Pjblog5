@@ -45,19 +45,19 @@ category.add('save', function(data){
 	var id = data.id;
 	delete data.id;
 	var rec = new dbo(blog.tb + 'categorys', blog.conn);
-	// 判断父分类是否存在
+
 	if (data.cate_parent) {
-		rec.selectAll().and('id', data.cate_parent).open().exec(function(object){
-			if (object.Eof || object.Bof) {
-				data.cate_parent = 0;
-			}
+		rec.selectAll().and('id', data.cate_parent).open().exec(function(){}, function(object){
+			data.cate_parent = 0;
 		}).close();
+		rec.resetSQL().selectAll().and('id', id).open(3).set(data).save().close();
+	}else{
+		rec.selectAll().and('id', id).open(3).set(data).save().close();
 	}
-	rec.selectAll().and('id', id).open(3).set(data).save().close();
 	
 	var caches = require(':public/library/cache');
 	var cache = new caches();
-	cache.category();
+	cache.categorys();
 });
 
 module.exports = category;

@@ -40,7 +40,8 @@ category.add('setdata', function(querys, getforms, categoryPromise){
 	var msg = { success: false, message: '保存分类失败' };
 		
 	try {
-		var data = getforms;
+		var forms = getforms();
+		var data = forms;
 		data.id = Number(data.id);
 		data.cate_parent = Number(data.cate_parent);
 		data.cate_outlink = data.cate_src ? true : false;
@@ -61,13 +62,15 @@ category.add('setparent', function(querys, getforms, categoryPromise){
 	var msg = { success: false, message: '保存分类失败' };
 		
 	try {
+		var forms = getforms();
 		var data = {};
-		data.id = Number(getforms.id);
-		data.cate_parent = Number(getforms.parent);
+		data.id = Number(forms.id);
+		data.cate_parent = Number(forms.parent);
 
 		categoryPromise.save(data);
 		
 		msg.success = true;
+		msg.data = data;
 		msg.message = '保存分类成功';
 	}catch(e){
 		msg.message = e.message;

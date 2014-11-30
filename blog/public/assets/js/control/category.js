@@ -45,7 +45,7 @@
 		if ( !doing ){
 			window.doing = true;
 		}
-		$.getJSON(window.modules.category.url, function(params){
+		$.getJSON(window.modules.category.url + '=' + new Date().getTime(), function(params){
 			if ( params.success ){
 				that.ajaxData = params.data;
 				typeof callback === 'function' && callback.call(that);
@@ -112,7 +112,7 @@
 	
 	category.add('setParent', function(id, parent){
 		window.doing = true;
-		$.post(window.modules.category.setParent, {
+		$.post(window.modules.category.setParent + '=' + new Date().getTime(), {
 			id: id,
 			parent: parent
 		}, function(params){

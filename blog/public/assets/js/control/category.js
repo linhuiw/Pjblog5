@@ -164,10 +164,7 @@
 		      oldContainer = container
 		    }
 		  },
-		  onDrop: function (item, container, _super) {
-		    container.el.removeClass("active");
-		    _super(item);
-		    
+		  onDrop: function (item, container, _super) {	    
 		    var source = Number($(item).attr('data-id'));
 		  	var target = $(container.el).attr('data-id');
 		  	var tp = target && target.length > 0 ? Number(target) : 0;
@@ -176,7 +173,8 @@
     		var jsonString = JSON.stringify(data, null, ' ');
 
 		  	that.setParent(source, tp, jsonString, function(){
-		  		
+		  		container.el.removeClass("active");
+		    	_super(item);
 		  	});
 		  },
 		  isValidTarget: function(item, container){

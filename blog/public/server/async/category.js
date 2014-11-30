@@ -24,8 +24,17 @@ category.add('getdata', function(querys, getforms, categoryPromise){
 });
 
 category.add('insdata', function(querys, getforms, categoryPromise){
-	var id = categoryPromise.inst({cate_parent: Number(getforms().pid || 0)}),
-		msg = { success: false, message: '添加分类失败' };
+	var id = categoryPromise.inst({
+		cate_parent: Number(getforms().pid || 0), 
+		cate_icon: 'fa-star', 
+		cate_des: '默认描述', 
+		cate_name: '默认导航名称', 
+		cate_order: 99,
+		cate_outlink: 1,
+		cate_src: '',
+		cate_isroot: 1
+	}),
+	msg = { success: false, message: '添加分类失败' };
 		
 	if ( id > 0 ){
 		msg.success = true;

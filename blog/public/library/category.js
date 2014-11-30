@@ -31,4 +31,33 @@ category.add('gets', function(){
 	return {indexs: indexs, queens: queens};
 });
 
+category.add('inst', function(data){
+	var id = 0;
+	var rec = new dbo(blog.tb + 'categorys', blog.conn);
+		rec.create().set(data).save().exec(function(object){
+			id = object('id').value;
+		}).close();
+	
+	return id;
+});
+
+category.add('save', function(data){
+	var id = data.id;
+	delete data.id;
+	var rec = new dbo(blog.tb + 'categorys', blog.conn);
+	// 判断父分类是否存在
+	if (data.cate_parent) {
+		rec.selectAll().and('id', data.cate_parent).open().exec(function(object){
+			if (object.Eos || object.Bos) {
+				data.cate_parent = 0;
+			}
+		}).close();
+	}
+	rec.selectAll().and('id', id).open(3).set(data).save().close();
+	
+	var caches = require(':public/library/cache');
+	var cache = new caches();
+	cache.category();
+});
+
 module.exports = category;

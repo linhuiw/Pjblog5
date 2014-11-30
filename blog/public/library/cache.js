@@ -74,8 +74,8 @@ cache.add('global', function(){
 
 // 分类导航
 cache.add('categorys', function(){
-	var libcate = require('category');
-	var modcate = new libcate();
+	var modcate = require('category');
+	var objcate = new modcate();
 	
 	var data = JSON.stringify(modcate.gets());
 	var success = false;

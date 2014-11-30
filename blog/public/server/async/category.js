@@ -50,6 +50,7 @@ category.add('setdata', function(querys, getforms, categoryPromise){
 		
 	try {
 		var forms = getforms();
+		var data = {};
 		data.id = Number(forms.id);
 		data.cate_name = forms.cate_name;
 		data.cate_des = forms.cate_des;

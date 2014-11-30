@@ -24,7 +24,7 @@ category.add('getdata', function(querys, getforms, categoryPromise){
 });
 
 category.add('insdata', function(querys, getforms, categoryPromise){
-	var id = categoryPromise.inst({cate_parent: Number(getforms.cate_parent)}),
+	var id = categoryPromise.inst({cate_parent: Number(getforms().pid)}),
 		msg = { success: false, message: '添加分类失败' };
 		
 	if ( id > 0 ){

@@ -41,6 +41,10 @@
 	
 	category.add('getAjaxData', function(callback){
 		var that = this;
+		var doing = window.doing;
+		if ( !doing ){
+			window.doing = true;
+		}
 		$.getJSON(window.modules.category.url, function(params){
 			if ( params.success ){
 				that.ajaxData = params.data;
@@ -48,7 +52,10 @@
 			}else{
 				that.ajaxData = null;
 				alert(params.message);
-			}
+			};
+			if ( !doing ){
+				window.doing = false;
+			};
 		});
 	});
 	

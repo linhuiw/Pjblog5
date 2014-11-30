@@ -77,7 +77,7 @@ cache.add('categorys', function(){
 	var modcate = require('category');
 	var objcate = new modcate();
 	
-	var data = JSON.stringify(modcate.gets());
+	var data = JSON.stringify(objcate.gets());
 	var success = false;
 	fs(contrast(':private/caches/categorys.json')).create(data).then(function(){success = true}).fail(function(){success = false;}).stop();
 	return success;
@@ -88,7 +88,7 @@ cache.add('tags', function(){
 	var json = {};
 	var rec = new dbo(blog.tb + 'tags', blog.conn);
 	rec.selectAll().asc('id').open().each(function(object){
-		json[id] = {
+		json[object('id').value] = {
 			id: object('id').value,
 			tag_name: object('tag_name').value,
 			tag_count: object('tag_count').value

@@ -70,7 +70,6 @@ category.add('setparent', function(querys, getforms, categoryPromise){
 		categoryPromise.save(data);
 		
 		msg.success = true;
-		msg.data = data;
 		msg.message = '保存分类成功';
 	}catch(e){
 		msg.message = e.message;

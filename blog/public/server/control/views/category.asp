@@ -4,7 +4,8 @@ modules.scriptExec(function( data ){
 }, {
 	url: iPress.setURL('async', 'category', { m: 'getdata' }),
 	setParent: iPress.setURL('async', 'category', { m: 'setparent' }),
-	addRootCategory: iPress.setURL('async', 'category', { m: 'insdata' })
+	addRootCategory: iPress.setURL('async', 'category', { m: 'insdata' }),
+	saveIcon: iPress.setURL('async', 'category', { m: 'seticon' })
 })
 %>
 
@@ -16,9 +17,9 @@ modules.scriptExec(function( data ){
 	  			<div class="col-md-4">{cate_name}</div>
 	  			<div class="col-md-5">{cate_des}</div>
 	  			<div class="col-md-2 text-right action">
-					<a class="collapse-link" href="javascript:;"><i class="fa fa-plus"></i></a>
+					<a class="collapse-link addCategory" href="javascript:;" data-id="{id}"><i class="fa fa-plus"></i></a>
 					<a class="collapse-link" href="javascript:;"><i class="fa fa-pencil"></i></a>
-					<a class="collapse-link" href="javascript:;"><i class="fa fa-image"></i></a>
+					<a class="collapse-link changeIcon" href="javascript:;" data-icon="{cate_icon}" data-id="{id}"><i class="fa fa-image"></i></a>
 					<a class="collapse-link" href="javascript:;"><i class="fa fa-close"></i></a>
 	  			</div>
 	  		</div>
@@ -35,7 +36,7 @@ modules.scriptExec(function( data ){
 	  			<div class="col-md-5">{cate_des}</div>
 	  			<div class="col-md-2 text-right action">
 					<a class="collapse-link" href="javascript:;"><i class="fa fa-pencil"></i></a>
-					<a class="collapse-link" href="javascript:;"><i class="fa fa-image"></i></a>
+					<a class="collapse-link changeIcon" href="javascript:;" data-icon="{cate_icon}" data-id="{id}"><i class="fa fa-image"></i></a>
 					<a class="collapse-link" href="javascript:;"><i class="fa fa-close"></i></a>
 	  			</div>
 	  		</div>

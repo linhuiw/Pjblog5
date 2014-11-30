@@ -24,6 +24,8 @@
 		var that = this;
 		this.getTemplate();
 		this.addRootCategory();
+		this.addCategory();
+		this.onIconEvent();
 		$('#refresh').on('click', function(event, callback){
 			var _this = this;
 			$(this).addClass('fa-spin');
@@ -81,6 +83,61 @@
 		});
 		
 		$('#category-list').html(html.join(''));
+		
+		this.onEvent();
+	});
+	
+	category.add('onEvent', function(){
+		$('#category-list > li').each(function(){
+			var out = $(this).attr('data-out');
+			if ( out == 'true' ){
+				$(this).find('.category:first .action .addCategory').remove();
+			}
+		});
+		$('.changeIcon').popover({	
+			content: function(){
+				var icon = $(this).attr('data-icon');
+				var div = document.createElement('div');
+				$(div).addClass('poptarget').css({
+					width: '200px',
+					height: '160px'
+				}).html('<div style="width:100px; height:70px; text-align:center; margin:0 auto;"><span class="fa ' + icon + '" style="line-height: 70px; font-size:40px;"></span></div><div><input class="form-control" value="' + icon + '" style="text-align:center" /></div><div style="margin-top:10px;" class="row"><div class="col-xs-6"><button class="btn btn-danger pop-close" style="width:100%;"><i class="fa fa-power-off"></i> 关闭</button></div><div class="col-xs-6"><button class="btn btn-success pop-save" style="width:100%;"><i class="fa fa-save"></i> 保存</button></div></div></div>');
+				div.target = this;
+				return div;
+			},
+			html: true,
+			placement: 'left',
+			title: '修改小图标'
+		});
+	});
+	
+	category.add('onIconEvent', function(){
+		var that = this;
+		$('body').on('click', '.poptarget .pop-close', function(){
+			var parent = $(this).parents('.poptarget:first');
+			if ( parent.size() > 0 ){
+				$(parent.get(0).target).trigger('click');
+			}
+		});
+		$('body').on('click', '.poptarget .pop-save', function(){
+			var parent = $(this).parents('.poptarget:first'),
+				value;
+			if ( parent.size() > 0 ){
+				value = parent.find('input.form-control').val();
+				parent = parent.get(0).target;
+			}else{
+				parent = null;
+			}
+			
+			if ( parent ){
+				var id = $(parent).attr('data-id');
+				that.SaveIcon(id, value, parent);
+			}
+		});
+		$('body').on('keyup', '.poptarget input.form-control', function(){
+			var value = $(this).val();
+			$(this).parent().prev().find('span').attr('class', 'fa ' + value);
+		});
 	});
 	
 	category.add('replaceHTMLByData', function(html, data){
@@ -198,6 +255,41 @@
 				}
 			}, 'json');
 		});
+	});
+	
+	category.add('addCategory', function(){
+		$('body').on('click', '.addCategory', function(){
+			var id = $(this).attr('data-id');
+			window.doing = true;
+			$.post(window.modules.category.addRootCategory + '=' + new Date().getTime(), {
+				pid: id
+			}, function(params){
+				if ( params.success ){
+					$('#refresh').trigger('click', function(){
+						window.doing = false;
+					});
+				}else{
+					alert(params.message);
+				}
+			}, 'json');
+		});
+	});
+	
+	category.add('SaveIcon', function(id, value, parent){
+		window.doing = true;
+		$.post(window.modules.category.saveIcon + '=' + new Date().getTime(), {
+			id: id,
+			icon: value
+		}, function(params){
+			if ( params.success ){
+				$(parent).trigger('click');
+				$('#refresh').trigger('click', function(){
+					window.doing = false;
+				});
+			}else{
+				alert(params.message);
+			}
+		}, 'json');
 	});
 
 	

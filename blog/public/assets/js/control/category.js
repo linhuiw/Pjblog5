@@ -110,11 +110,12 @@
 		return html;
 	});
 	
-	category.add('setParent', function(id, parent, callback){
+	category.add('setParent', function(id, parent, orders, callback){
 		window.doing = true;
 		$.post(window.modules.category.setParent + '=' + new Date().getTime(), {
 			id: id,
-			parent: parent
+			parent: parent,
+			orders: orders
 		}, function(params){
 			if ( params.success ){
 				if ( typeof callback === 'function' ){
@@ -131,7 +132,7 @@
 	
 	category.add('sortable', function(){
 		var oldContainer, that = this;
-		$("ol.nested_with_switch").sortable("destroy").sortable({
+		var group = $("ol.nested_with_switch").sortable("destroy").sortable({
 		  group: 'nested',
 		  handle: 'i.fa-arrows-alt',
 		  afterMove: function (placeholder, container) {
@@ -148,8 +149,11 @@
 		    var source = Number($(item).attr('data-id'));
 		  	var target = $(container.el).attr('data-id');
 		  	var tp = target && target.length > 0 ? Number(target) : 0;
+		  	
+		  	var data = group.sortable("serialize").get()[0];
+    		var jsonString = JSON.stringify(data, null, ' ');
 
-		  	that.setParent(source, tp, function(){
+		  	that.setParent(source, tp, jsonString, function(){
 		  		container.el.removeClass("active");
 		    	_super(item);
 		  	});

@@ -2,18 +2,19 @@
 modules.scriptExec(function( data ){
 	window.modules.category = data;
 }, {
-	url: iPress.setURL('async', 'category', { m: 'getdata' })
+	url: iPress.setURL('async', 'category', { m: 'getdata' }),
+	setParent: iPress.setURL('async', 'category', { m: 'setparent' })
 })
 %>
 
 <script type="text/html" id="category-template-root">
-	<li>
-	  	<div class="category"><i class="fa fa-arrows-alt"></i>{name}</div>
-	  	<ol></ol>
+	<li data-parent="{cate_parent}" data-order="{cate_order}" data-count="{count}" data-id="{id}">
+	  	<div class="category"><i class="fa fa-arrows-alt"></i>{cate_name}</div>
+	  	<ol class="{nodrop}" data-parent="{cate_parent}" data-order="{cate_order}" data-count="{count}" data-id="{id}">{childrens}</ol>
 	</li>
 </script>
 <script type="text/html" id="category-template-child">
-	<li><div class="category"><i class="fa fa-arrows-alt"></i>{name}</div></li>
+	<li data-parent="{cate_parent}" data-order="{cate_order}" data-id="{id}"><div class="category"><i class="fa fa-arrows-alt"></i>{cate_name}</div></li>
 </script>
 
 <div class="iPress-wrap">
@@ -32,31 +33,7 @@ modules.scriptExec(function( data ){
 		    	<p>拖动排序后别忘记保存哦！</p>
 				<ol class="nested_with_switch vertical" id="category-list">
 					<li>
-					  <div class="category"><i class="fa fa-arrows-alt"></i>Item 1</div>
-					</li>
-					<li>
-					  <div class="category"><i class="fa fa-arrows-alt"></i>Item 2</div>
-					</li>
-					<li>
-					  <div class="category"><i class="fa fa-arrows-alt"></i>Item 3</div>
-					</li>
-					<li>
-					  <div class="category"><i class="fa fa-arrows-alt"></i>Item 4</div>
-					  <ol>
-					    <li><div class="category"><i class="fa fa-arrows-alt"></i>Item 3.1</div></li>
-					    <li><div class="category"><i class="fa fa-arrows-alt"></i>Item 3.2</div></li>
-					    <li><div class="category"><i class="fa fa-arrows-alt"></i>Item 3.3</div></li>
-					    <li><div class="category"><i class="fa fa-arrows-alt"></i>Item 3.4</div></li>
-					    <li><div class="category"><i class="fa fa-arrows-alt"></i>Item 3.5</div></li>
-					    <li><div class="category"><i class="fa fa-arrows-alt"></i>Item 3.6</div></li>
-					  </ol>
-					</li>
-					<li>
-					  <div class="category"><i class="fa fa-arrows-alt"></i>Item 5</div>
-					  <ol></ol>
-					</li>
-					<li>
-					  <div class="category"><i class="fa fa-arrows-alt"></i>Item 6</div>
+					  <div class="category">正在加载数据，请稍后</div>
 					</li>
 				</ol>
 		    </div>

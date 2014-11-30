@@ -4,6 +4,11 @@ cache.add('all', function(){
 	this.groups();
 	this.limits();
 	this.global();
+	this.categorys();
+	this.plugins();
+	this.pluNavs();
+	this.themes();
+	this.tags();
 });
 
 // 用户组
@@ -64,6 +69,35 @@ cache.add('global', function(){
 	var data = JSON.stringify(json);
 	var success = false;
 	fs(contrast(':private/caches/global.json')).create(data).then(function(){success = true}).fail(function(){success = false;}).stop();
+	return success;
+});
+
+// 分类导航
+cache.add('categorys', function(){
+	var libcate = require('category');
+	var modcate = new libcate();
+	
+	var data = modcate.gets();
+	var success = false;
+	fs(contrast(':private/caches/categorys.json')).create(data).then(function(){success = true}).fail(function(){success = false;}).stop();
+	return success;
+});
+
+// 日志标签
+cache.add('tags', function(){
+	var json = {};
+	var rec = new dbo(blog.tb + 'tags', blog.conn);
+	rec.selectAll().asc('id').open().each(function(object){
+		json[id] = {
+			id: object('id').value,
+			tag_name: object('tag_name').value,
+			tag_count: object('tag_count').value
+		};
+	}).close();
+	
+	var data = JSON.stringify(json);
+	var success = false;
+	fs(contrast(':private/caches/tags.json')).create(data).then(function(){success = true}).fail(function(){success = false;}).stop();
 	return success;
 });
 

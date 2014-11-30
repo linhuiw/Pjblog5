@@ -48,7 +48,7 @@ category.add('save', function(data){
 	// 判断父分类是否存在
 	if (data.cate_parent) {
 		rec.selectAll().and('id', data.cate_parent).open().exec(function(object){
-			if (object.Eos || object.Bos) {
+			if (object.Eof || object.Bof) {
 				data.cate_parent = 0;
 			}
 		}).close();

@@ -60,7 +60,7 @@ category.add('setdata', function(querys, getforms, categoryPromise){
 
 category.add('setparent', function(querys, getforms, categoryPromise){
 	var msg = { success: false, message: '保存分类失败' };
-		
+	
 	try {
 		var forms = getforms();
 		var data = {};
@@ -68,6 +68,17 @@ category.add('setparent', function(querys, getforms, categoryPromise){
 		data.cate_parent = Number(forms.parent);
 
 		categoryPromise.save(data);
+		
+		var cate = {}, sons = [], orders = JSON.parse(forms.orders);
+		for (var i=0; i<orders.length; i++) {
+			cate = {id: Number(orders[i].id), cate_order: Number(orders[i].order)};
+			categoryPromise.save(cate);
+			sons = orders[i].children ? orders[i].children[0] : [];
+			for (var j=0; j<sons.length; j++) {
+				cate = {id: Number(sons[j].id), cate_order: Number(sons[j].order)};
+				categoryPromise.save(cate);
+			}
+		}
 		
 		msg.success = true;
 		msg.message = '保存分类成功';

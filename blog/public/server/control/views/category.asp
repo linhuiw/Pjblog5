@@ -1,8 +1,19 @@
+<%
+modules.scriptExec(function( data ){
+	window.modules.category = data;
+}, {
+	url: iPress.setURL('async', 'category', { m: 'getdata' })
+})
+%>
+
 <script type="text/html" id="category-template-root">
-	
+	<li>
+	  	<div class="category"><i class="fa fa-arrows-alt"></i>{name}</div>
+	  	<ol></ol>
+	</li>
 </script>
 <script type="text/html" id="category-template-child">
-	
+	<li><div class="category"><i class="fa fa-arrows-alt"></i>{name}</div></li>
 </script>
 
 <div class="iPress-wrap">
@@ -14,12 +25,12 @@
 		        <div class="ibox-tools">
                     <a class="collapse-link"><i class="fa fa-plus"></i></a>
                     <a class="collapse-link"><i class="fa fa-save"></i></a>
-                    <a class="collapse-link"><i class="fa fa-refresh"></i></a>
+                    <a class="collapse-link" id="refresh"><i class="fa fa-refresh"></i></a>
                 </div>
 		    </div>
 		    <div class="ibox-content">
 		    	<p>拖动排序后别忘记保存哦！</p>
-				<ol class="nested_with_switch vertical">
+				<ol class="nested_with_switch vertical" id="category-list">
 					<li>
 					  <div class="category"><i class="fa fa-arrows-alt"></i>Item 1</div>
 					</li>

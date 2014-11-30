@@ -260,7 +260,7 @@
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
 		<%
-			modules.scriptExec(function(file){				
+			modules.scriptExec(function(file){
 				require('jquery').then(function(jQuerys){
 					if ( !window.jQuery ){
 						window.$ = window.jQuery = jQuerys[0];

@@ -3,7 +3,6 @@ var home = new Class(function(querys, forms){
 	this.data = {};
 	
 	// your code here.
-	this.data.evio = '逗逼';
 	this.data.statistics = this.Statistics();
 	this.data.iis = this.IIS();
 	

@@ -2,12 +2,13 @@
 /* CSS Document */
 
 .iPress-content{ background-color:#fff!important; color:#777; box-shadow:0px 0px 10px rgba(0,0,0,.05)}
-.iPress-content .title{ padding:20px 15px; border-bottom:1px solid #eee;}
-.iPress-content .categorys{ background-color:#f8f8f8; padding-top:15px; padding-bottom:15px;}
+.iPress-content .title{ padding:20px 15px; border-bottom:1px solid #eee; text-align:right;}
+.iPress-content .categorys{ background-color:#f9f9f9; padding-top:15px; padding-bottom:15px;}
 .iPress-content .categorys ul{ list-style:none; padding:0; margin:0;}
+.iPress-content .categorys a{ padding-left:5px;}
 .iPress-content .categorys ul a:link,
-.iPress-content .categorys ul a:visited{ color:#777;},
-.iPress-content .categorys ul a:hover{ color:#000;}
-.iPress-content .categorys .fa{ margin-right:5px;}
-.iPress-content .categorys ul ul li{ padding-left:20px;}
-.iPress-content .categorys li a{ display:block; padding:5px 0px; line-height:20px; overflow:hidden;}
+.iPress-content .categorys ul a:visited{ color:#777;}
+.iPress-content .categorys ul a:hover{ color:#5bc0de; background-color:#fff; box-shadow:4px 4px 1px rgba(0,0,0,.02); border-radius:4px;}
+.iPress-content .fa{ margin-right:5px;}
+.iPress-content .categorys ul ul li a{ padding-left:25px;}
+.iPress-content .categorys li a{ display:block; padding:5px 0px; line-height:20px; overflow:hidden; padding-left:10px;}

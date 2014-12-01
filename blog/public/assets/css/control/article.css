@@ -2,8 +2,8 @@
 /* CSS Document */
 
 .iPress-content{ background-color:#fff!important; color:#777; box-shadow:0px 0px 10px rgba(0,0,0,.05)}
-.iPress-content .title{ padding:20px 15px; border-bottom:1px solid #eee; text-align:right;}
-.iPress-content .categorys{ background-color:#f9f9f9; padding-top:15px; padding-bottom:15px;}
+.iPress-content .title{ padding:20px 15px; border-bottom:1px solid #eee; text-align:center;}
+.iPress-content .categorys{ background-color:#fafafa; padding-top:15px; padding-bottom:15px; box-shadow:4px 4px 1px rgba(0,0,0,.05)}
 .iPress-content .categorys ul{ list-style:none; padding:0; margin:0;}
 .iPress-content .categorys a{ padding-left:5px;}
 .iPress-content .categorys ul a:link,

@@ -1,0 +1,4 @@
+[2014-12-02 20:51:47]:
+SELECT * FROM [blog_categorys] WHERE [cate_outlink]=0 ORDER BY [cate_order] ASC,[id] ASC
+
+

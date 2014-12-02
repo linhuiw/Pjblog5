@@ -7,7 +7,8 @@
 	var articles = require(':public/library/article'),
 		_ = new articles();
 	
-	this.getCategorys(_);
+	this.getCategorys();
+	this.getArticles(_);
 	
 	return this.data;
 	
@@ -15,7 +16,13 @@
 
 // 系统统计数据
 article.add('getCategorys', function(articles){
-	this.data.categorys = articles.getcates();
+	var CategroyModules = require(':public/library/category');
+	var CategroyModule  = new CategroyModules();
+	this.data.categorys = CategroyModule.gets(function(){ this.and('cate_outlink', 0); });
+});
+
+article.add('getArticles', function(articles){
+	this.data.articles = articles.getArticlesByStorageProcess(-1, 1);
 });
 
 module.exports = article;

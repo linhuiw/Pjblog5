@@ -1,32 +1,45 @@
 var category = new Class();
 
-category.add('gets', function(){
-	var parent = {}, childs = {}, indexs = {}, queens = [];
+category.add('gets', function( callback ){
+	var exists = {}, 
+		orders = [], 
+		indexs = {}, 
+		queens = [];
+		
 	var rec = new dbo(blog.tb + 'categorys', blog.conn);
-	rec.selectAll().asc('cate_order').asc('id').open().each(function(object){
-		var cate = {};
-		for ( var i = 0; i < object.fields.count ; i++ ) {
-			cate[object.fields(i).name] = object.fields(i).value;
-		}
-		if (cate.cate_parent === 0){
-			parent[cate.id] = {id: cate.id};
+		rec
+			.selectAll()
+			.asc('cate_order')
+			.asc('id');
+	
+	if ( typeof callback === 'function' ){
+		callback.call(rec);
+	};
+	
+	var data = rec.toJSON();
+	
+	data.forEach(function( detail ){
+		indexs[detail.id + ''] = detail;
+		if ( detail.cate_parent === 0 ){
+			if ( !exists[detail.id + ''] ){
+				exists[detail.id + ''] = [];
+			};
+			orders.push(detail.id);
 		}else{
-			childs[cate.id] = cate;
+			if ( !exists[detail.cate_parent + ''] ){
+				exists[detail.cate_parent + ''] = [];
+			};
+			exists[detail.cate_parent + ''].push(detail.id);
 		}
-		indexs[cate.id] = cate;
-	}).close();
+	});
 	
-	for (var i in childs) {
-		var pid = childs[i].cate_parent;
-		if (!parent[pid].items) {
-			parent[pid].items = [];
+	orders.forEach(function( id ){
+		var cate = { id: id, items: [] };
+		if ( exists[id + ''] && exists[id + ''].length > 0 ){
+			cate.items = exists[id + ''];
 		}
-		parent[pid].items.push(childs[i].id);
-	}
-	
-	for (var i in parent) {
-		queens.push(parent[i]);
-	}
+		queens.push(cate);
+	});
 	
 	return {indexs: indexs, queens: queens};
 });
@@ -51,6 +64,13 @@ category.add('save', function(data){
 			data.cate_parent = 0;
 		}).close();
 	}
+	
+	if ( data.cate_src && data.cate_src.length > 0 ){
+		data.cate_outlink = 1;
+	}else{
+		data.cate_outlink = 0;
+	}
+	
 	rec.resetSQL().selectAll().and('id', id).open(3).set(data).save().close();
 	
 	var caches = require(':public/library/cache');

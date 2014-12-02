@@ -11,16 +11,18 @@
     	<div class="col-sm-2 categorys">
         	<ul>
             	<%
-					categorys.forEach(function( detail ){
+					categorys.queens.forEach(function( cate ){
+						var detail = categorys.indexs[cate.id + ''];
 				%>
                 <li>
                 	<a href="<%=iPress.setURL('control', 'wrap', { m: 'article', c: detail.id })%>"><i class="fa <%=detail.cate_icon%>"></i><%=detail.cate_name%></a>
                     <%
-						if ( detail.items && detail.items.length > 0 ){
+						if ( cate.items && cate.items.length > 0 ){
 					%>
                     <ul>
                     	<%
-							detail.items.forEach(function(o){
+							cate.items.forEach(function(_id){
+								var o = categorys.indexs[_id];
 						%>
                         <li><a href="<%=iPress.setURL('control', 'wrap', { m: 'article', c: o.id })%>;"><i class="fa <%=o.cate_icon%>"></i><%=o.cate_name%></a></li>
                         <%		
@@ -38,15 +40,15 @@
         </div>
         <div class="col-sm-10">
         	<div class="row articles">
+            <%
+				articles.result.forEach(function( detail ){
+			%>
             	<div class="col-md-4">
                 	<div class="block">1</div>
                 </div>
-                <div class="col-md-4">
-                	<div class="block">1</div>
-                </div>
-                <div class="col-md-4">
-                	<div class="block">1</div>
-                </div>
+            <%
+				});
+			%>
             </div>
         </div>
     </div>

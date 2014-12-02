@@ -3,7 +3,8 @@
 
 .iPress-content{ color:#777;}
 .title{ padding:20px 15px; text-align:left;}
-.iPress-content .categorys{ background-color:#fafafa; padding-top:15px; padding-bottom:15px; box-shadow:-4px 4px 1px rgba(0,0,0,.05); border:1px solid #f1f1f1;}
+.title a{ margin-bottom:10px;}
+.iPress-content .categorys{ background-color:#fafafa; padding-top:15px; padding-bottom:15px; box-shadow:-4px 4px 1px rgba(0,0,0,.05); border:1px solid #f1f1f1; margin-bottom:30px;}
 .iPress-content .categorys ul{ list-style:none; padding:0; margin:0;}
 .iPress-content .categorys a{ padding-left:5px;}
 .iPress-content .categorys ul a:link,
@@ -17,7 +18,9 @@
 .articles .block .ArtTitle{ line-height:30px;padding:0px 15px; font-weight:bold; position:absolute; bottom:0px; left:0px; right:0px; text-align:left; color:#fff; background-color:rgba(0,0,0,0.6);-webkit-transform:translateY(30px);}
 .articles .block .ArtDes{ height:60px; line-height:20px; overflow:hidden; margin:5px 15px;}
 .articles .block .img{text-align:center; height:150px; overflow:hidden; position:relative;}
+.articles .block .img img{ opacity:.8;}
 .articles .block:hover .ArtTitle{-webkit-transform:translateY(0px);}
+.articles .block:hover .img img{ opacity:1;}
 .articles .block .ArtAction{border-top:1px solid #eee;}
 .articles .block .ArtAction a{ display:block; text-align:center;  background-color:#f9f9f9; overflow:hidden; padding:6px 0; font-size:13px;}
 .articles .block .ArtAction a:first-child{ border-right:1px solid #eee;}

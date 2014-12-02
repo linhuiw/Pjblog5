@@ -46,7 +46,9 @@
             	<div class="col-md-4">
                 	<div class="block">
                     	<div class="img">
-                        	<img src="<%=detail.art_cover%>" onerror="this.src='public/assets/bootstrap/img/article_preview.png'" class="img-responsive">
+                        	<a href="<%=iPress.setURL('page', 'article', { id: detail.id })%>" target="_blank">
+                        	<img src="<%=detail.art_cover%>" onerror="this.src='public/assets/bootstrap/img/article_preview.png'" class="img-responsive trans" />
+                            </a>
                             <div class="ArtTitle text-auto-hide trans"><%=detail.art_title%></div>
                        	</div>
                         <div class="ArtDes"><%=detail.art_des%></div>

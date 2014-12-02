@@ -24,6 +24,7 @@ home.add('Statistics', function(){
 home.add('IIS', function(){
 	var coms = {
 		'Adodb.Stream': true,
+		'ADODB.Command': true,
 		'Adodb.Connection': true,
 		'Microsoft.XMLDOM': true,
 		'Microsoft.XMLHTTP': true,

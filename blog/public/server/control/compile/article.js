@@ -23,7 +23,7 @@ article.add('getCategorys', function(articles){
 
 article.add('getArticles', function(querys, getforms, articles){
 	var c = querys.c,
-		p = querys.p;
+		p = querys.s;
 
 	if ( !c || c.length === 0 ){
 		c = 'all';
@@ -44,6 +44,17 @@ article.add('getArticles', function(querys, getforms, articles){
 	if ( p < 1 ) p = 1;
 	
 	this.data.articles = articles.getArticlesByStorageProcess(c, p);
+	
+	var IPAGE = require('iPage');
+	var iPage = new IPAGE(this.data.articles.PageCount, this.data.articles.PageIndex);
+	
+	this.data.pages = {
+		arrays: iPage.toArray(),
+		value: iPage.value,
+		c: c + '',
+		s: p + ''
+	};
+
 });
 
 module.exports = article;

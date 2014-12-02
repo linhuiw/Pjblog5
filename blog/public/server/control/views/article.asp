@@ -60,6 +60,39 @@
 				});
 			%>
             </div>
+            <%
+				if ( pages.arrays.length > 1 ){
+			%>
+            <nav>
+              <ul class="pagination">
+              	<li class="<%=pages.value.index === pages.value.prev ? "disabled": ""%>">
+                    <a href="<%=iPress.setURL('control', 'wrap', { m: 'article', c: pages.c, s: pages.value.prev })%>">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+              	</li>
+              <%
+			  		pages.arrays.forEach(function( o ){
+						if ( pages.value.index === o ){
+			%>
+            		<li class="disabled"><a href="<%=iPress.setURL('control', 'wrap', { m: 'article', c: pages.c, s: pages.s })%>"><%=o%></a></li>
+            <%		
+						}else{
+			%>
+            		<li><a href="<%=iPress.setURL('control', 'wrap', { m: 'article', c: pages.c, s: pages.s })%>"><%=o%></a></li>
+            <%			
+						}
+					});
+			%>
+            	<li class="<%=pages.value.index === pages.value.next ? "disabled": ""%>">
+                	<a href="<%=iPress.setURL('control', 'wrap', { m: 'article', c: pages.c, s: pages.value.next })%>">
+                   		<i class="fa fa-angle-right"></i>
+                    </a>
+                </li>
+              </ul>
+            </nav>
+            <%	
+				}
+			%>
         </div>
     </div>
 </div>

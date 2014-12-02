@@ -50,5 +50,9 @@ article.add('getbyid', function(id){
 	return article;
 });
 
+article.add('getall', function(cate){
+	var rec = new dbo(blog.tb + 'articles', blog.conn);
+
+});
 
 module.exports = article;

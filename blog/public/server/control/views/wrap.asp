@@ -23,6 +23,13 @@
     <link href="public/assets/bootstrap/css/ionicons.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
     <link href="public/assets/bootstrap/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+    <%
+		if ( file.css ){
+			fs(contrast(file.css)).exist().then(function(){
+				modules.writeCss(file.css.replace(/^\:/, ''));
+			});
+		}
+	%>
    
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -272,7 +279,6 @@
 				}).then(function(){
 					var arr = [':public/assets/js/common'];
 					if ( file.js ){ arr.push(file.js); };
-					if ( file.css ){ arr.push(file.css); };
 					require(arr, function( common, installers ){
 						new common();
 						if ( typeof installers == 'function' ){

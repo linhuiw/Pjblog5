@@ -1,4 +1,4 @@
-﻿var article = new Class(function(querys, forms){
+﻿var article = new Class(function(querys, getforms){
 	
 	this.data = {};
 	
@@ -8,7 +8,7 @@
 		_ = new articles();
 	
 	this.getCategorys();
-	this.getArticles(_);
+	this.getArticles(querys, getforms, _);
 	
 	return this.data;
 	
@@ -21,8 +21,29 @@ article.add('getCategorys', function(articles){
 	this.data.categorys = CategroyModule.gets(function(){ this.and('cate_outlink', 0); });
 });
 
-article.add('getArticles', function(articles){
-	this.data.articles = articles.getArticlesByStorageProcess(-1, 1);
+article.add('getArticles', function(querys, getforms, articles){
+	var c = querys.c,
+		p = querys.p;
+
+	if ( !c || c.length === 0 ){
+		c = 'all';
+	};
+
+	if ( !isNaN(c) ){
+		c = Number(c);
+	}
+
+	if ( !p || p.length === 0 ){
+		p = 1;
+	}
+	
+	if ( !isNaN(p) ){
+		p = Number(p);
+	}
+	
+	if ( p < 1 ) p = 1;
+	
+	this.data.articles = articles.getArticlesByStorageProcess(c, p);
 });
 
 module.exports = article;

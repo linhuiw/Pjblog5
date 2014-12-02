@@ -20,6 +20,20 @@ article.add('getbyid', function(id){
 	return article;
 });
 
+article.add('getAllCategorys', function(cate){
+	var categorys = require(':private/caches/categorys.json');
+	var cates = [];
+	for ( var i in categorys.indexs ){
+		if ( 
+			!categorys.indexs[i].cate_outlink && 
+			( (categorys.indexs[i].id === cate) || (categorys.indexs[i].cate_parent === cate) ) 
+		){
+			cates.push(categorys.indexs[i].id);
+		}
+	}
+	return cates;
+});
+
 article.add('getArticlesByStorageProcess', function( cate, Page ){
 	var PAGE = new cmd('iPage', blog.conn);
 	var where = null;
@@ -28,16 +42,20 @@ article.add('getArticlesByStorageProcess', function( cate, Page ){
 		cate = -1;
 	};
 	
-	if ( cate === -2 ){
+	if ( cate == 'draft' ){
 		where = 'art_draft=1';
 	}
-	else if ( cate === -1 ){
-		where = 'art_category>=0';
+	else if ( cate == 'all' ){
+		where = 'art_category>=0 And art_draft=0';
+	}
+	else if ( cate === 0 ){
+		where = 'art_category=0 And art_draft=0';
 	}
 	else{
-		where = 'art_category=' + cate;
+		var cates = this.getAllCategorys(cate);
+		where = 'art_category in (' + cates.join(',') + ') And art_draft=0';
 	}
-	
+
 	var result = PAGE
 		.addInputVarchar('@TableName', blog.tb + 'articles')
 		.addInputVarchar('@FieldList', '*')

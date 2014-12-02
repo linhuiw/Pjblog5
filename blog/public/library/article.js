@@ -50,5 +50,9 @@ article.add('getbyid', function(id){
 	return article;
 });
 
+article.add('getArticlesByStorageProcess', function(){
+	
+});
+
 
 module.exports = article;

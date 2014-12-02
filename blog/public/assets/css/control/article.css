@@ -1,9 +1,9 @@
 ﻿@charset "utf-8";
 /* CSS Document */
 
-.iPress-content{ background-color:#fff!important; color:#777; box-shadow:0px 0px 10px rgba(0,0,0,.05)}
-.iPress-content .title{ padding:20px 15px; border-bottom:1px solid #eee; text-align:center;}
-.iPress-content .categorys{ background-color:#fafafa; padding-top:15px; padding-bottom:15px; box-shadow:4px 4px 1px rgba(0,0,0,.05)}
+.iPress-content{ color:#777;}
+.title{ padding:20px 15px; text-align:left;}
+.iPress-content .categorys{ background-color:#fafafa; padding-top:15px; padding-bottom:15px; box-shadow:-4px 4px 1px rgba(0,0,0,.05); border:1px solid #f1f1f1;}
 .iPress-content .categorys ul{ list-style:none; padding:0; margin:0;}
 .iPress-content .categorys a{ padding-left:5px;}
 .iPress-content .categorys ul a:link,
@@ -12,3 +12,5 @@
 .iPress-content .fa{ margin-right:5px;}
 .iPress-content .categorys ul ul li a{ padding-left:25px;}
 .iPress-content .categorys li a{ display:block; padding:5px 0px; line-height:20px; overflow:hidden; padding-left:10px;}
+.articles{}
+.articles .block{background-color:#fff; box-shadow:4px 4px 1px rgba(0,0,0,.04); margin-bottom:15px;}

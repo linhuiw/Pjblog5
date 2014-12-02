@@ -8,6 +8,11 @@
     Core: General style
 ----------------------------
 */
+.text-auto-hide{
+	overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+	text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+	white-space:nowrap;/* 不换行 */
+}
 html,
 body {
   overflow-x: hidden!important;
@@ -3497,3 +3502,9 @@ fieldset[disabled] .btn-vk.active {
     font-size: 12px;
 }
 .iPress-wrap{ padding: 0px 15px;}
+.trans {
+	-webkit-transition: all .25s ease-out;
+	-moz-transition: all .25s ease-out;
+	-o-transition: all .25s ease-out;
+	transition: all .25s ease-out;
+}

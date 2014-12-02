@@ -44,7 +44,17 @@
 				articles.result.forEach(function( detail ){
 			%>
             	<div class="col-md-4">
-                	<div class="block">1</div>
+                	<div class="block">
+                    	<div class="img">
+                        	<img src="<%=detail.art_cover%>" onerror="this.src='public/assets/bootstrap/img/article_preview.png'" class="img-responsive">
+                            <div class="ArtTitle text-auto-hide trans"><%=detail.art_title%></div>
+                       	</div>
+                        <div class="ArtDes"><%=detail.art_des%></div>
+                        <div class="ArtAction row">
+                        	<a href="javascript:;" class="col-xs-6 trans"><i class="fa fa-pencil"></i></a>
+                            <a href="javascript:;" class="col-xs-6 trans"><i class="fa fa-close"></i></a>
+                        </div>
+                    </div>
                 </div>
             <%
 				});

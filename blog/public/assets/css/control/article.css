@@ -13,4 +13,15 @@
 .iPress-content .categorys ul ul li a{ padding-left:25px;}
 .iPress-content .categorys li a{ display:block; padding:5px 0px; line-height:20px; overflow:hidden; padding-left:10px;}
 .articles{}
-.articles .block{background-color:#fff; box-shadow:4px 4px 1px rgba(0,0,0,.04); margin-bottom:15px;}
+.articles .block{background-color:#fff; box-shadow:4px 4px 1px rgba(0,0,0,.04); margin-bottom:15px; overflow:hidden;}
+.articles .block .ArtTitle{ line-height:30px;padding:0px 15px; font-weight:bold; position:absolute; bottom:0px; left:0px; right:0px; text-align:left; color:#fff; background-color:rgba(0,0,0,0.6);-webkit-transform:translateY(30px);}
+.articles .block .ArtDes{ height:70px; line-height:20px; overflow:hidden; padding:5px 15px;}
+.articles .block .img{text-align:center; height:150px; overflow:hidden; position:relative;}
+.articles .block:hover .ArtTitle{-webkit-transform:translateY(0px);}
+.articles .block .ArtAction{border-top:1px solid #eee;}
+.articles .block .ArtAction a{ display:block; text-align:center;  background-color:#f9f9f9; overflow:hidden; padding:6px 0; font-size:13px;}
+.articles .block .ArtAction a:first-child{ border-right:1px solid #eee;}
+.articles .block .ArtAction a:last-child{ border-left:1px solid #fff;}
+.articles .block .ArtAction a:link,
+.articles .block .ArtAction a:visited{ color:#aaa;}
+.articles .block .ArtAction a:hover{ color:#777; background-color:#f3f3f3;}

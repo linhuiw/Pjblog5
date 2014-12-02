@@ -54,5 +54,9 @@ article.add('getArticlesByStorageProcess', function(){
 	
 });
 
+article.add('getall', function(cate){
+	var rec = new dbo(blog.tb + 'articles', blog.conn);
+
+});
 
 module.exports = article;

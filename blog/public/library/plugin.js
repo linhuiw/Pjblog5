@@ -42,11 +42,22 @@ plugin.add('install', function( folder ){
 					 *		前台插件页面建议采用插件标识来获取插件信息
 					 */
 					 	this.plus_set_cache();
+						
 					/*
 					 * 第五步： 建立插件后台自定义页面数据
 					 * 		如果存在插件自定义页面数据，那么就将插件信息输入到插件自定义数据内部
 					 *		插件就能自动加载这些页面到侧边栏
 					 */	
+					 	this.plus_control_nav(id, plus_config_data.ControlNavs);
+					
+					/*
+					 * 第六步： 安装插件前台导航
+					 * 		只允许一个入口。其他页面希望插件作者自行提供页面方法
+					 *		需要有很高的JS操作水平
+					 */	
+					 	if ( this.plus_assets_nav(id, plus_config_data.AssetNav) ){
+							
+						}
 				}else{
 					msg.message = '数据库数据安装失败';
 				}
@@ -60,6 +71,64 @@ plugin.add('install', function( folder ){
 	};
 	
 	return msg;	
+});
+
+plugin.add('plus_control_nav', function(id, data){
+	fs(contrast(':public/pmenu.json')).unExist().create('{}');
+	var navs = require(':public/pmenu.json');
+	if ( data ){
+		navs[id + ''] = data;
+	}else{
+		try{ delete navs[id + '']; }catch(e){};
+	}
+	fs(contrast(':public/pmenu.json')).create(JSON.stringify(navs));
+});
+
+plugin.add('plus_assets_nav', function(id, data){
+	var categoryModules = require(':public/library/category'),
+		categoryModule = new categoryModules();
+		
+	var status = false, rec, nid = 0;
+		
+	if ( data ){
+		nid = categoryModule.inst({
+			cate_name: data.name,
+			cate_des: data.des,
+			cate_parent: 0,
+			cate_src: 'iPress:' + JSON.stringify(['page', 'plugin', { id: id }]),
+			cate_outlink: true,
+			cate_isroot: 0,
+			cate_order: 99,
+			cate_icon: 'fa-star'
+		});
+		
+		if ( nid > 0 ){
+			rec = new dbo(blog.tb + 'params', blog.conn);
+			rec.selectAll().create().set({
+				par_keyword: 'iPress.Plugin.Navgation.ID',
+				par_keyvalue: nid + '',
+				par_pid: id,
+				par_hide: 1
+			}).save().close();
+			
+			status = true;
+		};
+	}else{
+		rec = new dbo(blog.tb + 'params', blog.conn);
+		rec.selectAll().and('par_pid', id).and('par_keyword', 'iPress.Plugin.Navgation.ID').and('par_hide', 1).open(3).exec(function(object){
+			nid = object('par_keyvalue').value;
+			if ( nid && nid.length > 0 && !isNaN(nid) ){ nid = Number(nid); };
+			if ( nid > 0 ){ this.remove(); };
+		}).close();
+		
+		if ( nid > 0 ){
+			status = categoryModule.remove(nid);
+		}else{
+			status = true;
+		}
+	}
+	
+	return status;
 });
 
 plugin.add('file_config_exist', function(file){

@@ -78,4 +78,8 @@ category.add('save', function(data){
 	cache.categorys();
 });
 
+category.add('remove', function(id){
+	// return boolean
+});
+
 module.exports = category;

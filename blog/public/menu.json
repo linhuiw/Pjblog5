@@ -42,5 +42,10 @@
 			local: '本地插件',
 			cloud: '云端插件'
 		}
+	},
+	write: {
+		name: '写作',
+		icon: 'fa-pencil',
+		hide: true
 	}
 }

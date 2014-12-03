@@ -198,6 +198,7 @@
                     <ul class="sidebar-menu">
                     	<%
                     		for ( var i in menu ){
+								if ( menu[i].hide ){ continue; };
                     			var childs = menu[i].childs;
                     			var actived = amenu === i ? 'active' : ''
                     	%>

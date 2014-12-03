@@ -18,12 +18,67 @@
             <div class="tab-content">
               <div role="tabpanel" class="tab-pane active" id="home">
               		<div class="write-content">
-                    	<textarea id="editor" name="art_content" style="width:100%;min-height:500px;"></textarea>
+                    	<div class="loading">正在加载编辑器，请稍后...</div>
+                    	<textarea id="editor" name="art_content" style="width:100%;min-height:500px;" class="hide"></textarea>
                     </div>
               </div>
-              <div role="tabpanel" class="tab-pane" id="profile">...</div>
+              <div role="tabpanel" class="tab-pane" id="profile">
+              	<div style="padding:10px 15px;">
+              		<div class="row">
+                    	<div class="col-sm-5 categorys">
+                        	<ul>
+								<%
+                                    categorys.queens.forEach(function( cate ){
+                                        var detail = categorys.indexs[cate.id + ''];
+                                %>
+                                <li>
+                                    <label for="cate_<%=detail.id%>">
+                                    	<input type="radio" value="<%=detail.id%>" name="art_category" id="cate_<%=detail.id%>" />
+                                        <i class="fa <%=detail.cate_icon%>"></i><%=detail.cate_name%>
+                                    </label>
+                                    <%
+                                        if ( cate.items && cate.items.length > 0 ){
+                                    %>
+                                    <ul>
+                                        <%
+                                            cate.items.forEach(function(_id){
+                                                var o = categorys.indexs[_id];
+                                        %>
+                                        <li>
+                                        <label for="cate_<%=o.id%>">
+                                            <input type="radio" value="<%=o.id%>" name="art_category" id="cate_<%=o.id%>" />
+                                            <i class="fa <%=o.cate_icon%>"></i><%=o.cate_name%>
+                                        </label>
+                                        </li>
+                                        <%		
+                                            });
+                                        %>
+                                    </ul>
+                                    <%		
+                                        }
+                                    %>
+                                </li>
+                                <%		
+                                    });
+                                %>
+                            </ul>
+                        </div>
+                        <div class="col-sm-7">
+                        	<div class="des_title">编写日志摘要</div>
+                        	<textarea name="art_des" style="width:100%;min-height:250px;" placeholder="写入日志预览内容.." id="write-des" class="form-control"></textarea>
+                        </div>
+                    </div>
+                 </div>
+              </div>
               <div role="tabpanel" class="tab-pane" id="messages">...</div>
               <div role="tabpanel" class="tab-pane" id="settings">...</div>
+            </div>
+        </div>
+        
+        <div class="col-lg-12 submitzone">
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">保存内容</button>
+                <button class="btn btn-white" type="reset">取消</button>
             </div>
         </div>
     </div>

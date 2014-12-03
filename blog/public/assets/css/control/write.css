@@ -8,7 +8,23 @@
 .title input:focus,
 .title input:active{ border-color:#66CCFF!important}
 .write-box{ margin-top:30px;}
-.tab-content{ background-color:#fff; border:1px solid #ddd; border-top:0;}
+.tab-content{ background-color:#fff; border:1px solid #ddd; border-top:0; box-shadow:4px 4px 1px rgba(0,0,0,.06)}
 .nav-tabs>li>a{ border-radius:0px;}
 *{ outline:none; resize:none;}
 .write-content{ padding:2px;}
+.submitzone{ margin-top:30px; margin-bottom:50px;}
+
+.categorys{}
+.categorys ul{ list-style:none; padding:0; margin:0;}
+.categorys a{ padding-left:5px;}
+.categorys ul label{ color:#777; font-weight:normal;}
+.fa{ margin-right:5px;}
+.categorys ul ul li label{ padding-left:40px;}
+.categorys li label{ display:block; padding:5px 0px; line-height:20px; overflow:hidden; padding-left:10px;}
+.categorys .fa{ margin-left:10px;}
+.loading{ height:200px; line-height:200px; text-align:center; color:#777; font-size:18px;}
+#write-des{ border:1px solid #ddd!important;}
+#write-des:hover,
+#write-des:focus,
+#write-des:active{ border-color:#66CCFF!important}
+.des_title{ height:30px; line-height:30px; padding:0px 5px; font-weight:bold;}

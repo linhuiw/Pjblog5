@@ -14,17 +14,19 @@
         window.blog.control.write = mod(window.jQuery);
     }
 })(function ( $, ue, require, exports, modules ) {
+	
 	var Write = new Class(function(){
-		// 设置ueditor变量基址
+		
+		$('.loading').remove();
+		$('#editor').removeClass('hide');
+
 		window.UEDITOR_CONFIG.UEDITOR_HOME_URL = modules.contrast('../../ueditor') + '/';
 		window.UEDITOR_CONFIG.serverUrl = window.UEDITOR_CONFIG.UEDITOR_HOME_URL + "asp/controller.asp";
 		
 		this.bindUeditor();
 	});
 	
-	Write.add('bindUeditor', function(){
-		this.ue = UE.getEditor('editor');
-	});
+	Write.add('bindUeditor', function(){ this.ue = UE.getEditor('editor'); });
 	
 	return Write;
 

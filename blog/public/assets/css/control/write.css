@@ -3,7 +3,12 @@
 
 .tip{ width:100px; background-color:#fff; padding-top:7px; padding-bottom:7px; background-color:#00c0ef; color:#fff; height:40px; text-align:center; line-height:26px;}
 .title{}
-.title input{ border:1px solid #f9f9f9;height:40px; text-align:center; box-shadow:0px 4px 1px rgba(0,0,0,.06); font-weight:bold;}
+.title input{ border:1px solid #f9f9f9;height:40px; text-align:center; box-shadow:1px 4px 1px rgba(0,0,0,.06); font-weight:bold;}
 .title input:hover,
 .title input:focus,
 .title input:active{ border-color:#66CCFF!important}
+.write-box{ margin-top:30px;}
+.tab-content{ background-color:#fff; border:1px solid #ddd; border-top:0;}
+.nav-tabs>li>a{ border-radius:0px;}
+*{ outline:none; resize:none;}
+.write-content{ padding:2px;}

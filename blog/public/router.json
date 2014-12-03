@@ -31,6 +31,10 @@
 		category: {
 			compile: resolve('server/async/category.js'),
 			type: 'json'
+		},
+		article: {
+			compile: resolve('server/async/article.js'),
+			type: 'json'
 		}
 	}
 }

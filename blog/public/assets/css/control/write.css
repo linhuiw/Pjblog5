@@ -23,8 +23,15 @@
 .categorys li label{ display:block; padding:5px 0px; line-height:20px; overflow:hidden; padding-left:10px;}
 .categorys .fa{ margin-left:10px;}
 .loading{ height:200px; line-height:200px; text-align:center; color:#777; font-size:18px;}
-#write-des{ border:1px solid #ddd!important;}
+#write-des,
+.form-horizontal input[type='text']:hover{ border:1px solid #ddd!important;}
 #write-des:hover,
 #write-des:focus,
-#write-des:active{ border-color:#66CCFF!important}
+#write-des:active,
+.form-horizontal input[type='text']:hover,
+.form-horizontal input[type='text']:focus,
+.form-horizontal input[type='text']:active{ border-color:#66CCFF!important}
 .des_title{ height:30px; line-height:30px; padding:0px 5px; font-weight:bold;}
+.form-horizontal{ padding:20px 0px;}
+.tags-title{ font-size:12px; height:30px; line-height:30px; font-weight:bold;}
+.bootstrap-tagsinput{ border-radius:0px!important; border-color:#ddd; margin-top:10px; margin-bottom:30px;}

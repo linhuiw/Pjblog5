@@ -3,7 +3,7 @@
         module.exports = mod();
     }
     else if (typeof define == "function" && define.amd) {
-        return define(['jquery', '../../ueditor/ueditor.package.js'], mod);
+        return define(['jquery', '../../ueditor/ueditor.package.js', '../../tagsinput/bootstrap-tagsinput-package.js'], mod);
     }
     else {
     	if ( !window.blog ){
@@ -13,7 +13,7 @@
     	}
         window.blog.control.write = mod(window.jQuery);
     }
-})(function ( $, ue, require, exports, modules ) {
+})(function ( $, ue, tags, require, exports, modules ) {
 	
 	var Write = new Class(function(){
 		

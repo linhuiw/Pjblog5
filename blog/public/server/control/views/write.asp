@@ -64,14 +64,36 @@
                             </ul>
                         </div>
                         <div class="col-sm-7">
-                        	<div class="des_title">编写日志摘要</div>
+                        	<div class="des_title"><i class="fa fa-rss"></i> 编写日志摘要</div>
                         	<textarea name="art_des" style="width:100%;min-height:250px;" placeholder="写入日志预览内容.." id="write-des" class="form-control"></textarea>
+                            <p style="color:#ccc; padding-top:10px;"><i class="fa fa-volume-up"></i> 日志摘要会显示在你的首页，作为预览文章的文字。</p>
                         </div>
                     </div>
                  </div>
               </div>
-              <div role="tabpanel" class="tab-pane" id="messages">...</div>
-              <div role="tabpanel" class="tab-pane" id="settings">...</div>
+              <div role="tabpanel" class="tab-pane" id="messages">
+              	<div class="row form-horizontal" style="padding:10px 30px;">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">日志关键字</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" value="" name="blog_name">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">日志SEO描述</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" value="" name="blog_title">
+                        </div>
+                    </div>
+                 </div>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="settings">
+              	<div style="padding:10px 15px;">
+                	<div class="tags-title"><i class="fa fa-tags"></i> 请输入你的标签：</div>
+              		<input type="text" name="art_tags" data-role="tagsinput" />
+                </div>
+              </div>
             </div>
         </div>
         

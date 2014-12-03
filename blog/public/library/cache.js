@@ -118,8 +118,8 @@ cache.add('plugins', function(){
 			plugin[object.fields(i).name] = object.fields(i).value;
 		}
 		
-		indexs[object('id').value] = object('plu_mark').value;
-		queens[object('plu_mark').value] = plugin;
+		indexs[object('id').value] = plugin;
+		queens[object('plu_mark').value] = object('id').value;
 	}).close();
 	
 	var data = JSON.stringify({indexs: indexs, queens: queens});

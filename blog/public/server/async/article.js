@@ -14,9 +14,11 @@ article.add('save', function(querys, getforms, Promise){
 	var forms = getforms();
 	var msg = { success: false, message: '操作失败' };
 	
-	if ( forms.id && forms.id.length === 0 ){
+	if ( forms.id && ( forms.id.length === 0 || forms.id === '0' ) ){
 		delete forms.id;
-	};
+	}else{
+		forms.id = Number(forms.id);
+	}
 	
 	var ret = Promise.SaveArticle(forms);
 	

@@ -53,7 +53,7 @@
                        	</div>
                         <div class="ArtDes"><%=detail.art_des%></div>
                         <div class="ArtAction row">
-                        	<a href="javascript:;" class="col-xs-6 trans"><i class="fa fa-pencil"></i></a>
+                        	<a href="<%=iPress.setURL('control', 'wrap', { m: 'write', id: detail.id })%>" class="col-xs-6 trans"><i class="fa fa-pencil"></i></a>
                             <a href="javascript:;" class="col-xs-6 trans"><i class="fa fa-close"></i></a>
                         </div>
                     </div>

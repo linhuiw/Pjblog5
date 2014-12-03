@@ -102,7 +102,6 @@
         <div class="col-lg-12 submitzone">
             <div class="form-group">
                 <button class="btn btn-primary" type="submit">保存内容</button>
-                <button class="btn btn-white" type="reset">取消</button>
             </div>
         </div>
     </div>

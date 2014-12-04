@@ -17,9 +17,10 @@ var Jump = new Class(function( querys, forms ){
 });
 
 Jump.add('getApps', function(){
+	var GlobalCache = require(':private/caches/global.json');
 	return {
-		appid: 10083,
-		appkey: '733ff118f081071d95615a0c60cb4cba4835f9d7'
+		appid: GlobalCache.blog_appid,
+		appkey: GlobalCache.blog_appkey
 	}
 });
 

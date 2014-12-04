@@ -125,6 +125,7 @@ category.add('remove', function(id, isAppend){
 	};
 });
 
+// 主删除方法
 category.add('removeCategory', function(id){
 	blog.conn.BeginTrans();
 	try{

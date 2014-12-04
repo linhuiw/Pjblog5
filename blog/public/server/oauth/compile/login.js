@@ -1,8 +1,11 @@
 var login = new Class(function( querys, forms ){
+	
+	var GlobalCache = require(':private/caches/global.json');
+	
 	this.error = 0;
 	
-	this.appid = 10083;
-	this.appkey = '733ff118f081071d95615a0c60cb4cba4835f9d7';
+	this.appid = GlobalCache.blog_appid;
+	this.appkey = GlobalCache.blog_appkey;
 	
 	this.getFrom(querys.from);
 	this.getCode();

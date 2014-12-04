@@ -122,7 +122,7 @@ plugin.add('plus_assets_nav', function(id, data){
 		}).close();
 		
 		if ( nid > 0 ){
-			status = categoryModule.remove(nid);
+			status = categoryModule.removeCategory(nid);
 		}else{
 			status = true;
 		}

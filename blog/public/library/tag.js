@@ -5,23 +5,26 @@ tag.add('create', function(data){
 		data = [data];
 	};
 	try{
+		var ids = [];
 		data.forEach(function( o ){
 			var rec = new dbo(blog.tb + 'tags', blog.conn);
 			var success = function(object){
 				var i = object('tag_count').value;
 				this.set({ tag_count: ++i });
 			};
-			var failure = function(){
+			var failure = function(object){
 				this.create().set({
 					tag_name: o,
 					tag_count: 1
 				});
 			};
-			rec.selectAll().and('tag_name', o).open(3).exec(success, failure).save().close();
+			rec.selectAll().and('tag_name', o).open(3).exec(success, failure).save().exec(function(object){
+				ids.push(object('id').value);
+			}).close();
 		});
-		this.buildCacheFile();
-		return true;
-	}catch(e){ return false; };
+		
+		return { success: true, data: ids };
+	}catch(e){ return { success: false, message: e.message }; };
 });
 
 tag.add('remove', function(data){
@@ -70,6 +73,14 @@ tag.add('buildCacheFile', function(){
 	var cacheModules = require(':public/library/cache'),
 		cacheModule = new cacheModules();
 		cacheModule.tags();
+});
+
+tag.add('parse', function(tags){
+	return tags.replace(/^\{/, '').replace(/\}$/, '').split('}{');
+});
+
+tag.add('toggle', function(ids){
+	return '{' + ids.join('}{') + '}';
 });
 
 module.exports = tag;

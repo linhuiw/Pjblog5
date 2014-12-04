@@ -98,6 +98,22 @@ article.add('getArticlesByStorageProcess', function( cate, Page ){
 	};
 });
 
+article.add('getImageByContent', function( content ){
+	
+	// 获取日志第一张图片
+	var imgexp = /<img([^\s]*?)\ssrc=\"([^\"]*?)\"(.*?)>/i.exec( content ),
+		image;
+		
+	if ( imgexp && imgexp[2] ){ image = imgexp[2]; }else{ image = ''; };
+	
+	var ist = image.indexOf('private');
+	if ( !/^[a-z]+:\/\//.test(image) && ist > -1 ){
+		image = image.substr(ist);
+	};
+	
+	return image;
+});
+
 /*
  * # 保存日志方法
  * @ data <json>
@@ -106,19 +122,53 @@ article.add('getArticlesByStorageProcess', function( cate, Page ){
  */
 article.add('SaveArticle', function( data ){
 	try{
-		var id = data.id, add = true;
+		var id = data.id, add = true, that = this, fns = require('ifns');
+		
+		var GlobalCache = require(':private/caches/global.json'); // 全局缓存
+		
 		if ( id && id > 0 ){
 			add = false;
 			delete data.id;
 		};
 		
+		data.art_monick = 0; // 是否为用户自己添加
+		
+		data.art_cover = this.getImageByContent(data.art_content);
+		
 		var rec = new dbo(blog.tb + 'articles', blog.conn);
-			rec.selectAll()
+			rec.selectAll();
 	
 			if ( add ){
+				// 添加新日志
+				data.art_postdate = date.format(new Date(), 'y/m/d h:i:s'); // 日志提交时间
+				data.art_tags = that.iTags(data.art_tags); // tag转ID
+				
+				if ( data.art_des && data.art_des.length > 0 ){ 
+					data.art_monick = 1; 
+				}else{
+					data.art_des = fns.cutStr(fns.removeHTML(data.art_content), GlobalCache.blog_articlecut, true, '');
+				}
+				
 				rec.create();
 			}else{
-				rec.and('id', id).open(3);
+				// 修改日志
+				data.art_modifydate = date.format(new Date(), 'y/m/d h:i:s'); // 更新时间
+				rec.and('id', id).open(3).exec(function(object){
+					data.art_tags = that.iTags(data.art_tags, object('art_tags').value); // tag转ID
+					
+					// monick转换
+					var art_monick = object('art_monick').value;
+					if ( data.art_des.length === 0 ){ // 虽然是修改，但是用户删除了摘要内容，当做系统自己生成摘要功能来做
+						data.art_des = fns.cutStr(fns.removeHTML(data.art_content), GlobalCache.blog_articlecut, true, ''); // 系统生成摘要
+					}else{
+						if ( object('art_des').value === data.art_des && !art_monick ){ // 如果数据库中摘要和传入的摘要相同，且是系统生成
+							data.art_des = fns.cutStr(fns.removeHTML(data.art_content), GlobalCache.blog_articlecut, true, '');
+						}else{ // 其余是用户自己生成
+							data.art_monick = 1;
+						}
+					}
+					
+				});
 			};
 		
 			rec
@@ -128,6 +178,35 @@ article.add('SaveArticle', function( data ){
 				
 		return true;
 	}catch(e){ return false; };
+});
+
+/*
+ * # 标签操作
+ * @ tags <string> 标签集合 字符串
+ * @ _tags <string> 老标签集合 字符串
+ * ? tring
+ * 返回新标签的集合 字符串
+ */
+article.add('iTags', function(tags, _tags){
+	var tags = require('tag');
+	var tag = new tags(), newTags;
+	
+	tags = tags.split(',');
+	
+	if ( _tags && _tags.length > 0 ){
+		tag.remove(tag.parse(_tags));	
+	};
+	
+	var credit = tag.create(tags);
+	if ( credit.success ){
+		// 添加成功,赋值最新的tags.
+		newTags = tag.toggle(credit.data);
+	}else{
+		// 添加失败,赋值空的tags.
+		newTags = '';
+	}
+	
+	return newTags;
 });
 
 /*

@@ -20,12 +20,22 @@ article.add('save', function(querys, getforms, Promise){
 		forms.id = Number(forms.id);
 	}
 	
-	var ret = Promise.SaveArticle(forms);
+	if ( !forms.art_title || forms.art_title.length === 0 || forms.art_title.length > 255 ){
+		msg.message = '标题不能为空，且字数不能超过255个';
+		return msg;
+	}
 	
-	if ( ret ){
-		msg.success = true;
-	};
+	if ( !forms.art_content || forms.art_content.length < 10 ){
+		msg.message = "日志内容过少";
+		return msg;
+	}
 	
+	if ( !forms.art_category || forms.art_category.length === 0 || isNaN(forms.art_category) || Number(forms.art_category) < 1 ){
+		msg.message = "请选择分类";
+		return msg;
+	}
+	
+	msg.success = Promise.SaveArticle(forms);
 	return msg;
 });
 

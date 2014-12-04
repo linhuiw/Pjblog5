@@ -46,7 +46,7 @@ modules.scriptExec(function( data ){
     <div class="col-md-4">
       <div class="contact-box">
         <div class="col-md-4">
-          <div class="text-center"> <img alt="image" class="img-circle m-t-xs img-responsive" src="<%=o.member_avatar%>/128">
+          <div class="text-center"> <img alt="image" class="img-circle m-t-xs img-responsive" src="<%=o.member_avatar%>/128" onerror="this.src='public/assets/bootstrap/img/avatars.png'">
             <div class="m-t-xs font-bold">
               <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"> <span class="name"><%=o.member_group.group_name%></span> <span class="caret"></span> </button>

@@ -184,7 +184,7 @@
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="<%=blog.appsite + '/' + blog.user.avatar + '/64'%>" class="img-circle" alt="User Image" />
+                            <img src="<%=blog.user.avatar + '/64'%>" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
                             <p>Hello, <%=blog.user.nick%></p>

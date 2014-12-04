@@ -55,6 +55,7 @@ article.add('remove', function(querys, getforms, Promise){
 	
 	if ( ret ){
 		msg.success = true;
+		msg.message = '操作成功';
 	};
 	
 	return msg;

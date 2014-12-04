@@ -1,4 +1,11 @@
-﻿<div class="iPress-wrap">
+﻿<%
+modules.scriptExec(function( data ){
+	window.modules.article = data;
+}, {
+	del: iPress.setURL('async', 'article', { m: 'remove' })
+});
+%>
+<div class="iPress-wrap">
 	<div class="row">
 		<div class="col-lg-12 title">
         	<a href="<%=iPress.setURL('control', 'wrap', { m: 'write' })%>" class="btn btn-info label-link"><i class="fa fa-pencil"></i>发表日志</a>
@@ -54,7 +61,7 @@
                         <div class="ArtDes"><%=detail.art_des%></div>
                         <div class="ArtAction row">
                         	<a href="<%=iPress.setURL('control', 'wrap', { m: 'write', id: detail.id })%>" class="col-xs-6 trans"><i class="fa fa-pencil"></i></a>
-                            <a href="javascript:;" class="col-xs-6 trans"><i class="fa fa-close"></i></a>
+                            <a href="javascript:;" class="col-xs-6 trans delete-article" data-id="<%=detail.id%>"><i class="fa fa-close"></i></a>
                         </div>
                     </div>
                 </div>

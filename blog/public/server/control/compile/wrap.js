@@ -76,7 +76,7 @@ wrap.add('getContentFile', function(){
 
 wrap.add('getBreadcrumb', function(querys){
 	var title = '', 
-		crumbs = ['PJBlog5 iPresS'];
+		crumbs = ['iPresS'];
 		
 	if ( this.data.menu[querys.m] ){
 		crumbs.push(this.data.menu[querys.m].name);

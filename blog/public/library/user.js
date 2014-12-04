@@ -95,4 +95,49 @@ user.add('status', function(){
 	return data;
 });
 
+user.add('getUsersByStorageProcess', function(Page){
+	var PAGE = new cmd('iPage', blog.conn);
+	
+	var result = PAGE
+		.addInputVarchar('@TableName', blog.tb + 'members')
+		.addInputVarchar('@FieldList', '*')
+		.addInputVarchar('@PrimaryKey', 'id')
+		.addInputVarchar('@Where', ' ')
+		.addInputVarchar('@Order', 'member_logindate desc')
+		.addInputInt('@SortType', 1)
+		.addInputInt('@RecorderCount', 0)
+		.addInputInt('@PageSize', 15)
+		.addInputInt('@PageIndex', Page)
+		.addOutputInt('@TotalCount')
+		.addOutputInt('@TotalPageCount')
+		.exec().toJSON();
+		
+	var PageCount = PAGE.get('@TotalPageCount').value;
+	
+	return {
+		result: result,
+		PageCount: PageCount,
+		PageIndex: Page
+	};
+});
+
+user.add('save', function( id, data ){
+	blog.conn.BeginTrans();
+	try{
+		var User = new dbo(blog.tb + 'members', blog.conn);
+		User.selectAll().and('id', id).open(3);
+		if ( typeof data === 'function' ){
+			data.call(User, User.object);
+		}else{
+			User.set(data);
+		}
+		User.save().close();
+		blog.conn.CommitTrans();
+		return true;
+	}catch(e){
+		blog.conn.RollBackTrans();
+		return false;
+	}
+});
+
 module.exports = user;

@@ -35,6 +35,10 @@
 		article: {
 			compile: resolve('server/async/article.js'),
 			type: 'json'
+		},
+		user: {
+			compile: resolve('server/async/user.js'),
+			type: 'json'
 		}
 	}
 }

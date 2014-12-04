@@ -23,6 +23,13 @@ article.add('getArticleByID', function(id){
 		}
 	}
 	
+	if ( article.art_tags && article.art_tags.length > 0 ){
+		var tags = require(':public/library/tag'),
+			tag = new tags();
+
+		article.art_tags = tag.get(tag.parse(article.art_tags));
+	};
+	
 	return article;
 });
 
@@ -133,12 +140,12 @@ article.add('SaveArticle', function( data ){
 			add = false;
 			delete data.id;
 		};
-		
+
 		// 是否为用户自己添加
 		data.art_monick = 0; 
 		// 获取日志图片
 		data.art_cover = this.getImageByContent(data.art_content);
-		
+
 		var rec = new dbo(blog.tb + 'articles', blog.conn);
 			rec.selectAll();
 			// 添加新日志
@@ -159,7 +166,6 @@ article.add('SaveArticle', function( data ){
 				data.art_modifydate = date.format(new Date(), 'y/m/d h:i:s'); // 更新时间
 				rec.and('id', id).open(3).exec(function(object){
 					data.art_tags = that.iTags(data.art_tags, object('art_tags').value); // tag转ID
-					
 					// monick转换
 					var art_monick = object('art_monick').value;
 					if ( data.art_des.length === 0 ){ // 虽然是修改，但是用户删除了摘要内容，当做系统自己生成摘要功能来做
@@ -204,17 +210,20 @@ article.add('SaveArticle', function( data ){
  * ? tring
  * 返回新标签的集合 字符串
  */
-article.add('iTags', function(tags, _tags){
+article.add('iTags', function(ctags, _tags){
+	if ( !ctags || ctags.length === 0 ){
+		return '';
+	}
 	var tags = require('tag');
 	var tag = new tags(), newTags;
 	
-	tags = tags.split(',');
-	
+	ctags = ctags.split(',');
+
 	if ( _tags && _tags.length > 0 ){
 		tag.remove(tag.parse(_tags));	
 	};
 	
-	var credit = tag.create(tags);
+	var credit = tag.create(ctags);
 	if ( credit.success ){
 		// 添加成功,赋值最新的tags.
 		newTags = tag.toggle(credit.data);

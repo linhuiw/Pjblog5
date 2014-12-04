@@ -50,7 +50,7 @@
                                         %>
                                         <li>
                                         <label for="cate_<%=o.id%>">
-                                            <input type="radio" value="<%=o.id%>" name="art_category" id="cate_<%=o.id%>" <%=(o.art_category || 0) === detail.id ? "checked": ""%> />
+                                            <input type="radio" value="<%=o.id%>" name="art_category" id="cate_<%=o.id%>" <%=(article.art_category || 0) === o.id ? "checked": ""%> />
                                             <i class="fa <%=o.cate_icon%>"></i><%=o.cate_name%>
                                         </label>
                                         </li>
@@ -95,7 +95,13 @@
               <div role="tabpanel" class="tab-pane" id="settings">
               	<div style="padding:10px 15px;">
                 	<div class="tags-title"><i class="fa fa-tags"></i> 请输入你的标签：</div>
-              		<input type="text" name="art_tags" data-role="tagsinput" value="<%=article.art_tags || ""%>" />
+                    <%
+						var tags = article.art_tags, tagInputs = [];
+						tags.forEach(function(o){
+							tagInputs.push(o.tag_name);
+						});
+					%>
+              		<input type="text" name="art_tags" data-role="tagsinput" value="<%=tagInputs.join(',')%>" />
                 </div>
               </div>
             </div>

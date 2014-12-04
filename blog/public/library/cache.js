@@ -86,7 +86,10 @@ cache.add('categorys', function(){
 // 日志标签
 cache.add('tags', function(){
 	var rec = new dbo(blog.tb + 'tags', blog.conn);
-	var json = rec.selectAll().asc('id').toJSON();
+	var json = {};
+	rec.selectAll().asc('id').toJSON().forEach(function( o ){
+		json[o.id] = o;
+	});
 	
 	var data = JSON.stringify(json);
 	var success = false;

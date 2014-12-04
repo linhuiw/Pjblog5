@@ -58,6 +58,7 @@ tag.add('get', function(data){
 	if ( !readVariableType(data, 'array') ){
 		data = [data];
 	};
+
 	var cacheData = require(':private/caches/tags.json');
 	var arr = [];
 	data.forEach(function( o ){

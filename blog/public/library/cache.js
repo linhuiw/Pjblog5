@@ -128,9 +128,18 @@ cache.add('plugins', function(){
 	return success;
 });
 
-// 插件导航
-cache.add('pluNavs', function(){
-	
+// 插件自定义参数缓存
+cache.add('params', function(){
+	var params = {}, status = false;
+	(new dbo(blog.tb + 'params', blog.conn)).selectAll().toJSON().forEach(function(o){
+		if ( !params[o.par_pid + ''] ){
+			params[o.par_pid + ''] = {}
+		};
+		
+		params[o.par_pid + ''][o.par_keyword] = o.par_keyvalue;
+	});
+	fs(contrast(':private/caches/params.json')).create(JSON.stringify(params)).then(function(){status = true}).fail(function(){status = false;}).stop();
+	return status;
 });
 
 module.exports = cache;

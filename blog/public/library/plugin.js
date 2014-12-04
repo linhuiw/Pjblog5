@@ -1,5 +1,6 @@
 var plugin = new Class();
 
+// 安装插件
 plugin.add('install', function( folder ){
 	var msg = { success: false, message: '插件安装失败' },
 		file_config = folder + '\\config.json',
@@ -56,7 +57,30 @@ plugin.add('install', function( folder ){
 					 *		需要有很高的JS操作水平
 					 */	
 					 	if ( this.plus_assets_nav(id, plus_config_data.AssetNav) ){
-							
+							/*
+							 * 第七步： 安装插件iSet信息
+							 * 		检测文件是否存在 private/plugins/xxxx/iSet.json
+							 *		调用iSet组件进行入库处理
+							 */	
+							 	if ( this.plus_iSet_add(id, folder) ) {
+									/*
+									 * 第八步： iSet信息缓存
+									 * 		整合成根据插件ID存在的信息集合
+									 */
+									 	if ( (function(){
+											var caches = require(':public/library/cache');
+											var cache = new caches();
+											return cache.params();
+										})() ){
+											
+										}else{
+											msg.message = '整合插件自定义配置参数缓存失败'
+										}
+								}else{
+									msg.message = '添加自定义插件配置参数失败';
+								}
+						}else{
+							msg.message = '添加分类导航失败';
 						}
 				}else{
 					msg.message = '数据库数据安装失败';
@@ -73,6 +97,7 @@ plugin.add('install', function( folder ){
 	return msg;	
 });
 
+// 写入插件的后台自定义页面属性到pmenu
 plugin.add('plus_control_nav', function(id, data){
 	fs(contrast(':public/pmenu.json')).unExist().create('{}');
 	var navs = require(':public/pmenu.json');
@@ -84,6 +109,7 @@ plugin.add('plus_control_nav', function(id, data){
 	fs(contrast(':public/pmenu.json')).create(JSON.stringify(navs));
 });
 
+// 插入插件的分类导航到系统
 plugin.add('plus_assets_nav', function(id, data){
 	var categoryModules = require(':public/library/category'),
 		categoryModule = new categoryModules();
@@ -131,10 +157,12 @@ plugin.add('plus_assets_nav', function(id, data){
 	return status;
 });
 
+// 检测插件配置文件存在
 plugin.add('file_config_exist', function(file){
 	return fs(file_config).exist().then(function(){ return true; }).fail(function(){ return false; }).value();
 });
 
+// 检测插件标识是否存在，即是否已安装
 plugin.add('plus_mark_exist', function(plus_config_data){
 	var exist = true;
 	if ( plus_config_data.mark && plus_config_data.mark.length === 40 ){
@@ -147,6 +175,7 @@ plugin.add('plus_mark_exist', function(plus_config_data){
 	return exist;
 });
 
+// 插件信息入库
 plugin.add('plus_setup', function(params){
 	var rec = new dbo(blog.tb + 'plugins', blog.conn);
 	var id = 0;
@@ -168,10 +197,53 @@ plugin.add('plus_setup', function(params){
 	return id;
 });
 
+// 更新插件缓存
 plugin.add('plus_set_cache', function(){
 	var PluginModules = require(':public/library/cache');
 	var PluginModule = new PluginModules();
 	PluginModule.plugins();
+});
+
+// 添加插件自定义配置参数到数据库
+plugin.add('plus_iSet_add', function(id, folder){
+	var path = folder + '\\setting.json',
+		status = true;
+		
+	return fs(path)
+		.exist()
+		.then(function(){
+			var Setting = require(path);
+				iSets = require('iSet'),
+				iSet = new iSets(Setting);
+			
+			var values = iSet.getDefaultValueToJSON();
+			
+			blog.conn.BeginTrans();
+			try{
+				for ( var i in values ){
+					(new dbo(blog.tb + 'params', blog.conn))
+						.selectAll().create().set(i, values[i]).save().close();
+				}
+				blog.conn.CommitTrans();
+				return true;
+			}catch(e){
+				blog.conn.RollBackTrans();
+				return false;
+			}
+		})
+		.fail(function(){ return true; })
+		.value();
+});
+
+// 获取插件的自定义配置参数信息
+// id 为插件标识（40位）或者插件的具体ID
+plugin.add('getConfigs', function(id){
+	if ( readVariableType(id, 'string') && id.length === 40 ){
+		id = require(':private/caches/plugins.json').queens[id];
+	};
+	if ( id && !isNaN(id) ){
+		return require(':private/caches/params.json')[id + ''];
+	};
 });
 
 module.exports = plugin;

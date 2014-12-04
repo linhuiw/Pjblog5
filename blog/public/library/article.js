@@ -121,25 +121,28 @@ article.add('getImageByContent', function( content ){
  * 如果data参数存在id字段，那么为修改，其余为添加
  */
 article.add('SaveArticle', function( data ){
+	blog.conn.BeginTrans(); // 开启事物处理
 	try{
-		var id = data.id, add = true, that = this, fns = require('ifns');
-		
-		var GlobalCache = require(':private/caches/global.json'); // 全局缓存
+		var id = data.id, 
+			add = true, 
+			that = this, 
+			fns = require('ifns'),
+			GlobalCache = require(':private/caches/global.json'); // 全局缓存
 		
 		if ( id && id > 0 ){
 			add = false;
 			delete data.id;
 		};
 		
-		data.art_monick = 0; // 是否为用户自己添加
-		
+		// 是否为用户自己添加
+		data.art_monick = 0; 
+		// 获取日志图片
 		data.art_cover = this.getImageByContent(data.art_content);
 		
 		var rec = new dbo(blog.tb + 'articles', blog.conn);
 			rec.selectAll();
-	
+			// 添加新日志
 			if ( add ){
-				// 添加新日志
 				data.art_postdate = date.format(new Date(), 'y/m/d h:i:s'); // 日志提交时间
 				data.art_tags = that.iTags(data.art_tags); // tag转ID
 				
@@ -150,8 +153,9 @@ article.add('SaveArticle', function( data ){
 				}
 				
 				rec.create();
-			}else{
-				// 修改日志
+			}
+			// 修改日志
+			else{
 				data.art_modifydate = date.format(new Date(), 'y/m/d h:i:s'); // 更新时间
 				rec.and('id', id).open(3).exec(function(object){
 					data.art_tags = that.iTags(data.art_tags, object('art_tags').value); // tag转ID
@@ -170,14 +174,27 @@ article.add('SaveArticle', function( data ){
 					
 				});
 			};
-		
+			
+			// 保存日志
 			rec
 				.set(data)
 				.save()
 				.close();
+		
+		// 提交事务
+		blog.conn.CommitTrans();
+		
+		// 更新TAG缓存
+		var tags = require('tag');
+		var tag = new tags();
+			tag.buildCacheFile();
 				
 		return true;
-	}catch(e){ return false; };
+	}catch(e){
+		// 回滚事务 
+		blog.conn.RollBackTrans();
+		return false; 
+	};
 });
 
 /*
@@ -218,10 +235,34 @@ article.add('iTags', function(tags, _tags){
 article.add('removeArticle', function(id){
 	try{
 		if ( !readVariableType(id, 'array') ){ id = [id]; };
-		var rec = new dbo(blog.tb + 'articles', blog.conn);
-		rec.selectAll().and('id', id, 'in').open(3).each(function(o){
-			o.Delete();
-		}).close();
+		if ( id.length > 0 ){
+			var rec = new dbo(blog.tb + 'articles', blog.conn);
+			rec.selectAll().and('id', id, 'in').open(3).each(function(o){
+				o.Delete();
+			}).close();
+		}
+		
+		return true;
+	}catch(e){ return false; }
+});
+
+/*
+ * # 日志移动到回收站的方法
+ * @ id <number | array>
+ * ? boolean
+ * 移动后的日志的分类为0
+ */
+article.add('removeArticleToRestoreage', function(id){
+	try{
+		if ( !readVariableType(id, 'array') ){ id = [id]; };
+		if ( id.length > 0 ){
+			var rec = new dbo(blog.tb + 'articles', blog.conn);
+			rec.selectAll().and('id', id, 'in').open(3).each(function(o){
+				this.set({
+					art_category: 0
+				}).save();
+			}).close();
+		}
 		
 		return true;
 	}catch(e){ return false; }

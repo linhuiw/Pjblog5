@@ -117,11 +117,11 @@ login.add('save', function(){
 			address: this.user.address || '',
 			website: this.user.website || '',
 			sex: this.user.sex || 0,
-			avatar: this.user.sex || 0,
+			avatar: this.user.avatar || '',
 			token: this.token,
 			expires_in: this.expires_in
 		}
-		
+
 		var users = new user();
 		var status = users.oAuthLogin(params);
 		

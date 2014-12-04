@@ -8,22 +8,42 @@
         return define([], mod);
     }
     else{
-        window.fns = mod();
+        window.iSet = mod();
     }
 })(function(){
-	var iSet = new Class(function( data ){
-		this.data = data;
-		this.iBox = new iBox();
-	});
+	var iSet = new Class(function( data ){ this.data = data; });
 	
 	iSet.add('toHTML', function(){
 		var html = '';
+		this.iBox = new iBox();
 		for ( var i in this.data ){
 			if ( this.iBox[this.data[i].type] ){
 				html += this.iBox[this.data[i].type](i, this.data[i]);
 			}
-		}
+		};
 		return html;
+	});
+	
+	iSet.add('getDefaultValueToJSON', function(){
+		var json = {};
+		
+		for ( var i in this.data ){
+			if ( this.data[i].value ){
+				json[i] = this.data[i].value;
+			}
+		};
+		
+		return json;
+	});
+	
+	iSet.add('toggle', function(data){
+		for ( var i in data ){
+			if ( this.data[i] && this.data[i].value ){
+				this.data[i].value = this.data[i];
+			}
+		};
+		
+		return this;
 	});
 	
 	var iBox = new Class();

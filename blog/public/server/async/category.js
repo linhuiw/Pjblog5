@@ -142,9 +142,10 @@ category.add('deldata', function(querys, getforms, categoryPromise){
 	try {
 		var id = getforms().id;
 		id = Number(id);
-				
-		msg.success = true;
-		msg.message = '删除分类成功';
+		if ( categoryPromise.removeCategory(id)	){
+			msg.success = true;
+			msg.message = '删除分类成功';
+		}
 	}catch(e){
 		msg.message = e.message;
 	}

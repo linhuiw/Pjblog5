@@ -96,7 +96,7 @@
               	<div style="padding:10px 15px;">
                 	<div class="tags-title"><i class="fa fa-tags"></i> 请输入你的标签：</div>
                     <%
-						var tags = article.art_tags, tagInputs = [];
+						var tags = article.art_tags || [], tagInputs = [];
 						tags.forEach(function(o){
 							tagInputs.push(o.tag_name);
 						});

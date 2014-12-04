@@ -178,7 +178,6 @@
 		  },
 		  isValidTarget: function(item, container){
 		  	if ( window.doing ){ return false; };
-		  	//console.log(item[0], container.el[0]);
 		  	var source = Number($(item).attr('data-count') || '0');
 		  	var target = $(container.el).attr('data-parent');
 		  	var tp = target && target.length > 0 ? Number(target) : -1;

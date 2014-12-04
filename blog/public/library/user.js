@@ -60,7 +60,7 @@ user.add('status', function(){
 	id = Number(id);
 	
 	if ( id > 0 && hashkey.length > 0 ){
-		rec.top(1).select('member_nick', 'member_mail', 'member_group', 'member_forbit', 'member_logindate', 'member_avatar', 'member_token', 'member_openid').and('id', id).and('member_hashkey', hashkey).open().exec(function(object){
+		rec.top(1).select('member_nick', 'member_mail', 'member_group', 'member_forbit', 'member_logindate', 'member_avatar', 'member_token', 'member_openid', 'id').and('id', id).and('member_hashkey', hashkey).open().exec(function(object){
 			data.nick = object(0).value;
 			data.mail = object(1).value;
 			data.group = object(2).value;
@@ -69,6 +69,7 @@ user.add('status', function(){
 			data.avatar = object(5).value;
 			data.token = object(6).value;
 			data.openid = object(7).value;
+			data.id = object(8).value;
 			data.status = 1;
 		}).close();
 	};
@@ -122,6 +123,10 @@ user.add('getUsersByStorageProcess', function(Page){
 });
 
 user.add('save', function( id, data ){
+	if ( blog.user.id === Number(id) ){
+		return false;
+	};
+	
 	blog.conn.BeginTrans();
 	try{
 		var User = new dbo(blog.tb + 'members', blog.conn);

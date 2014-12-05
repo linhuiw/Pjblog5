@@ -18,6 +18,7 @@ plugin.add('install', function( folder ){
 		 *		插件标识必须为40位，由云平台生成。
 		 */
 			var plus_config_data = require(file_config);
+				plus_config_data.folder = folder;
 			
 		/*
 		 * 第二步： 确定插件是否已安装
@@ -188,7 +189,7 @@ plugin.add('plus_setup', function(params){
 		plu_mail: 	params.mail,
 		plu_web: 	params.site,
 		plu_icon: 	params.icon,
-		plu_folder: this.folder,
+		plu_folder: params.folder,
 		plu_stop: 	true
 	}).save().exec(function(object){
 		id = object('id').value;

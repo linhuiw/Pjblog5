@@ -133,7 +133,7 @@
 
                     <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-2">
-                            <button class="btn btn-primary" type="submit">保存内容</button>
+                            <button class="btn btn-info" type="submit">保存内容</button>
                             <button class="btn btn-white" type="reset">取消</button>
                         </div>
                     </div>

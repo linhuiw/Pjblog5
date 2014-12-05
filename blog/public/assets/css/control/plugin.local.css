@@ -1,4 +1,8 @@
 ﻿@charset "utf-8";
 /* CSS Document */
 
-.ibox-content{ padding-left:0; padding-right:0;}
+.iPress-content{ background-color:#fff; box-shadow:4px 4px 1px rgba(0,0,0,.04); padding:20px 25px;}
+th{ outline:none;}
+.row label{ width:100%;}
+.row{ margin-bottom:10px;}
+.pagination{ margin:0; float:right;}

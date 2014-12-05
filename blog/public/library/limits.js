@@ -46,7 +46,7 @@ Limits.add('inst', function(data){
 });
 
 Limits.add('save', function(data){
-	var success = true, message = '';
+	var success = true, message = '不存在的权限';
 	var rec = new dbo(blog.tb + 'levels', blog.conn);
 		rec.selectAll().and('id', data.id).open(3).each(function(object){
 			if (object('code_isystem').value) {
@@ -72,7 +72,7 @@ Limits.add('save', function(data){
 });
 
 Limits.add('remove', function(id){
-	var success = true, message = '';
+	var success = true, message = '不存在的权限';
 	var rec = new dbo(blog.tb + 'levels', blog.conn);
 		rec.selectAll().and('id', data.id).open(3).each(function(object){
 			if (object('code_isystem').value) {

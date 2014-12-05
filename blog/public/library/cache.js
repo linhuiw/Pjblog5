@@ -37,26 +37,10 @@ cache.add('groups', function(){
 
 // 权限
 cache.add('limits', function(){
-	var rec = new dbo(blog.tb + 'levels', blog.conn);
-	var indexs = {}, queens = {};
-	rec.select('id', 'code_name', 'code_des', 'code_isystem', 'code_mark').open().each(function(object){
-		var id = object('id').value,
-			name = object('code_name').value,
-			des = object('code_des').value,
-			sys = object('code_isystem').value,
-			mark = object('code_mark').value;
-			
-		indexs[id + ''] = mark;
-		queens[mark] = {
-			id: id,
-			code_name: name,
-			code_des: des,
-			code_isystem: sys,
-			code_mark: mark
-		}
-	}).close();
+	var modlimit = require('limits');
+	var objlimit = new modlimit();	
 	
-	var data = JSON.stringify({indexs: indexs, queens: queens});
+	var data = JSON.stringify(objlimit.gets());
 	var success = false;
 	fs(contrast(':private/caches/limits.json')).create(data).then(function(){success = true}).fail(function(){success = false;}).stop();
 	return success;

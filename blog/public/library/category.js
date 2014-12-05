@@ -51,6 +51,10 @@ category.add('inst', function(data){
 			id = object('id').value;
 		}).close();
 	
+	var caches = require(':public/library/cache');
+	var cache = new caches();
+	cache.categorys();	
+	
 	return id;
 });
 

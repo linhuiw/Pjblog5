@@ -73,9 +73,26 @@ plugin.add('install', function( folder ){
 											var cache = new caches();
 											return cache.params();
 										})() ){
+											/*
+											 * 第九步： hook接入
+											 * 		内嵌入系统内部功能
+											 * 		自由组合自由生成
+											 */
+											 	this.plus_hook(id, folder);
 											
+											/*
+											 * 第十步： 自定义安装数据库文件
+											 * 		为系统添加插件自定义数据库代码
+											 */
+											 	this.plus_setup_sql(folder);
+											
+											/*
+											 * 第十一步： 自定义安装文件
+											 * 		允许用户自定义安装内容
+											 */
+											 	this.plus_setup_file(id, plus_config_data.mark, folder);
 										}else{
-											msg.message = '整合插件自定义配置参数缓存失败'
+											msg.message = '整合插件自定义配置参数缓存失败';
 										}
 								}else{
 									msg.message = '添加自定义插件配置参数失败';
@@ -234,6 +251,36 @@ plugin.add('plus_iSet_add', function(id, folder){
 		})
 		.fail(function(){ return true; })
 		.value();
+});
+
+plugin.add('plus_hook', function(id, folder){
+	var hooks = require(':public/library/hook');
+	var hook = new hooks();
+	if ( folder && folder.length > 0 ){		
+		var hookFile = resolve(':private/plugins/' + folder + '/hook.js');
+		if ( fs(hookFile).exist().then(function(){ return true; }).fail(function(){ return false; }).value() ){
+			hook.load(id, hookFile);
+		}
+	}else{
+		hook.remove(id);
+	}
+});
+
+plugin.add('plus_setup_sql', function(folder, type){
+	var file = type ? contrast(':private/plugins/' + folder + '/uninstall.sql') : contrast(':private/plugins/' + folder + '/install.sql');
+	fs(file).exist().read().then(function(text){
+		if ( text.length > 0 ){
+			blog.conn.Execute(text);
+		}
+	});
+});
+
+plugin.add('plus_setup_file', function(id, mark, folder, type){
+	var file = type ? resolve(':private/plugins/' + folder + '/uninstall.js') : resolve(':private/plugins/' + folder + '/install.js');
+	fs(file).exist().then(function(){
+		var CompileModule = require(file);
+		new CompileModule(id, mark, folder);
+	});
 });
 
 // 获取插件的自定义配置参数信息

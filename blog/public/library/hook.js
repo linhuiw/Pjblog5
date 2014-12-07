@@ -88,6 +88,6 @@ hook.add('remove', function(id){
 	}
 	
 	return this.save();
-})
+});
 
 module.exports = hook;

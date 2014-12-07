@@ -74,13 +74,13 @@ Limits.add('save', function(data){
 Limits.add('remove', function(id){
 	var success = true, message = '不存在的权限';
 	var rec = new dbo(blog.tb + 'levels', blog.conn);
-		rec.selectAll().and('id', data.id).open(3).each(function(object){
+		rec.selectAll().and('id', id).open(3).exec(function(object){
 			if (object('code_isystem').value) {
 				success = false;
 				message = '系统权限不能删除';
 			}else{
 				object.Delete();
-					
+				
 				message = '删除权限成功';
 			}
 		}).close();

@@ -6,30 +6,17 @@ cache.add('all', function(){
 	this.global();
 	this.categorys();
 	this.plugins();
-	this.pluNavs();
+	this.params();
 	this.themes();
 	this.tags();
 });
 
 // 用户组
 cache.add('groups', function(){
-	var rec = new dbo(blog.tb + 'groups', blog.conn);
-	var indexs = {};
-	rec.select('id', 'group_name', 'group_code', 'group_isystem').open().each(function(object){
-		var id = object('id').value,
-			name = object('group_name').value,
-			code = JSON.parse(object('group_code').value),
-			sys = object('group_isystem').value;
-			
-		indexs[id + ''] = {
-			id: id,
-			group_name: name,
-			group_code: code,
-			group_isystem: sys
-		};
-	}).close();
+	var modgroup = require('groups');
+	var objgroup = new modgroup();
 	
-	var data = JSON.stringify(indexs);
+	var data = JSON.stringify(objgroup.gets());
 	var success = false;
 	fs(contrast(':private/caches/groups.json')).create(data).then(function(){success = true}).fail(function(){success = false;}).stop();
 	return success;

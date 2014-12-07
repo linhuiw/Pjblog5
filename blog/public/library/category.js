@@ -131,16 +131,14 @@ category.add('remove', function(id, isAppend){
 
 // 主删除方法
 category.add('removeCategory', function(id){
-	blog.conn.BeginTrans();
 	try{
 		this.remove(id);
 		var caches = require(':public/library/cache');
 		var cache = new caches();
 			cache.categorys();
-		blog.conn.CommitTrans();
+
 		return true;
 	}catch(e){
-		blog.conn.RollBackTrans();
 		return false;
 	};
 });

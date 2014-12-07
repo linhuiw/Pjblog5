@@ -12,7 +12,7 @@ plugin.add('getInstallPlugins', function(){
 	var that = this;
 	this.data.installs = {};
 	rec.selectAll().open().each(function(object){
-		that.data.installs[object('plu_mark').value] = { status: object('plu_stop').value };
+		that.data.installs[object('plu_mark').value] = { status: object('plu_stop').value, id: object('id').value };
 	}).close();
 });
 

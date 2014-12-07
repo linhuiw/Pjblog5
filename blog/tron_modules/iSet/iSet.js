@@ -55,7 +55,7 @@
 	 *	}
 	 */
 	iBox.add('text', function(name, data){
-		return '<input type="text" value="' + data.value + '" name="' + name + '" />';
+		return '<tr><td>' + data.des + '</td><td><input type="text" value="' + data.value + '" name="' + name + '" /></td></tr>';
 	});
 	
 	/*
@@ -65,7 +65,7 @@
 	 *	}
 	 */
 	iBox.add('textarea', function(name, data){
-		return '<textarea name="' + name + '">' + data.value + '</textarea>';
+		return '<tr><td>' + data.des + '</td><td><textarea name="' + name + '">' + data.value + '</textarea></td></tr>';
 	});
 	
 	/*
@@ -75,7 +75,7 @@
 	 *	}
 	 */
 	iBox.add('password', function(name, data){
-		return '<input type="password" value="' + data.value + '" name="' + name + '" />';
+		return '<tr><td>' + data.des + '</td><td><input type="password" value="' + data.value + '" name="' + name + '" /></td></tr>';
 	});
 	
 	/*
@@ -85,7 +85,7 @@
 	 *	}
 	 */
 	iBox.add('tel', function(name, data){
-		return '<input type="tel" value="' + data.value + '" name="' + name + '" />';
+		return '<tr><td>' + data.des + '</td><td><input type="tel" value="' + data.value + '" name="' + name + '" /></td></tr>';
 	});
 	
 	/*
@@ -95,7 +95,7 @@
 	 *	}
 	 */
 	iBox.add('email', function(name, data){
-		return '<input type="email" value="' + data.value + '" name="' + name + '" />';
+		return '<tr><td>' + data.des + '</td><td><input type="email" value="' + data.value + '" name="' + name + '" /></td></tr>';
 	});
 	
 	/*
@@ -123,7 +123,7 @@
 			});
 		}
 		
-		return html;
+		return '<tr><td>' + data.des + '</td><td>' + html + '</td></tr>';
 	});
 	
 	/*
@@ -155,7 +155,7 @@
 			html += '</select>';
 		}
 		
-		return html;
+		return '<tr><td>' + data.des + '</td><td>' + html + '</td></tr>';
 	});
 	
 	/*
@@ -164,7 +164,7 @@
 	 *	}
 	 */
 	iBox.add('file', function(name, data){
-		return '<input type="file" name="' + name + '" />';
+		return '<tr><td>' + data.des + '</td><td><input type="file" name="' + name + '" /></td></tr>';
 	});
 	
 	return iSet;

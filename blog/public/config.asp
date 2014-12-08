@@ -1,20 +1,2 @@
 <!--#include file="tron.min.asp" -->
-<%;
-var iPress;
-var blog = (function( base ){
-	var i = 0, j = 10;
-	var getBase = function(path){
-		if ( i > j ){ return base; }
-		i++;
-		var geted = false;
-		fs(contrast(path)).exist().then(function(){
-			geted = true;
-		});
-		if ( geted ){ return path; }else{ return getBase("../" + path); };
-	};
-	base = getBase(base);
-	return require(base);
-})("private/config.json");
-blog.conn = null;
-modules.setBase(blog.base);
-%>
+<%;var iPress;var blog=(function(d){var c=0,b=10;var a=function(f){if(c>b){return d}c++;var e=false;fs(contrast(f)).exist().then(function(){e=true});if(e){return f}else{return a("../"+f)}};d=a(d);return require(d)})("private/config.json");blog.conn=null;modules.setBase(blog.base);%>

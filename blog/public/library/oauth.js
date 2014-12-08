@@ -40,7 +40,7 @@ oAuth.add('download', function( mark, folder ){
 		){
 			var packs = require('package');
 			var pack = new packs();
-			packageModule.unPack(
+			pack.unPack(
 				contrast(':private/' + folder + '/' + mark + '.pbd'), 
 				contrast(':private/' + folder + '/' + mark)
 			);

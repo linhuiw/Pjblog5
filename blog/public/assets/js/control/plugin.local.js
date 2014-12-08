@@ -18,6 +18,42 @@
     
 	var plugin = new Class(function(){
 		$('.dataTables-example').dataTable();
+		this.onInstall();
+		this.onUnInstall();
+	});
+	
+	plugin.add('onInstall', function(){
+    	$('.plus_install').on('click', function(){
+        	var folder = $(this).attr('data-id');
+        	if ( folder && folder.length > 0 ){
+            	$.post(window.modules.plugin.install, {
+                	folder: folder
+            	}, function( params ){
+                	if ( params.success ){
+                    	window.location.reload();
+                	}else{
+                    	alert(params.message);
+                	}
+            	}, 'post');
+        	}
+    	});
+	});
+	
+	plugin.add('onUnInstall', function(){
+    	$('.plus_unisntall').on('click', function(){
+        	var id = $(this).attr('data-id');
+        	if ( id && id.length > 0 ){
+            	$.post(window.modules.plugin.uninstall, {
+                	id: id
+            	}, function( params ){
+                	if ( params.success ){
+                    	window.location.reload();
+                	}else{
+                    	alert(params.message);
+                	}
+            	}, 'post');
+        	}
+    	});
 	});
 	
 	return plugin;

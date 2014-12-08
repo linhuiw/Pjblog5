@@ -11,12 +11,12 @@
 });
 
 plugin.add('install', function(querys, getforms, Promise){
-	var folder = querys.f;
+	var folder = getforms().folder;
 	return Promise.install(folder);
 });
 
 plugin.add('uninstall', function(querys, getforms, Promise){
-	var id = querys.id;
+	var id = getforms().id;
 	return Promise.uninstall(Number(id));
 });
 

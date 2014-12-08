@@ -1,4 +1,12 @@
-﻿<div class="iPress-wrap">
+﻿<%
+modules.scriptExec(function( data ){
+	window.modules.plugin = data;
+}, {
+	install: iPress.setURL('async', 'plugin', { m: 'install' }),
+	uninstall: iPress.setURL('async', 'plugin', { m: 'uninstall' })
+})
+%>
+<div class="iPress-wrap">
 	<div class="ibox float-e-margins">
         <div class="ibox-title">
             <h5>插件聚合</h5>
@@ -36,7 +44,7 @@
                         	<%
 								if ( installs[o.mark] ){
 							%>
-                            <a href="<%=iPress.setURL("async", "plugin", { m: "uninstall", id: installs[o.mark].id })%>" data-id="<%=installs[o.mark].id%>">卸载</a>
+                            <a href="javascript:;" data-id="<%=installs[o.mark].id%>" class="plus_uninstall">卸载</a>
                             <%
 									if ( !installs[o.mark].status ){
 							%>
@@ -49,7 +57,7 @@
 									}
 								}else{
 							%>
-                            <a href="<%=iPress.setURL("async", "plugin", { m: "install", f: o.folder })%>" data-id="<%=o.folder%>">安装</a>
+                            <a href="javascript:;" data-id="<%=o.folder%>" class="plus_install">安装</a>
                             <a href="javascript:;">删除</a>
                             <%	
 								}

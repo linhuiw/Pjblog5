@@ -32,6 +32,8 @@
 			success: function(msg){
 				window.doing = false;
 				if ( msg.success ){
+    				console.log(this);
+    				$(this).trigger('form.ajaxSuccess');
 					alert('操作成功');
 				}else{
 					alert(msg.message);

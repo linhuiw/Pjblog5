@@ -24,9 +24,17 @@
 		window.UEDITOR_CONFIG.serverUrl = window.UEDITOR_CONFIG.UEDITOR_HOME_URL + "asp/controller.asp";
 		
 		this.bindUeditor();
+		this.ajaxSuccess();
+		
 	});
 	
 	Write.add('bindUeditor', function(){ this.ue = UE.getEditor('editor'); });
+	
+	Write.add('ajaxSuccess', function(){
+    	$(this).on('form.ajaxSuccess', function(){
+        	window.location.href = window.modules.article.ajaxSuccess;
+    	});
+	})
 	
 	return Write;
 

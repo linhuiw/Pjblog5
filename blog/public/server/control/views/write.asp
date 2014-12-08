@@ -1,4 +1,11 @@
-﻿<form action="<%=iPress.setURL("async", "article", { m: "save" })%>" method="post" class="ajax-form">
+﻿<%
+modules.scriptExec(function( data ){
+	window.modules.article = data;
+}, {
+	ajaxSuccess: iPress.setURL('control', 'wrap', { m: 'article' })
+})
+%>
+<form action="<%=iPress.setURL("async", "article", { m: "save" })%>" method="post" class="ajax-form">
 <input type="hidden" name="id" value="<%=article.id || 0%>" />
 <input type="hidden" name="art_draft" value="0" />
 <input type="hidden" name="art_cover" value="" />

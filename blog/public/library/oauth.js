@@ -31,7 +31,28 @@ oAuth.add('download', function( mark, folder ){
 			oauth_customer_mark: mark
 		}, contrast(':private/' + folder + '/' + mark + '.pbd'));
 		
-		return fs(contrast(':private/' + folder + '/' + mark + '.pbd')).exist().then(function(){ return true; }).fail(function(){ return false; }).value();
+		if ( 
+			fs(contrast(':private/' + folder + '/' + mark + '.pbd'))
+			.exist()
+			.then(function(){ return true; })
+			.fail(function(){ return false; })
+			.value() 
+		){
+			var packs = require('package');
+			var pack = new packs();
+			packageModule.unPack(
+				contrast(':private/' + folder + '/' + mark + '.pbd'), 
+				contrast(':private/' + folder + '/' + mark)
+			);
+			
+			return fs(contrast(':private/' + folder + '/' + mark), true).exist().then(function(){
+				return true;
+			}).fail(function(){
+				return false;
+			}).value();
+		}else{
+			return false;
+		}
 	}catch(e){
 		return false;
 	}

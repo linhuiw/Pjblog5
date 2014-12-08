@@ -351,4 +351,17 @@ plugin.add('getConfigs', function(id){
 	};
 });
 
+plugin.add('changeStatus', function(id, value){
+	try{
+		(new dbo(blog.tb + 'plugins', blog.conn)).selectAll().and('id', id).open(3).exec(function(object){
+			this.set('plu_stop', value || !object('plu_stop').value).save();
+		}).close();
+		return true;
+	}catch(e){ return false; };
+});
+
+plugin.add('remove', function(folder){
+	return fs(contrast(':private/plugins/' + folder)).exist().remove().then(function(){ return true; }).fail(function(){ return false; }).value();
+});
+
 module.exports = plugin;

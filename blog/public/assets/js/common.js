@@ -20,30 +20,37 @@
 	});
 	
 	common.add('ajaxForm', function(){
-		$('.ajax-form').ajaxForm({
-			dataType: 'json',
-			beforeSubmit: function(){
-				if ( window.doing ){
-					return false;
-				}else{
-					window.doing = true;
-				}
-			},
-			success: function(msg){
-				window.doing = false;
-				if ( msg.success ){
-    				console.log(this);
-    				$(this).trigger('form.ajaxSuccess');
-					alert('操作成功');
-				}else{
-					alert(msg.message);
-				}
-			},
-			error: function(){
-				window.doing = false;
-				alert('服务端出错');
-			}
-		});
+		$('.ajax-form').each(function(){
+			var _this = this;
+			$(this).submit(function(){
+				$('.ajax-form').ajaxSubmit({
+					dataType: 'json',
+					beforeSubmit: function(){
+						if ( window.doing ){
+							return false;
+						}else{
+							window.doing = true;
+						}
+					},
+					success: function(msg){
+						window.doing = false;
+						if ( msg.success ){
+							$(_this).trigger('form.ajaxSuccess');
+							alert('操作成功');
+						}else{
+							$(_this).trigger('form.ajaxFailure');
+							alert(msg.message);
+						}
+					},
+					error: function(){
+						$(_this).trigger('form.ajaxError');
+						window.doing = false;
+						alert('服务端出错');
+					}
+				});
+				return false;
+			});
+		});	
 	});
 	
 	return common;

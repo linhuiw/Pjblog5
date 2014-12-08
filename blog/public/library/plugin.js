@@ -356,6 +356,7 @@ plugin.add('changeStatus', function(id, value){
 		(new dbo(blog.tb + 'plugins', blog.conn)).selectAll().and('id', id).open(3).exec(function(object){
 			this.set('plu_stop', value || !object('plu_stop').value).save();
 		}).close();
+		this.plus_set_cache();
 		return true;
 	}catch(e){ return false; };
 });

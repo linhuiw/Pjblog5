@@ -3,7 +3,8 @@ modules.scriptExec(function( data ){
 	window.modules.plugin = data;
 }, {
 	install: iPress.setURL('async', 'plugin', { m: 'install' }),
-	uninstall: iPress.setURL('async', 'plugin', { m: 'uninstall' })
+	uninstall: iPress.setURL('async', 'plugin', { m: 'uninstall' }),
+	change: iPress.setURL('async', 'plugin', { m: 'change' })
 })
 %>
 <div class="iPress-wrap">
@@ -44,15 +45,15 @@ modules.scriptExec(function( data ){
                         	<%
 								if ( installs[o.mark] ){
 							%>
-                            <a href="javascript:;" data-id="<%=installs[o.mark].id%>" class="plus_uninstall">卸载</a>
+                            <a href="javascript:;" data-id="<%=installs[o.mark].id%>" class="plus_unisntall">卸载</a>
                             <%
 									if ( !installs[o.mark].status ){
 							%>
-                            <a href="javascript:;">停用</a>
+                            <a href="javascript:;" data-id="<%=installs[o.mark].id%>" class="plus_change">停用</a>
                             <%
 									}else{
 							%>
-                            <a href="javascript:;">启用</a>
+                            <a href="javascript:;" data-id="<%=installs[o.mark].id%>" class="plus_change">启用</a>
                             <%		
 									}
 								}else{

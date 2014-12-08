@@ -31,7 +31,7 @@
 	Write.add('bindUeditor', function(){ this.ue = UE.getEditor('editor'); });
 	
 	Write.add('ajaxSuccess', function(){
-    	$(this).on('form.ajaxSuccess', function(){
+    	$('.ajax-form').on('form.ajaxSuccess', function(){
         	window.location.href = window.modules.article.ajaxSuccess;
     	});
 	})

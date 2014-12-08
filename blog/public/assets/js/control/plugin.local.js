@@ -18,32 +18,16 @@
     
 	var plugin = new Class(function(){
 		$('.dataTables-example').dataTable();
-		this.onInstall();
-		this.onUnInstall();
+		this.SendAjax('.plus_install', window.modules.plugin.install);
+		this.SendAjax('.plus_unisntall', window.modules.plugin.uninstall);
+		this.SendAjax('.plus_change', window.modules.plugin.change);
 	});
 	
-	plugin.add('onInstall', function(){
-    	$('.plus_install').on('click', function(){
-        	var folder = $(this).attr('data-id');
-        	if ( folder && folder.length > 0 ){
-            	$.post(window.modules.plugin.install, {
-                	folder: folder
-            	}, function( params ){
-                	if ( params.success ){
-                    	window.location.reload();
-                	}else{
-                    	alert(params.message);
-                	}
-            	}, 'post');
-        	}
-    	});
-	});
-	
-	plugin.add('onUnInstall', function(){
-    	$('.plus_unisntall').on('click', function(){
+	plugin.add('SendAjax', function(selector, url){
+		$('body').on('click', selector, function(){
         	var id = $(this).attr('data-id');
         	if ( id && id.length > 0 ){
-            	$.post(window.modules.plugin.uninstall, {
+            	$.post(url, {
                 	id: id
             	}, function( params ){
                 	if ( params.success ){
@@ -51,7 +35,7 @@
                 	}else{
                     	alert(params.message);
                 	}
-            	}, 'post');
+            	}, 'json');
         	}
     	});
 	});

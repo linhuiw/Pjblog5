@@ -200,7 +200,7 @@
                     		for ( var i in menu ){
 								if ( menu[i].hide ){ continue; };
                     			var childs = menu[i].childs;
-                    			var actived = amenu === i ? 'active' : ''
+                    			var actived = amenu === i  && !isPlugin ? 'active' : ''
                     	%>
                     	<li class="<%=(childs ? 'treeview' : '') + ' ' + actived%>">
                             <a href="<%=childs ? 'javascript:;' : iPress.setURL('control', 'wrap', { m: i })%>">
@@ -219,7 +219,7 @@
                             <ul class="treeview-menu">
                             <%
                             		for ( var j in childs ){
-                            			var actives = amenu === i && pmenu === j ? 'active' : '';
+                            			var actives = amenu === i && pmenu === j  && !isPlugin ? 'active' : '';
                             %>
                             	<li class="<%=actives%>"><a href="<%=iPress.setURL('control', 'wrap', { m: i, p: j })%>"><i class="fa fa-angle-double-right"></i> <%=childs[j]%></a></li>
                             <%
@@ -233,6 +233,46 @@
                     	<%
                     		}
                     	%>
+                    </ul>
+                    <div class="sidebar-nav-tip">插件入口</div>
+                    <ul class="sidebar-menu">
+                    	<%
+						for ( var s in smenu ){
+							if ( smenu[s].hide ){ continue; };
+							var childs = smenu[s].childs;
+							var actived = tmenu === Number(s) && isPlugin ? 'active' : '';
+						%>
+                        <li class="<%=(childs ? 'treeview' : '') + ' ' + actived%>">
+                            <a href="<%=childs ? 'javascript:;' : iPress.setURL('control', 'wrap', { t: s })%>">
+                                <i class="fa <%=smenu[s].icon%>"></i> <span><%=smenu[s].name%></span>
+                                <%
+                                	if ( childs ){
+                                %>
+                                <i class="fa fa-angle-left pull-right"></i>
+                                <%
+                                	}
+                                %>
+                            </a>
+                            <%
+                            	if ( childs ){
+                            %>
+                            <ul class="treeview-menu">
+                            <%
+                            		for ( var j in childs ){
+                            			var actives = tmenu === Number(s) && pmenu === j  && isPlugin ? 'active' : '';
+                            %>
+                            	<li class="<%=actives%>"><a href="<%=iPress.setURL('control', 'wrap', { t: s, p: j })%>"><i class="fa fa-angle-double-right"></i> <%=childs[j]%></a></li>
+                            <%
+                            		}
+                            %>
+                            </ul>
+                            <%
+                            	}
+                            %>
+                        </li>
+                        <%
+						}
+						%>
                     </ul>
                 </section>
                 <!-- /.sidebar -->
@@ -257,11 +297,15 @@
                 <!-- Main content -->
                 <section class="content">
                  <%
+				 try{
                  	if ( file.asp ){
                  		include(file.asp, compiles);
                  	}else{
                  		console.log('找不到文件[' + file.asp + ']');
                  	}
+				}catch(e){
+					console.log(e.message);
+				}
                  %>
 
                 </section><!-- /.content -->

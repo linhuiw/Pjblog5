@@ -11,13 +11,22 @@
 });
 
 plugin.add('install', function(querys, getforms, Promise){
-	var folder = getforms().folder;
-	return Promise.install(folder);
+	var id = getforms().id;
+	return Promise.install(id);
 });
 
 plugin.add('uninstall', function(querys, getforms, Promise){
 	var id = getforms().id;
 	return Promise.uninstall(Number(id));
+});
+
+plugin.add('change', function(querys, getforms, Promise){
+	var id = getforms().id;
+	if ( Promise.changeStatus(Number(id)) ){
+		return { success: true, message: '修改状态成功' };
+	}else{
+		return { success: false, message: '修改状态失败' };
+	}
 });
 
 module.exports = plugin;

@@ -14,7 +14,21 @@ theme.add('install', function( folder ){
 		if ( mark && mark.length === 40 ){
 			if ( this.downloadPluginsFromClouder(configs.plugins || {}) ){
 				if ( this.iSetCompress(folder) ){
-					
+					try{
+						(new dbo(blog.tb + 'global', blog.conn))
+						.top(1).selectAll().open(3).set({
+							blog_theme: folder,
+							blog_themename: configs.name,
+							blog_thememail: configs.mail,
+							blog_themeweb: configs.site
+						}).save().close();
+						
+						var caches = require('cache');
+						var cache = new caches();
+						cache.global();
+						msg.success = true;
+						msg.message = '安装主题成功';
+					}catch(e){}
 				}else{
 					msg.message = '设置主题自定义参数失败';
 				}
@@ -92,7 +106,15 @@ theme.add('iSetCompress', function(folder){
 					tm_value: values[i]
 				}).save().close();
 			}
-			return true;
+			
+			var caches = require('cache');
+			var cache = new caches();
+			
+			if ( cache.themes() ){
+				return true;
+			}else{
+				return false;
+			};
 		}catch(e){
 			return false;
 		}

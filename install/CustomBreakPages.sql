@@ -7,7 +7,7 @@ go
 -- Description:
 
 -- =============================================
-Create PROC CustomBreakPages
+Create PROC iPage
 -- Add the parameters for the stored procedure here
 @TableName VARCHAR(200),     --表名
 @FieldList VARCHAR(2000),    --显示列名，如果是全部字段则为*

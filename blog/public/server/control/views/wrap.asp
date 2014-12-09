@@ -24,9 +24,9 @@
     <!-- Theme style -->
     <link href="public/assets/bootstrap/css/AdminLTE.css" rel="stylesheet" type="text/css" />
     <%
-		if ( file.css ){
-			fs(contrast(file.css)).exist().then(function(){
-				modules.writeCss(file.css.replace(/^\:/, ''));
+		if ( files.css ){
+			fs(contrast(files.css)).exist().then(function(){
+				modules.writeCss(files.css.replace(/^\:/, ''));
 			});
 		}
 	%>
@@ -196,84 +196,60 @@
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <div class="sidebar-nav-tip">系统导航</div>
                     <ul class="sidebar-menu">
-                    	<%
-                    		for ( var i in menu ){
-								if ( menu[i].hide ){ continue; };
-                    			var childs = menu[i].childs;
-                    			var actived = amenu === i  && !isPlugin ? 'active' : ''
-                    	%>
-                    	<li class="<%=(childs ? 'treeview' : '') + ' ' + actived%>">
-                            <a href="<%=childs ? 'javascript:;' : iPress.setURL('control', 'wrap', { m: i })%>">
-                                <i class="fa <%=menu[i].icon%>"></i> <span><%=menu[i].name%></span>
+                        <%
+                            system.forEach(function(o){
+                        %>
+                        <li class="<%=(o.drops + " " + o.active)%>">
+                            <a href="<%=o.url%>">
+                                <i class="fa <%=o.icon%>"></i> <span><%=o.name%></span>
+                                <% if ( o.childs && o.childs.length > 0 ) {%>
+                                <ul class="treeview-menu">
                                 <%
-                                	if ( childs ){
+                                    o.childs.forEach(function(z){
                                 %>
-                                <i class="fa fa-angle-left pull-right"></i>
-                                <%
-                                	}
+                                <li class="<%=z.active%>"><a href="<%=z.url%>"><i class="fa fa-angle-double-right"></i> <%=z.name%></a></li>
+                                <%      
+                                    });
                                 %>
+                                </ul>
+                                <%}%>
                             </a>
-                            <%
-                            	if ( childs ){
-                            %>
-                            <ul class="treeview-menu">
-                            <%
-                            		for ( var j in childs ){
-                            			var actives = amenu === i && pmenu === j  && !isPlugin ? 'active' : '';
-                            %>
-                            	<li class="<%=actives%>"><a href="<%=iPress.setURL('control', 'wrap', { m: i, p: j })%>"><i class="fa fa-angle-double-right"></i> <%=childs[j]%></a></li>
-                            <%
-                            		}
-                            %>
-                            </ul>
-                            <%
-                            	}
-                            %>
-                        </li>
-                    	<%
-                    		}
-                    	%>
-                    </ul>
-                    <div class="sidebar-nav-tip">插件入口</div>
-                    <ul class="sidebar-menu">
-                    	<%
-						for ( var s in smenu ){
-							if ( smenu[s].hide ){ continue; };
-							var childs = smenu[s].childs;
-							var actived = tmenu === Number(s) && isPlugin ? 'active' : '';
-						%>
-                        <li class="<%=(childs ? 'treeview' : '') + ' ' + actived%>">
-                            <a href="<%=childs ? 'javascript:;' : iPress.setURL('control', 'wrap', { t: s })%>">
-                                <i class="fa <%=smenu[s].icon%>"></i> <span><%=smenu[s].name%></span>
-                                <%
-                                	if ( childs ){
-                                %>
-                                <i class="fa fa-angle-left pull-right"></i>
-                                <%
-                                	}
-                                %>
-                            </a>
-                            <%
-                            	if ( childs ){
-                            %>
-                            <ul class="treeview-menu">
-                            <%
-                            		for ( var j in childs ){
-                            			var actives = tmenu === Number(s) && pmenu === j  && isPlugin ? 'active' : '';
-                            %>
-                            	<li class="<%=actives%>"><a href="<%=iPress.setURL('control', 'wrap', { t: s, p: j })%>"><i class="fa fa-angle-double-right"></i> <%=childs[j]%></a></li>
-                            <%
-                            		}
-                            %>
-                            </ul>
-                            <%
-                            	}
-                            %>
                         </li>
                         <%
-						}
-						%>
+                            });
+                        %>
                     </ul>
+                    <%
+                        if ( plugins.length > 0 ){
+                    %>
+                    <div class="sidebar-nav-tip">插件入口</div>
+                    <ul class="sidebar-menu">
+                    <%
+                        plugins.forEach(function(o){
+                    %>
+                    <li class="<%=(o.drops + " " + o.active)%>">
+                        <a href="<%=o.url%>">
+                            <i class="fa <%=o.icon%>"></i> <span><%=o.name%></span>
+                            <% if ( o.childs && o.childs.length > 0 ) {%>
+                            <ul class="treeview-menu">
+                            <%
+                                o.childs.forEach(function(z){
+                            %>
+                            <li class="<%=z.active%>"><a href="<%=z.url%>"><i class="fa fa-angle-double-right"></i> <%=z.name%></a></li>
+                            <%      
+                                });
+                            %>
+                            </ul>
+                            <%}%>
+                        </a>
+                    </li>
+                    <%        
+                        });
+                    %>
+                    </ul>
+                    <%        
+                        }
+                    %>
                 </section>
                 <!-- /.sidebar -->
             </aside>
@@ -285,7 +261,7 @@
                     <h1><i class="fa <%=crumbIcon%>"></i><%=crumbTitle%></h1>
                     <ol class="breadcrumb">
                     	<%
-                    		crumb.forEach(function(name){
+                    		crumbs.forEach(function(name){
                     	%>
                     	<li><%=name%></li>
                     	<%
@@ -298,10 +274,10 @@
                 <section class="content">
                  <%
 				 try{
-                 	if ( file.asp ){
-                 		include(file.asp, compiles);
+                 	if ( files.asp ){
+                 		include(files.asp, compiles || {});
                  	}else{
-                 		console.log('找不到文件[' + file.asp + ']');
+                 		console.log('找不到文件[' + files.asp + ']');
                  	}
 				}catch(e){
 					console.log(e.message);
@@ -313,25 +289,21 @@
         </div><!-- ./wrapper -->
 		<%
 			modules.scriptExec(function(file){
-				require('jquery').then(function(jQuerys){
-					if ( !window.jQuery ){
-						window.$ = window.jQuery = jQuerys[0];
-					}
-				}).then(function(){
-					return require(['public/assets/bootstrap/js/bootstrap.min.js']);
-				}).then(function(){
-					return require(['public/assets/bootstrap/js/AdminLTE/app.js'])
-				}).then(function(){
-					var arr = [':public/assets/js/common'];
+				require("jquery")
+				.then(function(jQuerys){ if ( !window.jQuery ){ window.$ = window.jQuery = jQuerys[0]; } })
+				.then(function(){ return require(["public/assets/bootstrap/js/bootstrap.min.js"]); })
+				.then(function(){ return require(["public/assets/bootstrap/js/AdminLTE/app.js"]); })
+				.then(function(){
+					var arr = [":public/assets/js/common"];
 					if ( file.js ){ arr.push(file.js); };
 					require(arr, function( common, installers ){
 						new common();
-						if ( typeof installers == 'function' ){
+						if ( typeof installers == "function" ){
 							new installers();
 						}
 					})
 				});
-			}, file);
+			}, files);
 		%>
 </body>
 </html>

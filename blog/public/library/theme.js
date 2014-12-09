@@ -123,4 +123,30 @@ theme.add('iSetCompress', function(folder){
 	}).value();
 });
 
+theme.add('saveSetting', function(forms){
+    var status = true;
+    try{
+        for ( var i in forms ){
+            (new dbo(blog.tb + 'themes', blog.conn)).selectAll().and('tm_key', i).open().exec(function(){
+                this.set('tm_value', forms[i]).save();
+            }, function(){
+                this.create().set({
+                    tm_key: i,
+                    tm_value: forms[i]
+                }).save()
+            }).close();
+        }
+        
+        var caches = require('cache');
+		var cache = new caches();
+		
+		if ( cache.themes() ){
+			return true;
+		}else{
+			return false;
+		};
+    }catch(e){ status = false; }
+    return status;
+});
+
 module.exports = theme;

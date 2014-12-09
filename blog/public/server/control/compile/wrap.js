@@ -228,6 +228,13 @@ wrap.add('compiles', function(querys, forms){
         var that = this;
         fs(resolve(this.data.files.compile)).exist().then(function(){
     		var moduled = require(path);
+    		if ( this.isPlugin ){
+        		if ( this.caches.plugins && this.caches.plugins.indexs[this.req.t] ){
+            		moduled.add('pid', this.req.t);
+            		moduled.add('pmark', this.caches.plugins.indexs[this.req.t].plu_mark);
+            		moduled.add('pfolder', this.caches.plugins.indexs[this.req.t].plu_folder);
+        		}
+    		}
     		that.data.compiles = new moduled(querys, forms);
     	});
     }

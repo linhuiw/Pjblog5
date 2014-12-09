@@ -21,10 +21,18 @@
 		this.SendAjax('.plus_install', window.modules.plugin.install);
 		this.SendAjax('.plus_unisntall', window.modules.plugin.uninstall);
 		this.SendAjax('.plus_change', window.modules.plugin.change);
+		this.SendAjax('.plus_remove', window.modules.plugin.remove, function(){
+    		return confirm('确定删除？');
+		});
 	});
 	
-	plugin.add('SendAjax', function(selector, url){
+	plugin.add('SendAjax', function(selector, url, callback){
 		$('body').on('click', selector, function(){
+    		if ( typeof callback === 'function' ){
+        		if ( callback.call(this) === false ){
+            		return false;
+        		}
+    		}
         	var id = $(this).attr('data-id');
         	if ( id && id.length > 0 ){
             	$.post(url, {

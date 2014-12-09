@@ -29,4 +29,13 @@ plugin.add('change', function(querys, getforms, Promise){
 	}
 });
 
+plugin.add('remove', function(querys, getforms, Promise){
+    var id = getforms().id;
+	if ( Promise.remove(id) ){
+		return { success: true, message: '删除插件成功' };
+	}else{
+		return { success: false, message: '删除插件失败' };
+	}
+});
+
 module.exports = plugin;

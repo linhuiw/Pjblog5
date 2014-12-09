@@ -4,7 +4,8 @@ modules.scriptExec(function( data ){
 }, {
 	install: iPress.setURL('async', 'plugin', { m: 'install' }),
 	uninstall: iPress.setURL('async', 'plugin', { m: 'uninstall' }),
-	change: iPress.setURL('async', 'plugin', { m: 'change' })
+	change: iPress.setURL('async', 'plugin', { m: 'change' }),
+	remove: iPress.setURL('async', 'plugin', { m: 'remove' })
 })
 %>
 <div class="iPress-wrap">
@@ -59,7 +60,7 @@ modules.scriptExec(function( data ){
 								}else{
 							%>
                             <a href="javascript:;" data-id="<%=o.folder%>" class="plus_install">安装</a>
-                            <a href="javascript:;">删除</a>
+                            <a href="javascript:;" data-id="<%=o.folder%>" class="plus_remove">删除</a>
                             <%	
 								}
 							%>

@@ -31,16 +31,16 @@
 		name: '主题',
 		icon: 'fa-html5',
 		childs: {
-			local: '本地主题',
-			cloud: '云端主题'
+			local: { name: '本地主题', icon: 'fa-star' },
+			cloud: { name: '云端主题', icon: 'fa-star' }
 		}
 	},
 	plugin: {
 		name: '插件',
 		icon: 'fa-windows',
 		childs: {
-			local: '本地插件',
-			cloud: '云端插件'
+			local: { name: '本地插件', icon: 'fa-star' },
+			cloud: { name: '云端插件', icon: 'fa-star' }
 		}
 	},
 	write: {

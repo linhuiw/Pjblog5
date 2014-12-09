@@ -7,7 +7,7 @@ theme.add('install', function( folder ){
 	 * 不存在就不安装
 	 */
 	if ( this.iCheckSkinExist(folder) ){
-		
+	
 		var configs = require(':private/themes/' + folder + '/config.json'),
 			mark = configs.mark;
 		 
@@ -55,17 +55,18 @@ theme.add('iCheckSkinExist', function(folder){
 		}).value();
 });
 
-theme.add('downloadPluginsFromClouder', function( plugins ){
-	if ( plugins ){
+theme.add('downloadPluginsFromClouder', function( plus ){
+	if ( plus ){
 		var pluginsCache = require(':private/caches/plugins.json');
 		var globalCache = require(':private/caches/global.json');
-		var plugins = require('plugins');
+		var plugins = require('plugin');
 		var plugin = new plugins();
 		var OAUTH = require(':public/library/oauth');
 		var oAuth = new OAUTH(), status = true;
+		
 		oAuth.appid(globalCache.blog_appid).token(blog.user.token).openid(blog.user.openid);
 		
-		for ( var plugin in plugins ){
+		for ( var plugin in plus ){
 			if ( pluginsCache.queens[plugin.mark] && pluginsCache.queens[plugin.mark] > 0 ){
 				continue;
 			}

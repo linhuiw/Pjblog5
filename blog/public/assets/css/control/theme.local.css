@@ -1,0 +1,29 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+.preview{ max-height:300px; overflow:hidden;}
+.previews{ height:200px; overflow:hidden; text-align:center;}
+.theme-detail{ padding-bottom:30px;}
+.theme-detail .previews{ box-shadow:4px 4px 1px rgba(0,0,0,.04); background-color:#fff; text-align:center; position:relative;}
+.theme-detail .previews img{ margin:0 auto;}
+.theme-detail .previews .info{ position:absolute; top:0; left:0; right:0; bottom:0; background-color:rgba(0,0,0,.4)}
+.theme-detail .previews .info{
+	-webkit-transform:scale(0);
+	-moz-transform:scale(0);
+	-ms-transform:scale(0);
+	-o-transform:scale(0);
+	transform:scale(0);
+}
+.theme-detail .previews:hover .info{
+	-webkit-transform:scale(1);
+	-moz-transform:scale(1);
+	-ms-transform:scale(1);
+	-o-transform:scale(1);
+	transform:scale(1);
+}
+.theme-detail .previews .info h4{ color:#fff; height:80px; line-height:80px; font-weight:bold;}
+.theme-detail .previews .info .row a{ text-align:center; display:block;}
+.theme-detail .previews .info .row a i{ display:inline-block; width:40px; height:40px; border:3px solid #fff; border-radius:100%; display:block; margin:0 auto; line-height:34px; font-size:20px; background-color:rgba(0,0,0,.6)}
+.theme-detail .previews .info .row a:link,
+.theme-detail .previews .info .row a:visited{ color:#fff;}
+.theme-detail .previews .info .row a:hover{ color:#9C6}

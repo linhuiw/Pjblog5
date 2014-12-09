@@ -170,7 +170,7 @@ plugin.add('uninstall', function( id ){
 
 plugin.add('remotePlguins', function(plugins){
     var status = true;
-    if（ plugins ）{
+    if ( plugins ){
         var oAuths = require('oauth');
         var globalCache = require(':private/caches/global.json');
         var pluginsCache = require(':private/caches/plugins.json');

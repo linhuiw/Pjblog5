@@ -23,8 +23,8 @@
 		name: '权限组与权限',
 		icon: 'fa-qrcode',
 		childs: {
-			usergroup: '权限组',
-			level: '限制级权限'
+			usergroup: { name: '权限组', icon: 'fa-star' },
+			level: { name: '限制级权限', icon: 'fa-star' }
 		}
 	},
 	theme: {

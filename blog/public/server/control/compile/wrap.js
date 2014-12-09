@@ -39,6 +39,9 @@ wrap.add('getRequest', function(querys, getforms){
     this.req.p = p;
     this.req.t = t;
     
+	if ( !this.isPlugin && this.req.m.length == 0 ){
+		this.req.m = 'home';
+	}
 });
 
 /*
@@ -164,8 +167,6 @@ wrap.add('getCrumbs', function(){
                 crumbs.push(this.caches.menu[this.req.m].childs[this.req.p].name);
                 this.data.crumbIcon = this.caches.menu[this.req.m].childs[this.req.p].icon;
                 this.data.crumbTitle = this.caches.menu[this.req.m].childs[this.req.p].name;
-            }else{
-                crumbs.push('未知系统功能页面');
             }
         }else{
             crumbs.push('未知系统功能');
@@ -202,14 +203,14 @@ wrap.add('getFiles', function(){
         if ( this.caches.menu[this.req.m] ){
             if ( this.req.p.length > 0 && this.caches.menu[this.req.m].childs && this.caches.menu[this.req.m].childs[this.req.p] ){
                 asp = ':public/server/control/views/' + this.req.m + '.' + this.req.p + '.asp';
-                css = ':public/assets/css/' + this.req.m + '.' + this.req.p + '.css';
-                js = ':public/assets/js/' + this.req.m + '.' + this.req.p + '.js';
+                css = ':public/assets/css/control/' + this.req.m + '.' + this.req.p + '.css';
+                js = ':public/assets/js/control/' + this.req.m + '.' + this.req.p + '.js';
                 compile = ':public/server/control/compile/' + this.req.m + '.' + this.req.p + '.js';
             }
             else if ( this.req.p.length === 0 ){
                 asp = ':public/server/control/views/' + this.req.m + '.asp';
-                css = ':public/assets/css/' + this.req.m + '.css';
-                js = ':public/assets/js/' + this.req.m + '.js';
+                css = ':public/assets/css/control/' + this.req.m + '.css';
+                js = ':public/assets/js/control/' + this.req.m + '.js';
                 compile = ':public/server/control/compile/' + this.req.m + '.js';
             }
         }
@@ -227,7 +228,7 @@ wrap.add('compiles', function(querys, forms){
     if ( this.data.files.compile && this.data.files.compile.length > 0 ){
         var that = this;
         fs(resolve(this.data.files.compile)).exist().then(function(){
-    		var moduled = require(path);
+    		var moduled = require(that.data.files.compile);
     		if ( this.isPlugin ){
         		if ( this.caches.plugins && this.caches.plugins.indexs[this.req.t] ){
             		moduled.add('pid', this.req.t);
@@ -235,7 +236,7 @@ wrap.add('compiles', function(querys, forms){
             		moduled.add('pfolder', this.caches.plugins.indexs[this.req.t].plu_folder);
         		}
     		}
-    		that.data.compiles = new moduled(querys, forms);
+    		that.data.compiles = new moduled(querys, forms) || {};
     	});
     }
 });

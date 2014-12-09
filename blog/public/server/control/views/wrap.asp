@@ -202,18 +202,19 @@
                         <li class="<%=(o.drops + " " + o.active)%>">
                             <a href="<%=o.url%>">
                                 <i class="fa <%=o.icon%>"></i> <span><%=o.name%></span>
-                                <% if ( o.childs && o.childs.length > 0 ) {%>
-                                <ul class="treeview-menu">
-                                <%
-                                    o.childs.forEach(function(z){
-                                %>
-                                <li class="<%=z.active%>"><a href="<%=z.url%>"><i class="fa fa-angle-double-right"></i> <%=z.name%></a></li>
-                                <%      
-                                    });
-                                %>
-                                </ul>
-                                <%}%>
+                                <%if (o.childs && o.childs.length > 0){%><i class="fa fa-angle-left pull-right"></i><%}%>
                             </a>
+							<% if ( o.childs && o.childs.length > 0 ) {%>
+                            <ul class="treeview-menu">
+                            <%
+                                o.childs.forEach(function(z){
+                            %>
+                            <li class="<%=z.active%>"><a href="<%=z.url%>"><i class="fa fa-angle-double-right"></i> <%=z.name%></a></li>
+                            <%      
+                                });
+                            %>
+                            </ul>
+                            <%}%>
                         </li>
                         <%
                             });
@@ -230,18 +231,19 @@
                     <li class="<%=(o.drops + " " + o.active)%>">
                         <a href="<%=o.url%>">
                             <i class="fa <%=o.icon%>"></i> <span><%=o.name%></span>
-                            <% if ( o.childs && o.childs.length > 0 ) {%>
-                            <ul class="treeview-menu">
-                            <%
-                                o.childs.forEach(function(z){
-                            %>
-                            <li class="<%=z.active%>"><a href="<%=z.url%>"><i class="fa fa-angle-double-right"></i> <%=z.name%></a></li>
-                            <%      
-                                });
-                            %>
-                            </ul>
-                            <%}%>
+                            <%if (o.childs && o.childs.length > 0){%><i class="fa fa-angle-left pull-right"></i><%}%>
                         </a>
+						<% if ( o.childs && o.childs.length > 0 ) {%>
+                        <ul class="treeview-menu">
+                        <%
+                            o.childs.forEach(function(z){
+                        %>
+                        <li class="<%=z.active%>"><a href="<%=z.url%>"><i class="fa fa-angle-double-right"></i> <%=z.name%></a></li>
+                        <%      
+                            });
+                        %>
+                        </ul>
+                        <%}%>
                     </li>
                     <%        
                         });
@@ -275,7 +277,10 @@
                  <%
 				 try{
                  	if ( files.asp ){
-                 		include(files.asp, compiles || {});
+						if ( typeof compiles === 'undefined' ){
+							compiles = {};
+						}
+                 		include(files.asp, compiles);
                  	}else{
                  		console.log('找不到文件[' + files.asp + ']');
                  	}

@@ -19,88 +19,98 @@ plugin.add('install', function( folder ){
 		 */
 			var plus_config_data = require(file_config);
 				plus_config_data.folder = folder;
-		/*
-		 * 第二步： 确定插件是否已安装
-		 * 		插件标识是否为40位编码
-		 *		插件标识是否已存在于数据库中
+				
+        /*
+		 * 第二步： 云平台获取依赖插件
+		 * 		如果插件中有一个插件下载或者安装失败就停止进行这个插件的安装
+		 *		只有全部依赖插件安装成功才能继续安装本插件
 		 */
-			var plus_mark_exist = this.plus_mark_exist(plus_config_data);
-			// 只有不存在数据库中的标识的插件才能被安装
-			if ( !plus_mark_exist ){
-			/*
-			 * 第三步： 安装插件信息到数据库
-			 * 		返回安装后插件所在数据库表中的ID
-			 *		如果之后的操作失败，系统会回滚数据库信息到初始化。
-			 */	
-			 	id = this.plus_setup(plus_config_data);
-				// id > 0 才能继续，表示已安装到数据库成功。
-				if ( id > 0 ){
-					/*
-					 * 第四步： 更新插件系统缓存
-					 * 		采用索引标识的模式，以便通过插件的ID或者标识来获取插件的信息。
-					 *		前台插件页面建议采用插件标识来获取插件信息
-					 */
-					 	this.plus_set_cache();
-					/*
-					 * 第五步： 建立插件后台自定义页面数据
-					 * 		如果存在插件自定义页面数据，那么就将插件信息输入到插件自定义数据内部
-					 *		插件就能自动加载这些页面到侧边栏
-					 */	
-					 	this.plus_control_nav(id, plus_config_data.ControlNavs);
-					/*
-					 * 第六步： 安装插件前台导航
-					 * 		只允许一个入口。其他页面希望插件作者自行提供页面方法
-					 *		需要有很高的JS操作水平
-					 */	
-					 	if ( this.plus_assets_nav(id, plus_config_data.AssetNav) ){
-							/*
-							 * 第七步： 安装插件iSet信息
-							 * 		检测文件是否存在 private/plugins/xxxx/iSet.json
-							 *		调用iSet组件进行入库处理
-							 */	
-							 	if ( this.plus_iSet_add(id, folder) ) {
-									/*
-									 * 第八步： iSet信息缓存
-									 * 		整合成根据插件ID存在的信息集合
-									 */
-									 	if ( (function(){
-											var caches = require(':public/library/cache');
-											var cache = new caches();
-											return cache.params();
-										})() ){
-											/*
-											 * 第九步： hook接入
-											 * 		内嵌入系统内部功能
-											 * 		自由组合自由生成
-											 */
-											 	this.plus_hook(id, folder);
-											/*
-											 * 第十步： 自定义安装数据库文件
-											 * 		为系统添加插件自定义数据库代码
-											 */
-											 	this.plus_setup_sql(folder);
-											/*
-											 * 第十一步： 自定义安装文件
-											 * 		允许用户自定义安装内容
-											 */
-											 	this.plus_setup_file(id, plus_config_data.mark, folder);
-												
-												msg.success = true;
-												msg.message = '插件安装成功';
-										}else{
-											msg.message = '整合插件自定义配置参数缓存失败';
-										}
-								}else{
-									msg.message = '添加自定义插件配置参数失败';
-								}
-						}else{
-							msg.message = '添加分类导航失败';
-						}
-				}else{
-					msg.message = '数据库数据安装失败';
-				}
+		    if ( this.remotePlguins(plus_config_data.plugins) ){
+    		/*
+    		 * 第三步： 确定插件是否已安装
+    		 * 		插件标识是否为40位编码
+    		 *		插件标识是否已存在于数据库中
+    		 */
+    			var plus_mark_exist = this.plus_mark_exist(plus_config_data);
+    			// 只有不存在数据库中的标识的插件才能被安装
+    			if ( !plus_mark_exist ){
+    			/*
+    			 * 第四步： 安装插件信息到数据库
+    			 * 		返回安装后插件所在数据库表中的ID
+    			 *		如果之后的操作失败，系统会回滚数据库信息到初始化。
+    			 */	
+    			 	id = this.plus_setup(plus_config_data);
+    				// id > 0 才能继续，表示已安装到数据库成功。
+    				if ( id > 0 ){
+    					/*
+    					 * 第五步： 更新插件系统缓存
+    					 * 		采用索引标识的模式，以便通过插件的ID或者标识来获取插件的信息。
+    					 *		前台插件页面建议采用插件标识来获取插件信息
+    					 */
+    					 	this.plus_set_cache();
+    					/*
+    					 * 第六步： 建立插件后台自定义页面数据
+    					 * 		如果存在插件自定义页面数据，那么就将插件信息输入到插件自定义数据内部
+    					 *		插件就能自动加载这些页面到侧边栏
+    					 */	
+    					 	this.plus_control_nav(id, plus_config_data.ControlNavs);
+    					/*
+    					 * 第七步： 安装插件前台导航
+    					 * 		只允许一个入口。其他页面希望插件作者自行提供页面方法
+    					 *		需要有很高的JS操作水平
+    					 */	
+    					 	if ( this.plus_assets_nav(id, plus_config_data.AssetNav) ){
+    							/*
+    							 * 第八步： 安装插件iSet信息
+    							 * 		检测文件是否存在 private/plugins/xxxx/iSet.json
+    							 *		调用iSet组件进行入库处理
+    							 */	
+    							 	if ( this.plus_iSet_add(id, folder) ) {
+    									/*
+    									 * 第九步： iSet信息缓存
+    									 * 		整合成根据插件ID存在的信息集合
+    									 */
+    									 	if ( (function(){
+    											var caches = require(':public/library/cache');
+    											var cache = new caches();
+    											return cache.params();
+    										})() ){
+    											/*
+    											 * 第十步： hook接入
+    											 * 		内嵌入系统内部功能
+    											 * 		自由组合自由生成
+    											 */
+    											 	this.plus_hook(id, folder);
+    											/*
+    											 * 第十一步： 自定义安装数据库文件
+    											 * 		为系统添加插件自定义数据库代码
+    											 */
+    											 	this.plus_setup_sql(folder);
+    											/*
+    											 * 第十二步： 自定义安装文件
+    											 * 		允许用户自定义安装内容
+    											 */
+    											 	this.plus_setup_file(id, plus_config_data.mark, folder);
+    												
+    												msg.success = true;
+    												msg.message = '插件安装成功';
+    										}else{
+    											msg.message = '整合插件自定义配置参数缓存失败';
+    										}
+    								}else{
+    									msg.message = '添加自定义插件配置参数失败';
+    								}
+    						}else{
+    							msg.message = '添加分类导航失败';
+    						}
+    				}else{
+    					msg.message = '数据库数据安装失败';
+    				}
+    			}else{
+    				msg.message = '插件已安装';
+    			}
 			}else{
-				msg.message = '插件已安装';
+    			msg.message = '插件依赖某些插件，但是依赖的插件中的一个或者多个下载或者安装失败';
 			}
 		}catch(e){}
 	};
@@ -156,6 +166,33 @@ plugin.add('uninstall', function( id ){
 	}catch(e){}
 	
 	return msg;
+});
+
+plugin.add('remotePlguins', function(plugins){
+    var status = true;
+    if（ plugins ）{
+        var oAuths = require('oauth');
+        var globalCache = require(':private/caches/global.json');
+        var pluginsCache = require(':private/caches/plugins.json');
+        for ( var i in plugins ){
+            if ( pluginsCache && pluginsCache.queens[plugins[i].mark] && pluginsCache.queens[plugins[i].mark] > 0 ){
+                continue;
+            }
+            var oAuth = new oAuths();
+            if ( oAuth.appid(globalCache.blog_appid).token(blog.user.token).openid(blog.user.openid).download(plugins[i].mark, 'plugins') ){
+                var o = this.install(plugins[i].mark);
+                if ( !o.success ){
+				    status = false;
+                    break;
+				}
+            }else{
+                status = false;
+                break;
+            }
+        }
+    }
+    
+    return status;
 });
 
 // 写入插件的后台自定义页面属性到pmenu

@@ -43,6 +43,14 @@
 		plugin: {
 			compile: resolve('server/async/plugin.js'),
 			type: 'json'
+		},
+		PluginRequestJSON: {
+			compile: resolve('server/async/PluginRequestJSON.js'),
+			type: 'json'
+		},
+		PluginRequestText: {
+			compile: resolve('server/async/PluginRequestText.js'),
+			type: 'text'
 		}
 	}
 }

@@ -153,8 +153,6 @@ wrap.add('getCrumbs', function(){
                 crumbs.push(this.caches.pmenu[this.req.t].childs[this.req.p].name);
                 this.data.crumbIcon = this.caches.pmenu[this.req.t].childs[this.req.p].icon;
                 this.data.crumbTitle = this.caches.pmenu[this.req.t].childs[this.req.p].name;
-            }else{
-                crumbs.push('未知插件页面');
             }
         }else{
             crumbs.push('未知插件');

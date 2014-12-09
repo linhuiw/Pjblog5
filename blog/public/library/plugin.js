@@ -110,7 +110,7 @@ plugin.add('install', function( folder ){
     				msg.message = '插件已安装';
     			}
 			}else{
-    			msg.message = '插件依赖某些插件，但是依赖的插件中的一个或者多个下载或者安装失败';
+    			msg.message = '插件依赖某些插件，但是依赖的插件中的一个或者多个,下载或者安装失败';
 			}
 		}catch(e){}
 	};

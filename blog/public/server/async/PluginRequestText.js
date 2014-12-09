@@ -1,4 +1,4 @@
-﻿var plugin = new Class(function(querys, getforms){
+﻿module.exports = new Class(function(querys, getforms){
 	var t = querys.t;
 	if ( !t || t.length === 0 ){
 		return;
@@ -33,5 +33,3 @@
 		return msg;
 	}
 });
-
-module.exports = plugin;

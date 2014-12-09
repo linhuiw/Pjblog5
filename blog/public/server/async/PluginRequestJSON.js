@@ -1,4 +1,4 @@
-﻿var plugin = new Class(function(querys, getforms){
+﻿module.exports = new Class(function(querys, getforms){
 	var t = querys.t;
 	if ( !t || t.length === 0 ){
 		return { success: false, message: '参数不正确' };
@@ -42,5 +42,3 @@
 		return { success: false, message: '找不到插件' };
 	}
 });
-
-module.exports = plugin;

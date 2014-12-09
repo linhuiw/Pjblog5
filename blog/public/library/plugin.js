@@ -399,7 +399,23 @@ plugin.add('changeStatus', function(id, value){
 });
 
 plugin.add('remove', function(folder){
-	return fs(contrast(':private/plugins/' + folder)).exist().remove().then(function(){ return true; }).fail(function(){ return false; }).value();
+	return fs(contrast(':private/plugins/' + folder), true).exist().remove().then(function(){ return true; }).fail(function(){ return false; }).value();
+});
+
+plugin.add('setParams', function(id, forms){
+	try{
+		for ( var i in forms ){
+			(new dbo(blog.tb + 'params', blog.conn))
+				.selectAll().and('par_pid', id).and('par_keyword', i).open(3).set({
+					par_keyvalue: forms[i]
+				}).save().close();
+		}
+		var caches = require(':public/library/cache');
+		var cache = new caches();
+		return cache.params();
+	}catch(e){
+		return false;
+	}
 });
 
 module.exports = plugin;

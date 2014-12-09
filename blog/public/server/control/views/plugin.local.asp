@@ -57,6 +57,31 @@ modules.scriptExec(function( data ){
                             <a href="javascript:;" data-id="<%=installs[o.mark].id%>" class="plus_change">启用</a>
                             <%		
 									}
+									
+									if ( o.setExist ){
+							%>
+                            <a href="javascript:;" data-id="<%=o.folder%>" class="plus_set" data-toggle="modal" data-target=".bs-example-modal-lg">设置</a>
+                            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title" id="myLargeModalLabel"><%=o.name%>插件自定义参数设置</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                  	<form action="<%=iPress.setURL("async", "plugin", { m: "setParams" })%>" method="post" class="ajax-form">
+                                    	<input type="hidden" name="id" value="<%=installs[o.mark].id%>" />
+                                        <table class="table table-bordered">
+                                        <%=formatParams(installs[o.mark].id, o.folder)%>
+                                        </table>
+                                        <p><button type="submit" class="btn btn-info">保存自定义配置参数</button></p>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <%		
+									}
 								}else{
 							%>
                             <a href="javascript:;" data-id="<%=o.folder%>" class="plus_install">安装</a>

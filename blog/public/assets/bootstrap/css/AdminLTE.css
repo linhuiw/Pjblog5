@@ -3853,7 +3853,7 @@ button::-moz-focus-inner {
   border-bottom: 0 none;
 }
 .modal-content .modal-header {
-  border-bottom: 0;
+  border-bottom: 1px solid #ddd;
 }
 .colored-header .modal-header {
   padding: 20px;
@@ -3965,3 +3965,7 @@ table.dataTable thead .sorting:after {
   font-family: fontawesome;
   color: rgba(50, 50, 50, 0.5);
 }
+
+.modal-body td input,
+.modal-body td select,
+.modal-body td textarea{ width:100%; border:1px solid #ddd; padding:4px 12px; outline:none; box-shadow:3px 3px 1px rgba(0,0,0,.04); border-radius:2px;}

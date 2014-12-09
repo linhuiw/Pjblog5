@@ -4,6 +4,28 @@
 	this.getInstallPlugins();
 	this.getAllPlugins();
 	
+	var iSets = require('iSet');
+	var plugins = require(':public/library/plugin.js');
+	var _ = new plugins();
+	
+	this.data.formatParams = function(id, folder){
+		var html = '模板解析错误';
+		fs(contrast(':private/plugins/' + folder + '/setting.json')).exist().then(function(){
+			var template = require(':private/plugins/' + folder + '/setting.json');
+			var data = _.getConfigs(id);
+			var _data = {};
+			for ( var i in template ){
+				if ( data[i] ){
+					template[i].value = data[i];
+					_data[i] = template[i];
+				}
+			}
+			var iSet = new iSets(_data);
+			html = iSet.toHTML();
+		});
+		return html;
+	}
+	
 	return this.data;
 });
 
@@ -24,6 +46,7 @@ plugin.add('getAllPlugins', function(){
 		fs(configPath).exist().then(function(){
 			var data = require(configPath);
 			data.folder = o;
+			fs(contrast(':private/plugins/' + o + '/setting.json')).exist().then(function(){ data.setExist = true });
 			that.data.plugins.push(data);
 		});
 	});

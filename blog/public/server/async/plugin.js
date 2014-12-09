@@ -31,10 +31,36 @@ plugin.add('change', function(querys, getforms, Promise){
 
 plugin.add('remove', function(querys, getforms, Promise){
     var id = getforms().id;
+	if ( !id || id.length === 0 ){
+		return { success: false, message: '删除插件失败' };
+	};
 	if ( Promise.remove(id) ){
 		return { success: true, message: '删除插件成功' };
 	}else{
 		return { success: false, message: '删除插件失败' };
+	}
+});
+
+plugin.add('setParams', function(querys, getforms, Promise){
+	var forms = getforms();
+	var id = forms.id;
+	
+	if ( !id || id.length === 0 ){
+		return { success: false, message: '保存自定义参数失败' };
+	};
+	
+	id = Number(id);
+	
+	if ( id < 1 ){
+		return { success: false, message: '保存自定义参数失败' };
+	}
+	
+	delete forms.id;
+	
+	if ( Promise.setParams(id, forms) ){
+		return { success: true, message: '保存自定义参数成功' };
+	}else{
+		return { success: false, message: '保存自定义参数失败' };
 	}
 });
 

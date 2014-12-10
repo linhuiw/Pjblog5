@@ -32,7 +32,25 @@ modules.scriptExec(function( data ){
                         <div class="user-button" style="margin-top:30px;">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button type="button" class="btn btn-info btn-sm btn-block"><i class="fa fa-cogs"></i> 主题自定义参数设置</button>
+                                    <button type="button" class="btn btn-info btn-sm btn-block" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-cogs"></i> 主题自定义参数设置</button>
+                                    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                            <h4 class="modal-title" id="myLargeModalLabel">当前主题自定义参数设置</h4>
+                                          </div>
+                                          <div class="modal-body">
+                                          	<form action="<%=iPress.setURL("async", "theme", { m: "setParams" })%>" method="post" class="ajax-form">
+                                                <table class="table table-bordered">
+                                                <%=formatParams(theme.folder)%>
+                                                </table>
+                                                <p><button type="submit" class="btn btn-info">保存自定义配置参数</button></p>
+                                            </form>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -53,7 +71,7 @@ modules.scriptExec(function( data ){
                     	<h4 class="text-auto-hide"><%=o.name%></h4>
                     	<div class="row">
                         	<a href="javascript:;" class="col-xs-6 install" data-id="<%=o.folder%>"><i class=" fa fa-plug"></i></a>
-                            <a href="javascript:;" class="col-xs-6 remove"><i class="fa fa-close"></i></a>
+                            <a href="javascript:;" class="col-xs-6 remove" data-id="<%=o.folder%>"><i class="fa fa-close"></i></a>
                         </div>
                     </div>
                 </div>

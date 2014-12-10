@@ -150,4 +150,14 @@ theme.add('saveSetting', function(forms){
     return status;
 });
 
+theme.add('remove', function(folder){
+    var status = false;
+    
+	return fs(contrast(':private/themes/' + folder), true).exist().remove().then(function(){ 
+    	status = true;
+    });
+    
+    return status;
+});
+
 module.exports = theme;

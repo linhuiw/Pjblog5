@@ -399,7 +399,11 @@ plugin.add('changeStatus', function(id, value){
 });
 
 plugin.add('remove', function(folder){
-	return fs(contrast(':private/plugins/' + folder), true).exist().remove().then(function(){ return true; }).fail(function(){ return false; }).value();
+    var status = false;
+	fs(contrast(':private/plugins/' + folder), true).exist().remove().then(function(){ 
+    	status = true;
+    });
+    return status;
 });
 
 plugin.add('setParams', function(id, forms){

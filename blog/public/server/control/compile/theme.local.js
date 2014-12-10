@@ -9,6 +9,26 @@
 	this.getUserThemes(folder);
 	this.getAllThemes();
 	
+	var iSets = require('iSet');
+	
+	this.data.formatParams = function(folder){
+		var html = '模板解析错误';
+		fs(contrast(':private/themes/' + folder + '/setting.json')).exist().then(function(){
+			var template = require(':private/themes/' + folder + '/setting.json');
+			var data = require(':private/caches/themes.json');
+			var _data = {};
+			for ( var i in template ){
+				if ( data[i] ){
+					template[i].value = data[i];
+					_data[i] = template[i];
+				}
+			}
+			var iSet = new iSets(_data);
+			html = iSet.toHTML();
+		});
+		return html;
+	}
+	
 	return this.data;
 });
 

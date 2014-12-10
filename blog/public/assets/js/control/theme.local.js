@@ -20,6 +20,9 @@
 		this.SendAjax('.install', window.modules.theme.install, function(){
 			return confirm('确定安装？');
 		});
+		this.SendAjax('.remove', window.modules.theme.remove, function(){
+			return confirm('确定删除？');
+		});
 	});
 	
 	theme.add('SendAjax', function(selector, url, callback){

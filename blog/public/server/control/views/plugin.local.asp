@@ -60,8 +60,8 @@ modules.scriptExec(function( data ){
 									
 									if ( o.setExist ){
 							%>
-                            <a href="javascript:;" data-id="<%=o.folder%>" class="plus_set" data-toggle="modal" data-target=".bs-example-modal-lg">设置</a>
-                            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <a href="javascript:;" data-id="<%=o.folder%>" class="plus_set" data-toggle="modal" data-target=".bs-example-modal-lg-<%=installs[o.mark].id%>">设置</a>
+                            <div class="modal fade bs-example-modal-lg-<%=installs[o.mark].id%>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                               <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                   <div class="modal-header">

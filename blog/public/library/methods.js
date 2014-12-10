@@ -46,4 +46,18 @@ methods.add('AddGroupLimit', function( gid, ids ){
 	modgroup.save(data);
 });
 
+/*
+	files: (array) file name list
+*/
+methods.add('CopyToTheme', function( files ) {
+	var global = require(':private/caches/global.json');
+	var theme = global.blog_theme;
+	
+	for (var i=0; i<files.length; i++) {
+		var source = contrast(':private/plugins/' + this.pfolder + files[i]);
+		var target = contrast(':private/themes/' + theme + '/' + files[i]);
+		fs(source).copy(target).stop();
+	}
+});
+
 module.exports = methods;

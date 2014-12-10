@@ -4,6 +4,11 @@
 			page: contrast('server/page/views/home.asp'),
 			compile: resolve('server/page/compile/home.js'),
 			type: 'html'
+		},
+		error: {
+    		page: contrast('server/page/views/error.asp'),
+			compile: resolve('server/page/compile/error.js'),
+			type: 'html'
 		}
 	},
 	control: {
@@ -56,5 +61,25 @@
 			compile: resolve('server/async/PluginRequestText.js'),
 			type: 'text'
 		}
+	},
+	sync: {
+    	requestjson: {
+        	compile: resolve('server/async/PluginRequestJSON.js'),
+			type: 'json'
+    	},
+    	requesttext: {
+        	compile: resolve('server/async/PluginRequestText.js'),
+			type: 'text'
+    	}
+	},
+	msync: {
+    	requestjson: {
+        	compile: resolve('server/async/PluginRequestJSON.js'),
+			type: 'json'
+    	},
+    	requesttext: {
+        	compile: resolve('server/async/PluginRequestText.js'),
+			type: 'text'
+    	}
 	}
 }

@@ -128,13 +128,13 @@ theme.add('saveSetting', function(forms){
     var status = true;
     try{
         for ( var i in forms ){
-            (new dbo(blog.tb + 'themes', blog.conn)).selectAll().and('tm_key', i).open().exec(function(){
+            (new dbo(blog.tb + 'themes', blog.conn)).selectAll().and('tm_key', i).open(3).exec(function(){
                 this.set('tm_value', forms[i]).save();
             }, function(){
                 this.create().set({
                     tm_key: i,
                     tm_value: forms[i]
-                }).save()
+                }).save();
             }).close();
         }
         

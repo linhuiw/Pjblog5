@@ -24,7 +24,7 @@
 		this.SendAjax('.plus_remove', window.modules.plugin.remove, function(){
     		return confirm('确定删除？');
 		});
-		this.onSetParams();
+		//this.onSetParams();
 	});
 	
 	plugin.add('SendAjax', function(selector, url, callback){
@@ -53,7 +53,7 @@
 		$('.ajax-form').on('form.ajaxSuccess', function(){
 			window.location.reload();
 		});
-	})
+	});
 	
 	return plugin;
 

@@ -153,6 +153,9 @@ wrap.add('getCrumbs', function(){
                 crumbs.push(this.caches.pmenu[this.req.t].childs[this.req.p].name);
                 this.data.crumbIcon = this.caches.pmenu[this.req.t].childs[this.req.p].icon;
                 this.data.crumbTitle = this.caches.pmenu[this.req.t].childs[this.req.p].name;
+            }else{
+                this.data.crumbIcon = this.caches.pmenu[this.req.t].icon;
+                this.data.crumbTitle = this.caches.pmenu[this.req.t].name;
             }
         }else{
             crumbs.push('未知插件');
@@ -165,6 +168,9 @@ wrap.add('getCrumbs', function(){
                 crumbs.push(this.caches.menu[this.req.m].childs[this.req.p].name);
                 this.data.crumbIcon = this.caches.menu[this.req.m].childs[this.req.p].icon;
                 this.data.crumbTitle = this.caches.menu[this.req.m].childs[this.req.p].name;
+            }else{
+                this.data.crumbIcon = this.caches.menu[this.req.m].icon;
+                this.data.crumbTitle = this.caches.menu[this.req.m].name;
             }
         }else{
             crumbs.push('未知系统功能');

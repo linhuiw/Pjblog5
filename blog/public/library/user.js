@@ -71,6 +71,7 @@ user.add('status', function(){
 			data.openid = object(7).value;
 			data.id = object(8).value;
 			data.status = 1;
+			data.limits = [];
 		}).close();
 	};
 	
@@ -86,8 +87,8 @@ user.add('status', function(){
 						codeCache.indexs[code[i] + ''] === 'ControlSystem'
 					){
 						data.status = 2;
-						break;
 					}
+					data.limits.push(codeCache.indexs[code[i] + '']);
 				}
 			}
 		}

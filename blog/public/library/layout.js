@@ -62,7 +62,9 @@ layout.add('category', function(){
    this.data.categories = categories;
 });
 
-layout.add('support', function(){ this.sups = new sups(this); });
+layout.add('support', function(){ 
+	this.sups = new sups(this); 
+});
 
 layout.add('render', function(file){
 	include(':private/themes/' + this.data.global.blog_theme + '/views/' + file, {
@@ -78,32 +80,6 @@ layout.add('load', function(querys, forms){
     this.category();
 	this.support();
 });
-
-function GruntCategory(data){
-    if ( data.cate_outlink ){
-        if ( data.cate_src && data.cate_src.length > 0 && /^iPress\:(.+)/i.test(data.cate_src) ){
-            var regExec = /^iPress\:(.+)/i.exec(data.cate_src);
-            if ( regExec && regExec[0] && regExec[1] && /^\[[^\]+]\]/.test(regExec[1]) ){
-                var code = regExec[1];
-                data.src = iPress.setURL.apply(iPress, JSON.parse(code));
-            }else{
-                data.src = iPress.setURL('page', 'articles', { id: data.id });
-            }
-        }else{
-            if ( /^[a-z]+:\/\//i.test(data.cate_src) ){
-                data.src = data.cate_src;
-            }else{
-                data.src = 'http://' + data.cate_src;
-            }
-        }
-    }else{
-        data.src = iPress.setURL('page', 'articles', { id: data.id });
-    }
-    delete data.cate_src;
-    delete data.cate_outlink;
-    
-    return data;
-};
 
 var sups = new Class(function( layouts ){
     if ( !layouts.sups ){
@@ -164,5 +140,31 @@ sups.add('plugin', function(mark, datas){
         });
     };
 });
+
+function GruntCategory(data){
+    if ( data.cate_outlink ){
+        if ( data.cate_src && data.cate_src.length > 0 && /^iPress\:(.+)/i.test(data.cate_src) ){
+            var regExec = /^iPress\:(.+)/i.exec(data.cate_src);
+            if ( regExec && regExec[0] && regExec[1] && /^\[[^\]+]\]/.test(regExec[1]) ){
+                var code = regExec[1];
+                data.src = iPress.setURL.apply(iPress, JSON.parse(code));
+            }else{
+                data.src = iPress.setURL('page', 'articles', { id: data.id });
+            }
+        }else{
+            if ( /^[a-z]+:\/\//i.test(data.cate_src) ){
+                data.src = data.cate_src;
+            }else{
+                data.src = 'http://' + data.cate_src;
+            }
+        }
+    }else{
+        data.src = iPress.setURL('page', 'articles', { id: data.id });
+    }
+    delete data.cate_src;
+    delete data.cate_outlink;
+    
+    return data;
+};
 
 module.exports = layout;

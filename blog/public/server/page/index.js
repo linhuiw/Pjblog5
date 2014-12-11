@@ -4,7 +4,7 @@ var layout = new Class(function(querys, forms){
 	this.load(querys, forms);
 	
 	fs(contrast(':private/themes/' + this.data.global.blog_theme + '/views/index.asp')).exist().then(function(){
-		that.render('index.asp', querys, forms);
+		that.render('index.asp');
 	}).fail(function(){
 		try{
 			blog.conn.Close();

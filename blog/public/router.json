@@ -4,9 +4,13 @@
 			compile: resolve('server/page/index.js'),
 			type: 'none'
 		},
+		articles: {
+			compile: resolve('server/page/articles.js'),
+			type: 'none'
+		},
 		error: {
 			compile: resolve('server/page/error.js'),
-			type: 'html'
+			type: 'none'
 		}
 	},
 	control: {

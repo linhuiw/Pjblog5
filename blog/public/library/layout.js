@@ -62,7 +62,16 @@ layout.add('category', function(){
    this.data.categories = categories;
 });
 
-layout.add('support', function(){ new sups(this); });
+layout.add('support', function(){ this.suops = new sups(this); });
+
+layout.add('render', function(file){
+	this.global();
+	include(':private/themes/' + this.data.global.blog_theme + '/views/' + file, {
+		data: this.data,
+		sups: this.sups,
+		reqs: this.req
+	});
+});
 
 function GruntCategory(data){
     if ( data.cate_outlink ){

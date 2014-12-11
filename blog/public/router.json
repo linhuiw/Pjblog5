@@ -28,6 +28,10 @@
 		login: {
 			compile: resolve('server/oauth/compile/login.js'),
 			type: 'json'
+		},
+		logout: {
+			compile: resolve('server/oauth/compile/logout.js'),
+			type: 'none'
 		}
 	},
 	async: {

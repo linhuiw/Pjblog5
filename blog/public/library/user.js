@@ -156,4 +156,10 @@ user.add('save', function( id, data ){
 	}
 });
 
+user.add('logout', function(){
+	var $ = require('cookie');
+	$.removeCookie(blog.pix + 'user_id');
+	$.removeCookie(blog.pix + 'user_hashkey');
+});
+
 module.exports = user;

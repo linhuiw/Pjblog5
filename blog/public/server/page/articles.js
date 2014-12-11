@@ -27,7 +27,7 @@ layout.add('getArticles', function(){
 		cate = Number(cate);
 	};
 	
-	this.req.query.cate = cate;
+	this.req.query.id = cate;
 	
 	if ( !page || page.length === 0 ){
 		page = 1;
@@ -41,7 +41,7 @@ layout.add('getArticles', function(){
 	
 	var articles = require(':public/library/article');
 	var article = new articles();
-	var rec = article.getArticlesByStorageProcess(cate, page);
+	var rec = article.getArticlesByStorageProcess(cate, page, this.data.global.blog_articlepage);
 	var IPAGE = require('iPage');
 	var iPage = new IPAGE(rec.PageCount, rec.PageIndex);
 	var tagModules = require(':public/library/tag');

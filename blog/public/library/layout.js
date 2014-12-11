@@ -7,14 +7,18 @@ layout.add('req', {});
 
 // 模板用户数据
 layout.add('user', function(){ 
-    this.data.user = blog.user;
     if ( blog.user.status >= 1 ){
         blog.user.login = true;
         blog.user.logout = iPress.setURL('oauth', 'logout');
+		if ( blog.user.status === 2 ){
+			blog.user.adminsrc = iPress.setURL('control', 'wrap');
+		}
     }else{
         blog.user.login = false;
-        blog.user.jump = iPress.setURL('oauth', 'jump');
+        blog.user.href = iPress.setURL('oauth', 'jump');
+		blog.user.regist = blog.appsite + '/public/views/regist.asp';
     }
+	this.data.user = blog.user;
 });
 
 // 模板全局数据
@@ -83,6 +87,7 @@ layout.add('load', function(querys, forms){
 	this.createServer(querys, forms);
 	this.global();
 	this.theme();
+	this.user();
     this.category();
 	this.support();
 });
@@ -140,7 +145,7 @@ sups.add('plugin', function(mark, datas){
         include(':private/themes/' + this.layout.data.global.blog_theme + '/' + pluginTemplate, {
             source: compileJSON,
             data: this.layout.data,
-            req: this.layout.req,
+            reqs: this.layout.req,
             sups: this.layout.sups,
             exports: expose
         });
@@ -148,17 +153,25 @@ sups.add('plugin', function(mark, datas){
 });
 
 sups.add('contain', function(file, args){
-	var that = this.layout.data;
+	var that = this.layout;
 	var containfile = ':private/themes/' + this.layout.data.global.blog_theme + '/views/' + file;
 	fs(contrast(containfile)).exist().then(function(){
 		if ( args ){
-			if ( !that.contains ){ that.contains = {}; }
+			if ( !that.data.contains ){ that.data.contains = {}; }
 			for ( var i in args ){
-				that.contains[i] = args[i];
+				that.data.contains[i] = args[i];
 			}
 		}
-		include(containfile, {data: that});
+		include(containfile, {
+			data: that.data,
+			sups: that.sups,
+			reqs: that.req
+		});
 	});
+});
+
+sups.add('checkStatus', function(mark){
+	return this.layout.data.user.limits.indexOf(mark) > -1;
 });
 
 function GruntCategory(data){

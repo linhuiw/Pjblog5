@@ -60,7 +60,7 @@ article.add('getAllCategorys', function(cate){
  * ? JSON
  * 同时返回总页数和当前页以及数据集合
  */
-article.add('getArticlesByStorageProcess', function( cate, Page ){
+article.add('getArticlesByStorageProcess', function( cate, Page, size ){
 	var PAGE = new cmd('iPage', blog.conn);
 	var where = null;
 	
@@ -87,10 +87,10 @@ article.add('getArticlesByStorageProcess', function( cate, Page ){
 		.addInputVarchar('@FieldList', '*')
 		.addInputVarchar('@PrimaryKey', 'id')
 		.addInputVarchar('@Where', where)
-		.addInputVarchar('@Order', 'art_postdate desc')
-		.addInputInt('@SortType', 1)
+		.addInputVarchar('@Order', 'art_postdate desc,id desc')
+		.addInputInt('@SortType', 3)
 		.addInputInt('@RecorderCount', 0)
-		.addInputInt('@PageSize', 12)
+		.addInputInt('@PageSize', size || 12)
 		.addInputInt('@PageIndex', Page)
 		.addOutputInt('@TotalCount')
 		.addOutputInt('@TotalPageCount')

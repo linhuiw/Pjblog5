@@ -63,6 +63,7 @@ tag.add('get', function(data){
 	var arr = [];
 	data.forEach(function( o ){
 		if ( cacheData[o + ''] ){
+			cacheData[o + ''].src = iPress.setURL('page', 'tag', { id: cacheData[o + ''].id });
 			arr.push(cacheData[o + '']);
 		};
 	});

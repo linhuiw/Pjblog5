@@ -18,7 +18,9 @@ layout.add('user', function(){
 });
 
 // 模板全局数据
-layout.add('global', function(){ this.data.global = require(':private/caches/global.json'); });
+layout.add('global', function(){ 
+	this.data.global = require(':private/caches/global.json'); 
+});
 
 // 当前模板数据
 layout.add('theme', function(){
@@ -28,6 +30,7 @@ layout.add('theme', function(){
     this.data.theme = {};
     this.data.theme.setting = require(':private/caches/themes.json');
     this.data.theme.configs = require(':private/themes/' + this.data.global.blog_theme + '/config.json');
+	this.data.theme.dir = 'private/themes/' + this.data.global.blog_theme;
 });
 
 // req数据
@@ -59,6 +62,8 @@ layout.add('category', function(){
         
    });
    
+   categories.queens = category;
+   
    this.data.categories = categories;
 });
 
@@ -77,6 +82,7 @@ layout.add('render', function(file){
 layout.add('load', function(querys, forms){
 	this.createServer(querys, forms);
 	this.global();
+	this.theme();
     this.category();
 	this.support();
 });
@@ -141,13 +147,26 @@ sups.add('plugin', function(mark, datas){
     };
 });
 
+sups.add('contain', function(file, args){
+	var that = this.layout.data;
+	var containfile = ':private/themes/' + this.layout.data.global.blog_theme + '/views/' + file;
+	fs(contrast(containfile)).exist().then(function(){
+		if ( args ){
+			if ( !that.contains ){ that.contains = {}; }
+			for ( var i in args ){
+				that.contains[i] = args[i];
+			}
+		}
+		include(containfile, {data: that});
+	});
+});
+
 function GruntCategory(data){
     if ( data.cate_outlink ){
         if ( data.cate_src && data.cate_src.length > 0 && /^iPress\:(.+)/i.test(data.cate_src) ){
             var regExec = /^iPress\:(.+)/i.exec(data.cate_src);
-            if ( regExec && regExec[0] && regExec[1] && /^\[[^\]+]\]/.test(regExec[1]) ){
-                var code = regExec[1];
-                data.src = iPress.setURL.apply(iPress, JSON.parse(code));
+            if ( regExec && regExec[0] && regExec[1] ){
+                data.src = iPress.setURL.apply(iPress, JSON.parse(regExec[1].replace(/\+/g, '"')));
             }else{
                 data.src = iPress.setURL('page', 'articles', { id: data.id });
             }

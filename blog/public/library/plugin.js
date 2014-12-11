@@ -219,7 +219,7 @@ plugin.add('plus_assets_nav', function(id, data){
 			cate_name: data.name,
 			cate_des: data.des,
 			cate_parent: 0,
-			cate_src: 'iPress:' + JSON.stringify(['page', 'plugin', { id: id }]),
+			cate_src: 'iPress:' + JSON.stringify(['page', 'plugin', { id: id }]).replace(/\"/g, "+"),
 			cate_outlink: true,
 			cate_isroot: 0,
 			cate_order: 99,

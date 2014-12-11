@@ -16,7 +16,7 @@
 });
 
 layout.add('getArticles', function(){
-	var cate = this.req.query.cate,
+	var cate = this.req.query.id,
 		page = this.req.query.page;
 		
 	if ( !cate || cate.length === 0 ){
@@ -44,8 +44,29 @@ layout.add('getArticles', function(){
 	var rec = article.getArticlesByStorageProcess(cate, page);
 	var IPAGE = require('iPage');
 	var iPage = new IPAGE(rec.PageCount, rec.PageIndex);
+	var tagModules = require(':public/library/tag');
+	var tagModule = new tagModules();
 	
-	this.data.articles = rec.result;
+	var Arts = [], that = this;
+	rec.result.forEach(function(o){
+		o.src = iPress.setURL('page', 'article', { id: o.id });
+		
+		var category = o.art_category;
+		if ( that.data.categories.indexs[category] ){
+			o.art_category = that.data.categories.indexs[category];
+		}else{
+			o.art_category = {};
+		}
+
+		o.art_tags = tagModule.get(tagModule.parse(o.art_tags));
+		
+		o.art_postdate = new Date(o.art_postdate).getTime();
+		o.art_modifydate = new Date(o.art_modifydate).getTime();
+		
+		Arts.push(o);
+	});
+	
+	this.data.articles = Arts;
 	this.data.pages = {
 		arrays: iPage.toArray(),
 		value: iPage.value

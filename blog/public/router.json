@@ -1,13 +1,11 @@
 {
 	page: {
 		home: {
-			page: contrast('server/page/views/home.asp'),
-			compile: resolve('server/page/compile/home.js'),
+			compile: resolve('server/page/home.js'),
 			type: 'html'
 		},
 		error: {
-    		page: contrast('server/page/views/error.asp'),
-			compile: resolve('server/page/compile/error.js'),
+			compile: resolve('server/page/error.js'),
 			type: 'html'
 		}
 	},

@@ -56,7 +56,19 @@ user.add('status', function(){
 	var rec = new dbo(blog.tb + 'members', blog.conn);
 	var id = $.cookie(blog.pix + 'user_id') || '0';
 	var hashkey = $.cookie(blog.pix + 'user_hashkey') || '';
-	var data = { status: 0 };
+	var data = { 
+    	status: 0,
+    	nick: '未登录用户',
+    	mail: 'unknow@app.webkits.cn',
+    	group: 1,
+    	forbit: false,
+    	loginDate: new Date().getTime(),
+    	avatar: 'http://app.webkits.cn/avatar',
+    	data.token: '',
+    	data.openid: '',
+    	data.id: 0,
+    	data.limits: []
+    };
 	id = Number(id);
 	
 	if ( id > 0 && hashkey.length > 0 ){
@@ -71,28 +83,26 @@ user.add('status', function(){
 			data.openid = object(7).value;
 			data.id = object(8).value;
 			data.status = 1;
-			data.limits = [];
 		}).close();
 	};
 	
-	if ( data.status === 1 ){
-		var groupCache = require(':private/caches/groups.json');
-		if ( groupCache[data.group + ''] ){
-			var code = groupCache[data.group + ''].group_code;
-			if ( code.length > 0 ){
-				var codeCache = require(':private/caches/limits.json');
-				for ( var i = 0 ; i < code.length ; i++ ){
-					if ( 
-						codeCache.indexs[code[i] + ''] &&
-						codeCache.indexs[code[i] + ''] === 'ControlSystem'
-					){
-						data.status = 2;
-					}
-					data.limits.push(codeCache.indexs[code[i] + '']);
+	var groupCache = require(':private/caches/groups.json');
+	if ( groupCache[data.group + ''] ){
+		var code = groupCache[data.group + ''].group_code;
+		if ( code.length > 0 ){
+			var codeCache = require(':private/caches/limits.json');
+			for ( var i = 0 ; i < code.length ; i++ ){
+				if ( 
+					codeCache.indexs[code[i] + ''] &&
+					codeCache.indexs[code[i] + ''] === 'ControlSystem'
+				){
+					data.status = 2;
 				}
+				data.limits.push(codeCache.indexs[code[i] + '']);
 			}
 		}
 	}
+	
 	
 	return data;
 });

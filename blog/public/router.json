@@ -1,8 +1,8 @@
 {
 	page: {
 		home: {
-			compile: resolve('server/page/home.js'),
-			type: 'html'
+			compile: resolve('server/page/index.js'),
+			type: 'none'
 		},
 		error: {
 			compile: resolve('server/page/error.js'),

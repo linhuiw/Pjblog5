@@ -44,13 +44,13 @@ layout.add('category', function(){
         var id = o.id,
             items = o.items;
         
-        if ( categorys.indexs[id] ){
-            var keep = GruntCategory(categorys.indexs[id]);
+        if ( categories.indexs[id] ){
+            var keep = GruntCategory(categories.indexs[id]);
             if ( items && items.length > 0 ){
                 keep.items = [];
                 items.forEach(function(z){
-                    if ( categorys.indexs[z] ){
-                        keep.items.push(GruntCategory(categorys.indexs[z]));
+                    if ( categories.indexs[z] ){
+                        keep.items.push(GruntCategory(categories.indexs[z]));
                     }
                 });
             }
@@ -66,7 +66,7 @@ layout.add('support', function(){ new sups(this); });
 
 function GruntCategory(data){
     if ( data.cate_outlink ){
-        if ( /^iPress\:.+/i.text(data.cate_src) ){
+        if ( data.cate_src && data.cate_src.length > 0 && /^iPress\:(.+)/i.test(data.cate_src) ){
             var regExec = /^iPress\:(.+)/i.exec(data.cate_src);
             if ( regExec && regExec[0] && regExec[1] && /^\[[^\]+]\]/.test(regExec[1]) ){
                 var code = regExec[1];
@@ -114,7 +114,7 @@ sups.add('import', function(mark, datas){
         // 如果主题中支持此插件的编译文件
         if ( pluginCompile && pluginCompile.length > 0 ){
             fs(resolve(':private/plugins/' + pluginFolder + '/compiles/' + pluginCompile)).exist()
-            .then(fucntion(){
+            .then(function(){
                 var compileModule = require(':private/plugins/' + pluginFolder + '/compiles/' + pluginCompile);
                 compileJSON = new compileModule(pid, pmark, pluginFolder, this.layout);
             }).fail(function(){

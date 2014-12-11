@@ -64,10 +64,10 @@ user.add('status', function(){
     	forbit: false,
     	loginDate: new Date().getTime(),
     	avatar: 'http://app.webkits.cn/avatar',
-    	data.token: '',
-    	data.openid: '',
-    	data.id: 0,
-    	data.limits: []
+    	token: '',
+    	openid: '',
+    	id: 0,
+    	limits: []
     };
 	id = Number(id);
 	

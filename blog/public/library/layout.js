@@ -62,15 +62,21 @@ layout.add('category', function(){
    this.data.categories = categories;
 });
 
-layout.add('support', function(){ this.suops = new sups(this); });
+layout.add('support', function(){ this.sups = new sups(this); });
 
 layout.add('render', function(file){
-	this.global();
 	include(':private/themes/' + this.data.global.blog_theme + '/views/' + file, {
 		data: this.data,
 		sups: this.sups,
 		reqs: this.req
 	});
+});
+
+layout.add('load', function(querys, forms){
+	this.createServer(querys, forms);
+	this.global();
+    this.category();
+	this.support();
 });
 
 function GruntCategory(data){
@@ -106,7 +112,7 @@ var sups = new Class(function( layouts ){
     this.layout = layouts;
 });
 
-sups.add('import', function(mark, datas){
+sups.add('plugin', function(mark, datas){
     var compileJSON;
     if ( !this.layout.data.theme ){
         this.layout.theme();

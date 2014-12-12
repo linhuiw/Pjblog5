@@ -45,6 +45,9 @@
 		var leftdeep = 0, rightdeep = 0;
 		if ( (limits - 1) % 2 === 1 ){
 			leftdeep = Math.floor( (limits - 1) / 2 );
+			if ( leftdeep < 1 ){
+				leftdeep = 1;
+			};
 			rightdeep = leftdeep + 1;
 		}else{
 			leftdeep = rightdeep = (limits - 1) / 2;

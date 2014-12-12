@@ -92,6 +92,13 @@ layout.add('load', function(querys, forms){
 	this.support();
 });
 
+layout.add('error', function(id){
+    try{
+        blog.conn.Close();
+    }catch(e){};
+    Response.Redirect(iPress.setURL('page', 'error', { id: id }));
+});
+
 var sups = new Class(function( layouts ){
     if ( !layouts.sups ){
         layouts.sups = this;  
@@ -172,6 +179,10 @@ sups.add('contain', function(file, args){
 
 sups.add('checkStatus', function(mark){
 	return this.layout.data.user.limits.indexOf(mark) > -1;
+});
+
+layout.add('errors', {
+    
 });
 
 function GruntCategory(data){

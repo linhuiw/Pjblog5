@@ -30,6 +30,9 @@ article.add('getArticleByID', function(id){
 		article.art_tags = tag.get(tag.parse(article.art_tags));
 	};
 	
+    article.art_postdate = new Date(article.art_postdate).getTime();
+    article.art_modifydate = new Date(article.art_modifydate).getTime();
+	
 	return article;
 });
 

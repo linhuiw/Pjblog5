@@ -108,6 +108,40 @@ article.add('getArticlesByStorageProcess', function( cate, Page, size ){
 	};
 });
 
+article.add('getArticlesByTag', function( tag, Page, size ){
+	var PAGE = new cmd('iPage', blog.conn);
+	var where = null;
+	
+	if ( !tag || Number(tag) < 1 ){
+		return [];
+	};
+	
+	where = "art_tags like '%{" + tag + "}%'";
+
+	var result = PAGE
+		.addInputVarchar('@TableName', blog.tb + 'articles')
+		.addInputVarchar('@FieldList', '*')
+		.addInputVarchar('@PrimaryKey', 'id')
+		.addInputVarchar('@Where', where)
+		.addInputVarchar('@Order', 'art_postdate desc,id desc')
+		.addInputInt('@SortType', 3)
+		.addInputInt('@RecorderCount', 0)
+		.addInputInt('@PageSize', size || 12)
+		.addInputInt('@PageIndex', Page)
+		.addOutputInt('@TotalCount')
+		.addOutputInt('@TotalPageCount')
+		.exec().toJSON();
+		
+	var PageCount = PAGE.get('@TotalPageCount').value;
+	
+	return {
+		result: result,
+		PageCount: PageCount,
+		PageIndex: Page
+	};
+});
+
+
 article.add('getImageByContent', function( content ){
 	
 	// 获取日志第一张图片

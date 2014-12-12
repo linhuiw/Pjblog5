@@ -16,6 +16,10 @@
 			compile: resolve('server/page/plugin.js'),
 			type: 'none'
 		},
+		tag: {
+			compile: resolve('server/page/tag.js'),
+			type: 'none'
+		},
 		error: {
 			compile: resolve('server/page/error.js'),
 			type: 'none'

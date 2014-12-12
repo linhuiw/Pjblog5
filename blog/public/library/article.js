@@ -165,18 +165,21 @@ article.add('getImageByContent', function( content ){
  * 如果data参数存在id字段，那么为修改，其余为添加
  */
 article.add('SaveArticle', function( data ){
-	blog.conn.BeginTrans(); // 开启事物处理
 	try{
 		var id = data.id, 
 			add = true, 
 			that = this, 
 			fns = require('ifns'),
-			GlobalCache = require(':private/caches/global.json'); // 全局缓存
+			GlobalCache = require(':private/caches/global.json'), // 全局缓存
+			hooks = require(':public/library/hook.js'),
+			hook = new hooks();
 		
 		if ( id && id > 0 ){
 			add = false;
 			delete data.id;
 		};
+		
+		hook.compile('iPress.article.pending', data);
 
 		// 是否为用户自己添加
 		data.art_monick = 0; 
@@ -195,6 +198,8 @@ article.add('SaveArticle', function( data ){
 				}else{
 					data.art_des = fns.cutStr(fns.removeHTML(data.art_content), GlobalCache.blog_articlecut, true, '');
 				}
+				
+				hook.compile('iPress.article.add', data, rec);
 				
 				rec.create();
 			}
@@ -216,26 +221,28 @@ article.add('SaveArticle', function( data ){
 					}
 					
 				});
+				
+				hook.compile('iPress.article.modify', data, rec);
 			};
+			
+			hook.compile('iPress.article.doing', data, rec);
 			
 			// 保存日志
 			rec
 				.set(data)
 				.save()
 				.close();
-		
-		// 提交事务
-		blog.conn.CommitTrans();
-		
+
 		// 更新TAG缓存
 		var tags = require('tag');
 		var tag = new tags();
 			tag.buildCacheFile();
+		
+		hook.compile('iPress.article.resolve', data);
 				
 		return true;
 	}catch(e){
-		// 回滚事务 
-		blog.conn.RollBackTrans();
+		hook.compile('iPress.article.reject', data, e);
 		return false; 
 	};
 });

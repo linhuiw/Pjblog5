@@ -125,7 +125,10 @@ sups.add('plugin', function(mark, datas){
             fs(resolve(':private/plugins/' + pluginFolder + '/compiles/' + pluginCompile)).exist()
             .then(function(){
                 var compileModule = require(':private/plugins/' + pluginFolder + '/compiles/' + pluginCompile);
-                compileJSON = new compileModule(pid, pmark, pluginFolder, this.layout);
+                var compiles = new compileModule(pid, pmark, pluginFolder, this.layout);
+				if ( compiles ){
+					compileJSON = compiles;
+				}
             }).fail(function(){
                 compileJSON = {};
             });
@@ -148,13 +151,18 @@ sups.add('plugin', function(mark, datas){
            var dat = require(':private/plugins/' + pluginFolder + '/exports');
            expose = new dat(pid, pmark, pluginFolder);
         });
+		
+		var _plugins = require(':public/library/plugin');
+		var _plugin = new _plugins();
+		var setting = _plugin.getConfigs(pid);
         
         include(':private/themes/' + this.layout.data.global.blog_theme + '/' + pluginTemplate, {
             source: compileJSON,
             data: this.layout.data,
             reqs: this.layout.req,
             sups: this.layout.sups,
-            exports: expose
+            exports: expose,
+			setting: setting
         });
     };
 });
@@ -182,7 +190,11 @@ sups.add('checkStatus', function(mark){
 });
 
 layout.add('errors', {
-    
+    "10001": "参数错误",
+	"10002": "插件不存在",
+	"10003": "找不到插件配置文件",
+	"10004": "该插件不是高级插件，无法输出页面。",
+	"10005": "找不到高级插件的模板文件"
 });
 
 function GruntCategory(data){

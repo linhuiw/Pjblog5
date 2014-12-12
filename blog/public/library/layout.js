@@ -111,6 +111,7 @@ sups.add('plugin', function(mark, datas){
     if ( !this.layout.data.theme ){
         this.layout.theme();
     };
+
     if ( this.layout.data.theme.configs.plugins && this.layout.data.theme.configs.plugins[mark] ){
         var pluginMark = this.layout.data.theme.configs.plugins[mark].mark;
         var pluginTemplate = this.layout.data.theme.configs.plugins[mark].file;
@@ -119,11 +120,11 @@ sups.add('plugin', function(mark, datas){
         var pluginFolder = pluginCaches.indexs[pluginCaches.queens[pluginMark]].plu_folder;
         var pid = pluginCaches.indexs[pluginCaches.queens[pluginMark]].id;
         var pmark = pluginMark;
-        
+
         // 如果主题中支持此插件的编译文件
         if ( pluginCompile && pluginCompile.length > 0 ){
             fs(resolve(':private/plugins/' + pluginFolder + '/compiles/' + pluginCompile)).exist()
-            .then(function(){
+            .then(function(){				
                 var compileModule = require(':private/plugins/' + pluginFolder + '/compiles/' + pluginCompile);
                 var compiles = new compileModule(pid, pmark, pluginFolder, this.layout);
 				if ( compiles ){
@@ -139,7 +140,7 @@ sups.add('plugin', function(mark, datas){
         compileJSON.pid = pid;
         compileJSON.pmark = pmark;
         compileJSON.pfolder = pluginFolder;
-        
+
         if ( datas ){
             for ( var i in datas ){
                 compileJSON[i] = datas[i];
@@ -155,8 +156,8 @@ sups.add('plugin', function(mark, datas){
 		var _plugins = require(':public/library/plugin');
 		var _plugin = new _plugins();
 		var setting = _plugin.getConfigs(pid);
-        
-        include(':private/themes/' + this.layout.data.global.blog_theme + '/' + pluginTemplate, {
+
+        include(':private/themes/' + this.layout.data.global.blog_theme + '/views/' + pluginTemplate, {
             source: compileJSON,
             data: this.layout.data,
             reqs: this.layout.req,

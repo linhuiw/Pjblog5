@@ -129,7 +129,7 @@ plugin.add('uninstall', function( id ){
 			mark = object('plu_mark').value;
 			installed = true;
 		}).close();
-		
+
 		if ( installed && folder && folder.length > 0 ){
 			fs(contrast(':private/plugins/' + folder + '/config.json')).exist().then(function(){
 				if ( require(':private/plugins/' + folder + '/config.json').mark === mark ){

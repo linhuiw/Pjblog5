@@ -23,7 +23,7 @@
 		$('.ajax-form').each(function(){
 			var _this = this;
 			$(this).submit(function(){
-				$('.ajax-form').ajaxSubmit({
+				$(this).ajaxSubmit({
 					dataType: 'json',
 					beforeSubmit: function(){
 						if ( window.doing ){

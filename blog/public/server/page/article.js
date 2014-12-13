@@ -28,6 +28,13 @@ layout.add('getArticle', function(){
         var articles = require(':public/library/article');
         var article = new articles();
         this.data.article = article.getArticleByID(id);
+		if ( this.data.article.art_category > 0 ){
+			if ( this.data.categories.indexs[this.data.article.art_category] ){
+				this.data.article.art_category = this.data.categories.indexs[this.data.article.art_category];
+			}else{
+				this.data.article.art_category = {};
+			}
+		}
     }
 });
 

@@ -22,6 +22,7 @@
 	group: {
 		name: '权限组与权限',
 		icon: 'fa-qrcode',
+		hide: true,
 		childs: {
 			usergroup: { name: '权限组', icon: 'fa-star' },
 			level: { name: '限制级权限', icon: 'fa-star' }

@@ -7,10 +7,7 @@
 	fs(contrast(':private/themes/' + this.data.global.blog_theme + '/views/articles.asp')).exist().then(function(){
 		that.render('articles.asp');
 	}).fail(function(){
-		try{
-			blog.conn.Close();
-			Response.Redirect(iPress.setURL('page', 'error'));
-		}catch(e){}
+		this.error(10008);
 	});
 	
 });
@@ -39,6 +36,29 @@ layout.add('getArticles', function(){
 		page = 1;
 	};
 	
+	var cate_name = null;
+	if ( readVariableType(cate, 'string') ){
+		if ( ['all', 'draft'].indexOf(cate) === -1 ){
+			this.error(10009);
+		}else{
+			if ( cate === 'all' ){
+				cate_name = '所有日志';
+			}
+			else if ( cate === 'draft' ){
+				cate_name = '草稿箱日志'
+			}
+		}
+	}
+	else if ( !isNaN(cate) && !this.data.categories.indexs[cate] ){
+		this.error(10009);
+	}else{
+		if ( cate === 0 ){
+			cate_name = '回收站日志';
+		}else{
+			cate_name = this.data.categories.indexs[cate].cate_name;
+		}
+	};
+
 	var articles = require(':public/library/article');
 	var article = new articles();
 	var rec = article.getArticlesByStorageProcess(cate, page, this.data.global.blog_articlepage);
@@ -71,6 +91,12 @@ layout.add('getArticles', function(){
 		arrays: iPage.toArray(),
 		value: iPage.value
 	};
+
+	this.position('articles', cate, {
+		name: '分类',
+		title: cate_name,
+		src: iPress.setURL('page', 'articles', { id: cate })
+	});
 });
 
 layout.extend(require(':public/library/layout'));

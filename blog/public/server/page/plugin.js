@@ -51,6 +51,12 @@ layout.add('getPlugin', function(){
 							source: compileJSON
 						};
 						
+						this.position('plugin', id, {
+							name: '插件',
+							title: pluginCache.indexs[id].plu_name,
+							src: iPress.setURL('page', 'plugin', { id: id })
+						});
+						
 						that.render(targetFile);
 						
 					}).fail(function(){

@@ -7,10 +7,7 @@
 	fs(contrast(':private/themes/' + this.data.global.blog_theme + '/views/tag.asp')).exist().then(function(){
 		that.render('tag.asp');
 	}).fail(function(){
-		try{
-			blog.conn.Close();
-			Response.Redirect(iPress.setURL('page', 'error'));
-		}catch(e){}
+		this.error(10008);
 	});
 	
 });
@@ -39,6 +36,13 @@ layout.add('getArticles', function(){
 		page = 1;
 	};
 	
+	
+	var tagCaches = require(':private/caches/tags.json');
+	
+	if ( !tagCaches[cate] ){
+		this.error(10010);
+	};
+	
 	var articles = require(':public/library/article');
 	var article = new articles();
 	var rec = article.getArticlesByTag(cate, page, this.data.global.blog_articlepage);
@@ -46,7 +50,7 @@ layout.add('getArticles', function(){
 	var iPage = new IPAGE(rec.PageCount, rec.PageIndex);
 	var tagModules = require(':public/library/tag');
 	var tagModule = new tagModules();
-	
+
 	var Arts = [], that = this;
 	rec.result.forEach(function(o){
 		o.src = iPress.setURL('page', 'article', { id: o.id });
@@ -71,6 +75,12 @@ layout.add('getArticles', function(){
 		arrays: iPage.toArray(),
 		value: iPage.value
 	};
+	
+	this.position('tag', cate, {
+		name: '标签',
+		title: tagCaches[cate].tag_name,
+		src: iPress.setURL('page', 'tag', { id: cate })
+	});
 });
 
 layout.extend(require(':public/library/layout'));

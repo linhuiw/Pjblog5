@@ -24,6 +24,40 @@
 			
 		fs(resolve(':private/plugins/' + folder + '/service')).exist().then(function(){
 			var services = require(':private/plugins/' + folder + '/service');
+			services.add('CheckUser', function(mark, callback){
+				if ( !callback ){
+					if ( typeof mark === 'function' ){
+						callback === mark;
+						mark = null;
+					}else{
+						callback = null;	
+					}					
+				};
+				var aHead = false;
+				if ( mark ){
+					aHead = blog.user.limits.indexOf(mark) > -1;
+				}else{
+					aHead = blog.user.status >= 1;
+				};
+				if ( aHead ){
+					if ( typeof callback === 'function' ){
+						var cb = callback.call(this);
+						if ( cb ){
+							return cb;
+						}else{
+							return true;
+						}
+					}else{
+						return true;
+					}
+				}else{
+					if ( typeof callback === 'function' ){
+						return { success: false, message: '非法操作' };
+					}else{
+						return false;
+					}
+				}
+			});
 			var service = new services(id, mark, folder);
 			if ( typeof service[m] === 'function' ){
 				var _msg = service[m](querys, getforms, msg);

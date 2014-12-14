@@ -8,10 +8,7 @@ var layout = new Class(function( querys, forms ){
 	fs(contrast(':private/themes/' + this.data.global.blog_theme + '/views/article.asp')).exist().then(function(){
 		that.render('article.asp');
 	}).fail(function(){
-		try{
-			blog.conn.Close();
-			Response.Redirect(iPress.setURL('page', 'error'));
-		}catch(e){}
+		this.error(10008);
 	});
 });
 
@@ -35,6 +32,41 @@ layout.add('getArticle', function(){
 				this.data.article.art_category = {};
 			}
 		}
+		
+		if ( this.data.article.art_tname && this.data.article.art_tname.length > 0 ){
+			this.data.global.blog_keywords = this.data.article.art_tname;
+		}else{
+			if ( this.data.article.art_tags.length > 0 ){
+				var k = [];
+				this.data.article.art_tags.forEach(function(o){
+					k.push(o.tag_name);
+				});
+				this.data.global.blog_keywords = k.join(',');
+			}else{
+				if ( this.data.article.art_title.length > 0 ){
+					this.data.global.blog_keywords = this.data.article.art_title;
+				}
+			}
+		}
+		
+		if ( this.data.article.art_tdes.length > 0 ){
+			this.data.global.blog_description = this.data.article.art_tdes;
+		}else{
+			if ( this.data.article.art_des.length > 0 ){
+				this.data.global.blog_description = this.data.article.art_des;
+			}else{
+				if ( this.data.article.art_title.length > 0 ){
+					this.data.global.blog_description = this.data.article.art_title;
+				}
+			}
+		}
+		
+		this.data.global.blog_name = this.data.article.art_title;
+		this.position('article', id, {
+			name: '日志',
+			title: this.data.article.art_title,
+			src: iPress.setURL('page', 'article', { id: id })
+		});
     }
 });
 

@@ -96,8 +96,8 @@
                                 <li class="user-header bg-light-blue">
                                     <img src="<%=blog.user.avatar%>" class="img-circle" alt="User Image" />
                                     <p>
-                                        Jane Doe - Web Developer
-                                        <small>Member since Nov. 2012</small>
+                                        <%=blog.user.nick%>
+                                        <small><%=blog.user.mail%></small>
                                     </p>
                                 </li>
                                 <!-- Menu Footer-->

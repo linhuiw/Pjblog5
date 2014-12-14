@@ -76,10 +76,10 @@
                         <li class="dropdown messages-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-envelope"></i>
-                                <span class="label" id="notice_total"></span>
+                                <span class="label" id="notice_total">0</span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li class="header">你有 <span id="notice_checked"></span> 条已读信息，<span id="notice_unchecked" style="color:#ff0000;"></span> 条未读信息。</li>
+                                <li class="header">你有 <span id="notice_checked">0</span> 条已读信息，<span id="notice_unchecked" style="color:#ff0000;">0</span> 条未读信息。</li>
                                 <li id="notice_list"></li>
                                 <li class="footer"><a href="<%=blog.appsite%>/me" target="_blank">查看所有信息</a></li>
                             </ul>

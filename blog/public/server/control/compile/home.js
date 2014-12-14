@@ -16,6 +16,10 @@ home.add('Statistics', function(){
 	counts.article = blog.conn.Execute('Select count(id) From ' + blog.tb + 'articles')(0).value;
 	counts.user = blog.conn.Execute('Select count(id) From ' + blog.tb + 'members')(0).value;
 	counts.plugin = blog.conn.Execute('Select count(id) From ' + blog.tb + 'plugins')(0).value;
+	counts.theme = 0;
+	fs(contrast(':private/themes'), true).dirs().value().forEach(function(){
+		counts.theme++;
+	});
 	
 	return counts;
 });

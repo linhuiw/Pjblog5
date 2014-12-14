@@ -293,11 +293,23 @@
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
 		<%
+			files.iPressFile = typeof iPressFile !== "undefined" ? iPressFile : null;
 			modules.scriptExec(function(file){
 				require("jquery")
 				.then(function(jQuerys){ if ( !window.jQuery ){ window.$ = window.jQuery = jQuerys[0]; } })
 				.then(function(){ return require(["public/assets/bootstrap/js/bootstrap.min.js"]); })
 				.then(function(){ return require(["public/assets/bootstrap/js/AdminLTE/app.js"]); })
+				.then(function(){ return require(["tron_modules/iPress/index.js"]); })
+				.then(function(iPr){
+					window.iPress = iPr[0];
+					if ( file.iPressFile ){ return require([file.iPressFile]); };
+				})
+				.then(function(theme){
+					if ( theme ){
+						window.iPress.extend(theme[0]);
+					}
+					window.iPress = new window.iPress();
+				})
 				.then(function(){
 					var arr = [":public/assets/js/common"];
 					if ( file.js ){ arr.push(file.js); };

@@ -89,9 +89,7 @@
                             <a class="close-link" href="<%=blog.appsite + '/download'%>" target="_blank"> <i class="fa fa-location-arrow"></i> </a>
                         </div>
                     </div>
-                    <div class="ibox-content">
-您是最新版本了
-                    </div>
+                    <div class="ibox-content" id="versions"></div>
                 </div>
 			</div>
 		</div>

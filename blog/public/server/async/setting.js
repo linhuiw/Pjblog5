@@ -1,5 +1,9 @@
 var setting = new Class(function(querys, getforms){
 	
+	if ( blog.user.status < 2 ){
+		return { success: false, message: '非法操作' };
+	}
+	
 	var forms = getforms();
 	
 	var rec = new dbo(blog.tb + 'global', blog.conn);

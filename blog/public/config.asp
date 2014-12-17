@@ -1,2 +1,2 @@
 <!--#include file="tron.min.asp" -->
-<%;var iPress;var blog=(function(d){var c=0,b=10;var a=function(f){if(c>b){return d}c++;var e=false;fs(contrast(f)).exist().then(function(){e=true});if(e){return f}else{return a("../"+f)}};d=a(d);return require(d)})("private/config.json");blog.conn=null;modules.setBase(blog.base);%>
+<%;var iPress;var blog=(function(g){var h=0,e=10;var f=function(a){if(h>e){return g}h++;var b=false;fs(contrast(a)).exist().then(function(){b=true});if(b){return a}else{return f("../"+a)}};g=f(g);return require(g)})("private/config.json");blog.conn=null;modules.setBase(blog.base);(function(){var a=require(":private/caches/global.json");blog.appid=a.blog_appid;blog.appkey=a.blog_appkey})();%>

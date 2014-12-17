@@ -33,9 +33,23 @@
 		"500": "服务端出错"
 	});
 	
+	iPress.add('getQuerys', function(){
+		var searchers = window.location.search.replace(/^\?/, '');
+		var selectors = searchers.split('&'), z = [];
+		selectors.forEach(function(o){
+			z.push(o.split('=')[0]);
+		});
+		return z;
+	});
+	
 	// 获取页面token
 	iPress.add('getURL', function(){
-		var querys = http.emit(Request.QueryString);
+		var querys;
+		if ( typeof define == "function" && define.amd ){
+			querys = this.getQuerys();
+		}else{
+			querys = http.emit(Request.QueryString);
+		}
 		if ( querys.length > 0 ){
 			return querys[0];
 		}else{

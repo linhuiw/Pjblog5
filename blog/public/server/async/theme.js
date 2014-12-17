@@ -1,4 +1,9 @@
 ﻿var theme = new Class(function(querys, getforms){
+	
+	if ( blog.user.status < 2 ){
+		return { success: false, message: '非法操作' };
+	}
+	
 	querys.m = querys.m || '';
 
 	if ( querys.m.length > 0 && this[querys.m] ){

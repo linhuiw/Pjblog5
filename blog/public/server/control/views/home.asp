@@ -1,6 +1,6 @@
 <div class="iPress-wrap">
 <div class="row">
-    <div class="col-lg-3 col-xs-6">
+    <div class="col-lg-3 col-sm-6">
         <!-- small box -->
         <div class="small-box bg-aqua">
             <div class="inner">
@@ -19,7 +19,7 @@
             </a>
         </div>
     </div>
-    <div class="col-lg-3 col-xs-6">
+    <div class="col-lg-3 col-sm-6">
         <!-- small box -->
         <div class="small-box bg-yellow">
             <div class="inner">
@@ -38,7 +38,7 @@
             </a>
         </div>
     </div>
-    <div class="col-lg-3 col-xs-12">
+    <div class="col-lg-3 col-sm-6">
         <!-- small box -->
         <div class="small-box bg-red">
             <div class="inner">
@@ -50,22 +50,29 @@
                 </p>
             </div>
             <div class="icon">
-                <i class="ion ion-ios7-pricetag-outline"></i>
+                <i class="fa fa-windows"></i>
             </div>
-            <a href="<%=iPress.setURL('control', 'wrap', { m: 'plugin' })%>" class="small-box-footer">
+            <a href="<%=iPress.setURL('control', 'wrap', { m: 'plugin', p: 'local' })%>" class="small-box-footer">
              <i class="fa fa-arrow-circle-right"></i>
             </a>
         </div>
     </div>
-    <div class="col-lg-3 col-xs-12">
-    	<div class="alert alert-info alert-dismissable">
-            <i class="fa fa-info"></i>
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <b>快捷入口</b> 选择最常用的操作以便快速到达功能点。<br />
-            <a href="">写日志</a>
-            <a href="">分类</a>
-            <a href="">插件</a>
-            <a href="">主题</a>
+    <div class="col-lg-3 col-sm-6">
+    	<div class="small-box bg-green">
+            <div class="inner">
+                <h3>
+                    <%=statistics.theme%>
+                </h3>
+                <p>
+                    	主题数
+                </p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-html5"></i>
+            </div>
+            <a href="<%=iPress.setURL('control', 'wrap', { m: 'theme', p: 'local' })%>" class="small-box-footer">
+             <i class="fa fa-arrow-circle-right"></i>
+            </a>
         </div>
     </div>
 </div>
@@ -82,9 +89,7 @@
                             <a class="close-link" href="<%=blog.appsite + '/download'%>" target="_blank"> <i class="fa fa-location-arrow"></i> </a>
                         </div>
                     </div>
-                    <div class="ibox-content">
-您是最新版本了
-                    </div>
+                    <div class="ibox-content" id="versions"></div>
                 </div>
 			</div>
 		</div>

@@ -67,13 +67,13 @@ theme.add('downloadPluginsFromClouder', function( plus ){
 		oAuth.appid(globalCache.blog_appid).token(blog.user.token).openid(blog.user.openid);
 		
 		for ( var plugin in plus ){
-			if ( pluginsCache.queens[plugin.mark] && pluginsCache.queens[plugin.mark] > 0 ){
+			if ( pluginsCache.queens[plus[plugin].mark] && pluginsCache.queens[plus[plugin].mark] > 0 ){
 				continue;
 			}
 			// 开始从云平台下载插件安装
 			else{
-				if ( oAuth.download(plugin.mark, 'plugins') ){
-					var o = plugin.install(plugin.mark);
+				if ( oAuth.download(plus[plugin].mark, 'plugins') ){
+					var o = plugin.install(plus[plugin].mark);
 					if ( !o.success ){
 						status = false;
 						break;

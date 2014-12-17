@@ -40,6 +40,21 @@
     <![endif]-->
 </head>
 <body class="skin-black">
+<script id="notice_template" type="text/html">
+<li>
+	<a href="{href}" target="_blank">
+		<div class="pull-left">
+			<img src="{avatar}" class="img-circle" alt="User Image"/>
+		</div>
+		<h4>
+			系统消息
+			<small><i class="fa fa-clock-o"></i> {time}</small>
+		</h4>
+		<p>{title}</p>
+		<div>来自：{domain_name}</div>
+	</a>
+</li>
+</script>
 <!-- header logo: style can be found in header.less -->
         <header class="header">
             <a href="<%=iPress.setURL('page', 'home')%>" target="_blank" class="logo">
@@ -61,76 +76,12 @@
                         <li class="dropdown messages-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-envelope"></i>
-                                <span class="label label-warning">4</span>
+                                <span class="label" id="notice_total">0</span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li class="header">You have 4 messages</li>
-                                <li>
-                                    <!-- inner menu: contains the actual data -->
-                                    <ul class="menu">
-                                        <li><!-- start message -->
-                                            <a href="#">
-                                                <div class="pull-left">
-                                                    <img src="" class="img-circle" alt="User Image"/>
-                                                </div>
-                                                <h4>
-                                                    Support Team
-                                                    <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                                </h4>
-                                                <p>Why not buy a new awesome theme?</p>
-                                            </a>
-                                        </li><!-- end message -->
-                                        <li>
-                                            <a href="#">
-                                                <div class="pull-left">
-                                                    <img src="" class="img-circle" alt="user image"/>
-                                                </div>
-                                                <h4>
-                                                    AdminLTE Design Team
-                                                    <small><i class="fa fa-clock-o"></i> 2 hours</small>
-                                                </h4>
-                                                <p>Why not buy a new awesome theme?</p>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <div class="pull-left">
-                                                    <img src="" class="img-circle" alt="user image"/>
-                                                </div>
-                                                <h4>
-                                                    Developers
-                                                    <small><i class="fa fa-clock-o"></i> Today</small>
-                                                </h4>
-                                                <p>Why not buy a new awesome theme?</p>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <div class="pull-left">
-                                                    <img src="" class="img-circle" alt="user image"/>
-                                                </div>
-                                                <h4>
-                                                    Sales Department
-                                                    <small><i class="fa fa-clock-o"></i> Yesterday</small>
-                                                </h4>
-                                                <p>Why not buy a new awesome theme?</p>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <div class="pull-left">
-                                                    <img src="" class="img-circle" alt="user image"/>
-                                                </div>
-                                                <h4>
-                                                    Reviewers
-                                                    <small><i class="fa fa-clock-o"></i> 2 days</small>
-                                                </h4>
-                                                <p>Why not buy a new awesome theme?</p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="footer"><a href="#">See All Messages</a></li>
+                                <li class="header">你有 <span id="notice_checked">0</span> 条已读信息，<span id="notice_unchecked" style="color:#ff0000;">0</span> 条未读信息。</li>
+                                <li id="notice_list"></li>
+                                <li class="footer"><a href="<%=blog.appsite%>/me" target="_blank">查看所有信息</a></li>
                             </ul>
                         </li>
                         
@@ -143,31 +94,19 @@
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header bg-light-blue">
-                                    <img src="" class="img-circle" alt="User Image" />
+                                    <img src="<%=blog.user.avatar%>" class="img-circle" alt="User Image" />
                                     <p>
-                                        Jane Doe - Web Developer
-                                        <small>Member since Nov. 2012</small>
+                                        <%=blog.user.nick%>
+                                        <small><%=blog.user.mail%></small>
                                     </p>
-                                </li>
-                                <!-- Menu Body -->
-                                <li class="user-body">
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Followers</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Sales</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Friends</a>
-                                    </div>
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="<%=blog.appsite%>/me" class="btn btn-default btn-flat" target="_blank">中心</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                        <a href="<%=iPress.setURL("oauth", "logout")%>" class="btn btn-default btn-flat">退出</a>
                                     </div>
                                 </li>
                             </ul>
@@ -293,11 +232,23 @@
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
 		<%
+			files.iPressFile = typeof iPressFile !== "undefined" ? iPressFile : null;
 			modules.scriptExec(function(file){
 				require("jquery")
 				.then(function(jQuerys){ if ( !window.jQuery ){ window.$ = window.jQuery = jQuerys[0]; } })
 				.then(function(){ return require(["public/assets/bootstrap/js/bootstrap.min.js"]); })
 				.then(function(){ return require(["public/assets/bootstrap/js/AdminLTE/app.js"]); })
+				.then(function(){ return require(["tron_modules/iPress/index.js"]); })
+				.then(function(iPr){
+					window.iPress = iPr[0];
+					if ( file.iPressFile ){ return require([file.iPressFile]); };
+				})
+				.then(function(theme){
+					if ( theme ){
+						window.iPress.extend(theme[0]);
+					}
+					window.iPress = new window.iPress();
+				})
 				.then(function(){
 					var arr = [":public/assets/js/common"];
 					if ( file.js ){ arr.push(file.js); };
@@ -309,6 +260,9 @@
 					})
 				});
 			}, files);
+			modules.scriptExec(function(blog){
+				window.blog = blog;
+			}, blog);
 		%>
 </body>
 </html>

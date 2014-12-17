@@ -4,7 +4,7 @@
 	// it will be a userfull cache file which guiding the system ahead.
 	
 	this.file = contrast(':private/caches/hook.json');
-	fs(this.file).unExist().create('{ indexs: [], queens: [] }');
+	fs(this.file).unExist().create('{ indexs: {}, queens: {} }');
 	
 	// indexs: id depend with marks
 	// queens: mark depend with ids
@@ -33,7 +33,7 @@ hook.add('parse', function( id, mark ){
 	{
 		this.data.queens[mark].push(id);
 	};
-	
+
 	return this;
 });
 
@@ -59,8 +59,8 @@ hook.add('compile', function(){
 		var plugins = this.data.queens[mark];
 		if ( plugins.length > 0 ){
 			var pluginModule = require(':private/caches/plugins.json');
-			plugins.forEach(function( id ){				
-				var folder = pluginModule.indexs[id + ''].folder;
+			plugins.forEach(function( id ){	
+				var folder = pluginModule.indexs[id + ''].plu_folder;
 				if ( folder && folder.length > 0 ){
 					var hooks = require(':private/plugins/' + folder + '/hook.js');
 					if ( hooks && hooks[mark] && typeof hooks[mark] === 'function' ){
@@ -75,12 +75,16 @@ hook.add('compile', function(){
 });
 
 hook.add('remove', function(id){
+	var that = this;
 	if ( this.data.indexs[id + ''] ){
 		this.data.indexs[id + ''].forEach(function(mark){
-			if ( this.data.queens[mark] ){
-				var i = this.data.queens[mark].indexOf(id);
+			if ( that.data.queens[mark] ){
+				var i = that.data.queens[mark].indexOf(id);
 				if ( i > -1 ){
-					this.data.queens[mark].splice(i, 1);
+					that.data.queens[mark].splice(i, 1);
+				}
+				if ( that.data.queens[mark].length === 0 ){
+					delete that.data.queens[mark];
 				}
 			}
 		});

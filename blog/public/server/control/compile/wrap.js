@@ -15,6 +15,7 @@ var wrap = new Class(function( querys, getforms ){
     this.caches.menu = require(':public/menu.json');
     this.caches.pmenu = require(':public/pmenu.json');
     this.caches.plugins = require(':private/caches/plugins.json');
+	this.caches.global = require(':private/caches/global.json');
     
     this.getRequest(querys, getforms);
     this.getSystemList();
@@ -22,6 +23,7 @@ var wrap = new Class(function( querys, getforms ){
     this.getCrumbs();
     this.getFiles();
     this.compiles(querys, getforms);
+	this.themeiPressFile();
     
     return this.data;
 });
@@ -233,16 +235,23 @@ wrap.add('compiles', function(querys, forms){
         var that = this;
         fs(resolve(this.data.files.compile)).exist().then(function(){
     		var moduled = require(that.data.files.compile);
-    		if ( this.isPlugin ){
-        		if ( this.caches.plugins && this.caches.plugins.indexs[this.req.t] ){
-            		moduled.add('pid', this.req.t);
-            		moduled.add('pmark', this.caches.plugins.indexs[this.req.t].plu_mark);
-            		moduled.add('pfolder', this.caches.plugins.indexs[this.req.t].plu_folder);
+    		if ( that.isPlugin ){
+        		if ( that.caches.plugins && that.caches.plugins.indexs[that.req.t] ){
+            		moduled.add('pid', that.req.t);
+            		moduled.add('pmark', that.caches.plugins.indexs[that.req.t].plu_mark);
+            		moduled.add('pfolder', that.caches.plugins.indexs[that.req.t].plu_folder);
         		}
     		}
     		that.data.compiles = new moduled(querys, forms) || {};
     	});
     }
+});
+
+wrap.add('themeiPressFile', function(){
+	var that = this;
+	fs(contrast(':private/themes/' + this.caches.global.blog_theme + '/iPress.js')).exist().then(function(){
+		that.data.iPressFile = ':private/themes/' + this.caches.global.blog_theme + '/iPress.js';
+	});
 });
 
 module.exports = wrap;

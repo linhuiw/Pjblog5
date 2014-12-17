@@ -250,7 +250,7 @@ wrap.add('compiles', function(querys, forms){
 wrap.add('themeiPressFile', function(){
 	var that = this;
 	fs(contrast(':private/themes/' + this.caches.global.blog_theme + '/iPress.js')).exist().then(function(){
-		that.data.iPressFile = ':private/themes/' + this.caches.global.blog_theme + '/iPress.js';
+		that.data.iPressFile = ':private/themes/' + that.caches.global.blog_theme + '/iPress.js';
 	});
 });
 

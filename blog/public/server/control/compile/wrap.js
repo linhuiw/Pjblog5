@@ -113,7 +113,14 @@ wrap.add('getPluginList', function(){
     for ( var i in this.caches.pmenu ){
         var menu = this.caches.pmenu[i];
         var _menu = {};
-        if ( menu.hide || (this.caches.plugins.indexs && this.caches.plugins.indexs[this.req.t] && this.caches.plugins.indexs[this.req.t].plu_stop) ){ continue; };
+        if ( 
+			menu.hide || !menu.mark || menu.mark.length === 0 || ( 
+			this.caches.plugins.queens && 
+			this.caches.plugins.queens[menu.mark] &&
+			this.caches.plugins.indexs[this.caches.plugins.queens[menu.mark]] && 
+			this.caches.plugins.indexs[this.caches.plugins.queens[menu.mark]].plu_stop
+			) 
+		){ continue; };
         
         var active = Number(i) === this.req.t && this.isPlugin ? 'active' : '';
         var drops = menu.childs ? 'treeview' : '';

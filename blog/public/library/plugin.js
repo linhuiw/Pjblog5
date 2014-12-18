@@ -53,6 +53,9 @@ plugin.add('install', function( folder ){
     					 * 		如果存在插件自定义页面数据，那么就将插件信息输入到插件自定义数据内部
     					 *		插件就能自动加载这些页面到侧边栏
     					 */	
+						 	if ( plus_config_data.ControlNavs ){
+								plus_config_data.ControlNavs.mark = plus_config_data.mark;
+							};
     					 	this.plus_control_nav(id, plus_config_data.ControlNavs);
     					/*
     					 * 第七步： 安装插件前台导航

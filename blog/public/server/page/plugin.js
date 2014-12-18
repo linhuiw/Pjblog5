@@ -20,6 +20,11 @@ layout.add('getPlugin', function(){
 			var pid = pluginCache.indexs[id].id;
 			var pmark = pluginCache.indexs[id].plu_mark;
 			
+			if ( pluginCache.indexs[id].plu_stop ){
+				this.error(10011);
+				return;
+			}
+			
 			fs(contrast(':private/plugins/' + pfolder + '/config.json')).exist().then(function(){
 				var configs = require(':private/plugins/' + pfolder + '/config.json');
 				if ( configs.AssetNav && configs.AssetNav.file ){

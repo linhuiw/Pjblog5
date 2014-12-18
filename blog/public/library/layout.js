@@ -135,7 +135,7 @@ sups.add('plugin', function(mark, datas){
         var pluginTemplate = this.layout.data.theme.configs.plugins[mark].file;
         var pluginCompile = this.layout.data.theme.configs.plugins[mark].compile;
         var pluginCaches = require(':private/caches/plugins.json');
-		if ( !pluginCaches.indexs[pluginCaches.queens[pluginMark]] ){ return; };
+		if ( !pluginCaches.indexs[pluginCaches.queens[pluginMark]] || pluginCaches.indexs[pluginCaches.queens[pluginMark]].plu_stop ){ return; };
         var pluginFolder = pluginCaches.indexs[pluginCaches.queens[pluginMark]].plu_folder;
         var pid = pluginCaches.indexs[pluginCaches.queens[pluginMark]].id;
         var pmark = pluginMark;
@@ -221,7 +221,8 @@ sups.add('errors', function(id){
 		"10007": "您暂时被禁止登陆，如需要登陆，请联系网站管理员解除限制！",
 		"10008": "找不到系统模板文件",
 		"10009": "分类不存在",
-		"10010": "标签不存在"
+		"10010": "标签不存在",
+		"10011": "插件已被停用"
 	};
 	return errors[id] || "未知错误状态";
 });

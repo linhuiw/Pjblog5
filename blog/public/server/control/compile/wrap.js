@@ -113,7 +113,7 @@ wrap.add('getPluginList', function(){
     for ( var i in this.caches.pmenu ){
         var menu = this.caches.pmenu[i];
         var _menu = {};
-        if ( menu.hide ){ continue; };
+        if ( menu.hide || (this.caches.plugins.indexs && this.caches.plugins.indexs[this.req.t] && this.caches.plugins.indexs[this.req.t].plu_stop) ){ continue; };
         
         var active = Number(i) === this.req.t && this.isPlugin ? 'active' : '';
         var drops = menu.childs ? 'treeview' : '';

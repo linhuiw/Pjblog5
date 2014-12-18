@@ -135,6 +135,7 @@ sups.add('plugin', function(mark, datas){
         var pluginTemplate = this.layout.data.theme.configs.plugins[mark].file;
         var pluginCompile = this.layout.data.theme.configs.plugins[mark].compile;
         var pluginCaches = require(':private/caches/plugins.json');
+		if ( !pluginCaches.indexs[pluginCaches.queens[pluginMark]] ){ return; };
         var pluginFolder = pluginCaches.indexs[pluginCaches.queens[pluginMark]].plu_folder;
         var pid = pluginCaches.indexs[pluginCaches.queens[pluginMark]].id;
         var pmark = pluginMark;

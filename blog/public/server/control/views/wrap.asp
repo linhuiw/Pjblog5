@@ -72,10 +72,11 @@
                 </a>
                 <div class="navbar-right">
                     <ul class="nav navbar-nav">
+                    	<li><a href="<%=iPress.setURL("control", "wrap", { m: "online" })%>" class="fa fa-git"></a></li>
                         <!-- Messages: style can be found in dropdown.less-->
                         <li class="dropdown messages-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-envelope"></i>
+                                <i class="fa fa-envelope-o"></i>
                                 <span class="label" id="notice_total">0</span>
                             </a>
                             <ul class="dropdown-menu">
@@ -123,7 +124,7 @@
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="<%=blog.user.avatar + '/64'%>" class="img-circle" alt="User Image" />
+                            <img src="<%=blog.user.avatar%>/64" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
                             <p>Hello, <%=blog.user.nick%></p>

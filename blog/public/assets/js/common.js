@@ -106,7 +106,7 @@
 				ul.append(_);
 			});
 		}else{
-			$('#notice_list').html('<div class="text-center">没有新消息</div>');
+			$('#notice_list').html('<div class="text-center" style="padding:20px 0;">没有新消息</div>');
 		}
 	}
 	

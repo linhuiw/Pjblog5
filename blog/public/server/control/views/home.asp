@@ -86,7 +86,7 @@
                     <div class="ibox-title">
                         <h5>云端更新</h5>
                         <div class="ibox-tools">
-                            <a class="close-link" href="<%=blog.appsite + '/download'%>" target="_blank"> <i class="fa fa-location-arrow"></i> </a>
+                            <a class="close-link" href="<%=blog.appsite + '/download'%>" target="_blank"> <i class="fa fa-vimeo-square"></i> </a>
                         </div>
                     </div>
                     <div class="ibox-content" id="versions"></div>

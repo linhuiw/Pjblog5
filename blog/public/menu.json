@@ -48,5 +48,10 @@
 		name: '写作',
 		icon: 'fa-pencil',
 		hide: true
+	},
+	online: {
+		name: '升级修复',
+		icon: 'fa-vimeo-square',
+		hide: true
 	}
 }

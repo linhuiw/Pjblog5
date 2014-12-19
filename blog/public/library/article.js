@@ -287,12 +287,17 @@ article.add('iTags', function(ctags, _tags){
  */
 article.add('removeArticle', function(id){
 	try{
+		var hooks = require(':public/library/hook.js'),
+			hook = new hooks();
+			
 		if ( !readVariableType(id, 'array') ){ id = [id]; };
 		if ( id.length > 0 ){
 			var rec = new dbo(blog.tb + 'articles', blog.conn);
 			rec.selectAll().and('id', id, 'in').open(3).each(function(o){
 				o.Delete();
 			}).close();
+			
+			hook.compile('iPress.article.remove', id);
 		}
 		
 		return true;

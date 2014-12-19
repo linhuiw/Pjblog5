@@ -139,4 +139,11 @@
 		2
 	</div>
 </div>
+<div class="row">
+<%
+	var hooks = require(':public/library/hook.js'),
+		hook = new hooks();
+	hook.compile('iPress.home.advanse');
+%>
+</div>
 </div>

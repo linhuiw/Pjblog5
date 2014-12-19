@@ -137,8 +137,7 @@ user.add('save', function( id, data ){
 	if ( blog.user.id === Number(id) ){
 		return false;
 	};
-	
-	blog.conn.BeginTrans();
+
 	try{
 		var User = new dbo(blog.tb + 'members', blog.conn);
 		User.selectAll().and('id', id).open(3);
@@ -148,10 +147,25 @@ user.add('save', function( id, data ){
 			User.set(data);
 		}
 		User.save().close();
-		blog.conn.CommitTrans();
 		return true;
 	}catch(e){
-		blog.conn.RollBackTrans();
+		return false;
+	}
+});
+
+user.add('remove', function( id, data ){
+	if ( blog.user.id === Number(id) ){
+		return false;
+	};
+
+	try{
+		var User = new dbo(blog.tb + 'members', blog.conn);
+		User.selectAll().and('id', id).open(3).remove().close();
+		var hooks = require(':public/library/hook.js'),
+			hook = new hooks();
+		hook.compile('iPress.user.remove', id);
+		return true;
+	}catch(e){
 		return false;
 	}
 });

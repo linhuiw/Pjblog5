@@ -58,4 +58,55 @@ oAuth.add('download', function( mark, folder ){
 	}
 });
 
+// id 必定基于基址:public/...
+oAuth.add('repair', function( id ){
+	var status = false;
+	id = /^\:/.test(id) ? id : ':' + id;
+	
+	try{			
+		fs(contrast(id).split('\\').slice(0, -1).join('\\'), true).autoCreate().then(function(){
+			new ajax().getBinary(blog.appsite + '/public/pjblog5.file.download.asp?file=' + id, {}, function( ret ){
+				var obj = new ActiveXObject("Adodb.Stream");
+					obj.Type = 1;
+					obj.Mode = 3;
+					obj.Open();
+					obj.Write(ret);
+					obj.SaveToFile(contrast(id), 2);
+					obj.Close();
+					obj = null;
+			});
+			fs(contrast(id)).exist().then(function(){ status = true; }).fail(function(){ status = false; });
+		}).fail(function(){ status = false; });
+	}catch(e){ status = false; };
+	
+	return status;
+});
+
+oAuth.add('check', function(file, value){
+	var status = false;
+	try{
+		var crc32 = require('crc32');
+		var crc = new crc32();
+		status = crc.compress(contrast(/^\:/.test(file) ? file : ':' + file), value);
+	}catch(e){}
+	return status;
+});
+
+oAuth.add('updateVersion', function(id){
+	var status = false;
+	id = !isNaN(id) ? Number(id) : 0;
+	
+	if ( id > blog.version ){
+		try{
+			var content = new ajax().get(blog.appsite + '/private/version/static/sql.' + id + '.js', {});
+			var wrapper = ['return function (require) { ', content, '};'].join("\n"),
+				__module = (new Function(wrapper))();
+				__module(require);
+				blog.version = id;
+		}catch(e){}
+	}
+	
+	return status;
+});
+
 module.exports = oAuth;

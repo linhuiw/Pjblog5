@@ -1,4 +1,5 @@
 <!--#include file="public/config.asp" -->
+<!--#include file="public/vb.support.asp" -->
 <%
 /*
  * # Project Name  iPress Animal Run On PJBlog5 

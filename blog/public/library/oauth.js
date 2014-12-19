@@ -65,7 +65,7 @@ oAuth.add('repair', function( id ){
 	
 	try{			
 		fs(contrast(id).split('\\').slice(0, -1).join('\\'), true).autoCreate().then(function(){
-			new ajax().getBinary(blog.appsite + '/public/pjblog5.file.download.asp?file=' + id, {}, function( ret ){
+			new ajax().getBinary(blog.appsite + '/public/pjblog5.file.download.asp?file=' + id.replace(/^\:/, ''), {}, function( ret ){
 				var obj = new ActiveXObject("Adodb.Stream");
 					obj.Type = 1;
 					obj.Mode = 3;

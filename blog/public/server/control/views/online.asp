@@ -17,7 +17,7 @@
                         	<th width="50">#</th>
                             <th width="150">校验码</th>
                             <th>文件路径</th>
-                            <th width="50">状态</th>
+                            <th width="50">更新</th>
                         </tr>
                     </thead>
                     <tbody id="list"></tbody>

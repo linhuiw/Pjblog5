@@ -71,6 +71,10 @@
 			compile: resolve('server/async/theme.js'),
 			type: 'json'
 		},
+		online: {
+			compile: resolve('server/async/online.js'),
+			type: 'json'
+		},
 		PluginRequestJSON: {
 			compile: resolve('server/async/PluginRequestJSON.js'),
 			type: 'json'

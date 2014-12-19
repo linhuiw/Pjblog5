@@ -376,7 +376,8 @@ plugin.add('plus_setup_file', function(id, mark, folder, type){
 	var file = type ? resolve(':private/plugins/' + folder + '/uninstall.js') : resolve(':private/plugins/' + folder + '/install.js');
 	fs(file).exist().then(function(){
 		var CompileModule = require(file);
-		new CompileModule(id, mark, folder);
+			CompileModule.extend(require(':public/library/methods'));
+			new CompileModule(id, mark, folder);
 	});
 });
 

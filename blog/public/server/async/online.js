@@ -38,4 +38,11 @@ online.add('download', function(querys, getforms, Promise){
 	}
 });
 
+online.add('UpdateVersion', function(){
+	var forms = getforms();
+	var id = forms.id;
+	var file = forms.file;
+	var status = Promise.updateVersion(name);
+});
+
 module.exports = online;

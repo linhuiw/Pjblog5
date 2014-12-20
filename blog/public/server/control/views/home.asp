@@ -89,7 +89,7 @@
                             <a class="close-link" href="<%=blog.appsite + '/download'%>" target="_blank"> <i class="fa fa-vimeo-square"></i> </a>
                         </div>
                     </div>
-                    <div class="ibox-content" id="versions"></div>
+                    <div class="ibox-content" id="versions"><i class="fa fa-spin fa-spinner" style="margin-right:5px;"></i>正在获取最新版本信息，请稍后！</div>
                 </div>
 			</div>
 		</div>

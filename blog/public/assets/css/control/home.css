@@ -1,0 +1,5 @@
+﻿@charset "utf-8";
+/* CSS Document */
+#versions h6{ line-height:20px; margin:0;}
+#versions .tip{ border:1px dashed #eee; background-color:#f9f9f9; padding:5px 8px; line-height:24px;}
+#versions p.doUpdate{ margin:0; margin-top:10px;}

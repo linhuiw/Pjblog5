@@ -4,3 +4,45 @@
 #versions .tip{ border:1px dashed #eee; background-color:#f9f9f9; padding:5px 8px; line-height:24px;}
 #versions p.doUpdate{ margin:0; margin-top:10px;}
 #versions .fa{ margin-right:5px;}
+
+#blog-news ul{ list-style:none; margin:0; padding:0;}
+#blog-news ul li{ border-bottom:1px solid #eee; padding:5px 0px;}
+#blog-news ul li:last-child{ border-bottom:0;}
+#blog-news ul li .time{ color:#ccc;}
+#blog-author a{ margin:0 5px;}
+.preview-logo{ height:200px;  width:100%; overflow:hidden;}
+.zbox{ position:relative; box-shadow:4px 4px 1px rgba(0,0,0,.1); margin-bottom:10px;}
+.zbox .contented{ 
+	position:absolute; width:100%; height:100px; top:50%; left:0px; margin-top:-50px; text-align:center; background-color:rgba(0,0,0,.6); color:#fff;
+	-webkit-transform:scale(0);
+	-moz-transform:scale(0);
+	-ms-transform:scale(0);
+	-o-transform:scale(0);
+	transform:scale(0);
+}
+.zbox .contented .name{ font-size:20px; height:60px; line-height:60px;}
+.zbox .contented a:link,
+.zbox .contented a:visited{ color:#fff;}
+.zbox .contented a:hover{ color:#ccc; }
+.zbox .contented .time{ font-size:10px; line-height:20px;}
+.zbox .contented .clearfix{ padding:0px 15px;}
+.zbox .contented .info img{ margin-right:10px;}
+.zbox:hover .contented{
+	-webkit-transform:scale(1);
+	-moz-transform:scale(1);
+	-ms-transform:scale(1);
+	-o-transform:scale(1);
+	transform:scale(1);
+}
+
+#plugin-box ul{ list-style:none; margin:0; padding:0;}
+#plugin-box ul li .author{ width:64px; height:64px; margin-right:10px;}
+#plugin-box ul li .author img{ width:64px; height:64px;}
+#plugin-box ul li{ border-bottom:1px solid #eee; padding:10px 5px 10px 5px;}
+
+@media (max-width:1200px){
+	.preview-logo{ height:150px;}
+}
+@media (max-width:980px){
+	.preview-logo{ height:100px;}
+}

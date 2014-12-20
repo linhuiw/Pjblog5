@@ -22,8 +22,12 @@
         window.blog.control.home = mod(window.jQuery);
     }
 })(function ( $, versions, news, themes, plugins ) {
+	console.log(plugins);
 	var home = new Class(function(){
 		this.version();
+		this.news();
+		this.theme();
+		this.plugin();
 	});
 	
 	home.add('version', function(){
@@ -34,16 +38,84 @@
 				activeVersions.push(versions[version]);
 			}
 		}
+		
+		var cb = function(){
+			var time = versions[blog.version].time;
+			var des = versions[blog.version].des;
+			var h = '';
+			h +=	'<h6><strong>最新版本：</strong><code>v' + blog.version + '</code> (已是最新)</h6>';
+			h +=	'<h6><strong>更新日期：</strong>' + jsDateDiff(time) + '</h6>';
+			h +=	'<h6><strong>版本描述：</strong>' + des + '</h6>';
+			h +=	'<div class="tip">';
+			h +=		'<i class="fa fa-info-circle"></i>版本更新只针对数据库更新，文件更新请点击<a href="' + iPress.setURL('control', 'wrap', { m: 'online' }) + '">这里</a><br>';
+			h +=		'<i class="fa fa-link"></i>欢迎访问官网：<a href="http://app.webkits.cn" target="_blank">http://app.webkits.cn/</a>';
+			h +=	'</div>';
+
+			$('#versions').html(h);
+		}
 
 		if ( activeVersions.length > 0 ){
-			activeVersions = activeVersions.sort(function(a, b){
-				return a.id - b.id;
-			});
-			getFirstVersion(activeVersions, function(){
-				$('#versions').html('<span style="padding: 5px; line-height:20px;">您已是最新版本V' + blog.version + '。无须升级。</span>');
-			});
+			activeVersions = activeVersions.sort(function(a, b){ return a.id - b.id; });
+			getFirstVersion(activeVersions, cb);
 		}else{
-			$('#versions').html('<span style="padding: 5px; line-height:20px;">您已是最新版本V' + blog.version + '。无须升级。</span>');
+			cb();
+		}
+	});
+	
+	home.add('news', function(){
+		var h = [];
+		news.data.forEach(function(o){
+			h.push('<li><div class="title"><a href="' + o.url + '" target="_blank">' + o.title + '</a></div><div class="time">' + o.time + '</div></li>');
+		});
+		$('#blog-news').html('<ul>' + h.join('') + '</ul>');
+	});
+	
+	home.add('theme', function(){
+		if ( themes.data.length > 0 ){
+			var h = [];
+			themes.data.forEach(function(o){
+				var a = '';
+					a +=	'<div class="col-sm-4">';
+					a +=	'<div class="zbox">';
+					a +=		'<div class="preview-logo"><img src="' + o.logo + '" class="img-responsive" /></div>'
+					a +=		'<div class="contented trans">';
+					a +=			'<div class="name text-auto-hide"><a href="' + o.url + '">' + o.name + '</a></div>';
+					a +=			'<div class="clearfix">'
+					a +=			'<div class="time pull-right">' + o.time + '</div>'
+					a +=			'<div class="info pull-left"><img src="' + blog.appsite + '/' + o.avatar + '/16" />' + o.author + '</div>';
+					a +=			'</div>'
+					a +=		'</div>';
+					a +=	'</div>';
+					a +=	'</div>';
+				h.push(a);
+			});
+			$('#theme-box').html('<div class="row">' + h.join('') + '</div>');
+		}else{
+			$('#theme-box').html('抱歉，没有最新主题内容。');
+		}
+	});
+	
+	home.add('plugin', function(){
+		if ( plugins.data.length > 0 ){
+			var h = [];
+			plugins.data.forEach(function(o){
+				var a = '';
+					a +=	'<li class="clearfix">';
+					a +=		'<div class="author pull-left">'
+					a +=			'<img src="' + blog.appsite + '/' + o.avatar + '/64" />';
+					a +=		'</div>'
+					a +=		'<div class="info">'
+					a +=			'<div class="name"><a href="' + o.url + '">' + o.name + '</a></div>'
+					a +=			'<div class="c">' + o.author + '</div>'
+					a +=			'<div class="time">' + o.time + '</div>'
+					a +=			'<div class="d"><code>' + o.mark + '</code></div>'
+					a +=		'</div>'
+					a +=	'</li>';
+				h.push(a);
+			});
+			$('#plugin-box').html('<ul>' + h.join('') + '</ul>');
+		}else{
+			$('#plugin-box').html('抱歉，没有最新插件内容。');
 		}
 	});
 	
@@ -62,9 +134,13 @@
 			h +=		'<i class="fa fa-info-circle"></i>升级过程如果遇到错误，请不用担心。您可以查阅官方升级日志来解决您的问题！<br>';
 			h +=		'<a href="http://app.webkits.cn/articles">http://app.webkits.cn/articles</a>';
 			h +=	'</div>';
+			h += 	'<div id="version-error"></div>';
 			h +=	'<p class="doUpdate"><button class="btn btn-success btn-sm"><i class="fa fa-plug"></i>开始更新新版本</button></p>'
 			
 			$('#versions').html(h).find('.doUpdate button').on('click', function(){
+				this.disabled = true;
+				$(this).find('i').addClass('fa-spin');
+				var _this = this;
 				$.ajax({
 					url: iPress.setURL('async', 'online', { m : 'UpdateVersion' }),
 					type: 'post',
@@ -79,11 +155,15 @@
 							blog.version = id;
 							getFirstVersion(vers, callback);
 						}else{
-							$('#versions').html('<span style="padding: 5px; line-height:20px;">更新失败：' + msg.message + '</span>');
+							$('#version-error').html('<div class="alert alert-danger" role="alert">更新失败：' + msg.message + '</div>');
+							_this.disabled = false;
+							$(_this).find('i').removeClass('fa-spin');
 						}
 					},
 					error: function(){
-						$('#versions').html('<span style="padding: 5px; line-height:20px;">更新失败：服务端出错。</span>');
+						$('#version-error').html('<div class="alert alert-danger" role="alert">更新失败：服务端出错。</div>');
+						_this.disabled = false;
+						$(_this).find('i').removeClass('fa-spin');
 					}
 				});
 			});

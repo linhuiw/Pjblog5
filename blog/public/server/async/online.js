@@ -38,7 +38,7 @@ online.add('download', function(querys, getforms, Promise){
 	}
 });
 
-online.add('UpdateVersion', function(){
+online.add('UpdateVersion', function(querys, getforms, Promise){
 	var forms = getforms();
 	var id = forms.id;
 	var status = Promise.updateVersion(id);

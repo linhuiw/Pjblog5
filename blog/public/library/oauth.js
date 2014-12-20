@@ -104,6 +104,15 @@ oAuth.add('updateVersion', function(id){
 				__module(require);
 				blog.version = id;
 			
+			var pixers = ['tb', 'base', 'connect', 'cookie', 'appsite', 'mysite', 'version', 'pix'];
+			var _ = {};
+			for ( var i in blog ){
+				if ( pixers.indexOf(i) > -1 ){
+					_[i] = blog[i];
+				}
+			}
+			
+			fs(contrast(':private/config.json')).create(JSON.stringify(_));
 			status = true;
 		}catch(e){ status = false; };
 	}else{

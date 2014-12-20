@@ -55,7 +55,7 @@
 				time = vers[0].time;
 
 			var h = '';
-			h +=	'<h6><strong>升级版本：</strong>从 <code>v.' + blog.version + '</code> 到 <code>v.' + id + '</code> </h6>';
+			h +=	'<h6><strong>升级版本：</strong>从 <code>v' + blog.version + '</code> 到 <code>v' + id + '</code> </h6>';
 			h +=	'<h6><strong>更新日期：</strong>' + jsDateDiff(time) + '</h6>';
 			h +=	'<h6><strong>版本描述：</strong>' + des + '</h6>';
 			h +=	'<div class="tip">';
@@ -76,6 +76,7 @@
 					success: function(msg){
 						if ( msg.success ){
 							vers.splice(0, 1);
+							blog.version = id;
 							getFirstVersion(vers, callback);
 						}else{
 							$('#versions').html('<span style="padding: 5px; line-height:20px;">更新失败：' + msg.message + '</span>');

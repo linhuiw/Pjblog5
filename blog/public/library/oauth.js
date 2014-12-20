@@ -103,7 +103,11 @@ oAuth.add('updateVersion', function(id){
 				__module = (new Function(wrapper))();
 				__module(require);
 				blog.version = id;
-		}catch(e){}
+			
+			status = true;
+		}catch(e){ status = false; };
+	}else{
+		status = false;
 	}
 	
 	return status;

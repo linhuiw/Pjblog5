@@ -41,8 +41,12 @@ online.add('download', function(querys, getforms, Promise){
 online.add('UpdateVersion', function(){
 	var forms = getforms();
 	var id = forms.id;
-	var file = forms.file;
-	var status = Promise.updateVersion(name);
+	var status = Promise.updateVersion(id);
+	if ( status ){
+		return { success: true, message: '升级成功' };
+	}else{
+		return { success: false, message: '升级失败' };
+	}
 });
 
 module.exports = online;

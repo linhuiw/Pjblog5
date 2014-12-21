@@ -1,16 +1,21 @@
 var Jump = new Class(function( querys, forms ){
 	var apps = this.getApps(),
 		nowTime = new Date().getTime().toString();
-	
-	var base64 = require('base64');
 		
 	Session(blog.tb + "oauth_jump") = nowTime;
 	
-	var from = querys.from || base64.encode(iPress.setURL('page', 'home'));
-		from = from.replace(/\=/g, '|');
+	var type = querys.m;
+	
+	var from = http.query("from") || iPress.setURL('page', 'home');
+	
+	if ( type === 'setup' ){
+		from = "install/?m=checkoAuth";
+	};
+	
+	from = escape(from);
 		
-	var callbackURL = encodeURIComponent(blog.mysite + '/' + iPress.setURL('oauth', 'login', { from: from })+ '=pjblog5');
-		callbackURL = blog.appsite + "/oauth/login?response_type=code&client_id=" + apps.appid + "&redirect_url=" + callbackURL + "&state=" + nowTime;
+	var callbackURL = encodeURIComponent(blog.mysite + '/' + iPress.setURL('oauth', 'login')+ '=pjblog5.' + blog.version + '&from=' + from);
+		callbackURL = blog.appsite + "/oauth/login?response_type=code&client_id=" + apps.appid + "&redirect_url=" + escape(callbackURL) + "&state=" + nowTime;
 	
 	Response.Redirect(callbackURL);
 	

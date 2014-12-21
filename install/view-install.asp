@@ -177,7 +177,7 @@
 		blog.connect = configs;
 		blog.cookie = "cookie_" + new Date().getTime();
 		blog.appsite = "http://app.webkits.cn";
-		blog.mysite = form.web + "/" + form.folder;
+		blog.mysite = form.web + (form.folder && form.folder.length > 0 ? "/" + form.folder : "");
 		blog.version = version;
 		blog.pix = new Date().getTime() + "_";
 		

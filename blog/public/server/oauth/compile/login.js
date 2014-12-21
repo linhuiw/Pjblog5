@@ -26,14 +26,16 @@ var login = new Class(function( querys, forms ){
 	.getUserInfo()
 	.save()
 	.then(function(){
-		Response.Redirect(this.from);
+		if ( this.from && this.from.length > 0 ){
+			Response.Redirect(this.from);
+		}else{
+			Response.Redirect(iPress.setURL('page', 'home'));
+		}
 	});
 });
 
 login.add('getFrom', function(querysfrom){
-	var from = querysfrom.replace(/\|/g, '=');
-	var base64 = require('base64');
-	this.from = base64.decode(from);
+	this.from = http.query("from");
 });
 
 login.add('getCode', function(){
@@ -51,9 +53,9 @@ login.add('getToken', function(){
 			client_id: this.appid,
 			client_secret: this.appkey,
 			code: this.code,
-			redirect_uri: blog.mysite
+			redirect_uri: escape(blog.mysite)
 		});
-		
+
 		if ( msg.error && msg.error > 0 ){
 			this.error = msg.error;
 			this.reject();

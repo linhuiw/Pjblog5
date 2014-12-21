@@ -42,6 +42,8 @@ http.createServer(function(req){
 		form.folder = "";
 	};
 	
+	form.web = form.web.replace(/\/$/, "");
+	
 	form.mode = Number(form.mode);
 	
 	if ( form.mode === 1 ){

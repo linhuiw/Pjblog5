@@ -1,0 +1,38 @@
+﻿@charset "utf-8";
+/* CSS Document */
+a {
+color: #428BD1;
+text-decoration: none;
+}
+body{ color:#777; background-color:#eeeeee;}
+.top{ background-color:#51b7ec; height:78px; color:#fff;}
+.wrap{ width:1024px; margin:0 auto;}
+.top .logo{ line-height:30px; padding-top:10px; font-size:24px;}
+.top .logo .logo-title{ font-size:14px; padding-left:50px;}
+.top .tools{ height:20px; margin-top:45px; line-height:30px;}
+.top a:link,
+.top a:visited{ color:#fff; text-decoration:none;}
+.top a:hover{ color:#005b7f}
+.top a{ margin-left:10px;}
+.nav{ height:40px; line-height:40px; background-color:#005b7f; margin-bottom:20px; position:relative;} /* z-index:6; */
+.nav .one{ float:left;}
+.nav .one a:link,
+.nav .one a:visited{ color:#fff; text-decoration:none; }
+.nav .one a:hover{background-color:#093C6A;}
+.nav .one a{ display:block; line-height:40px; width:120px; text-align:center}
+.nav .one ul{background-color:#ddd; box-shadow:0px 1px 3px #ccc; display:none;z-index:1;} /*防止二级菜单被挡*/
+.nav .one ul li a:link,
+.nav .one ul li a:visited{ color:#777;}
+.nav .one ul li a:hover{ color:#999; background:#005b7f;}
+.nav .one ul li a{ border-bottom:1px solid #ccc;}
+.nav .one ul li:last-child a{ border-bottom:none;}
+.nav .one:hover{ position:relative;}
+.nav .one:hover ul{ display:block; position:absolute; top:40px;}
+.nav .two a:hover{ color:#fff!important; background-color:#ccc!important;}
+.nav .one ul{ box-shadow:3px 3px 1px rgba(0,0,0,.2);}
+.footer{ margin-top:10px; padding:30px 0px;}
+.footer .copyright{ height:20px; line-height:20px; padding:5px 0px; text-align:center;}
+.footer .theme{height:20px; line-height:20px; padding:5px 0px; text-align:center;}
+.pages{ background-color:#fff; padding:10px; height:22px;}
+.pages span{ height:22px; line-height:22px; width:22px; text-align:center; float:left; background-color:#005b7f; color:#fff; display:block; border-radius:3px; margin-left:10px;}
+.pages a{ height:22px; line-height:22px; width:22px; text-align:center; float:left;background-color:#ddd; color:#005b7f; display:block; border-radius:3px;margin-left:10px;}

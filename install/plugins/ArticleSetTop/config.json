@@ -1,0 +1,1 @@
+﻿{"name":"小影出品-日志置顶","author":"小影","mail":"i@xybk.net","site":"http://www.xybk.net","des":"推荐几篇日志，让用户进入网站时第一眼看见！","icon":"logo.png","version":1,"mark":"90d844b0b4fd05af98eb9cd214eb3f00753d8146","ControlNavs":{"name":"置顶日志管理","icon":"fa fa-thumbs-up","childs":{"sets":{"name":"置顶管理","icon":"fa-star"},"list":{"name":"日志列表","icon":"fa-star"}}}}

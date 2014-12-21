@@ -1,0 +1,1 @@
+﻿{"discount":{"type":"text","value":"10","des":"前台显示链接数"},"distype":{"type":"select","value":"2","childrens":[{"text":"全部","value":"2"},{"text":"文字","value":"0"},{"text":"图标","value":"1"}],"des":"前台显示链接类型"}}

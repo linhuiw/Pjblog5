@@ -1,0 +1,12 @@
+﻿{
+	"tops":{
+		"type":"text",
+		"value":"10",
+		"des":"最新日志数"
+	},
+	"datetype":{
+		"type":"text",
+		"value":"y-m-d h:i:s",
+		"des":"时间显示格式"
+	}
+}

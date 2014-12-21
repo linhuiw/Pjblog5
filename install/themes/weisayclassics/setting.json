@@ -1,0 +1,11 @@
+﻿{word:{
+	value: '<a href="#"><img src="/private/themes/f138a218372a9cc58808cef4269fba332a348656/images/ad.png" alt="主题setting功能演示" title="主题setting功能演示" /></a>',
+	type: 'textarea',
+	des: '侧边顶部广告位'
+	},
+	author :{
+	value: 'William',
+	type: 'text',
+	des: '自定义作者名字'
+	}
+}

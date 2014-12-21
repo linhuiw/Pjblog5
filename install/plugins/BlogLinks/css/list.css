@@ -1,0 +1,7 @@
+.row{margin-bottom:20px;}
+
+.items{background-color:#fff; margin-bottom:20px; padding:10px 15px; border-radius:3px; box-shadow:1px 3px 5px #ccc; color:#777;}
+.items img{margin-top:4px; margin-right:5px;}
+.items .des{line-height:20px; height:60px;}
+.items .tools{padding:10px 0px 5px 0;}
+.items .tools a{ margin-right:10px;}

@@ -1,0 +1,18 @@
+{
+	name: '双木',
+	author: '双木',
+	mail: '1@54bq.com',
+	site: 'http://www.54bq.com',
+	des: '双翅一开千万里，木叶萧萧动归思，杉松深锁尽香灯，子细思量成底事。农委那嗲是。',
+	shortpreview: 'logo.jpg',
+	bigpreview: 'preview.jpg',
+	mark: '6f273e961d17ad23660668034eb9f1f9805746e7',
+	version: 1,
+	plugins: {
+		hot: {
+			mark: '099776acc5ade837e53e8ab70f0df5ca4283abac',
+			file: 'side-hot.asp',
+			compile: 'hots.js'
+		}
+	}
+}

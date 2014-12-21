@@ -1,0 +1,18 @@
+{
+	name: '黑色Html5个人博客模板主题《如影随形》',
+	author: '沈赟杰',
+	mail: 'evio@vip.qq.com',
+	site: 'http://webkits.cn',
+	des: '影子是一个会撒谎的精灵，它在虚空中流浪和等待被发现之间;在存在与不存在之间....',
+	shortpreview: 'logo.jpg',
+	bigpreview: 'preview.jpg',
+	mark: '6f273e961d17adrh660668034eb9f1f9805746e6',
+	version: 1,
+	plugins: {
+		hot: {
+			mark: '099776acc5ade837e53e8ab70f0df5ca4283abac',
+			file: 'side-hot.asp',
+			compile: 'hots.js'
+		}
+	}
+}

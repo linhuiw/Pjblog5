@@ -1,0 +1,1 @@
+﻿<%console.json(data.plugin)%>

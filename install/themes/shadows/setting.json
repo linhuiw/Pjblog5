@@ -1,0 +1,27 @@
+﻿{
+	"title_1":{
+		"type":"text",
+		"value":"The best life is use of willing attitude, a happy-go-lucky life.",
+		"des":"前台自定义对话1"
+	},
+	"title_2":{
+		"type":"text",
+		"value":"最好的生活是用心甘情愿的态度，过随遇而安的生活。",
+		"des":"前台自定义对话2"
+	},
+	"title_3":{
+		"type":"text",
+		"value":"执子之手，与子偕老",
+		"des":"前台自定义对话3"
+	},
+	"title_4":{
+		"type":"text",
+		"value":"于千万人之中，我遇见了我所遇见的人....",
+		"des":"前台自定义对话4"
+	},
+	"author": {
+		"type":"text",
+		"value":"evio",
+		"des":"文章默认作者名"
+	}
+}

@@ -1,0 +1,67 @@
+﻿/*
+.topnav {float: left; height: 44px;width:685px;border-left:1px #dfdfdf solid; }
+.topnav a:link, .topnav a:visited{color:#666;}
+.topnav a:hover{color:#444;}
+.topnav ul {list-style: none; margin: 0; padding: 0; position: absolute;z-index: 999;}
+.topnav li {height: 44px;line-height:44px;float: left;font-weight:bold;position: relative;border-right:1px #dfdfdf solid;padding:0 24px;}
+.topnav li.current-cat a:link, .topnav li.current-cat a:visited{color:#444;}
+input,textarea,button {outline:none;}
+
+#nav { display:block;float: left; height: 44px;border-left:1px #dfdfdf solid;}
+#nav ul {list-style: none; margin: 0; padding: 0; position: absolute;z-index: 999;}
+#nav .mainlevel {height: 44px;line-height:44px;float: left;font-weight:bold;position: relative;border-right:1px #dfdfdf solid;width:140px;text-align:center;}
+#nav .mainlevel a {color:#666; text-decoration:none; line-height:44px; display:block; padding:0 20px;}
+#nav .mainlevel a:hover {color:#444; text-decoration:none;}
+#nav .mainlevel ul {display:none; position:absolute;}
+#nav .mainlevel li {border:1px solid #dfdfdf; background:#fff; width:140px;margin-left:-1px;position: absolute;}*/
+
+/* 导航菜单 START */
+.topnav {
+	margin:150px auto 0 auto;
+	width:400px;
+	text-align:left;
+}
+/* 菜单项 */
+#menubar ul.menus li {
+	float:left; /* 靠左浮动 */
+	list-style:none; /* 清空列表风格 */
+	margin-right:1px; /* 右侧的间隔 */
+}
+/* 菜单项链接 */
+#menubar ul.menus li a {
+	padding:5px 10px; /* 内边距 */
+	display:block; /* 显示为块 */
+	color:#FFF; /* 文字颜色 */
+	background:#67ACE5; /* 背景颜色 */
+	text-decoration:none; /* 没有下横线 */
+}
+/* 当前菜单位置 */
+#menubar ul.menus ul {
+	position:absolute;
+}
+/* 当前菜单项链接 */
+#menubar ul.menus li.current-cat a {
+	background:#5495CD; /* 背景颜色 */
+}
+/* 选中菜单项链接 */
+#menubar ul.menus li a:hover {
+	background:#4281B7; /* 背景颜色 */
+}
+/* 二级菜单 */
+#menubar ul.children {
+	display:none; /* 初始化页面时不显示出来 */
+	padding:0;
+	margin:0;
+}
+/* 二级菜单的菜单项 */
+#menubar ul.children li {
+	float:none; /* 垂直排列 */
+	margin:0;
+	padding:0;
+}
+/* 二级菜单的当前菜单项链接 */
+#menubar ul.children li a {
+	width:100px; /* 对 IE6 来说十分很重要 */
+}
+/* 导航菜单 END */
+

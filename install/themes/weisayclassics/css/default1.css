@@ -1,0 +1,137 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+.articles{ position:relative;} /* z-index:5; */
+.articles .side{ width:300px; position:relative; top:0; right:0}
+.articles .list{ margin-right:320px;  box-shadow:0px 0px 10px #ccc;}
+.articles .list h6{ height:40px; line-height:40px; padding:0px 20px; background-color:#F7F7F7; font-size:16px;}
+
+.article{ padding: 20px; border-bottom:1px solid #eee; background-color:#fff;}
+.article:hover{ background-color:#F8FCFE;}
+.article h1{ line-height:24px; font-size:14px; padding:5px 0px;}
+.article h1 a{ font-size:20px;}
+.article .img{ max-width:664px; text-align:center}
+.article .img img{ max-width:662px;box-shadow:0px 0px 5px rgba(0,0,0,.5); padding:1px; }
+.article .img img:hover{ box-shadow:0px 0px 5px rgba(0,0,0,.8);}
+.article .content{}
+.article .content .info{ height:20px; line-height:20px; padding:5px 0px;}
+.article .content .des{ padding:10px 0 10px 0; font-size:12px; line-height:20px;}
+.article .content .cate{ padding:5px 0px; height:20px; line-height:20px; margin-top:5px;}
+.article .content .cate a{ margin-left:5px; margin-right:5px;}
+
+.articles .detail{ background-color:#fff; padding:30px;}
+.articles .detail h1{ font-weight:bold; font-size:20px; text-align:center; height:30px; padding:10px; border-bottom:1px solid #eee;}
+.articles .detail .info{ height:20px; line-height:20px; padding:10px; margin-bottom:30px; color:#999;}
+.articles .detail .info a{ margin-right:10px;}
+.articles .detail .detail-content{ line-height:20px; padding:0px 10px; word-wrap:break-word;}
+.articles .detail .detail-content strong{ font-weight:bold;}
+.articles .detail .detail-content p{ margin-bottom:10px;}
+.articles .detail .tags{ padding:10px; border:1px dashed #ddd; background-color:#f9f9f9; margin-top:10px;}
+.articles .detail .detail-content img{ max-width:630px;}
+.articles .detail .tags a{ margin-right:10px;}
+.articles .detail .modify{ height:20px; line-height:20px; padding:10px 10px; color:#ccc;}
+.articles .detail .detail-content table{ border-left:1px solid #ddd; border-top:1px solid #ddd; margin:10px 0px;}
+.articles .detail .detail-content table td{ border-right:1px solid #ddd; border-bottom:1px solid #ddd; padding:3px 5px;}
+.articles .detail .detail-content pre{ padding:10px 15px; border:1px dashed #ddd; background-color:#F8FCFE;}
+.articles .detail .detail-content ol{ margin-left:20px;}
+.articles .detail .prev{ margin-top:5px; padding-left:10px; line-height:30px;}
+
+.pannel{ padding:10px 15px; background-color:#fff;box-shadow:0px 0px 10px #ccc; border-radius:3px; margin-bottom:20px;}
+.pannel .login{}
+.pannel .login p{ line-height:20px; padding-left:20px; padding:5px 10px; border-bottom:1px dashed #eee;}
+.pannel .login p:last-child{ border:none;}
+.pannel .login p i{ margin-right:10px;}
+.pannel h6{ height:20px; line-height:20px; padding:5px 0px; border-bottom:1px solid #eee; }
+.pannel .guestitems{ padding:8px 0px; border-bottom:1px dashed #eee; position:relative;}
+.pannel .guestitems img{ width:36px; height:36px; position:absolute; left:0; top:14px;}
+.pannel .guestitems .infos{ margin-left:45px;}
+.pannel .guestitems .infos .nick{ height:20px; line-height:20px; margin-bottom:2px; font-weight:bold;}
+.pannel .guestitems .infos .des{ line-height:20px;}
+.pannel .guestitems .infos .time{ height:20px; line-height:20px; margin-top:2px; color:#aaa;}
+.pannel .arts{ border-bottom:1px dashed #eee; padding:5px 0px; position:relative;}
+.pannel .arts:hover{border-bottom:1px solid #eee;}
+.pannel .arts a{ display:block; line-height:20px; margin-left:20px;}
+.pannel .arts span{ display:block; line-height:20px;margin-left:20px; color:#ccc; font-size:11px;}
+.pannel .arts a i{ position:absolute; top:5px; left:0;}
+
+.error{ background-color:#fff; margin-right: -320px !important;}
+.error h6{}
+.error .des{ padding:30px 40px;}
+
+.postform{}
+.postform h3,
+.detail-lists h3{ font-weight:bold; height:20px; line-height:20px; padding:5px 0px; border-bottom:1px solid #eee; margin-bottom:10px;}
+.postform textarea{ width:100%; height:80px; resize:none;}
+.postform input,
+.postform textarea{ border:1px solid #eee; color:#777; font-size:12px;}
+.postform td{ padding:2px 0px;}
+.postform input[type=submit]{ padding:5px 15px; background-color:#fff; color:#777; cursor:pointer; font-size:12px;}
+
+.detail-lists{ margin-bottom:10px;}
+.detail-lists .items{ margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:10px;}
+.detail-lists .items .img{ margin-top:8px;}
+.detail-lists .items .img img{ width:36px; height:36px;}
+.detail-lists .items .infos{ margin-left:50px;}
+.detail-lists .items .infos .nick{ height:20px; line-height:20px; font-weight:bold;}
+.detail-lists .items .infos .time{ height:20px; line-height:20px; margin-bottom:5px;}
+.detail-lists .items .infos .des{ line-height:20px;}
+.detail-lists .items .infos .reply .replybox{ border:1px dashed #ddd; padding:10px 15px; background-color:#f9f9f9;}
+.detail-lists .items .infos .reply .replybox h4{ height:20px; line-height:20px; padding:0px 0 5px 0; border-bottom:1px dashed #ccc; margin-bottom:5px;}
+.detail-lists .items .infos .reply .replybox .repc{ line-height:20px;}
+
+.texts{overflow:hidden;}
+.texts .ic{ float:left; width:150px; margin-right:10px; margin-bottom:10px;}
+.ic .des{ color:#ccc; line-height:20px;}
+.ic a{ display:block; height:20px; line-height:20px; overflow:hidden;}
+
+.icons{overflow:hidden;}
+.icons .ic{ float:left; width:300px; margin-right:20px; margin-bottom:10px;}
+.icons .ic img{ width:88px; height:31px; float:left;}
+.icons .ic a,
+.icons .ic .des{ display:block; margin-left:98px;}
+
+.comment{ background-color:#fff; padding:0 30px 30px 30px;}
+.comment .comment-post{ margin-top:20px;}
+.comment h5{ height:20px; line-height:20px; padding:5px 0px; border-bottom:1px solid #eee; font-weight:bold; margin-bottom:10px;}
+.comment .comment-post td{ padding:2px 5px;}
+.comment .comment-post td input,
+.comment .comment-post td textarea{ border:1px solid #eee; resize:none; color:#777;}
+.comment .comment-post td textarea{ width:90%; height:80px;}
+.comment .comment-post td input[type=submit]{ padding:5px 15px; background-color:#fff; color:#777; font-weight:bold; cursor:pointer;}
+
+
+.root-comment,
+.child-comment{ padding:5px 0px 10px 0; border-bottom:1px dashed #eee;}
+.root-comment .comment-box,
+.child-comment .comment-box{ position:relative;}
+.root-comment .comment-box{ margin-right:50px;}
+.child-comment .comment-box{ margin-left:50px;}
+.root-comment .comment-box-user{ position:absolute; top:5px; left:0px; }
+.root-comment .comment-box-info{ margin-left:50px;}
+.child-comment .comment-box-user{ position:absolute; top:5px; right:0px;}
+.child-comment .comment-box-info{ margin-right:50px;}
+
+.root-comment .comment-box-info .nick{ height:20px; line-height:20px;}
+.child-comment .comment-box-info .nick{ height:20px; line-height:20px; text-align:right;}
+.comment-box-info .nick a i{ display:block; height:20px; line-height:20px;}
+
+.root-comment .comment-box-info .time{ height:20px; line-height:20px; color:#ccc;}
+.child-comment .comment-box-info .time{ height:20px; line-height:20px; color:#ccc; text-align:right;}
+.root-comment .comment-box-info .des{ line-height:20px;}
+.child-comment .comment-box-info .des{ line-height:20px; text-align:right;}
+
+.comment-box-user-avatar{}
+.comment-box-user-avatar img{ padding:1px; border:1px solid #eee; width:36px; height:36px;}
+.comment-box-user-avatar .tools{ width:38px; height:20px; text-align:center; margin-top:5px;}
+.comment-box-user-avatar .tools a{ text-align:center; margin:0 3px 0 3px; font-size:10px;} 
+.comment-box-user-avatar .tools a:link,
+.comment-box-user-avatar .tools a:visited{ color:#ccc;}
+.comment-box-user-avatar .tools a:hover{ color:#999;}
+.replybox{ background-color:#fff; width:400px; padding:10px 15px;}
+.replybox h4{ height:20px; line-height:20px; padding:5px 0px; border-bottom:1px solid #eee; font-weight:bold; margin-bottom:10px;}
+.replybox td{ padding:2px 5px;}
+.replybox td input,
+.replybox td textarea{ border:1px solid #eee; resize:none; color:#777;}
+.replybox td textarea{ width:90%; height:80px;}
+.replybox td input[type=submit],
+.replybox td input[type=button]{ padding:5px 15px; background-color:#fff; color:#777; font-weight:bold; cursor:pointer;}

@@ -18,6 +18,7 @@
     Set list = new ASPJson.Collection
 
     Set fso = Server.CreateObject("Scripting.FileSystemObject")
+
     If fso.FolderExists(Server.MapPath(path)) = False Then
         state = "找不到目录：" + path
     Else

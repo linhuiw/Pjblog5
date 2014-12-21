@@ -63,7 +63,7 @@
 			blog_articlepage: 10,
 			blog_article_cloud_notice: false
 		}).save().close();
-		console.log(1);
+
 		(new dbo(form.tb + "categorys", conn)).selectAll().create().set({
 			cate_name: '首页',
 			cate_des: '网站首页',
@@ -75,7 +75,7 @@
 			cate_order: 1,
 			cate_icon: 'fa-star'
 		}).save().close();
-		console.log(2);
+
 		(new dbo(form.tb + "categorys", conn)).selectAll().create().set({
 			cate_name: '默认根分类',
 			cate_des: '默认根分类',
@@ -87,7 +87,7 @@
 			cate_order: 2,
 			cate_icon: 'fa-star'
 		}).save().close();
-		console.log(3);
+
 		(new dbo(form.tb + "categorys", conn)).selectAll().create().set({
 			cate_name: '默认二级分类',
 			cate_des: '默认二级分类',
@@ -99,7 +99,7 @@
 			cate_order: 1,
 			cate_icon: 'fa-star'
 		}).save().close();
-		console.log(4);
+
 		(new dbo(form.tb + "articles", conn)).selectAll().create().set({
 			art_title: '第一次使用PJBlog5，请先看看程序说明吧！',
 			art_des: '非常感谢您使用PJBlog5独立博客管理系统。本程序采用非复古式ASP语法，放弃VBscri&#112;t，选用Jscri&#112;t脚本，实现前后台一统。PJBlog5基于TRONASP框架而得以运行，解决了ASP中一些难以突破的限制。比如说，动态include，模块之间的require。但是可惜的是，我们还是无法解决sleep或者setTimeout这些问题。无法突破不代表我们的ASP程序不能实现对以往语言的超越。我相信，PJBlog5作为TRONASP的代表作，一定会厚积薄发，史无前例地为创造用户体验而努力！让时间证明一切吧。',
@@ -114,53 +114,53 @@
 			art_cover: 'seo',
 			art_tdes: 'seo'
 		}).save().close();
-		console.log(5);
+
 		(new dbo(form.tb + "levels", conn)).selectAll().create().set({
 			code_name: '查看文章', 
 			code_des: '用户具有查看文章权限', 
 			code_isystem: true, 
 			code_mark: 'ViewArticles'
 		}).save().close();
-		console.log(6);
+
 		(new dbo(form.tb + "levels", conn)).selectAll().create().set({
 			code_name: '后台管理', 
 			code_des: '用户具有进入后台并控制后台功能的权限，是超级管理员的标志。', 
 			code_isystem: true, 
 			code_mark: 'ControlSystem'
 		}).save().close();
-		console.log(7);
+
 		(new dbo(form.tb + "levels", conn)).selectAll().create().set({
 			code_name: '日志编辑', 
 			code_des: '用户具有前台日志编辑的功能。', 
 			code_isystem: true, 
 			code_mark: 'ModifyArticles'
 		}).save().close();
-		console.log(8);
+
 		(new dbo(form.tb + "levels", conn)).selectAll().create().set({
 			code_name: '日志删除', 
 			code_des: '用户具有前台日志删除的功能。', 
 			code_isystem: true, 
 			code_mark: 'RemoveArticles' 
 		}).save().close();
-		console.log(9);
+
 		(new dbo(form.tb + "groups", conn)).selectAll().create().set({
 			group_name: '游客', 
 			group_code: JSON.stringify([1]), 
 			group_isystem: true
 		}).save().close();
-		console.log(10);
+
 		(new dbo(form.tb + "groups", conn)).selectAll().create().set({
 			group_name: '普通会员', 
 			group_code: JSON.stringify([1]), 
 			group_isystem: true
 		}).save().close();
-		console.log(11);
+
 		(new dbo(form.tb + "groups", conn)).selectAll().create().set({
 			group_name: '超级管理员', 
 			group_code: JSON.stringify([1,2,3,4]), 
 			group_isystem: true
 		}).save().close();
-		console.log(12);
+
 		var pack = require("./pack");
 		var package = new pack();
 		package.unPack(contrast('./blog.pbd'), contrast('../'));
@@ -181,6 +181,17 @@
 		blog.version = version;
 		blog.pix = new Date().getTime() + "_";
 		
+		var ueditor = require("../public/assets/ueditor/asp/config.json");
+		var root = blog.base.length > 0 ? "/" + blog.base + "/" : "/";
+		ueditor.imagePathFormat = root + "private/uploads/image/{yyyy}{mm}{dd}/{time}{rand:6}";
+		ueditor.scrawlPathFormat = root + "private/uploads/scraw/{yyyy}{mm}{dd}/{time}{rand:6}";
+		ueditor.snapscreenPathFormat = root + "private/uploads/snap/{yyyy}{mm}{dd}/{time}{rand:6}";
+		ueditor.catcherPathFormat = root + "private/uploads/catcher/{yyyy}{mm}{dd}/{time}{rand:6}";
+		ueditor.videoPathFormat = root + "private/uploads/video/{yyyy}{mm}{dd}/{time}{rand:6}";
+		ueditor.filePathFormat = root + "private/uploads/file/{yyyy}{mm}{dd}/{time}{rand:6}";
+		ueditor.imageManagerListPath = root + "private/uploads/image";
+		ueditor.fileManagerListPath = root + "private/uploads/file";
+		fs(contrast("../public/assets/ueditor/asp/config.json")).create(JSON.stringify(ueditor));
 		fs(contrast("../private/config.json")).create(JSON.stringify(blog));
 		fs(contrast("./mockup.asp")).exist().copy(contrast("../mockup.asp"));
 		

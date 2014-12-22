@@ -72,20 +72,22 @@ http.createServer(function(req){
 	conn.Close();
 	conn = null;
 	
-	try{
-		var _ = new ajax();
-		var msg = _.getJSON('http://app.webkits.cn/oauth/setup', {
-			oauth_consumer_key: form.appid,
-			oauth_consumer_url: form.web.replace(/^http\:\/\//i, '').replace(/\\/g, "/").replace(/^\//, "").replace(/\/$/, "").split('/')[0]
-		});
-		
-		if ( msg && msg.error > 0 ){
-			error = "网站域名未授权，无法安装，请先在官方平台的授权中心提交你的授权域名";
+	if ( form.mode === 1 ){
+		try{
+			var _ = new ajax();
+			var msg = _.getJSON('http://app.webkits.cn/oauth/setup', {
+				oauth_consumer_key: form.appid,
+				oauth_consumer_url: form.web.replace(/^http\:\/\//i, '').replace(/\\/g, "/").replace(/^\//, "").replace(/\/$/, "").split('/')[0]
+			});
+			
+			if ( msg && msg.error > 0 ){
+				error = "网站域名未授权，无法安装，请先在官方平台的授权中心提交你的授权域名";
+				return;
+			}
+		}catch(e){
+			error = "验证网站域名授权失败，无法安装，请联系官方平台管理员";
 			return;
 		}
-	}catch(e){
-		error = "验证网站域名授权失败，无法安装，请联系官方平台管理员";
-		return;
 	}
 	
 	fs(contrast("./data.json")).create(JSON.stringify(form));

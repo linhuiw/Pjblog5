@@ -9,7 +9,7 @@ try{
 			password: form.dbpassword
 		};
 	
-	var conn = new connect('mssql', configs);
+	var conn = new connect("mssql", configs);
 		
 	(new dbo(form.tb + "members", conn)).top(1).selectAll().open(3).set("member_group", 3).save().close();
 }catch(e){

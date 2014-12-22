@@ -15,7 +15,6 @@
 <div class="articles clearfix wrap">
 	<div class="side fright">
     	<%sups.contain("side-login.asp")%>
-        <%sups.plugin("hot")%>
     </div>
 	<div class="list">
     	<%

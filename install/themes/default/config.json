@@ -6,13 +6,6 @@
 	des: '内测时候的默认主题，经过修改，没有任何插件。',
 	shortpreview: 'logo.jpg',
 	bigpreview: 'preview.jpg',
-	mark: '6f273e961d17ad23660668034eb9f1f9805746e6',
-	version: 1,
-	plugins: {
-		hot: {
-			mark: '099776acc5ade837e53e8ab70f0df5ca4283abac',
-			file: 'side-hot.asp',
-			compile: 'hots.js'
-		}
-	}
+	mark: '5dad3e616e98df9867186a4563bccc1cb2e998ca',
+	version: 1
 }

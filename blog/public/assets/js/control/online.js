@@ -86,7 +86,7 @@
 			var checkeds = $("#list input[type='checkbox']:checked");
 			var size = checkeds.size();
 			if ( size < 1 ){
-				alert('请先选择需要对比的文件');
+				alert('请先选择需要升级修复的文件');
 				return;
 			};
 			

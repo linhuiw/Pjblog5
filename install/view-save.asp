@@ -56,18 +56,22 @@ http.createServer(function(req){
 			return;
 		}
 	};
-
-	var conn = new connect('mssql', {
-			netserver: form.dbip,
-			access: form.dbname,
-			username: form.dbusername,
-			password: form.dbpassword
-		});
-	
-	if ( !conn ){
+	try{
+		var conn = new connect('mssql', {
+				netserver: form.dbip,
+				access: form.dbname,
+				username: form.dbusername,
+				password: form.dbpassword
+			});
+		
+		if ( !conn ){
+			error = "数据库连接失败";
+			return;
+		};
+	}catch(e){
 		error = "数据库连接失败";
 		return;
-	};
+	}
 	
 	conn.Close();
 	conn = null;
